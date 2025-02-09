@@ -1,8 +1,11 @@
 import 'package:dsa_learning/core/utils/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
+ColorScheme getColorScheme(BuildContext context) => Theme.of(context).colorScheme;
+
 class AppColorTheme {
   static ThemeData theme = ThemeData(
+    fontFamily: 'Nunito',
     colorScheme: _lightColorScheme,
   );
 
@@ -16,5 +19,6 @@ class AppColorTheme {
     onSecondary: Colors.black,
     onError: ColorPalette.white,
     brightness: Brightness.light,
+    shadow: ColorPalette.shadow,
   );
 }

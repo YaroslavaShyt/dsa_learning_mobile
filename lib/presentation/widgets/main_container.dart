@@ -1,0 +1,44 @@
+import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:flutter/material.dart';
+
+class MainContainer extends StatelessWidget {
+  const MainContainer({
+    this.content,
+    this.height,
+    this.width,
+    this.padding = EdgeInsetsDirectional.zero,
+    this.margin = EdgeInsetsDirectional.zero,
+    super.key,
+  });
+
+  final EdgeInsetsDirectional padding;
+  final EdgeInsetsDirectional margin;
+
+  final double? height;
+  final double? width;
+  final Widget? content;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = getColorScheme(context);
+    return Container(
+      margin: margin,
+      padding: padding,
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: colorScheme.onSurface.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: colorScheme.shadow.withValues(alpha: 0.1),
+            offset: Offset(4, 4),
+            blurRadius: 8,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
+      child: content,
+    );
+  }
+}

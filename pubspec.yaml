@@ -34,3 +34,10 @@ flutter:
   assets:
     - assets/
     - assets/localization/
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/nunito/Nunito-Regular.ttf
+          style: normal
+

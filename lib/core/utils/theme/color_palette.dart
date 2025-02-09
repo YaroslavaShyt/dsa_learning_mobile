@@ -15,4 +15,7 @@ class ColorPalette {
 
   // WHITE
   static final white = Color(0xffffffff).withValues(alpha: 0.83);
+
+  // BLACK
+  static final shadow = Color(0x00000000).withValues(alpha: 0.25);
 }
