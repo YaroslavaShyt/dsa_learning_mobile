@@ -9,15 +9,23 @@ class _ProfileMenu extends StatelessWidget {
       content: Column(
         children: [
           _MenuComponent(
-            title: 'title',
+            title: context.tr('language'),
             onTap: () {},
             components: ['Українська', "English", "Espanol"],
             selectedComponent: 'Українська',
           ),
-          _MenuComponent(title: 'title', onTap: () {}),
-          _MenuComponent(title: 'title', onTap: () {}),
           _MenuComponent(
-            title: 'title',
+            title: context.tr('deleteAccount'),
+            onTap: () {},
+            icon: Icons.delete_outline_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('exit'),
+            onTap: () {},
+            icon: Icons.exit_to_app_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('aboutApp'),
             onTap: () {},
             isBottomBorderShown: false,
           ),

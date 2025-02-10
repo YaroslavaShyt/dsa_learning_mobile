@@ -7,8 +7,11 @@ class _MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppColorTheme.theme,
-      initialRoute: AppRoutes.routeProfile,
+      initialRoute: AppRoutes.routeMain,
       onGenerateRoute: AppRouter.onGenerateRoute,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

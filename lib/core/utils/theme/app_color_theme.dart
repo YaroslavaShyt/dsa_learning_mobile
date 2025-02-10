@@ -20,5 +20,7 @@ class AppColorTheme {
     onError: ColorPalette.white,
     brightness: Brightness.light,
     shadow: ColorPalette.shadow,
+    primaryFixed: ColorPalette.maize,
+    primaryFixedDim: ColorPalette.crayola,
   );
 }

@@ -5,7 +5,7 @@ class _MenuComponent extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.isBottomBorderShown = true,
-    this.isComponentsShown = true,
+    this.isComponentsShown = false,
     this.icon = Icons.keyboard_arrow_down,
     this.components = const [],
     this.selectedComponent,
@@ -46,7 +46,7 @@ class _MenuComponent extends StatelessWidget {
                   style: textTheme.labelMedium,
                 ),
                 Icon(
-                  icon,
+                isComponentsShown ? Icons.keyboard_arrow_up : icon,
                   size: 30,
                   color: colorScheme.onSurface,
                   shadows: [
@@ -62,48 +62,9 @@ class _MenuComponent extends StatelessWidget {
             ),
           ),
           if (isComponentsShown)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 40,
-                end: 40,
-                bottom: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: components
-                    .map(
-                      (item) => Padding(
-                        padding: const EdgeInsetsDirectional.symmetric(
-                          vertical: 4,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              item,
-                              style: textTheme.labelSmall,
-                            ),
-                            if (item == selectedComponent)
-                              Icon(
-                                Icons.check,
-                                size: 20,
-                                color: colorScheme.onSurface,
-                                shadows: [
-                                  BoxShadow(
-                                    color: colorScheme.shadow
-                                        .withValues(alpha: 0.5),
-                                    offset: Offset(1, 1),
-                                    blurRadius: 10,
-                                    spreadRadius: 1,
-                                  ),
-                                ],
-                              ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+            _MenuSubcomponentsList(
+              components: components,
+              selectedComponent: selectedComponent,
             ),
           if (isBottomBorderShown) const _ComponentBorder(),
         ],
