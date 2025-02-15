@@ -1,0 +1,29 @@
+import 'package:equatable/equatable.dart';
+
+enum AuthStatus {
+  initial,
+  startButtonPressed,
+  signInButtonPressed,
+  signUpButtonPressed,
+}
+
+class AuthState extends Equatable {
+  const AuthState({
+    this.status = AuthStatus.initial,
+  });
+
+  AuthState copyWith({
+    AuthStatus? status,
+  }) {
+    return AuthState(
+      status: status ?? this.status,
+    );
+  }
+
+  final AuthStatus status;
+
+  @override
+  List<Object?> get props => [
+        status,
+      ];
+}

@@ -3,5 +3,8 @@
   "deleteAccount": "Eliminar cuenta",
   "exit": "Salir",
   "aboutApp": "Acerca de la aplicación",
-  "version": "Versión"
+  "version": "Versión",
+  "learnWith": "¡Aprende algoritmos y estructuras de datos con",
+  "DSA": "DSA Learn",
+  "start": "Empezar"
 }

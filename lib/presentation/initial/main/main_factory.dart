@@ -1,5 +1,5 @@
-import 'package:dsa_learning/presentation/main/bloc/main_cubit.dart';
-import 'package:dsa_learning/presentation/main/main_screen.dart';
+import 'package:dsa_learning/presentation/initial/main/bloc/main_cubit.dart';
+import 'package:dsa_learning/presentation/initial/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

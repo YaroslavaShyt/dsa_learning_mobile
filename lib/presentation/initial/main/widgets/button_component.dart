@@ -1,5 +1,6 @@
 part of '../main_screen.dart';
 
+
 class _ButtonComponent extends StatelessWidget {
   const _ButtonComponent({
     required this.isSelected,

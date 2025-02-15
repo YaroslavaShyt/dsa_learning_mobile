@@ -19,21 +19,30 @@ class CodegenLoader extends AssetLoader{
   "deleteAccount": "Delete Account",
   "exit": "Exit",
   "aboutApp": "About the App",
-  "version": "Version"
+  "version": "Version",
+  "learnWith": "Learn algorithms and data structures with",
+  "DSA": "DSA Learn",
+  "start": "Start"
 };
 static const Map<String,dynamic> _es_ES = {
   "language": "Idioma",
   "deleteAccount": "Eliminar cuenta",
   "exit": "Salir",
   "aboutApp": "Acerca de la aplicación",
-  "version": "Versión"
+  "version": "Versión",
+  "learnWith": "¡Aprende algoritmos y estructuras de datos con",
+  "DSA": "DSA Learn",
+  "start": "Empezar"
 };
 static const Map<String,dynamic> _uk_UA = {
   "language": "Мова",
   "deleteAccount": "Видалити обліковий запис",
   "exit": "Вихід",
   "aboutApp": "Про застосунок",
-  "version": "Версія"
+  "version": "Версія",
+  "learnWith": "Вивчай алгоритми та структури даних разом з",
+  "DSA": "DSA Learn",
+  "start": "Розпочати"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_GB": _en_GB, "es_ES": _es_ES, "uk_UA": _uk_UA};
 }
