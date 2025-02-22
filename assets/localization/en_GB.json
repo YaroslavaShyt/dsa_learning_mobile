@@ -6,5 +6,8 @@
   "version": "Version",
   "learnWith": "Learn algorithms and data structures with",
   "DSA": "DSA Learn",
-  "start": "Start"
+  "start": "Start",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "back": "Back"
 }

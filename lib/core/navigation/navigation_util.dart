@@ -1,5 +1,6 @@
-import 'package:dsa_learning/core/utils/navigation/inavigation_util.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 
 class NavigationUtil implements INavigationUtil {
   @override

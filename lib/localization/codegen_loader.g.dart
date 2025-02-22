@@ -22,7 +22,9 @@ class CodegenLoader extends AssetLoader{
   "version": "Version",
   "learnWith": "Learn algorithms and data structures with",
   "DSA": "DSA Learn",
-  "start": "Start"
+  "start": "Start",
+  "signIn": "Sign in",
+  "signUp": "Sign up"
 };
 static const Map<String,dynamic> _es_ES = {
   "language": "Idioma",
@@ -32,7 +34,9 @@ static const Map<String,dynamic> _es_ES = {
   "version": "Versión",
   "learnWith": "¡Aprende algoritmos y estructuras de datos con",
   "DSA": "DSA Learn",
-  "start": "Empezar"
+  "start": "Empezar",
+  "signIn": "Iniciar sesión",
+  "signUp": "Registrarse"
 };
 static const Map<String,dynamic> _uk_UA = {
   "language": "Мова",
@@ -42,7 +46,9 @@ static const Map<String,dynamic> _uk_UA = {
   "version": "Версія",
   "learnWith": "Вивчай алгоритми та структури даних разом з",
   "DSA": "DSA Learn",
-  "start": "Розпочати"
+  "start": "Розпочати",
+  "signIn": "Вхід",
+  "signUp": "Реєстрація"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_GB": _en_GB, "es_ES": _es_ES, "uk_UA": _uk_UA};
 }

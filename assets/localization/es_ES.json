@@ -6,5 +6,7 @@
   "version": "Versión",
   "learnWith": "¡Aprende algoritmos y estructuras de datos con",
   "DSA": "DSA Learn",
-  "start": "Empezar"
+  "start": "Empezar",
+  "signIn": "Iniciar sesión",
+  "signUp": "Registrarse"
 }

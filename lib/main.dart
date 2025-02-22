@@ -1,6 +1,6 @@
-import 'package:dsa_learning/core/constants/routes.dart';
+import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/constants/system.dart';
-import 'package:dsa_learning/core/utils/navigation/router/router.dart';
+import 'package:dsa_learning/core/navigation/router/router.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/localization/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';

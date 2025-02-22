@@ -1,4 +1,4 @@
-import 'package:dsa_learning/core/constants/routes.dart';
+import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/presentation/initial/auth/auth_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/home_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/learn_factory.dart';

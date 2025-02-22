@@ -7,9 +7,11 @@ class MainOutlinedButton extends StatelessWidget {
     required this.child,
     this.width = double.infinity,
     this.height = 55,
+    this.isActive = true,
     super.key,
   });
 
+  final bool isActive;
   final double height;
   final double width;
   final VoidCallback onPressed;
@@ -23,7 +25,9 @@ class MainOutlinedButton extends StatelessWidget {
       style: ButtonStyle(
         side: WidgetStateProperty.all(
           BorderSide(
-            color: colorScheme.primaryFixed,
+            color: isActive
+                ? colorScheme.primaryFixed
+                : colorScheme.onSurface.withValues(alpha: 0.3),
             width: 4.0,
           ),
         ),
