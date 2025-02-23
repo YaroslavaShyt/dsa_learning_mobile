@@ -1,4 +1,4 @@
-import 'package:dsa_learning/domain/services/itoken_service.dart';
+import 'package:dsa_learning/domain/services/auth/itoken_service.dart';
 import 'package:dsa_learning/domain/storage/isecure_storage.dart';
 
 const String _token = 'token';
@@ -9,6 +9,11 @@ class TokenService implements ITokenService {
   }) : _storage = storage;
 
   final ISecureStorage _storage;
+
+  @override
+  Future<String?> getToken() async {
+    return _storage.read(key: _token) as String?;
+  }
 
   @override
   Future<void> clearToken() async {

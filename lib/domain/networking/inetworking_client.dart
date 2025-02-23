@@ -1,24 +1,20 @@
+import 'package:dio/dio.dart';
+
 abstract class INetworkingClient {
-  Future<Map<String, dynamic>> get(
+  Future<Response?> get(
     String endpoint, {
-    Map<String, String>? headers,
-    dynamic body,
+    required Map<String, String> body,
   });
 
-  Future<Map<String, dynamic>> post(
+  Future<Response?> post(
     String endpoint, {
-    Map<String, String>? headers,
-    dynamic body,
+    required Map<String, String> body,
   });
 
-  Future<Map<String, dynamic>> put(
+  Future<Response?> put(
     String endpoint, {
-    Map<String, String>? headers,
-    dynamic body,
+    required Map<String, String> body,
   });
 
-  Future<Map<String, dynamic>> delete(
-    String endpoint, {
-    Map<String, String>? headers,
-  });
+  Future<Response?> delete(String endpoint);
 }

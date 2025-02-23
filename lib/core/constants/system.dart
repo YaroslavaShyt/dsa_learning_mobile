@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 class SystemConstants {
+  // Locale
   static const String localePath = 'assets/localization/';
   static const List<Locale> supportedLocales = [
     Locale('en', 'GB'),
@@ -8,4 +9,8 @@ class SystemConstants {
     Locale('uk', 'UA'),
   ];
   static const Locale fallbackLocale = Locale('en', 'GB');
+
+  // Networking
+  static const Duration connectTimeout = Duration(seconds: 6);
+  static const Duration receiveTimeout = Duration(seconds: 6);
 }

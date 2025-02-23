@@ -5,13 +5,16 @@ class _MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppColorTheme.theme,
-      initialRoute: AppRoutes.routeAuth,
-      onGenerateRoute: AppRouter.onGenerateRoute,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+    return MultiBlocProvider(
+      providers: _ServiceLocator.cubitAsService,
+      child: MaterialApp(
+        theme: AppColorTheme.theme,
+        initialRoute: AppRoutes.routeInitial,
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const String routeInitial = 'initial';
   static const String routeAuth = 'auth';
   static const String routeProfile = 'profile';
   static const String routeHome = 'home';

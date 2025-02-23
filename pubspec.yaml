@@ -29,6 +29,9 @@ dependencies:
   #local storage
   flutter_secure_storage: ^9.2.4
 
+  #logger
+  logger: ^2.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
