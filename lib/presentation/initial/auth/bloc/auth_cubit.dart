@@ -1,8 +1,16 @@
+import 'package:dsa_learning/data/auth/sign_in_model.dart';
+import 'package:dsa_learning/data/auth/sign_up_model.dart';
+import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthState());
+  AuthCubit({
+    required IAuthService authService,
+  })  : _authService = authService,
+        super(AuthState());
+
+  final IAuthService _authService;
 
   void onStartButtonPressed() {
     emit(state.copyWith(status: AuthStatus.startButtonPressed));
@@ -24,8 +32,24 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(status: AuthStatus.startButtonPressed));
   }
 
-  void onConfirmOnLoginPressed() {
+  Future<void> onConfirmOnLoginPressed() async {
+   // if (!state.isLoginButtonActive) return;
+    await _authService.signIn(
+        signInModel: SignInModel(
+          email: state.email,
+          password: state.password,
+        ));
+  }
+
+  Future<void> onConfirmOnSignUpPressed() async {
     // emit(state.copyWith(status: AuthStatus.startButtonPressed));
+  //  if (!state.isSignUpButtonActive) return;
+    await _authService.signUp(
+        signUpModel: SignUpModel(
+      name: state.name,
+      email: state.email,
+      password: state.password,
+    ));
   }
 
   void onEmailEntered(String email) {

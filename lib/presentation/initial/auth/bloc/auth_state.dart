@@ -10,9 +10,9 @@ enum AuthStatus {
 class AuthState extends Equatable {
   const AuthState({
     this.status = AuthStatus.initial,
-    this.email = '',
+    this.email = 'yaso11chkashyt@gmail.com',
     this.name = '',
-    this.password = '',
+    this.password = 'slavka',
     this.confirmPassword = '',
     this.isLoginButtonActive = false,
     this.isSignUpButtonActive = false,

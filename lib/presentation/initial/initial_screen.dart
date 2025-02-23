@@ -15,8 +15,8 @@ class InitialScreen extends StatelessWidget {
         return switch(state.status){
           InitialStatus.auth => AuthFactory.build(),
           InitialStatus.home => HomeFactory.build(),
-          InitialStatus.loading =>
-          const Center(child: CircularProgressIndicator(),),
+          InitialStatus.loading => AuthFactory.build(),
+         // const Center(child: CircularProgressIndicator(),),
         };
       },
     );

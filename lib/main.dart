@@ -6,7 +6,7 @@ import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/data/auth/auth_repository.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/domain/auth/iauth_repository.dart';
-import 'package:dsa_learning/localization/codegen_loader.g.dart';
+import 'package:dsa_learning/core/localization/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:dsa_learning/data/services/auth/token/token_service.dart';
