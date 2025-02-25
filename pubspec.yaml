@@ -49,4 +49,6 @@ flutter:
       fonts:
         - asset: assets/fonts/nunito/Nunito-Regular.ttf
           style: normal
+        - asset: assets/fonts/nunito/Nunito-Bold.ttf
+          weight: 500
 

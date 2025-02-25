@@ -16,6 +16,7 @@ class AuthState extends Equatable {
     this.confirmPassword = '',
     this.isLoginButtonActive = false,
     this.isSignUpButtonActive = false,
+    this.selectedIndex = 0,
   });
 
   AuthState copyWith({
@@ -25,8 +26,10 @@ class AuthState extends Equatable {
     String? name,
     bool? isLoginButtonActive,
     bool? isSignUpButtonActive,
+    int? selectedIndex,
   }) {
     return AuthState(
+       selectedIndex: selectedIndex ?? this.selectedIndex,
       name: name ?? this.name,
       status: status ?? this.status,
       email: email ?? this.email,
@@ -43,6 +46,7 @@ class AuthState extends Equatable {
   final String confirmPassword;
   final bool isLoginButtonActive;
   final bool isSignUpButtonActive;
+  final int selectedIndex;
 
   @override
   List<Object?> get props => [
@@ -53,5 +57,6 @@ class AuthState extends Equatable {
         password,
         isLoginButtonActive,
         isSignUpButtonActive,
+    selectedIndex,
       ];
 }

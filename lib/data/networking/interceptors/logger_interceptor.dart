@@ -22,7 +22,8 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.i('${options.method} request => $requestPath');
+    logger.i('${options.method} request => $requestPath\n'
+        'DATA: ${options.data}');
     handler.next(options);
   }
 

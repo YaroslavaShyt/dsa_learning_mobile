@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dsa_learning/core/constants/duration.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_cubit.dart';
@@ -10,7 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'widgets/_auth_text.dart';
+part 'widgets/auth_slider/_auth_text.dart';
 
 part 'widgets/_start_content.dart';
 
@@ -21,6 +24,12 @@ part 'widgets/_back_button.dart';
 part 'widgets/_sign_in_content.dart';
 
 part 'widgets/_sign_up_content.dart';
+
+part 'widgets/auth_slider/_auth_slider.dart';
+
+part 'widgets/auth_slider/_slider_components.dart';
+
+part 'widgets/auth_slider/_slider_indicators.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({
@@ -41,6 +50,8 @@ class AuthScreen extends StatelessWidget {
               const MainBackground(),
               if (state.status == AuthStatus.initial)
                 _StartContent(
+                  onSliderIndexChanged: cubit.onSliderPageChanged,
+                  selectedIndex: state.selectedIndex,
                   onStartButtonPressed: cubit.onStartButtonPressed,
                 ),
               if (state.status == AuthStatus.startButtonPressed)

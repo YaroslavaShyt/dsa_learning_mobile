@@ -32,6 +32,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(status: AuthStatus.startButtonPressed));
   }
 
+  void onSliderPageChanged(int index){
+    emit(state.copyWith(selectedIndex: index));
+  }
+
   Future<void> onConfirmOnLoginPressed() async {
    // if (!state.isLoginButtonActive) return;
     await _authService.signIn(
