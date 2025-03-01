@@ -39,7 +39,7 @@ class _StartContent extends StatelessWidget {
                 context.tr('start'),
                 style: getTextTheme(context).labelMedium?.copyWith(
                       color: getColorScheme(context).primaryFixed,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                     ),
               ),
             ),
