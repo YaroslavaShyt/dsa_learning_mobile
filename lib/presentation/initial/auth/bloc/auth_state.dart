@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthStatus {
+enum AuthCubitStatus {
   initial,
   startButtonPressed,
   signInButtonPressed,
   signUpButtonPressed,
+  authInProgress,
+  authFail,
 }
 
-class AuthState extends Equatable {
-  const AuthState({
-    this.status = AuthStatus.initial,
+class AuthCubitState extends Equatable {
+  const AuthCubitState({
+    this.status = AuthCubitStatus.initial,
     this.email = 'yaso11chkashyt@gmail.com',
     this.name = '',
     this.password = 'slavka',
@@ -19,30 +21,32 @@ class AuthState extends Equatable {
     this.selectedIndex = 0,
   });
 
-  AuthState copyWith({
-    AuthStatus? status,
+  AuthCubitState copyWith({
+    String? name,
     String? email,
     String? password,
-    String? name,
+    AuthCubitStatus? status,
+    String? confirmPassword,
     bool? isLoginButtonActive,
     bool? isSignUpButtonActive,
     int? selectedIndex,
   }) {
-    return AuthState(
-       selectedIndex: selectedIndex ?? this.selectedIndex,
+    return AuthCubitState(
       name: name ?? this.name,
-      status: status ?? this.status,
       email: email ?? this.email,
+      status: status ?? this.status,
       password: password ?? this.password,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
       isLoginButtonActive: isLoginButtonActive ?? this.isLoginButtonActive,
       isSignUpButtonActive: isSignUpButtonActive ?? this.isSignUpButtonActive,
     );
   }
 
-  final AuthStatus status;
+  final String name;
   final String email;
   final String password;
-  final String name;
+  final AuthCubitStatus status;
   final String confirmPassword;
   final bool isLoginButtonActive;
   final bool isSignUpButtonActive;
@@ -57,6 +61,6 @@ class AuthState extends Equatable {
         password,
         isLoginButtonActive,
         isSignUpButtonActive,
-    selectedIndex,
+        selectedIndex,
       ];
 }

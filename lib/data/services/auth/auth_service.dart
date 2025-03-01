@@ -40,7 +40,9 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
       }
       await _tokenService.saveToken(token);
       emit(state.copyWith(status: AuthStatus.authorized));
-    } catch (error) {}
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -53,7 +55,9 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
       }
       await _tokenService.saveToken(token);
       emit(state.copyWith(status: AuthStatus.authorized));
-    } catch (error) {}
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override

@@ -28,23 +28,28 @@ class _AuthSliderState extends State<_AuthSlider> {
   }
 
   void _onPageChanged() {
-    if (_controller.page?.toInt() != widget.sliderComponents.length - 1) {
+    final int index = _controller.page!.toInt();
+    if (index == widget.sliderComponents.length - 1) {
+      _controller.jumpToPage(0);
+      widget.onPageChanged(0);
+    } else {
       _controller.nextPage(
         duration: DurationConstants.twoSecondsDuration,
         curve: Curves.fastOutSlowIn,
       );
-    } else {
-      _controller.jumpToPage(0);
+      widget.onPageChanged(index + 1);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
       height: MediaQuery.sizeOf(context).height / 6,
       child: PageView.builder(
         controller: _controller,
-        physics: NeverScrollableScrollPhysics(),
+        itemCount: widget.sliderComponents.length,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (_, int index) {
           return widget.sliderComponents[index];
         },

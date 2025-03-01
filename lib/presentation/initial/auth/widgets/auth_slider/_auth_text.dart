@@ -26,7 +26,7 @@ class _AuthText extends StatelessWidget {
             textAlign: TextAlign.center,
             style: textTheme.labelMedium?.copyWith(
               fontWeight: FontWeight.w800,
-              fontSize: 20,
+              fontSize: 24,
             ),
           ),
           Text(
@@ -34,34 +34,11 @@ class _AuthText extends StatelessWidget {
             style: textTheme.labelMedium?.copyWith(
               color: colorScheme.primaryFixed,
               fontWeight: FontWeight.w800,
-              fontSize: 20,
+              fontSize: 24,
             ),
           ),
         ],
       ),
-      // RichText(
-      //   textAlign: TextAlign.center,
-      //   text: TextSpan(
-      //     style: textTheme.labelMedium?.copyWith(
-      //       color: colorScheme.onSurface,
-      //       fontWeight: FontWeight.w500,
-      //       fontSize: 20,
-      //     ),
-      //     children: [
-      //       TextSpan(
-      //         text: context.tr('learnWith'),
-      //       ),
-      //       TextSpan(
-      //         text: " ${context.tr('DSA')}!",
-      //         style: textTheme.labelMedium?.copyWith(
-      //           color: colorScheme.primaryFixed,
-      //           fontWeight: FontWeight.w500,
-      //           fontSize: 20,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

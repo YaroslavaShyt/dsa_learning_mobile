@@ -34,11 +34,11 @@ Future<void> main() async {
 
   runApp(
     EasyLocalization(
-      assetLoader: CodegenLoader(),
+      assetLoader: const CodegenLoader(),
       supportedLocales: SystemConstants.supportedLocales,
       path: SystemConstants.localePath,
       fallbackLocale: SystemConstants.fallbackLocale,
-      child: _MainApp(),
+      child: const _MainApp(),
     ),
   );
 }
