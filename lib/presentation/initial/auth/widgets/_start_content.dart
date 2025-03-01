@@ -3,7 +3,7 @@ part of '../auth_screen.dart';
 class _StartContent extends StatelessWidget {
   const _StartContent({
     required this.onStartButtonPressed,
-});
+  });
 
   final VoidCallback onStartButtonPressed;
 
@@ -27,9 +27,9 @@ class _StartContent extends StatelessWidget {
               child: Text(
                 context.tr('start'),
                 style: getTextTheme(context).labelMedium?.copyWith(
-                  color: getColorScheme(context).primaryFixed,
-                  fontWeight: FontWeight.bold,
-                ),
+                      color: getColorScheme(context).primaryFixed,
+                      fontWeight: FontWeight.w700,
+                    ),
               ),
             ),
           ],
