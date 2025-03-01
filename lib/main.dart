@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/constants/system.dart';
 import 'package:dsa_learning/core/navigation/router/router.dart';
+import 'package:dsa_learning/core/utils/parsers/background_parser.dart';
 import 'package:dsa_learning/data/services/auth/auth_service.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/data/auth/auth_repository.dart';

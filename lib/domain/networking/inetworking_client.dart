@@ -8,7 +8,7 @@ abstract class INetworkingClient {
 
   Future<Response?> post(
     String endpoint, {
-    required Map<String, String> body,
+    Map<String, String>? body,
   });
 
   Future<Response?> put(

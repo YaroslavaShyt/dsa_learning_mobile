@@ -6,6 +6,7 @@ class _ServiceLocator {
   static void init() {
     _initLocalStorage();
     _initNetworking();
+    _initUtils();
     _initRepos();
     _initService();
   }
@@ -28,6 +29,12 @@ class _ServiceLocator {
   static void _initService() {
     sl.registerFactory<ITokenService>(
       () => TokenService(storage: sl.get<ISecureStorage>()),
+    );
+  }
+
+  static void _initUtils() {
+    sl.registerFactory<IBackgroundParser>(
+      () => BackgroundParser(),
     );
   }
 
