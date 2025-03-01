@@ -1,6 +1,6 @@
 part of '../auth_screen.dart';
 
-class _SignInContent extends StatelessWidget {
+class _SignInContent extends StatefulWidget {
   const _SignInContent({
     required this.isButtonActive,
     required this.onEmailEntered,
@@ -16,22 +16,45 @@ class _SignInContent extends StatelessWidget {
   final VoidCallback onConfirmButtonPressed;
 
   @override
+  State<_SignInContent> createState() => _SignInContentState();
+}
+
+class _SignInContentState extends State<_SignInContent> {
+  late final FocusNode _emailFocusNode;
+  late final FocusNode _passwordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    _emailFocusNode.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Positioned(
       left: 20,
       right: 20,
       bottom: 50,
       child: MainContainer(
-        height: 500,
+        height: 400,
         padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: 80.0,
+          horizontal: 20.0,
         ),
         content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _BackButton(
-              onBackPressed: onBackTapped,
+              onBackPressed: widget.onBackTapped,
             ),
             Text(
               context.tr('signIn'),
@@ -40,27 +63,37 @@ class _SignInContent extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            MainTextField(
-              labelText: context.tr('email'),
-              onChanged: onEmailEntered,
-            ),
-            MainTextField(
-              labelText: context.tr('password'),
-              onChanged: onPasswordEntered,
-            ),
-            MainOutlinedButton(
-              isActive: isButtonActive,
-              onPressed: onConfirmButtonPressed,
-              child: Text(
-                context.tr('signIn'),
-                style: getTextTheme(context).labelMedium?.copyWith(
-                      color: isButtonActive
-                          ? getColorScheme(context).primaryFixed
-                          : getColorScheme(context)
-                              .onSurface
-                              .withValues(alpha: 0.3),
-                      fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 30.0),
+              child: Column(
+                spacing: 50,
+                children: [
+                  MainTextField(
+                    labelText: context.tr('email'),
+                    onChanged: widget.onEmailEntered,
+                    focusNode: _emailFocusNode,
+                  ),
+                  MainTextField(
+                    labelText: context.tr('password'),
+                    onChanged: widget.onPasswordEntered,
+                    focusNode: _passwordFocusNode,
+                  ),
+                  MainOutlinedButton(
+                    isActive: widget.isButtonActive,
+                    onPressed: widget.onConfirmButtonPressed,
+                    child: Text(
+                      context.tr('confirm'),
+                      style: getTextTheme(context).labelMedium?.copyWith(
+                            color: widget.isButtonActive
+                                ? getColorScheme(context).primaryFixed
+                                : getColorScheme(context)
+                                    .onSurface
+                                    .withValues(alpha: 0.3),
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
+                  ),
+                ],
               ),
             ),
           ],

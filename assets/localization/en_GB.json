@@ -5,9 +5,14 @@
   "aboutApp": "About the App",
   "version": "Version",
   "learnWith": "Learn algorithms and data structures with",
+  "analiseProgress": "Analyze progress and achievements made with",
+  "collectBytes": "Collect bytes, fans, and hash learning with",
   "DSA": "DSA Learn",
   "start": "Start",
   "signIn": "Sign in",
   "signUp": "Sign up",
-  "back": "Back"
+  "back": "Back",
+  "email": "Email",
+  "password": "Password"
+
 }

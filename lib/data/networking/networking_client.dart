@@ -11,13 +11,14 @@ class NetworkingClient implements INetworkingClient {
   NetworkingClient() {
     _dio = Dio(
       BaseOptions(
-          baseUrl: Endpoints.baseEndpoint,
-          connectTimeout: SystemConstants.connectTimeout,
-          receiveTimeout: SystemConstants.receiveTimeout,
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          responseType: ResponseType.json),
+        baseUrl: Endpoints.baseEndpoint,
+        connectTimeout: SystemConstants.connectTimeout,
+        receiveTimeout: SystemConstants.receiveTimeout,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        responseType: ResponseType.json,
+      ),
     )..interceptors.addAll([
         LoggerInterceptor(),
       ]);

@@ -5,8 +5,13 @@
   "aboutApp": "Acerca de la aplicación",
   "version": "Versión",
   "learnWith": "¡Aprende algoritmos y estructuras de datos con",
+  "analiseProgress": "Analiza el progreso y los logros alcanzados con",
+  "collectBytes": "Colecciona bytes, ventiladores y hash de",
   "DSA": "DSA Learn",
   "start": "Empezar",
   "signIn": "Iniciar sesión",
-  "signUp": "Registrarse"
+  "signUp": "Registrarse",
+  "email": "Email",
+  "password": "Contraseña"
+
 }

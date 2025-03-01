@@ -1,28 +1,34 @@
+import 'dart:async';
+
+import 'package:dsa_learning/core/constants/duration.dart';
+import 'package:dsa_learning/core/utils/mixins/snackbar_mixin.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_cubit.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_state.dart';
+import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
+import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
 import 'package:dsa_learning/presentation/widgets/input/main_text_field.dart';
+import 'package:dsa_learning/presentation/widgets/loaders/main_loader.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
-import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
+import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'widgets/_auth_text.dart';
-
-part 'widgets/_start_content.dart';
-
-part 'widgets/_start_button_pressed_content.dart';
-
 part 'widgets/_back_button.dart';
-
 part 'widgets/_sign_in_content.dart';
-
 part 'widgets/_sign_up_content.dart';
+part 'widgets/_start_button_pressed_content.dart';
+part 'widgets/_start_content.dart';
+part 'widgets/auth_slider/_auth_slider.dart';
+part 'widgets/auth_slider/_auth_text.dart';
+part 'widgets/auth_slider/_slider_components.dart';
+part 'widgets/auth_slider/_slider_indicators.dart';
+part 'widgets/auth_slider/_slider_with_dots.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatelessWidget with SnackBarMixin {
   const AuthScreen({
     required this.cubit,
     super.key,
@@ -33,23 +39,34 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<AuthCubit, AuthState>(
-        builder: (_, AuthState state) {
+      body: BlocConsumer<AuthCubit, AuthCubitState>(
+        listener: (_, AuthCubitState state) {
+          if (state.status == AuthCubitStatus.authFail) {
+            showSnackBar(
+              context,
+              text: context.tr('authError'),
+            );
+          }
+        },
+        builder: (_, AuthCubitState state) {
           return Stack(
             fit: StackFit.expand,
             children: [
               const MainBackground(),
-              if (state.status == AuthStatus.initial)
+              if (state.status == AuthCubitStatus.initial)
                 _StartContent(
+                  onSliderIndexChanged: cubit.onSliderPageChanged,
+                  selectedIndex: state.selectedIndex,
                   onStartButtonPressed: cubit.onStartButtonPressed,
                 ),
-              if (state.status == AuthStatus.startButtonPressed)
+              if (state.status == AuthCubitStatus.authFail ||
+                  state.status == AuthCubitStatus.startButtonPressed)
                 _StartButtonPressedContent(
                   onBackTapped: cubit.onBackOnStartPressed,
                   onSignInButtonPressed: cubit.onSignInButtonPressed,
                   onSignUpButtonPressed: cubit.onSignUpButtonPressed,
                 ),
-              if (state.status == AuthStatus.signInButtonPressed)
+              if (state.status == AuthCubitStatus.signInButtonPressed)
                 _SignInContent(
                   isButtonActive: state.isLoginButtonActive,
                   onEmailEntered: cubit.onEmailEntered,
@@ -57,7 +74,7 @@ class AuthScreen extends StatelessWidget {
                   onBackTapped: cubit.onBackOnLoginPressed,
                   onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
                 ),
-              if(state.status == AuthStatus.signUpButtonPressed)
+              if (state.status == AuthCubitStatus.signUpButtonPressed)
                 _SignUpContent(
                   isButtonActive: state.isSignUpButtonActive,
                   onEmailEntered: cubit.onEmailEntered,
@@ -65,6 +82,8 @@ class AuthScreen extends StatelessWidget {
                   onBackTapped: cubit.onBackOnLoginPressed,
                   onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
                 ),
+              if (state.status == AuthCubitStatus.authInProgress)
+                const MainLoader(),
             ],
           );
         },

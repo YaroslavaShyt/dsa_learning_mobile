@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/
     - assets/localization/
+    - lib/core/localization/
 
   fonts:
     - family: Nunito

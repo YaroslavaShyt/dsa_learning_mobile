@@ -11,12 +11,14 @@ class MainTextField extends StatelessWidget {
     this.controller,
     this.inputFormatters,
     this.obscureText = false,
+    this.focusNode,
     super.key,
   });
 
   final Widget? label;
   final bool obscureText;
   final String? labelText;
+  final FocusNode? focusNode;
   final Function(String)? onChanged;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
@@ -29,16 +31,23 @@ class MainTextField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       obscureText: obscureText,
+      focusNode: focusNode,
       cursorColor: colorScheme.primaryFixed,
       cursorHeight: 20,
       inputFormatters: inputFormatters,
+      onTapOutside: (_) {
+        focusNode?.unfocus();
+      },
+      style: getTextTheme(context).labelMedium?.copyWith(
+            color: colorScheme.onSurface.withValues(alpha: 1),
+          ),
       decoration: InputDecoration(
         label: label,
         labelText: labelText,
         labelStyle: textTheme.labelSmall,
         floatingLabelStyle: textTheme.labelSmall?.copyWith(
-              color: colorScheme.primaryFixed,
-            ),
+          color: colorScheme.primaryFixed,
+        ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: colorScheme.onSurface,
