@@ -10,6 +10,7 @@ import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
 import 'package:dsa_learning/presentation/widgets/input/main_text_field.dart';
 import 'package:dsa_learning/presentation/widgets/loaders/main_loader.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
@@ -53,6 +54,7 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
             fit: StackFit.expand,
             children: [
               const MainBackground(),
+              RobotAnimation(),
               if (state.status == AuthCubitStatus.initial)
                 _StartContent(
                   onSliderIndexChanged: cubit.onSliderPageChanged,

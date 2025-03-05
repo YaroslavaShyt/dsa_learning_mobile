@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/
     - assets/localization/
+    - assets/animations/
     - lib/core/localization/
 
   fonts:
