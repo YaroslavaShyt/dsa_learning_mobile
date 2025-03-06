@@ -18,4 +18,7 @@ class ColorPalette {
 
   // BLACK
   static final shadow = Color(0x00000000).withValues(alpha: 0.25);
+
+  // BLUE
+  static final neatBlue = const Color(0xffABC0D7);
 }

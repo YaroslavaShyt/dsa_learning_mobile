@@ -70,7 +70,13 @@ static const Map<String,dynamic> _uk_UA = {
   "manageCurrency": "Керувати валютою",
   "bytes": "Байти",
   "vents": "Вентилятори",
-  "hash": "Хеш"
+  "hash": "Хеш",
+  "achievements": "Досягнення",
+  "seeAll": "Переглянути усі",
+  "statistics": "Статистика",
+  "algorithms": "Алгоритми",
+  "dataStructures": "Структури даних",
+  "minutesQuantity": "*Кількість хвилин, присвячених навчанню"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

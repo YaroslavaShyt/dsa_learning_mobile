@@ -1,4 +1,4 @@
-part of '../home_screen.dart';
+part of '../../home_screen.dart';
 
 class _HelloUserWidget extends StatelessWidget {
   const _HelloUserWidget({
@@ -64,6 +64,7 @@ class _HelloUserWidget extends StatelessWidget {
                   onTap: onManageCurrencyTap,
                   child: Text(
                     context.tr("manageCurrency"),
+                    style: textTheme.labelSmall,
                   ),
                 ),
                 const RobotAnimation(

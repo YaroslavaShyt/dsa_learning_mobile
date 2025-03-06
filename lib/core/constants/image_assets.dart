@@ -8,4 +8,7 @@ class ImageAssets {
   static const bytes = 'assets/images/currency/bytes.png';
   static const hash = 'assets/images/currency/hash.png';
   static const vents = 'assets/images/currency/vents.png';
+
+  // achievements
+  static const lockedAchievement = 'assets/images/achievements/locked.svg';
 }

@@ -35,6 +35,9 @@ dependencies:
   #images
   flutter_svg: ^2.0.17
 
+  # widgets
+  fl_chart: ^0.70.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,6 +53,7 @@ flutter:
     - assets/images/
     - assets/images/streak/
     - assets/images/currency/
+    - assets/images/achievements/
     - lib/core/localization/
 
   fonts:

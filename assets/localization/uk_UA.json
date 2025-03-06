@@ -21,5 +21,11 @@
   "manageCurrency": "Керувати валютою",
   "bytes": "Байти",
   "vents": "Вентилятори",
-  "hash": "Хеш"
+  "hash": "Хеш",
+  "achievements": "Досягнення",
+  "seeAll": "Переглянути усі",
+  "statistics": "Статистика",
+  "algorithms": "Алгоритми",
+  "dataStructures": "Структури даних",
+  "minutesQuantity": "*Кількість хвилин, присвячених навчанню"
 }

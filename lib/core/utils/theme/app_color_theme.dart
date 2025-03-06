@@ -25,5 +25,6 @@ class AppColorTheme {
     shadow: ColorPalette.shadow,
     primaryFixed: ColorPalette.maize,
     primaryFixedDim: ColorPalette.crayola,
+    onSecondaryContainer: ColorPalette.neatBlue,
   );
 }
