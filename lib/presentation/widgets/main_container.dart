@@ -8,12 +8,14 @@ class MainContainer extends StatelessWidget {
     this.width,
     this.padding = EdgeInsetsDirectional.zero,
     this.margin = EdgeInsetsDirectional.zero,
+    this.borderRadius = 20,
     super.key,
   });
 
   final EdgeInsetsDirectional padding;
   final EdgeInsetsDirectional margin;
 
+  final double? borderRadius;
   final double? height;
   final double? width;
   final Widget? content;
@@ -28,7 +30,7 @@ class MainContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: colorScheme.onSurface.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(borderRadius ?? 20),
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),

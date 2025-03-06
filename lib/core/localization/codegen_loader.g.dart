@@ -65,7 +65,12 @@ static const Map<String,dynamic> _uk_UA = {
   "password": "Пароль",
   "confirm": "Підтвердити",
   "name": "Ім'я",
-  "authError": "Не вдалось здійснити вхід."
+  "authError": "Не вдалось здійснити вхід.",
+  "helloUser": "Вітаю,",
+  "manageCurrency": "Керувати валютою",
+  "bytes": "Байти",
+  "vents": "Вентилятори",
+  "hash": "Хеш"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

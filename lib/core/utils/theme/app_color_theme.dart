@@ -1,13 +1,16 @@
 import 'package:dsa_learning/core/utils/theme/color_palette.dart';
+import 'package:dsa_learning/core/utils/theme/scroll_bar_theme.dart';
 import 'package:flutter/material.dart';
 
-ColorScheme getColorScheme(BuildContext context) => Theme.of(context).colorScheme;
+ColorScheme getColorScheme(BuildContext context) =>
+    Theme.of(context).colorScheme;
 
 class AppColorTheme {
-  static ThemeData theme = ThemeData(
-    fontFamily: 'Nunito',
-    colorScheme: _lightColorScheme,
-  );
+  static ThemeData theme(BuildContext context) => ThemeData(
+        fontFamily: 'Nunito',
+        colorScheme: _lightColorScheme,
+        scrollbarTheme: scrollbarThemeData(context),
+      );
 
   static final ColorScheme _lightColorScheme = ColorScheme(
     surface: ColorPalette.rebeccaPurple,

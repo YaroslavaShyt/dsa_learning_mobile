@@ -15,6 +15,7 @@ class RobotAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LottieBuilder.asset(
+      fit: BoxFit.fill,
       LottieAssets.welcomeRobot,
       height: height,
       width: width,

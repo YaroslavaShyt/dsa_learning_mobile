@@ -32,6 +32,9 @@ dependencies:
   #logger
   logger: ^2.5.0
 
+  #images
+  flutter_svg: ^2.0.17
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,6 +47,9 @@ flutter:
     - assets/
     - assets/localization/
     - assets/animations/
+    - assets/images/
+    - assets/images/streak/
+    - assets/images/currency/
     - lib/core/localization/
 
   fonts:

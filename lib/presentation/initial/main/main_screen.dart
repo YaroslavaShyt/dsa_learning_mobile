@@ -35,15 +35,15 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
               Positioned.directional(
-                start: 110,
-                end: 110,
+                start: 100,
+                end: 100,
                 bottom: 30,
                 textDirection: TextDirection.ltr,
                 child: _MainFloatingActionButton(
                   selectedIndex: state.selectedIndex,
                   onHomeTapped: () => cubit.onTabChanged(0),
                   onLearnTapped: () => cubit.onTabChanged(1),
-                  onProfileTapped: ()=> cubit.onTabChanged(2),
+                  onProfileTapped: () => cubit.onTabChanged(2),
                 ),
               ),
             ],

@@ -8,8 +8,8 @@ class _MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: _ServiceLocator.cubitAsService,
       child: MaterialApp(
-        theme: AppColorTheme.theme,
-        initialRoute: AppRoutes.routeInitial,
+        theme: AppColorTheme.theme(context),
+        initialRoute: AppRoutes.routeMain,
         onGenerateRoute: AppRouter.onGenerateRoute,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

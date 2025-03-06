@@ -1,1 +1,11 @@
-class ImageAssets {}
+class ImageAssets {
+  // streak
+  static const activeStreak = 'assets/images/streak/active.svg';
+  static const notActiveStreak = 'assets/images/streak/not_active.svg';
+  static const frozenStreak = 'assets/images/streak/frozen.svg';
+
+  // currency
+  static const bytes = 'assets/images/currency/bytes.png';
+  static const hash = 'assets/images/currency/hash.png';
+  static const vents = 'assets/images/currency/vents.png';
+}
