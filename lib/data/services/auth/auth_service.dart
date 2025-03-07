@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/domain/auth/iauth_repository.dart';
 import 'package:dsa_learning/domain/auth/isign_in_model.dart';
@@ -27,7 +28,9 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
       }
 
       emit(state.copyWith(status: AuthStatus.authorized));
-    } catch (error) {}
+    } catch (error) {
+      logger.e(error);
+    }
   }
 
   @override

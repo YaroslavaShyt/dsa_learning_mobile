@@ -1,9 +1,9 @@
 import 'package:dsa_learning/domain/achievements/iachievement.dart';
 
-const String _id = 'id';
-const String _title = 'title';
+const String _id = 'achievementId';
+const String _title = 'achievementName';
 const String _description = 'description';
-const String _achievedOn = 'achieved';
+const String _achievedOn = 'createdAt';
 
 class Achievement implements IAchievement {
   Achievement({
@@ -25,12 +25,12 @@ class Achievement implements IAchievement {
   @override
   final String title;
 
-  Achievement fromJson(Map<String, dynamic> json) {
+  factory Achievement.fromJson(Map<dynamic, dynamic> json) {
     return Achievement(
-      id: json[_id],
-      title: json[_title],
-      achievedOn: json[_achievedOn],
-      description: json[_description],
+      id: (json[_id] ?? json['id']).toString(),
+      title: json[_title] ?? json['name'],
+      achievedOn: json[_achievedOn] ?? DateTime.now(),
+      description: json[_description] ?? '',
     );
   }
 }

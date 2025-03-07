@@ -12,7 +12,7 @@ class TokenService implements ITokenService {
 
   @override
   Future<String?> getToken() async {
-    return _storage.read(key: _token) as String?;
+    return await _storage.read(key: _token) as String?;
   }
 
   @override

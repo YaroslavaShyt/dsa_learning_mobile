@@ -3,32 +3,50 @@ part of '../../../main.dart';
 final sl = GetIt.instance;
 
 class _ServiceLocator {
-  static void init() {
-    _initLocalStorage();
+  static Future<void> init() async {
+    await _initLocalStorage();
     _initNetworking();
     _initUtils();
     _initRepos();
     _initService();
   }
 
-  static void _initLocalStorage() {
+  static Future<void> _initLocalStorage() async {
+    final SharedPreferences sharedPref = await SharedPreferences.getInstance();
     sl.registerFactory<ILocalStorage>(() => LocalStorage());
-    sl.registerFactory<ISecureStorage>(() => SecureStorage());
+    sl.registerFactory<ISecureStorage>(() => SecureStorage(
+          sharedPreferences: sharedPref,
+        ));
   }
 
   static void _initNetworking() {
-    sl.registerFactory<INetworkingClient>(() => NetworkingClient());
+    sl.registerFactory<INetworkingClient>(
+      () => NetworkingClient(
+        secureStorage: sl.get<ISecureStorage>(),
+      ),
+    );
   }
 
   static void _initRepos() {
     sl.registerFactory<IAuthRepository>(
       () => AuthRepository(networkingClient: sl.get<INetworkingClient>()),
     );
+    sl.registerFactory<IAchievementsRepository>(
+      () => AchievementsRepository(
+        backgroundParser: sl.get<IBackgroundParser>(),
+        networkingClient: sl.get<INetworkingClient>(),
+      ),
+    );
   }
 
   static void _initService() {
     sl.registerFactory<ITokenService>(
       () => TokenService(storage: sl.get<ISecureStorage>()),
+    );
+    sl.registerSingleton<IAchievementsService>(
+      AchievementsService(
+        achievementsRepository: sl.get<IAchievementsRepository>(),
+      ),
     );
   }
 

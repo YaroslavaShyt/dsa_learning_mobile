@@ -1,5 +1,5 @@
 class Endpoints {
-  static const String baseEndpoint = 'http://10.0.0.40:8081/api/';
+  static const String baseEndpoint = 'http://10.0.0.37:5000/api/';
 
   // auth
   static const String _auth = 'auth';

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 abstract class INetworkingClient {
   Future<Response?> get(
     String endpoint, {
-    required Map<String, String> body,
+    Map<String, String> body,
   });
 
   Future<Response?> post(

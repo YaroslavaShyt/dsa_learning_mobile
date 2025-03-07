@@ -9,7 +9,7 @@ class _MainApp extends StatelessWidget {
       providers: _ServiceLocator.cubitAsService,
       child: MaterialApp(
         theme: AppColorTheme.theme(context),
-        initialRoute: AppRoutes.routeMain,
+        initialRoute: AppRoutes.routeInitial,
         onGenerateRoute: AppRouter.onGenerateRoute,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:dsa_learning/core/constants/system.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
+import 'package:dsa_learning/data/networking/interceptors/auth_interceptor.dart';
 import 'package:dsa_learning/data/networking/interceptors/logger_interceptor.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
+import 'package:dsa_learning/domain/storage/isecure_storage.dart';
 
 class NetworkingClient implements INetworkingClient {
-  NetworkingClient() {
+  NetworkingClient({
+    required ISecureStorage secureStorage,
+  }) {
     _dio = Dio(
       BaseOptions(
         baseUrl: Endpoints.baseEndpoint,
@@ -19,6 +23,7 @@ class NetworkingClient implements INetworkingClient {
     )
       ..interceptors.addAll([
         LoggerInterceptor(),
+        AuthInterceptor(storage: secureStorage),
       ])
       ..transformer = BackgroundTransformer();
   }
@@ -37,7 +42,7 @@ class NetworkingClient implements INetworkingClient {
   @override
   Future<Response?> get(
     String endpoint, {
-    required Map<String, dynamic> body,
+    Map<String, dynamic> body = const <String, dynamic>{},
   }) async {
     try {
       return _dio.get(

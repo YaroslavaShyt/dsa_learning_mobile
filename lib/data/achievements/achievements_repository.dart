@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dsa_learning/core/utils/parsers/background_parser.dart';
+import 'package:dsa_learning/data/achievements/achievement.dart';
+import 'package:dsa_learning/data/achievements/streak.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
 import 'package:dsa_learning/domain/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
@@ -40,11 +42,27 @@ class AchievementsRepository implements IAchievementsRepository {
   @override
   Future<List<IAchievement>> getAllAchievements() async {
     try {
-      final Response? response = await _networkingClient.post(
+      final Response? response = await _networkingClient.get(
         Endpoints.getAllAchievementsEndpoint,
       );
 
-      if (response?.statusCode == 200) {}
+      if (response == null) return [];
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data =
+            response.data.map((element) => Map.of(element)).toList();
+
+        final List<Future<IAchievement>> achievements = data.map(
+          (achievement) {
+            return _backgroundParser.parse<IAchievement>(
+              parseFunction: Achievement.fromJson,
+              data: achievement,
+            );
+          },
+        ).toList();
+
+        return await Future.wait(achievements);
+      }
 
       throw (Exception("Error adding achievement"));
     } catch (error) {
@@ -53,14 +71,61 @@ class AchievementsRepository implements IAchievementsRepository {
   }
 
   @override
-  Future<List<IAchievement>> getUserAchievements() {
-    // TODO: implement getUserAchievements
-    throw UnimplementedError();
+  Future<List<IAchievement>> getUserAchievements() async {
+    try {
+      final Response? response = await _networkingClient.get(
+        Endpoints.getUserAchievementsEndpoint(userId: '2'),
+      );
+
+      if (response == null) return [];
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data =
+            response.data.map((element) => Map.of(element)).toList();
+
+        final List<Future<IAchievement>> achievements = data.map(
+          (achievement) {
+            return _backgroundParser.parse<IAchievement>(
+              parseFunction: Achievement.fromJson,
+              data: achievement,
+            );
+          },
+        ).toList();
+
+        return Future.wait(achievements);
+      }
+    } catch (error) {
+      rethrow;
+    }
+    return [];
   }
 
   @override
-  Future<List<IStreak>> getUserStreak() {
-    // TODO: implement getUserStreak
-    throw UnimplementedError();
+  Future<List<IStreak>> getUserStreak() async {
+    try {
+      final Response? response = await _networkingClient.get(
+        Endpoints.getUserStreakEndpoint(userId: '2'),
+      );
+
+      if (response == null) return [];
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data =
+            response.data.map((element) => Map.of(element)).toList();
+
+        final List<Future<IStreak>> streak = data.map(
+          (streak) {
+            return _backgroundParser.parse<IStreak>(
+              parseFunction: Streak.fromJson,
+              data: streak,
+            );
+          },
+        ).toList();
+        return Future.wait(streak);
+      }
+    } catch (error) {
+      rethrow;
+    }
+    return [];
   }
 }
