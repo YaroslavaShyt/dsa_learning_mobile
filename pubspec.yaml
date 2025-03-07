@@ -38,6 +38,7 @@ dependencies:
 
   # widgets
   fl_chart: ^0.70.2
+  dotted_line: ^3.2.3
 
 dev_dependencies:
   flutter_test:

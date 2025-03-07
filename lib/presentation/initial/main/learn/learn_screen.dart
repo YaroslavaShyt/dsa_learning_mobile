@@ -1,5 +1,21 @@
+import 'package:dotted_line/dotted_line.dart';
+import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_dotted_line.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_pattern.dart';
+import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
+import 'package:dsa_learning/presentation/widgets/main_container.dart';
+import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
+import 'package:dsa_learning/presentation/widgets/tab_bar/main_tab_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+part 'widgets/_learn_tab_bar.dart';
+part 'widgets/data_structures_content/_data_structures_content.dart';
+part 'widgets/algorithms/_algorithms_content.dart';
+part 'widgets/_category_container.dart';
+part 'widgets/levels/_level_widget.dart';
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({super.key});
@@ -7,13 +23,15 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        const MainBackground(),
-        Center(
-          child: Text('LEARN'),
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            const MainBackground(),
+            _LearnTabBar(),
+          ],
         ),
-      ],
-    ));
+      ),
+    );
   }
 }

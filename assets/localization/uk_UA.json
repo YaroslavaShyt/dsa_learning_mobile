@@ -27,5 +27,6 @@
   "statistics": "Статистика",
   "algorithms": "Алгоритми",
   "dataStructures": "Структури даних",
-  "minutesQuantity": "*Кількість хвилин, присвячених навчанню"
+  "minutesQuantity": "*Кількість хвилин, присвячених навчанню",
+  "sortingAlgorithms": "Алгоритми сортування"
 }
