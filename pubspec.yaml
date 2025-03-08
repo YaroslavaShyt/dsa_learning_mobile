@@ -64,6 +64,7 @@ flutter:
     - assets/images/streak/
     - assets/images/currency/
     - assets/images/achievements/
+    - assets/images/core/
     - lib/core/localization/
 
   fonts:
