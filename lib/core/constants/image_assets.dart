@@ -11,4 +11,8 @@ class ImageAssets {
 
   // achievements
   static const lockedAchievement = 'assets/images/achievements/locked.svg';
+
+  // core
+  static const book = 'assets/images/core/book.png';
+  static const game = 'assets/images/core/game.png';
 }

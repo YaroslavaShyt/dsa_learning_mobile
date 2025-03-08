@@ -3,9 +3,11 @@ part of '../learn_screen.dart';
 class _CategoryContainer extends StatelessWidget {
   const _CategoryContainer({
     required this.pattern,
+    required this.onLevelTap,
   });
 
   final Pattern pattern;
+  final VoidCallback onLevelTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class _CategoryContainer extends StatelessWidget {
               return _LevelWidget(
                 levelNum: (index + 1).toString(),
                 position: pattern.positions[index],
-                onTap: () {},
+                onTap: onLevelTap,
               );
             },
           ),

@@ -80,7 +80,9 @@ static const Map<String,dynamic> _uk_UA = {
   "sortingAlgorithms": "Алгоритми сортування",
   "addAvatar": "Додати аватар",
   "withCamera": "Зробити фото з камери",
-  "fromGallery": "Обрати фото з галереї"
+  "fromGallery": "Обрати фото з галереї",
+  "plan": "План",
+  "game": "Гра"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

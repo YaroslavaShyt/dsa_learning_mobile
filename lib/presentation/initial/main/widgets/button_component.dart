@@ -22,9 +22,8 @@ class _ButtonComponent extends StatelessWidget {
         width: 60,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isSelected
-                ? colorScheme.primaryFixedDim
-                : colorScheme.primaryFixed,
+            color:
+                isSelected ? colorScheme.primaryFixedDim : Colors.transparent,
             boxShadow: [if (isSelected) mainBoxShadow(context)]),
         child: Icon(
           icon,
