@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/domain/handlers/images/iselect_image_handler.dart';
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/main.dart';
@@ -12,7 +13,8 @@ class ProfileFactory {
       create: (_) => ProfileCubit(
         localStorage: sl.get<ILocalStorage>(),
         selectImageHandler: sl.get<ISelectImageHandler>(),
-      ),
+        navigationUtil: sl.get<INavigationUtil>(),
+      )..init(),
       child: Builder(
         builder: (BuildContext context) {
           return ProfileScreen(

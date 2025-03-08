@@ -1,4 +1,6 @@
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/core/navigation/navigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/constants/system.dart';
 import 'package:dsa_learning/core/navigation/router/router.dart';
@@ -45,7 +47,7 @@ Future<void> main() async {
 
   await EasyLocalization.ensureInitialized();
 
-  _ServiceLocator.init();
+  await _ServiceLocator.init();
 
   runApp(
     EasyLocalization(
@@ -53,7 +55,9 @@ Future<void> main() async {
       supportedLocales: SystemConstants.supportedLocales,
       path: SystemConstants.localePath,
       fallbackLocale: SystemConstants.fallbackLocale,
-      child: const _MainApp(),
+      child: _MainApp(
+        navigationUtil: sl.get<INavigationUtil>(),
+      ),
     ),
   );
 }

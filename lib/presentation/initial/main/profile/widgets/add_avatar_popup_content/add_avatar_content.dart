@@ -4,7 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AddAvatarContent extends StatelessWidget {
-  const AddAvatarContent({super.key});
+  const AddAvatarContent({
+    required this.onAddAvatarFromCameraTap,
+    required this.onAddAvatarFromGalleryTap,
+    super.key,
+  });
+
+  final VoidCallback onAddAvatarFromCameraTap;
+  final VoidCallback onAddAvatarFromGalleryTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +35,13 @@ class AddAvatarContent extends StatelessWidget {
               MenuItem(
                 icon: Icons.camera_alt_outlined,
                 title: "withCamera",
-                onTap: () {},
+                onTap: onAddAvatarFromCameraTap,
                 showDivider: true,
               ),
               MenuItem(
                 icon: Icons.image_outlined,
                 title: "fromGallery",
-                onTap: () {},
+                onTap: onAddAvatarFromGalleryTap,
               ),
             ],
           ),

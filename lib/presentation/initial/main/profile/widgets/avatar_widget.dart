@@ -3,10 +3,12 @@ part of '../profile_screen.dart';
 class _UserInfoWidget extends StatelessWidget {
   const _UserInfoWidget({
     required this.userName,
+    required this.avatarPath,
     required this.onAvatarTap,
   });
 
   final String userName;
+  final String avatarPath;
   final VoidCallback onAvatarTap;
 
   @override
@@ -23,21 +25,28 @@ class _UserInfoWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onAvatarTap,
-            child: Stack(
-              children: [
-                AvatarWidget(size: 100),
-                Positioned(
-                  right: 10,
-                  bottom: -6,
-                  child: Text(
-                    '+',
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
-                    ),
+            child: SizedBox(
+              width: 140,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  AvatarWidget(
+                    size: 100,
+                    avatarPath: avatarPath,
                   ),
-                )
-              ],
+                  Positioned(
+                    right: 20,
+                    bottom: -6,
+                    child: Text(
+                      '+',
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Text(

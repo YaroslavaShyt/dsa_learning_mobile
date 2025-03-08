@@ -5,6 +5,7 @@ final sl = GetIt.instance;
 class _ServiceLocator {
   static Future<void> init() async {
     await _initLocalStorage();
+    _initNavigation();
     _initNetworking();
     _initUtils();
     _initRepos();
@@ -12,9 +13,17 @@ class _ServiceLocator {
     _initHandlers();
   }
 
+  static void _initNavigation() {
+    sl.registerSingleton<INavigationUtil>(NavigationUtil());
+  }
+
   static Future<void> _initLocalStorage() async {
     final SharedPreferences sharedPref = await SharedPreferences.getInstance();
-    sl.registerFactory<ILocalStorage>(() => LocalStorage());
+    sl.registerFactory<ILocalStorage>(
+      () => LocalStorage(
+        sharedPreferences: sharedPref,
+      ),
+    );
     sl.registerFactory<ISecureStorage>(
       () => SecureStorage(
         sharedPreferences: sharedPref,
