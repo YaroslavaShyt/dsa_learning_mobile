@@ -29,7 +29,9 @@ class Achievement implements IAchievement {
     return Achievement(
       id: (json[_id] ?? json['id']).toString(),
       title: json[_title] ?? json['name'],
-      achievedOn: json[_achievedOn] ?? DateTime.now(),
+      achievedOn: json[_achievedOn] != null && json['createdAt'] != null
+          ? DateTime.parse(json[_achievedOn] ?? json['createdAt'])
+          : DateTime.now(),
       description: json[_description] ?? '',
     );
   }

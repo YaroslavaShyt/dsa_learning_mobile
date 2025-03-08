@@ -17,10 +17,19 @@ class Streak implements IStreak {
 
   factory Streak.fromJson(Map<dynamic, dynamic> json) {
     print(json);
-    print(DateTime.parse(json[_apiDate]));
+    // Check if the date is a string and parse it, or handle differently
+    String dateString = json[_apiDate]?.toString() ?? '';
+
+    // Ensure that we have a valid date string
+    if (dateString.isEmpty) {
+      throw ArgumentError('Invalid date string: $dateString');
+    }
+
+    print(DateTime.parse(dateString)); // this is the correct place to parse
+
     return Streak(
       status: _statusFromString(json[_apiStatus]),
-      date: DateTime.parse(json[_apiDate]),
+      date: DateTime.parse(dateString), // Ensure the date is parsed correctly
     );
   }
 

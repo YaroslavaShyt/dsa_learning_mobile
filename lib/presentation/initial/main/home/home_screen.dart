@@ -1,6 +1,8 @@
 import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/data/achievements/streak.dart';
+import 'package:dsa_learning/domain/achievements/istreak.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
 import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
@@ -57,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            const _StreakWidget(),
+                            _StreakWidget(streak: state.streak),
                             const SizedBox(height: 20),
                             const _HelloUserWidget(),
                             const SizedBox(height: 20),

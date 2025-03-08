@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
 import 'package:dsa_learning/domain/achievements/istreak.dart';
@@ -24,12 +25,17 @@ class AchievementsService implements IAchievementsService {
 
   @override
   Future<void> init() async {
-    final data = await Future.wait([
-      _achievementsRepository.getAllAchievements(),
-      _achievementsRepository.getUserAchievements(),
-      _achievementsRepository.getUserStreak(),
-    ]);
-    // _streak = data.last as List<IStreak>;
+    try {
+      final data = await Future.wait([
+        _achievementsRepository.getAllAchievements(),
+        _achievementsRepository.getUserAchievements(),
+        _achievementsRepository.getUserStreak(),
+      ]);
+      _streak = data[2] as List<IStreak>;
+    } catch (error) {
+      print("logger achievements service:");
+      logger.e(error);
+    }
   }
 
   void _processAchievements(List<IAchievement> allAchievements) {

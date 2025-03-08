@@ -92,7 +92,7 @@ class AchievementsRepository implements IAchievementsRepository {
           },
         ).toList();
 
-        return Future.wait(achievements);
+        return await Future.wait(achievements);
       }
     } catch (error) {
       rethrow;
@@ -121,7 +121,7 @@ class AchievementsRepository implements IAchievementsRepository {
             );
           },
         ).toList();
-        return Future.wait(streak);
+        return await Future.wait(streak);
       }
     } catch (error) {
       rethrow;
