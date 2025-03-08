@@ -40,6 +40,7 @@ class MainScreen extends StatelessWidget {
                 bottom: 30,
                 textDirection: TextDirection.ltr,
                 child: _MainFloatingActionButton(
+                  onChanged: cubit.onTabChanged,
                   selectedIndex: state.selectedIndex,
                   onHomeTapped: () => cubit.onTabChanged(0),
                   onLearnTapped: () => cubit.onTabChanged(1),

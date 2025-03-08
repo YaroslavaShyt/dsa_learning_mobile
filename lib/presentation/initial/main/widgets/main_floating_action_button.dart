@@ -6,12 +6,14 @@ class _MainFloatingActionButton extends StatelessWidget {
     required this.onHomeTapped,
     required this.onLearnTapped,
     required this.onProfileTapped,
-});
+    required this.onChanged,
+  });
 
   final int selectedIndex;
   final VoidCallback onHomeTapped;
   final VoidCallback onLearnTapped;
   final VoidCallback onProfileTapped;
+  final Function(int) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +30,17 @@ class _MainFloatingActionButton extends StatelessWidget {
         children: [
           _ButtonComponent(
             isSelected: selectedIndex == 0,
-            icon: Icons.home_outlined,
+            icon: Icons.home_rounded,
             onTapped: onHomeTapped,
           ),
           _ButtonComponent(
             isSelected: selectedIndex == 1,
-            icon: Icons.book_outlined,
+            icon: Icons.book_rounded,
             onTapped: onLearnTapped,
           ),
           _ButtonComponent(
             isSelected: selectedIndex == 2,
-            icon: Icons.person_outline_outlined,
+            icon: Icons.person_rounded,
             onTapped: onProfileTapped,
           ),
         ],

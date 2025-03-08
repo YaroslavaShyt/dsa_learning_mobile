@@ -1,6 +1,5 @@
 part of '../main_screen.dart';
 
-
 class _ButtonComponent extends StatelessWidget {
   const _ButtonComponent({
     required this.isSelected,
@@ -22,15 +21,16 @@ class _ButtonComponent extends StatelessWidget {
         height: 60,
         width: 60,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isSelected
-              ? colorScheme.primaryFixedDim
-              : colorScheme.primaryFixed,
-        ),
+            shape: BoxShape.circle,
+            color: isSelected
+                ? colorScheme.primaryFixedDim
+                : colorScheme.primaryFixed,
+            boxShadow: [if (isSelected) mainBoxShadow(context)]),
         child: Icon(
           icon,
           size: 30,
-          color: colorScheme.onSurface,
+          color: isSelected ? colorScheme.onSurface : colorScheme.surface,
+          shadows: [if (isSelected) mainBoxShadow(context)],
         ),
       ),
     );
