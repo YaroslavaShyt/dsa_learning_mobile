@@ -60,5 +60,9 @@
     <array>
       <string>$(AppIdentifierPrefix)com.example.dsaLearning</string>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string>By enabling camera access, you'll be able to personalize your profile avatar.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Access to your gallery enables you to personalize your profile avatar</string>
 </dict>
 </plist>

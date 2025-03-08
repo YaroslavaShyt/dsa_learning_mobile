@@ -1,28 +1,44 @@
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorage implements ILocalStorage{
+class LocalStorage implements ILocalStorage {
+  LocalStorage({
+    required SharedPreferences sharedPreferences,
+  }) : _sharedPreferences = sharedPreferences;
+
+  final SharedPreferences _sharedPreferences;
+
   @override
-  Future create({required String key, required value}) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<void> create({required String key, required value}) async {
+    if (value is String) {
+      await _sharedPreferences.setString(key, value);
+    } else if (value is int) {
+      await _sharedPreferences.setInt(key, value);
+    } else if (value is double) {
+      await _sharedPreferences.setDouble(key, value);
+    } else if (value is bool) {
+      await _sharedPreferences.setBool(key, value);
+    } else if (value is List<String>) {
+      await _sharedPreferences.setStringList(key, value);
+    } else {
+      throw ArgumentError('Unsupported value type');
+    }
   }
 
   @override
-  Future delete({required String key}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> delete({required String key}) async {
+    await _sharedPreferences.remove(key);
   }
 
   @override
-  Future read({required String key}) {
-    // TODO: implement read
-    throw UnimplementedError();
+  Future<dynamic> read({required String key}) async {
+    return _sharedPreferences
+        .get(key); // Returns the value associated with the key
   }
 
   @override
-  Future update({required String key, required value}) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update({required String key, required value}) async {
+    await delete(key: key); // Remove existing value if any
+    await create(key: key, value: value); // Set new value
   }
-  
 }
