@@ -28,5 +28,8 @@
   "algorithms": "Алгоритми",
   "dataStructures": "Структури даних",
   "minutesQuantity": "*Кількість хвилин, присвячених навчанню",
-  "sortingAlgorithms": "Алгоритми сортування"
+  "sortingAlgorithms": "Алгоритми сортування",
+  "addAvatar": "Додати аватар",
+  "withCamera": "Зробити фото з камери",
+  "fromGallery": "Обрати фото з галереї"
 }

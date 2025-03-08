@@ -9,14 +9,17 @@ class _ServiceLocator {
     _initUtils();
     _initRepos();
     _initService();
+    _initHandlers();
   }
 
   static Future<void> _initLocalStorage() async {
     final SharedPreferences sharedPref = await SharedPreferences.getInstance();
     sl.registerFactory<ILocalStorage>(() => LocalStorage());
-    sl.registerFactory<ISecureStorage>(() => SecureStorage(
-          sharedPreferences: sharedPref,
-        ));
+    sl.registerFactory<ISecureStorage>(
+      () => SecureStorage(
+        sharedPreferences: sharedPref,
+      ),
+    );
   }
 
   static void _initNetworking() {
@@ -48,11 +51,29 @@ class _ServiceLocator {
         achievementsRepository: sl.get<IAchievementsRepository>(),
       ),
     );
+    sl.registerFactory<IPermissionService>(
+      () => PermissionService(
+        deviceInfoPlugin: DeviceInfoPlugin(),
+        localStorage: sl.get<ILocalStorage>(),
+      ),
+    );
   }
 
   static void _initUtils() {
     sl.registerFactory<IBackgroundParser>(
       () => BackgroundParser(),
+    );
+  }
+
+  static void _initHandlers() {
+    sl.registerFactory<ICameraHandler>(() => CameraHandler());
+    sl.registerFactory<IFileHandler>(() => FileHandler());
+    sl.registerFactory<ISelectImageHandler>(
+      () => SelectImageHandler(
+        permissionService: sl.get<IPermissionService>(),
+        cameraHandler: sl.get<ICameraHandler>(),
+        fileHandler: sl.get<IFileHandler>(),
+      ),
     );
   }
 
