@@ -16,12 +16,11 @@ class AchievementsService implements IAchievementsService {
   List<IStreak> _streak = [];
 
   @override
-  Set<IAchievement> get lockedAchievements => _lockedAchievements;
-  Set<IAchievement> _lockedAchievements = {};
+  List<IAchievement> get achievements => _achievements;
+  List<IAchievement> _achievements = [];
 
-  @override
-  Set<IAchievement> get unlockedAchievements => _unlockedAchievements;
-  Set<IAchievement> _unlockedAchievements = {};
+  List<IAchievement> _userAchievements = [];
+  List<IAchievement> _allAchievements = [];
 
   @override
   Future<void> init() async {
@@ -31,17 +30,33 @@ class AchievementsService implements IAchievementsService {
         _achievementsRepository.getUserAchievements(),
         _achievementsRepository.getUserStreak(),
       ]);
+      _allAchievements = data[0] as List<IAchievement>;
+      _userAchievements = data[1] as List<IAchievement>;
       _streak = data[2] as List<IStreak>;
+      _getUserAchievements();
+      _getLockedAchievements();
     } catch (error) {
       print("logger achievements service:");
       logger.e(error);
     }
   }
 
-  void _processAchievements(List<IAchievement> allAchievements) {
-    allAchievements.forEach(
-      (IAchievement achievement) {},
-    );
+  void _getUserAchievements() {
+    for (var achievement in _allAchievements) {
+      for (var usrAchievement in _userAchievements) {
+        if (usrAchievement.achievementType == achievement.achievementType) {
+          _achievements.add(usrAchievement);
+        }
+      }
+    }
+  }
+
+  void _getLockedAchievements() {
+    for (var achievement in _allAchievements) {
+      if (!_userAchievements.contains(achievement)) {
+        _achievements.add(achievement);
+      }
+    }
   }
 
   @override

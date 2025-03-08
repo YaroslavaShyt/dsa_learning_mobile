@@ -13,13 +13,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> init() async {
     try {
+      emit(state.copyWith(status: HomeStatus.loading));
       await _achievementsService.init();
       emit(
         state.copyWith(
           status: HomeStatus.success,
           streak: _achievementsService.streak,
-          lockedAchievements: _achievementsService.lockedAchievements,
-          unlockedAchievements: _achievementsService.unlockedAchievements,
+          achievements: _achievementsService.achievements,
         ),
       );
     } catch (error) {

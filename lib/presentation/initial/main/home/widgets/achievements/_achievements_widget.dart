@@ -1,11 +1,13 @@
-part of '../home_screen.dart';
+part of '../../home_screen.dart';
 
 class _AchievementsWidget extends StatelessWidget {
   const _AchievementsWidget({
-    this.onSeeAllTap,
+    required this.achievements,
+    required this.onSeeAllTap,
   });
 
-  final VoidCallback? onSeeAllTap;
+  final VoidCallback onSeeAllTap;
+  final List<IAchievement> achievements;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,20 @@ class _AchievementsWidget extends StatelessWidget {
             children: [
               ...List.generate(
                 4,
-                (int index) => SvgPicture.asset(
-                  ImageAssets.lockedAchievement,
-                ),
+                (int index) {
+                  if (achievements[index].isLocked) {
+                    return SvgPicture.asset(
+                      achievements[index].path,
+                      height: 60,
+                      width: 60,
+                    );
+                  }
+                  return Image.asset(
+                    achievements[index].path,
+                    height: 70,
+                    width: 70,
+                  );
+                },
               ),
             ],
           ),

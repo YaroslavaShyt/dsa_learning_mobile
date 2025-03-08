@@ -8,7 +8,5 @@ abstract interface class IAchievementsService {
 
   List<IStreak> get streak;
 
-  Set<IAchievement> get lockedAchievements;
-
-  Set<IAchievement> get unlockedAchievements;
+  List<IAchievement> get achievements;
 }
