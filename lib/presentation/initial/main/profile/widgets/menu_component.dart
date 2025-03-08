@@ -23,7 +23,7 @@ class _MenuComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
-    return GestureDetector(
+    return TapAnimatedWidget(
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,13 +46,13 @@ class _MenuComponent extends StatelessWidget {
                   style: textTheme.labelMedium,
                 ),
                 Icon(
-                isComponentsShown ? Icons.keyboard_arrow_up : icon,
+                  isComponentsShown ? Icons.keyboard_arrow_up : icon,
                   size: 30,
                   color: colorScheme.onSurface,
                   shadows: [
                     BoxShadow(
                       color: colorScheme.shadow.withValues(alpha: 0.5),
-                      offset: Offset(1, 1),
+                      offset: const Offset(1, 1),
                       blurRadius: 10,
                       spreadRadius: 1,
                     ),

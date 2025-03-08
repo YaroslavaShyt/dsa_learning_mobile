@@ -65,4 +65,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       logger.e(error);
     }
   }
+
+
+  void onLanguageTap (){
+    emit(state.copyWith(isLanguageShown: !state.isLanguageShown));
+  }
+  void onDeleteAccountTap(){}
+
+  void onAboutInfoTap(){
+    emit(state.copyWith(isAboutInfoShown: !state.isAboutInfoShown));
+  }
+  void onExitTap (){}
 }

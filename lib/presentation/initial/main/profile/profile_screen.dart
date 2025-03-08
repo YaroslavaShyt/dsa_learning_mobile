@@ -5,6 +5,7 @@ import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubi
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/widgets/add_avatar_popup_content/add_avatar_content.dart';
 import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
+import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,7 +49,14 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                         userName: 'Yaroslava Shyt',
                         onAvatarTap: () => _onAvatarTap(context),
                       ),
-                      _ProfileMenu(),
+                      _ProfileMenu(
+                        isAboutInfoShown: state.isAboutInfoShown,
+                        isLanguageShown: state.isLanguageShown,
+                        onAboutInfoTap: cubit.onAboutInfoTap,
+                        onDeleteAccountTap: cubit.onDeleteAccountTap,
+                        onExitTap: cubit.onExitTap,
+                        onLanguageTap: cubit.onLanguageTap,
+                      ),
                     ],
                   ),
                 ),
