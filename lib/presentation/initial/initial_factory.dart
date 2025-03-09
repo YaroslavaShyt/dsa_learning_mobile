@@ -15,7 +15,13 @@ class InitialFactory {
           BlocProvider.of<InitialCubit>(context)
               .onUserStateChanged(state.status);
         },
-        child: InitialScreen(),
+        child: Builder(
+          builder: (BuildContext context) {
+            return InitialScreen(
+              cubit: BlocProvider.of<InitialCubit>(context),
+            );
+          },
+        ),
       ),
     );
   }

@@ -43,6 +43,12 @@ class _ServiceLocator {
     sl.registerFactory<IAuthRepository>(
       () => AuthRepository(networkingClient: sl.get<INetworkingClient>()),
     );
+    sl.registerFactory<IUserRepository>(
+      () => UserRepository(
+        backgroundParser: sl.get<IBackgroundParser>(),
+        networkingClient: sl.get<INetworkingClient>(),
+      ),
+    );
     sl.registerFactory<IAchievementsRepository>(
       () => AchievementsRepository(
         backgroundParser: sl.get<IBackgroundParser>(),
@@ -96,6 +102,7 @@ class _ServiceLocator {
         BlocProvider<UserService>(
           create: (BuildContext context) => UserService(
             authService: BlocProvider.of<AuthService>(context),
+            userRepository: sl.get<IUserRepository>(),
           )..onAuthStateChanged(),
         ),
       ];

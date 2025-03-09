@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:dsa_learning/data/auth/auth_response.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
 import 'package:dsa_learning/domain/auth/iauth_repository.dart';
+import 'package:dsa_learning/domain/auth/iauth_response.dart';
 import 'package:dsa_learning/domain/auth/isign_in_model.dart';
 import 'package:dsa_learning/domain/auth/isign_up_model.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
@@ -13,7 +15,7 @@ class AuthRepository implements IAuthRepository {
   final INetworkingClient _networkingClient;
 
   @override
-  Future<String?> signIn(ISignInModel model) async {
+  Future<IAuthResponse?> signIn(ISignInModel model) async {
     try {
       final Response? response = await _networkingClient.post(
         Endpoints.signInEndpoint,
@@ -22,7 +24,7 @@ class AuthRepository implements IAuthRepository {
       if (response == null) return null;
 
       if (response.statusCode == 200) {
-        return response.data;
+        return AuthResponse.fromJson(response.data);
       }
     } catch (_) {
       rethrow;
@@ -31,7 +33,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<String?> signUp(ISignUpModel model) async {
+  Future<IAuthResponse?> signUp(ISignUpModel model) async {
     try {
       final Response? response = await _networkingClient.post(
         Endpoints.signUpEndpoint,
@@ -40,7 +42,7 @@ class AuthRepository implements IAuthRepository {
       if (response == null) return null;
 
       if (response.statusCode == 200) {
-        return response.data;
+        return AuthResponse.fromJson(response.data);
       }
     } catch (_) {
       rethrow;

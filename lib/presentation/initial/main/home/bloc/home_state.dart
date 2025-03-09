@@ -9,28 +9,48 @@ class HomeState extends Equatable {
     this.streak = const [],
     this.status = HomeStatus.loading,
     this.achievements = const [],
+    this.userName = '',
+    this.hash = 0,
+    this.bytes = 0,
+    this.vent = 0,
   });
 
   HomeState copyWith({
     HomeStatus? status,
     List<IStreak>? streak,
     List<IAchievement>? achievements,
+    String? userName,
+    int? bytes,
+    int? hash,
+    int? vent,
   }) {
     return HomeState(
       status: status ?? this.status,
       streak: streak ?? this.streak,
       achievements: achievements ?? this.achievements,
+      userName: userName ?? this.userName,
+      bytes: bytes ?? this.bytes,
+      hash: hash ?? this.hash,
+      vent: vent ?? this.vent,
     );
   }
 
   final HomeStatus status;
   final List<IStreak> streak;
   final List<IAchievement> achievements;
+  final String userName;
+  final int bytes;
+  final int hash;
+  final int vent;
 
   @override
   List<Object?> get props => [
         status,
         streak,
         achievements,
+        userName,
+        bytes,
+        hash,
+        vent,
       ];
 }

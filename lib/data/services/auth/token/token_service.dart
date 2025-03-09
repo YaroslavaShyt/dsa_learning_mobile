@@ -1,7 +1,9 @@
+import 'package:dsa_learning/domain/auth/iauth_response.dart';
 import 'package:dsa_learning/domain/services/auth/itoken_service.dart';
 import 'package:dsa_learning/domain/storage/isecure_storage.dart';
 
 const String _token = 'token';
+const String _id = 'id';
 
 class TokenService implements ITokenService {
   TokenService({
@@ -21,9 +23,12 @@ class TokenService implements ITokenService {
   }
 
   @override
-  Future<bool> saveToken(String token) async {
+  Future<bool> saveToken(IAuthResponse token) async {
     try {
-      await _storage.create(key: _token, value: token);
+      await Future.wait([
+        _storage.create(key: _token, value: token.token),
+        _storage.create(key: _id, value: token.userId)
+      ]);
       return true;
     } catch (error) {}
     return false;

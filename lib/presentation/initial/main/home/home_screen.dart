@@ -65,7 +65,12 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                             children: [
                               _StreakWidget(streak: state.streak),
                               const SizedBox(height: 20),
-                              const _HelloUserWidget(),
+                              _HelloUserWidget(
+                                userName: state.userName,
+                                hash: state.hash,
+                                fan: state.vent,
+                                bytes: state.bytes,
+                              ),
                               const SizedBox(height: 20),
                               _AchievementsWidget(
                                 onSeeAllTap: () => showPopup(

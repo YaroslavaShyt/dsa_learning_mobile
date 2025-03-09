@@ -2,9 +2,17 @@ part of '../../home_screen.dart';
 
 class _HelloUserWidget extends StatelessWidget {
   const _HelloUserWidget({
+    required this.userName,
+    required this.bytes,
+    required this.hash,
+    required this.fan,
     this.onManageCurrencyTap,
   });
 
+  final int fan;
+  final int hash;
+  final int bytes;
+  final String userName;
   final VoidCallback? onManageCurrencyTap;
 
   @override
@@ -26,30 +34,30 @@ class _HelloUserWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${context.tr("helloUser")}\nYaroslava",
+                  "${context.tr("helloUser")}\n$userName",
                   maxLines: 2,
                   style: textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Column(
+                Column(
                   children: [
                     _CurrencyItem(
                       text: "bytes",
                       icon: ImageAssets.bytes,
-                      value: 10,
+                      value: bytes,
                     ),
                     _CurrencyItem(
                       text: "vents",
                       icon: ImageAssets.vents,
-                      value: 10,
+                      value: fan,
                     ),
                     _CurrencyItem(
                       text: "hash",
                       icon: ImageAssets.hash,
                       shouldShowDivider: false,
-                      value: 10,
+                      value: hash,
                     ),
                   ],
                 ),

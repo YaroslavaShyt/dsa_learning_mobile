@@ -11,10 +11,16 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     if (_isAuthHeaderRequired(options)) {
-      final String? token = await _storage.read(key: 'token');
-      options.headers['Authorization'] = 'Bearer $token';
+      final data = await Future.wait([
+        _storage.read(key: 'token'),
+        _storage.read(key: 'id'),
+      ]);
+      options.headers['Authorization'] = 'Bearer ${data.first}';
+      options.headers['X-User-Id'] = data.last;
     }
     handler.next(options);
   }

@@ -6,6 +6,9 @@ class Endpoints {
   static const String signInEndpoint = '$_auth/signin';
   static const String signUpEndpoint = '$_auth/signup';
 
+  // user
+  static const String userEndpoint = 'users';
+
   // achievements
   static const String _achievements = 'achievements';
   static const String getAllAchievementsEndpoint = '$_achievements/';

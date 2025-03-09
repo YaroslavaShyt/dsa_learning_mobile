@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/domain/auth/iauth_repository.dart';
+import 'package:dsa_learning/domain/auth/iauth_response.dart';
 import 'package:dsa_learning/domain/auth/isign_in_model.dart';
 import 'package:dsa_learning/domain/auth/isign_up_model.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
@@ -36,12 +37,12 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
   @override
   Future<void> signIn({required ISignInModel signInModel}) async {
     try {
-      final String? token = await _repository.signIn(signInModel);
-      if (token == null) {
+      final IAuthResponse? response = await _repository.signIn(signInModel);
+      if (response == null) {
         emit(state.copyWith(status: AuthStatus.notAuthorized));
         return;
       }
-      await _tokenService.saveToken(token);
+      await _tokenService.saveToken(response);
       emit(state.copyWith(status: AuthStatus.authorized));
     } catch (error) {
       rethrow;
@@ -51,12 +52,12 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
   @override
   Future<void> signUp({required ISignUpModel signUpModel}) async {
     try {
-      final String? token = await _repository.signUp(signUpModel);
-      if (token == null) {
+      final IAuthResponse? response = await _repository.signUp(signUpModel);
+      if (response == null) {
         emit(state.copyWith(status: AuthStatus.notAuthorized));
         return;
       }
-      await _tokenService.saveToken(token);
+      await _tokenService.saveToken(response);
       emit(state.copyWith(status: AuthStatus.authorized));
     } catch (error) {
       rethrow;
