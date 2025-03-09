@@ -9,6 +9,7 @@ class PopUp {
     VoidCallback? onPositivePressed,
     VoidCallback? onTapOutside,
     double height = 200,
+    double? width,
     Widget? child,
   }) {
     final ColorScheme colorScheme = getColorScheme(context);
@@ -18,6 +19,7 @@ class PopUp {
         return Dialog(
           child: Container(
             height: height,
+            width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               border: Border.all(

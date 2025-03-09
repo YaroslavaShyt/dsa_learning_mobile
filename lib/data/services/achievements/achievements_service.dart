@@ -53,9 +53,14 @@ class AchievementsService implements IAchievementsService {
 
   void _getLockedAchievements() {
     for (var achievement in _allAchievements) {
-      if (!_userAchievements.contains(achievement)) {
-        _achievements.add(achievement);
+      for (var userAchievement in _userAchievements) {
+        if (userAchievement.achievementType != achievement.achievementType) {
+          _achievements.add(achievement);
+        }
       }
+      // if (!_userAchievements.contains(achievement)) {
+      //   _achievements.add(achievement);
+      // }
     }
   }
 

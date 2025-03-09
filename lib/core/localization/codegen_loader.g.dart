@@ -89,15 +89,16 @@ static const Map<String,dynamic> _uk_UA = {
   "devotionDescription": "Не кожен зможе повернутись після пропущеного дня прогресу.",
   "junior": "Джуніор",
   "juniorDescription": "Ви знаєте усі алгоритми! Продовжуйте працювати!",
-  "middle": "Оце завзятість! Ви вивчили структури даних!",
+  "middle": "Мідл",
+  "middleDescription": "Оце завзятість! Ви вивчили структури даних!",
   "persistence": "Наполегливість",
   "persistenceDescription": "Два модулі за день - активний шлях до досягнення мети.",
   "responsibility": "Відповідальність",
   "responsibilityDescription": "Лише найвідповідальніші навчаються увесь тиждень!",
   "senior": "Сеньйор",
   "seniorDescription": "Усі завдання в розділі було виконано без помилок! Хіба не чудо?",
-  "teamLead": "Тім-лід",
-  "teamLeadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?"
+  "team-lead": "Тім-лід",
+  "team-leadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

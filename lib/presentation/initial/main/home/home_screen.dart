@@ -70,7 +70,10 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                               _AchievementsWidget(
                                 onSeeAllTap: () => showPopup(
                                   context: context,
-                                  child: AchievementsPopupContent(),
+                                  height: 400,
+                                  child: AchievementsPopupContent(
+                                    achievements: state.achievements,
+                                  ),
                                 ),
                                 achievements: state.achievements,
                               ),

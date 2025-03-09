@@ -8,8 +8,12 @@ mixin PopUpMixin {
     VoidCallback? onTapOutside,
     VoidCallback? onPositivePressed,
     VoidCallback? onNegativePressed,
+    double height = 200,
+    double? width,
   }) {
     PopUp.show(
+      height: height,
+      width: width,
       context: context,
       onTapOutside: onTapOutside,
       child: child,
