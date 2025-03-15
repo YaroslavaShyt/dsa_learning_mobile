@@ -14,12 +14,15 @@ class TokenService implements ITokenService {
 
   @override
   Future<String?> getToken() async {
-    return await _storage.read(key: _token) as String?;
+    return await _storage.read(key: _token);
   }
 
   @override
   Future<void> clearToken() async {
-    await _storage.delete(key: _token);
+    await Future.wait([
+      _storage.delete(key: _token),
+      _storage.delete(key: _id),
+    ]);
   }
 
   @override
@@ -27,10 +30,12 @@ class TokenService implements ITokenService {
     try {
       await Future.wait([
         _storage.create(key: _token, value: token.token),
-        _storage.create(key: _id, value: token.userId)
+        _storage.create(key: _id, value: token.userId.toString())
       ]);
       return true;
-    } catch (error) {}
+    } catch (error) {
+      print(error);
+    }
     return false;
   }
 }

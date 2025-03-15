@@ -43,23 +43,24 @@ class _AchievementsWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ...List.generate(
-                4,
-                (int index) {
-                  if (achievements[index].isLocked) {
-                    return SvgPicture.asset(
+              if (achievements.length > 4)
+                ...List.generate(
+                  4,
+                  (int index) {
+                    if (achievements[index].isLocked) {
+                      return SvgPicture.asset(
+                        achievements[index].path,
+                        height: 60,
+                        width: 60,
+                      );
+                    }
+                    return Image.asset(
                       achievements[index].path,
-                      height: 60,
-                      width: 60,
+                      height: 70,
+                      width: 70,
                     );
-                  }
-                  return Image.asset(
-                    achievements[index].path,
-                    height: 70,
-                    width: 70,
-                  );
-                },
-              ),
+                  },
+                ),
             ],
           ),
         ],

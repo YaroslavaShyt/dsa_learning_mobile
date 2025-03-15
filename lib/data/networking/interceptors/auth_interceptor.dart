@@ -20,13 +20,14 @@ class AuthInterceptor extends Interceptor {
         _storage.read(key: 'id'),
       ]);
       options.headers['Authorization'] = 'Bearer ${data.first}';
-      options.headers['X-User-Id'] = data.last;
+      options.headers['X-User-Id'] =
+          data.last != null ? int.parse(data.last!) : data.last;
     }
     handler.next(options);
   }
 
   bool _isAuthHeaderRequired(RequestOptions options) {
-    return options.uri.path != Endpoints.signInEndpoint &&
-        options.uri.path != Endpoints.signUpEndpoint;
+    return options.path != Endpoints.signInEndpoint &&
+        options.path != Endpoints.signUpEndpoint;
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/handlers/images/iselect_image_handler.dart';
+import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,14 +15,17 @@ class ProfileCubit extends Cubit<ProfileState> {
     required ILocalStorage localStorage,
     required ISelectImageHandler selectImageHandler,
     required INavigationUtil navigationUtil,
+    required IUserService userService,
   })  : _localStorage = localStorage,
         _selectImageHandler = selectImageHandler,
         _navigationUtil = navigationUtil,
+        _userService = userService,
         super(const ProfileState());
 
   final ILocalStorage _localStorage;
   final ISelectImageHandler _selectImageHandler;
   final INavigationUtil _navigationUtil;
+  final IUserService _userService;
 
   Future<void> init() async {
     try {
@@ -66,14 +70,21 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-
-  void onLanguageTap (){
+  void onLanguageTap() {
     emit(state.copyWith(isLanguageShown: !state.isLanguageShown));
   }
-  void onDeleteAccountTap(){}
 
-  void onAboutInfoTap(){
+  void onDeleteAccountTap() {}
+
+  void onAboutInfoTap() {
     emit(state.copyWith(isAboutInfoShown: !state.isAboutInfoShown));
   }
-  void onExitTap (){}
+
+  Future<void> onExitTap() async {
+    await _userService.cleanUserData();
+  }
+
+  void onCancelTap() {
+    _navigationUtil.navigateBack();
+  }
 }

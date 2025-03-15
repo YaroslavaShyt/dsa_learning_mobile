@@ -1,5 +1,5 @@
 class Endpoints {
-  static const String baseEndpoint = 'http://10.0.0.34:5000/api/';
+  static const String baseEndpoint = 'http://10.0.0.35:5000/api/';
 
   // auth
   static const String _auth = 'auth';
@@ -13,8 +13,7 @@ class Endpoints {
   static const String _achievements = 'achievements';
   static const String getAllAchievementsEndpoint = '$_achievements/';
 
-  static String getUserAchievementsEndpoint({required String userId}) =>
-      '$_achievements/user/$userId';
+  static String userAchievementsEndpoint = '$_achievements/user/';
 
   static String addNewAchievementEndpoint(
           {required String userId, required String achievementId}) =>
@@ -23,9 +22,7 @@ class Endpoints {
   // streak
   static const String _streak = 'streak';
 
-  static String getUserStreakEndpoint({required String userId}) =>
-      '$_streak/$userId';
+  static String userStreakEndpoint = "$_streak/";
 
-  static String updateUserStreakEndpoint({required String userId}) =>
-      '$_streak/$userId/update';
+  static String updateUserStreakEndpoint = '$_streak/update/';
 }

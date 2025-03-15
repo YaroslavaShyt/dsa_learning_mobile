@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainOutlinedButton extends StatelessWidget {
@@ -20,25 +21,28 @@ class MainOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
-    return OutlinedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        side: WidgetStateProperty.all(
-          BorderSide(
-            color: isActive
-                ? colorScheme.primaryFixed
-                : colorScheme.onSurface.withValues(alpha: 0.3),
-            width: 4.0,
+    return TapAnimatedWidget(
+      onTap: onPressed,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          side: WidgetStateProperty.all(
+            BorderSide(
+              color: isActive
+                  ? colorScheme.primaryFixed
+                  : colorScheme.onSurface.withValues(alpha: 0.3),
+              width: 4.0,
+            ),
           ),
+          elevation: WidgetStateProperty.all(15.0),
+          shadowColor: WidgetStateProperty.all(colorScheme.shadow),
         ),
-        elevation: WidgetStateProperty.all(15.0),
-        shadowColor: WidgetStateProperty.all(colorScheme.shadow),
-      ),
-      child: SizedBox(
-        width: width,
-        height: height,
-        child: Center(
-          child: child,
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: Center(
+            child: child,
+          ),
         ),
       ),
     );

@@ -69,6 +69,8 @@ class AuthService extends Cubit<AuthState> implements IAuthService {
     try {
       await _tokenService.clearToken();
       emit(state.copyWith(status: AuthStatus.notAuthorized));
-    } catch (error) {}
+    } catch (error) {
+      print(error);
+    }
   }
 }

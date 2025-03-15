@@ -17,7 +17,7 @@ class User implements IUser {
 
   factory User.fromJson(Map<dynamic, dynamic> data) {
     return User(
-      id: data[_id],
+      id: data[_id].toString(),
       firstName: data[_firstName],
       bytes: data[_bytes],
       fans: data[_fans],

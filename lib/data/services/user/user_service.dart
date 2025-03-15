@@ -56,6 +56,11 @@ class UserService extends Cubit<UserState> implements IUserService {
   }
 
   @override
+  Future<void> cleanUserData() async {
+    await _authService.signOut();
+  }
+
+  @override
   Future<void> close() {
     _authStream?.cancel();
     return super.close();

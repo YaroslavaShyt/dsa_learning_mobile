@@ -74,7 +74,7 @@ class AchievementsRepository implements IAchievementsRepository {
   Future<List<IAchievement>> getUserAchievements() async {
     try {
       final Response? response = await _networkingClient.get(
-        Endpoints.getUserAchievementsEndpoint(userId: '2'),
+        Endpoints.userAchievementsEndpoint,
       );
 
       if (response == null) return [];
@@ -104,7 +104,7 @@ class AchievementsRepository implements IAchievementsRepository {
   Future<List<IStreak>> getUserStreak() async {
     try {
       final Response? response = await _networkingClient.get(
-        Endpoints.getUserStreakEndpoint(userId: '2'),
+        Endpoints.userStreakEndpoint,
       );
 
       if (response == null) return [];

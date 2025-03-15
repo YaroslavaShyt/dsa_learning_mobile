@@ -98,7 +98,10 @@ static const Map<String,dynamic> _uk_UA = {
   "senior": "Сеньйор",
   "seniorDescription": "Усі завдання в розділі було виконано без помилок! Хіба не чудо?",
   "team-lead": "Тім-лід",
-  "team-leadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?"
+  "team-leadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?",
+  "yes": "Так",
+  "no": "Ні",
+  "doYouWantToExit": "Ви справді хочете вийти?"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

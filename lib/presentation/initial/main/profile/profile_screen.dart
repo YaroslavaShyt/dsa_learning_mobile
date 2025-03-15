@@ -4,6 +4,7 @@ import 'package:dsa_learning/core/widgets/popup/popup_mixin.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/widgets/add_avatar_popup_content/add_avatar_content.dart';
+import 'package:dsa_learning/presentation/initial/main/profile/widgets/confirm_exit/confirm_exit_popup_content.dart';
 import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -54,7 +55,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                         isLanguageShown: state.isLanguageShown,
                         onAboutInfoTap: cubit.onAboutInfoTap,
                         onDeleteAccountTap: cubit.onDeleteAccountTap,
-                        onExitTap: cubit.onExitTap,
+                        onExitTap: () => _onExitTap(context),
                         onLanguageTap: cubit.onLanguageTap,
                       ),
                     ],
@@ -74,6 +75,16 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
       child: AddAvatarContent(
         onAddAvatarFromCameraTap: cubit.onAddAvatarFromCameraTapped,
         onAddAvatarFromGalleryTap: cubit.onAddAvatarFromGalleryTapped,
+      ),
+    );
+  }
+
+  void _onExitTap(BuildContext context) {
+    showPopup(
+      context: context,
+      child: ConfirmExitPopupContent(
+        onCancelTap: cubit.onCancelTap,
+        onConfirmTap: cubit.onExitTap,
       ),
     );
   }

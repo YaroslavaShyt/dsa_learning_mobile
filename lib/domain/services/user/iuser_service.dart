@@ -4,4 +4,6 @@ abstract interface class IUserService {
   IUser? get user;
 
   Future<void> init();
+
+  Future<void> cleanUserData();
 }

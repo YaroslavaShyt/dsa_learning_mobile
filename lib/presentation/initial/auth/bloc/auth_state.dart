@@ -16,7 +16,7 @@ class AuthCubitState extends Equatable {
     this.name = '',
     this.password = 'slavka',
     this.confirmPassword = '',
-    this.isLoginButtonActive = false,
+    this.isLoginButtonActive = true,
     this.isSignUpButtonActive = false,
     this.selectedIndex = 0,
   });
