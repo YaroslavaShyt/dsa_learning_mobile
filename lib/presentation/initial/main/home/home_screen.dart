@@ -5,6 +5,7 @@ import 'package:dsa_learning/core/widgets/popup/popup_mixin.dart';
 import 'package:dsa_learning/data/achievements/streak.dart';
 import 'package:dsa_learning/domain/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievements_popup_content.dart';
@@ -46,7 +47,12 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
               children: [
                 const MainBackground(),
                 if (state.status == HomeStatus.loading)
-                  const CircularProgressIndicator(),
+                  LoaderFactory.build(
+                    LoaderArgs(
+                      loadingText: 'loading',
+                      loadedText: 'loaded',
+                    ),
+                  ),
                 if (state.status == HomeStatus.success)
                   Container(
                     margin: const EdgeInsetsDirectional.symmetric(

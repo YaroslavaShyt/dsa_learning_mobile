@@ -52,5 +52,6 @@
   "team-leadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?",
   "yes": "Так",
   "no": "Ні",
-  "doYouWantToExit" : "Ви справді хочете вийти?"
+  "doYouWantToExit" : "Ви справді хочете вийти?",
+  "loadingInformationBytes": "Завантажуємо байти інформації..."
 }

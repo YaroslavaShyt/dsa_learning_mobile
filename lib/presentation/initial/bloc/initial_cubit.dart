@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class InitialCubit extends Cubit<InitialState> {
   InitialCubit() : super(const InitialState());
 
-  void onUserStateChanged(UserStatus status) {
+  Future<void> onUserStateChanged(UserStatus status) async {
     return switch (status) {
-      UserStatus.initialized =>
-        emit(state.copyWith(status: InitialStatus.home)),
+      UserStatus.initialized => {
+          await Future.delayed(const Duration(seconds: 3)),
+          emit(state.copyWith(status: InitialStatus.home)),
+        },
       UserStatus.notInitialized =>
         emit(state.copyWith(status: InitialStatus.auth)),
     };
