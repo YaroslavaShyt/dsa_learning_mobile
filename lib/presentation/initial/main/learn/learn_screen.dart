@@ -1,7 +1,7 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/core/widgets/bottomsheet/bottom_sheet_mixin.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/pre_lesson_info.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_dotted_line.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_pattern.dart';
@@ -13,14 +13,19 @@ import 'package:dsa_learning/presentation/widgets/tab_bar/main_tab_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-part 'widgets/_learn_tab_bar.dart';
-part 'widgets/data_structures_content/_data_structures_content.dart';
-part 'widgets/algorithms/_algorithms_content.dart';
 part 'widgets/_category_container.dart';
+part 'widgets/_learn_tab_bar.dart';
+part 'widgets/algorithms/_algorithms_content.dart';
+part 'widgets/data_structures_content/_data_structures_content.dart';
 part 'widgets/levels/_level_widget.dart';
 
 class LearnScreen extends StatelessWidget {
-  const LearnScreen({super.key});
+  const LearnScreen({
+    required this.cubit,
+    super.key,
+  });
+
+  final LearnCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,10 @@ class LearnScreen extends StatelessWidget {
         child: Stack(
           children: [
             const MainBackground(),
-            _LearnTabBar(),
+            _LearnTabBar(
+              onStartButtonTap: cubit.onStartButtonTap,
+              onCloseButtonTap: cubit.onCloseButtonTap,
+            ),
           ],
         ),
       ),

@@ -26,7 +26,7 @@ class StartButton extends StatelessWidget {
         child: TapAnimatedWidget(
           onTap: onStartTap,
           child: MainOutlinedButton(
-            onPressed: () {},
+            onPressed: onStartTap ?? () {},
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

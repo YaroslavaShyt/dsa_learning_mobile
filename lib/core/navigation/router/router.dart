@@ -3,6 +3,7 @@ import 'package:dsa_learning/presentation/initial/auth/auth_factory.dart';
 import 'package:dsa_learning/presentation/initial/initial_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/home_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/learn_factory.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/lesson_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/main_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/profile_factory.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class AppRouter {
       AppRoutes.routeHome => _buildHome(routeSettings),
       AppRoutes.routeLearn => _buildLearn(routeSettings),
       AppRoutes.routeProfile => _buildProfile(routeSettings),
+      AppRoutes.routeLesson => _buildLesson(routeSettings),
       _ => _buildInitial(routeSettings),
     };
   }
@@ -52,6 +54,12 @@ class AppRouter {
   static MaterialPageRoute _buildLearn(RouteSettings settings) {
     return MaterialPageRoute(
       builder: (_) => LearnFactory.build(),
+    );
+  }
+
+  static MaterialPageRoute _buildLesson(RouteSettings settings) {
+    return MaterialPageRoute(
+      builder: (_) => LessonFactory.build(),
     );
   }
 }

@@ -1,7 +1,13 @@
 part of '../learn_screen.dart';
 
 class _LearnTabBar extends StatelessWidget {
-  const _LearnTabBar({super.key});
+  const _LearnTabBar({
+    required this.onCloseButtonTap,
+    required this.onStartButtonTap,
+  });
+
+  final VoidCallback onCloseButtonTap;
+  final VoidCallback onStartButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,10 @@ class _LearnTabBar extends StatelessWidget {
         ),
       ],
       tabBarContent: [
-        _AlgorithmsContent(),
+        _AlgorithmsContent(
+          onCloseButtonTap: onCloseButtonTap,
+          onStartButtonTap: onStartButtonTap,
+        ),
         _DataStructuresContent(),
       ],
     );

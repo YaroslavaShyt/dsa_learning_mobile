@@ -1,7 +1,13 @@
 part of '../../learn_screen.dart';
 
 class _AlgorithmsContent extends StatelessWidget with BottomSheetMixin {
-  const _AlgorithmsContent({super.key});
+  const _AlgorithmsContent({
+    required this.onCloseButtonTap,
+    required this.onStartButtonTap,
+  });
+
+  final VoidCallback onCloseButtonTap;
+  final VoidCallback onStartButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,8 @@ class _AlgorithmsContent extends StatelessWidget with BottomSheetMixin {
           onLevelTap: () => showAppBottomSheet(
             context: context,
             child: PreLessonInfo(
-              onCloseIconTap: () {},
+              onCloseIconTap: onCloseButtonTap,
+              onStartTap: onStartButtonTap,
             ),
           ),
         );
