@@ -26,5 +26,6 @@ class AppColorTheme {
     primaryFixed: ColorPalette.maize,
     primaryFixedDim: ColorPalette.crayola,
     onSecondaryContainer: ColorPalette.neatBlue,
+    onInverseSurface: ColorPalette.lavanda,
   );
 }

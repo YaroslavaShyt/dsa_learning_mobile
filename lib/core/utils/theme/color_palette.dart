@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   // PURPLE
   static const rebeccaPurple = Color(0xff5C3E84);
+  static const lavanda = Color(0xff896CB0);
 
   // YELLOW
   static const maize = Color(0xfffff27d);
