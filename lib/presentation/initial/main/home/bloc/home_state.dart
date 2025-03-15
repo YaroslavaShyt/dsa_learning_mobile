@@ -13,6 +13,7 @@ class HomeState extends Equatable {
     this.hash = 0,
     this.bytes = 0,
     this.vent = 0,
+    this.profilePhoto = '',
   });
 
   HomeState copyWith({
@@ -23,6 +24,7 @@ class HomeState extends Equatable {
     int? bytes,
     int? hash,
     int? vent,
+    String? profilePhoto,
   }) {
     return HomeState(
       status: status ?? this.status,
@@ -32,6 +34,7 @@ class HomeState extends Equatable {
       bytes: bytes ?? this.bytes,
       hash: hash ?? this.hash,
       vent: vent ?? this.vent,
+      profilePhoto: profilePhoto ?? this.profilePhoto,
     );
   }
 
@@ -42,6 +45,7 @@ class HomeState extends Equatable {
   final int bytes;
   final int hash;
   final int vent;
+  final String profilePhoto;
 
   @override
   List<Object?> get props => [
@@ -52,5 +56,6 @@ class HomeState extends Equatable {
         bytes,
         hash,
         vent,
+        profilePhoto,
       ];
 }

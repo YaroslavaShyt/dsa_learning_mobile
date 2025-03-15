@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                     children: [
                       _UserInfoWidget(
                         avatarPath: state.profilePhoto,
-                        userName: 'Yaroslava Shyt',
+                        userName: cubit.userName,
                         onAvatarTap: () => _onAvatarTap(context),
                       ),
                       _ProfileMenu(

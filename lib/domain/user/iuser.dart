@@ -5,6 +5,16 @@ abstract interface class IUser {
     required this.bytes,
     required this.fans,
     required this.hash,
+    this.profilePhoto = '',
+  });
+
+  IUser copyWith({
+    String? id,
+    String? firstName,
+    int? bytes,
+    int? fans,
+    int? hash,
+    String? profilePhoto,
   });
 
   final String id;
@@ -12,4 +22,5 @@ abstract interface class IUser {
   final int bytes;
   final int fans;
   final int hash;
+  final String profilePhoto;
 }

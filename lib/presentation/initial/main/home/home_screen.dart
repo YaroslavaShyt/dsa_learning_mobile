@@ -63,7 +63,10 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              _StreakWidget(streak: state.streak),
+                              _StreakWidget(
+                                streak: state.streak,
+                                avatarPath: state.profilePhoto,
+                              ),
                               const SizedBox(height: 20),
                               _HelloUserWidget(
                                 userName: state.userName,

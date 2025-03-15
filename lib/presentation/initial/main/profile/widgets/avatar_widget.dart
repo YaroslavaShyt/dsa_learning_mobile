@@ -25,8 +25,9 @@ class _UserInfoWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onAvatarTap,
-            child: SizedBox(
+            child: Container(
               width: 140,
+              margin: const EdgeInsetsDirectional.only(bottom: 10),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -35,7 +36,7 @@ class _UserInfoWidget extends StatelessWidget {
                     avatarPath: avatarPath,
                   ),
                   Positioned(
-                    right: 20,
+                    right: 24,
                     bottom: -6,
                     child: Text(
                       '+',

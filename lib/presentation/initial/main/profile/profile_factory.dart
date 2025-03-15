@@ -1,5 +1,6 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
+import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/handlers/images/iselect_image_handler.dart';
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/main.dart';
@@ -17,13 +18,23 @@ class ProfileFactory {
         navigationUtil: sl.get<INavigationUtil>(),
         userService: BlocProvider.of<UserService>(context),
       )..init(),
-      child: Builder(
-        builder: (BuildContext context) {
-          return ProfileScreen(
-            cubit: BlocProvider.of<ProfileCubit>(context),
-          );
+      child: BlocListener<UserService, UserState>(
+        listenWhen: _listedWhenUser,
+        listener: (BuildContext context, UserState state) {
+          BlocProvider.of<ProfileCubit>(context).init();
         },
+        child: Builder(
+          builder: (BuildContext context) {
+            return ProfileScreen(
+              cubit: BlocProvider.of<ProfileCubit>(context),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  static bool _listedWhenUser(UserState prev, UserState curr) {
+    return prev.user?.profilePhoto != curr.user?.profilePhoto;
   }
 }

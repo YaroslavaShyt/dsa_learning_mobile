@@ -5,5 +5,9 @@ abstract interface class IUserService {
 
   Future<void> init();
 
+  Future<void> updateUser({
+    String? profilePhoto,
+  });
+
   Future<void> cleanUserData();
 }

@@ -101,6 +101,7 @@ class _ServiceLocator {
         ),
         BlocProvider<UserService>(
           create: (BuildContext context) => UserService(
+            localStorage: sl.get<ILocalStorage>(),
             authService: BlocProvider.of<AuthService>(context),
             userRepository: sl.get<IUserRepository>(),
           )..onAuthStateChanged(),

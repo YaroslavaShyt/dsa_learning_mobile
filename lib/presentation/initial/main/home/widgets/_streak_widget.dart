@@ -3,9 +3,11 @@ part of '../home_screen.dart';
 class _StreakWidget extends StatelessWidget {
   const _StreakWidget({
     required this.streak,
+    required this.avatarPath,
   });
 
   final List<IStreak> streak;
+  final String avatarPath;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,9 @@ class _StreakWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const AvatarWidget(
+          AvatarWidget(
             size: 30,
-            avatarPath: '',
+            avatarPath: avatarPath,
           ),
           ..._buildStreak(),
         ],

@@ -5,16 +5,21 @@ import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
+import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:dsa_learning/domain/user/iuser_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+const String _avatarKey = 'avatar';
 
 class UserService extends Cubit<UserState> implements IUserService {
   UserService({
     required IAuthService authService,
     required IUserRepository userRepository,
+    required ILocalStorage localStorage,
   })  : _authService = authService,
         _userRepository = userRepository,
+        _localStorage = localStorage,
         super(const UserState());
 
   @override
@@ -22,6 +27,7 @@ class UserService extends Cubit<UserState> implements IUserService {
 
   final IAuthService _authService;
   final IUserRepository _userRepository;
+  final ILocalStorage _localStorage;
 
   StreamSubscription<AuthState>? _authStream;
 
@@ -42,7 +48,14 @@ class UserService extends Cubit<UserState> implements IUserService {
   @override
   Future<void> init() async {
     try {
-      final IUser? user = await _userRepository.getUser();
+      IUser? user = await _userRepository.getUser();
+      final String profilePhoto =
+          await _localStorage.read(key: _avatarKey) ?? '';
+
+      if (user != null) {
+        user = user.copyWith(profilePhoto: profilePhoto);
+      }
+
       emit(
         state.copyWith(
           status:
@@ -53,6 +66,19 @@ class UserService extends Cubit<UserState> implements IUserService {
     } catch (error) {
       logger.e(error);
     }
+  }
+
+  @override
+  Future<void> updateUser({
+    String? profilePhoto,
+  }) async {
+    emit(
+      state.copyWith(
+        user: user?.copyWith(
+          profilePhoto: profilePhoto,
+        ),
+      ),
+    );
   }
 
   @override

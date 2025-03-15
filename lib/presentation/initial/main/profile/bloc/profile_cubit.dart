@@ -27,12 +27,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   final INavigationUtil _navigationUtil;
   final IUserService _userService;
 
+  String get userName => _userService.user?.firstName ?? 'user';
+
   Future<void> init() async {
     try {
-      final String? profilePhoto = await _localStorage.read(key: _avatarKey);
-      if (profilePhoto != null) {
-        emit(state.copyWith(profilePhoto: File(profilePhoto).path));
-      }
+      final String profilePhoto = _userService.user?.profilePhoto ?? '';
+      emit(state.copyWith(profilePhoto: File(profilePhoto).path));
     } catch (error) {
       logger.e(error);
     }
@@ -47,6 +47,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (file != null) {
         emit(state.copyWith(profilePhoto: file.path));
         _localStorage.create(key: _avatarKey, value: file.path);
+        _userService.updateUser(profilePhoto: file.path);
         _navigationUtil.navigateBack();
       }
     } catch (error) {
@@ -63,6 +64,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (file != null) {
         emit(state.copyWith(profilePhoto: file.path));
         _localStorage.create(key: _avatarKey, value: file.path);
+        _userService.updateUser(profilePhoto: file.path);
         _navigationUtil.navigateBack();
       }
     } catch (error) {

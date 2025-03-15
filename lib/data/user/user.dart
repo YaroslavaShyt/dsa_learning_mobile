@@ -13,7 +13,27 @@ class User implements IUser {
     required this.bytes,
     required this.fans,
     required this.hash,
+    this.profilePhoto = '',
   });
+
+  @override
+  IUser copyWith({
+    String? id,
+    String? firstName,
+    int? bytes,
+    int? fans,
+    int? hash,
+    String? profilePhoto,
+  }) {
+    return User(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      bytes: bytes ?? this.bytes,
+      fans: fans ?? this.fans,
+      hash: hash ?? this.fans,
+      profilePhoto: profilePhoto ?? this.profilePhoto,
+    );
+  }
 
   factory User.fromJson(Map<dynamic, dynamic> data) {
     return User(
@@ -27,12 +47,19 @@ class User implements IUser {
 
   @override
   final String id;
+
   @override
   final String firstName;
+
   @override
   final int bytes;
+
   @override
   final int fans;
+
   @override
   final int hash;
+
+  @override
+  final String profilePhoto;
 }

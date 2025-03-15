@@ -31,11 +31,16 @@ class HomeCubit extends Cubit<HomeState> {
           hash: _user.hash,
           bytes: _user.bytes,
           vent: _user.fans,
+          profilePhoto: _user.profilePhoto,
         ),
       );
     } catch (error) {
       logger.e(error);
       emit(state.copyWith(status: HomeStatus.failure));
     }
+  }
+
+  void onUserDataChanged() {
+    emit(state.copyWith(profilePhoto: _user.profilePhoto));
   }
 }
