@@ -26,12 +26,7 @@ class _InitialScreenState extends State<InitialScreen> {
         return switch (state.status) {
           InitialStatus.auth => AuthFactory.build(),
           InitialStatus.home => MainFactory.build(),
-          InitialStatus.loading => LoaderFactory.build(
-              LoaderArgs(
-                loadingText: 'loading',
-                loadedText: 'loaded',
-              ),
-            ),
+          InitialStatus.loading => LoaderFactory.build(),
         };
       },
     );

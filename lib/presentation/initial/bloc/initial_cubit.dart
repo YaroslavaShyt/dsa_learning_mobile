@@ -13,6 +13,8 @@ class InitialCubit extends Cubit<InitialState> {
         },
       UserStatus.notInitialized =>
         emit(state.copyWith(status: InitialStatus.auth)),
+      UserStatus.undefined =>
+        emit(state.copyWith(status: InitialStatus.loading)),
     };
   }
 }

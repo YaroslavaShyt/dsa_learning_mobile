@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 
 class LoaderScreen extends StatelessWidget {
   const LoaderScreen({
-    required this.loadingText,
-    required this.loadedText,
+    this.loadingText,
+    this.loadedText,
     required this.isLoadingInProgress,
     super.key,
   });
 
-  final String loadingText;
-  final String loadedText;
+  final String? loadingText;
+  final String? loadedText;
   final bool isLoadingInProgress;
 
   @override

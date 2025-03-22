@@ -12,10 +12,8 @@ class LoaderArgs {
 }
 
 class LoaderFactory {
-  static Widget build(LoaderArgs args) {
+  static Widget build() {
     return LoaderScreen(
-      loadedText: args.loadedText,
-      loadingText: args.loadingText,
       isLoadingInProgress: true,
     );
   }

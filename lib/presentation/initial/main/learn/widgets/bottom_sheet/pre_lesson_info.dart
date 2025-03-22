@@ -1,3 +1,4 @@
+import 'package:dsa_learning/domain/lesson/ilesson.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/close_button.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/plan_container.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/start_button.dart';
@@ -7,27 +8,17 @@ import 'package:flutter/material.dart';
 
 class PreLessonInfo extends StatelessWidget {
   const PreLessonInfo({
+    required this.lesson,
     required this.onCloseIconTap,
-    this.categoryName = 'Алгоритми сортування',
-    this.lessonName = 'Урок 1: Вступ',
-    this.planStep1 =
-        'Огляд алгоритмів сортування та їх важливість в програмуванні.',
-    this.planStep2 = 'Визначення поняття "сортування" та основні терміни.',
-    this.planStep3 = 'Класифікація алгоритмів сортування.',
-    this.planStep4 =
-        'Оцінка складності алгоритмів сортування (O(n), O(n^2) тощо)',
+    required this.categoryName,
     this.onStartTap,
     super.key,
   });
 
   final VoidCallback onCloseIconTap;
   final String categoryName;
-  final String lessonName;
-  final String planStep1;
-  final String planStep2;
-  final String planStep3;
-  final String planStep4;
   final VoidCallback? onStartTap;
+  final ILesson lesson;
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +30,13 @@ class PreLessonInfo extends StatelessWidget {
         ),
         TitleContainer(
           categoryName: categoryName,
-          lessonName: lessonName,
+          lessonName: lesson.title,
         ),
         PlanContainer(
-          planStep1: planStep1,
-          planStep2: planStep2,
-          planStep3: planStep3,
-          planStep4: planStep4,
+          planStep1: lesson.plan.step1,
+          planStep2: lesson.plan.step2,
+          planStep3: lesson.plan.step3,
+          planStep4: lesson.plan.step4,
         ),
         const Positioned(
           left: -30,

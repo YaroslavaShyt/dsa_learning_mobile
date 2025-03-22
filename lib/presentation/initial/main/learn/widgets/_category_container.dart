@@ -1,13 +1,19 @@
 part of '../learn_screen.dart';
 
-class _CategoryContainer extends StatelessWidget {
+class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
   const _CategoryContainer({
+    required this.title,
     required this.pattern,
-    required this.onLevelTap,
+    required this.lessonsSummary,
+    required this.onStartTap,
+    required this.onCloseIconTap,
   });
 
+  final String title;
   final Pattern pattern;
-  final VoidCallback onLevelTap;
+  final List<ILesson> lessonsSummary;
+  final VoidCallback onCloseIconTap;
+  final VoidCallback? onStartTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class _CategoryContainer extends StatelessWidget {
             child: SizedBox(
               width: 100,
               child: Text(
-                context.tr("sortingAlgorithms"),
+                title,
                 style: textTheme.labelSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -31,7 +37,7 @@ class _CategoryContainer extends StatelessWidget {
             ),
           ),
           ...List.generate(
-            4,
+            lessonsSummary.length - 1,
             (int index) {
               return MainDottedLine(
                 position: pattern.dashPositions[index],
@@ -39,12 +45,20 @@ class _CategoryContainer extends StatelessWidget {
             },
           ),
           ...List.generate(
-            5,
+            lessonsSummary.length,
             (int index) {
               return _LevelWidget(
                 levelNum: (index + 1).toString(),
                 position: pattern.positions[index],
-                onTap: onLevelTap,
+                onTap: () => showAppBottomSheet(
+                  context: context,
+                  child: PreLessonInfo(
+                    categoryName: title,
+                    lesson: lessonsSummary[index],
+                    onCloseIconTap: onCloseIconTap,
+                    onStartTap: onStartTap,
+                  ),
+                ),
               );
             },
           ),

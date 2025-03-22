@@ -40,19 +40,25 @@ class _ServiceLocator {
   }
 
   static void _initRepos() {
+    final INetworkingClient networkingClient = sl.get<INetworkingClient>();
     sl.registerFactory<IAuthRepository>(
-      () => AuthRepository(networkingClient: sl.get<INetworkingClient>()),
+      () => AuthRepository(networkingClient: networkingClient),
     );
     sl.registerFactory<IUserRepository>(
       () => UserRepository(
         backgroundParser: sl.get<IBackgroundParser>(),
-        networkingClient: sl.get<INetworkingClient>(),
+        networkingClient: networkingClient,
       ),
     );
     sl.registerFactory<IAchievementsRepository>(
       () => AchievementsRepository(
         backgroundParser: sl.get<IBackgroundParser>(),
-        networkingClient: sl.get<INetworkingClient>(),
+        networkingClient: networkingClient,
+      ),
+    );
+    sl.registerFactory<ILessonRepository>(
+      () => LessonRepository(
+        networkingClient: networkingClient,
       ),
     );
   }

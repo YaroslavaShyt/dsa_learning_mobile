@@ -46,13 +46,7 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
             return Stack(
               children: [
                 const MainBackground(),
-                if (state.status == HomeStatus.loading)
-                  LoaderFactory.build(
-                    LoaderArgs(
-                      loadingText: 'loading',
-                      loadedText: 'loaded',
-                    ),
-                  ),
+                if (state.status == HomeStatus.loading) LoaderFactory.build(),
                 if (state.status == HomeStatus.success)
                   Container(
                     margin: const EdgeInsetsDirectional.symmetric(

@@ -1,11 +1,15 @@
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:equatable/equatable.dart';
 
-enum UserStatus { initialized, notInitialized }
+enum UserStatus {
+  initialized,
+  notInitialized,
+  undefined,
+}
 
 class UserState extends Equatable {
   const UserState({
-    this.status = UserStatus.notInitialized,
+    this.status = UserStatus.undefined,
     this.user,
   });
 
@@ -14,7 +18,10 @@ class UserState extends Equatable {
     IUser? user,
   }) {
     return UserState(
-      user: status == UserStatus.notInitialized ? null : user,
+      user:
+          status == UserStatus.notInitialized || status == UserStatus.undefined
+              ? null
+              : user,
       status: status ?? this.status,
     );
   }

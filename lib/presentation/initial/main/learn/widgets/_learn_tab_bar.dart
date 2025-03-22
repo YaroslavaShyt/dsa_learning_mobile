@@ -4,10 +4,12 @@ class _LearnTabBar extends StatelessWidget {
   const _LearnTabBar({
     required this.onCloseButtonTap,
     required this.onStartButtonTap,
+    required this.lessonsSummary,
   });
 
   final VoidCallback onCloseButtonTap;
   final VoidCallback onStartButtonTap;
+  final List<ICategory> lessonsSummary;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,12 @@ class _LearnTabBar extends StatelessWidget {
       ],
       tabBarContent: [
         _AlgorithmsContent(
+          categorySummary: lessonsSummary.first,
           onCloseButtonTap: onCloseButtonTap,
           onStartButtonTap: onStartButtonTap,
         ),
-        _DataStructuresContent(),
+        //_DataStructuresContent(),
+        Container(),
       ],
     );
   }

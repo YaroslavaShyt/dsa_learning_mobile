@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/learn_screen.dart';
@@ -10,7 +11,8 @@ class LearnFactory {
     return BlocProvider<LearnCubit>(
       create: (context) => LearnCubit(
         navigationUtil: sl.get<INavigationUtil>(),
-      ),
+        lessonRepository: sl.get<ILessonRepository>(),
+      )..init(),
       child: Builder(
         builder: (BuildContext context) {
           return LearnScreen(

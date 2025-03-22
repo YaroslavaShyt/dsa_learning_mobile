@@ -25,4 +25,8 @@ class Endpoints {
   static String userStreakEndpoint = "$_streak/";
 
   static String updateUserStreakEndpoint = '$_streak/update/';
+
+  /// LESSON
+  static const String _lessonEndpoint = 'lessons';
+  static const String getLessonSummaryEndpoint = '$_lessonEndpoint/summary';
 }
