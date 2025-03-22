@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
@@ -25,12 +26,18 @@ class LessonCubit extends Cubit<LessonState> {
 
   Future<void> init() async {
     try {
-      final ILessonTheory? theory =
-          await _lessonRepository.getLessonTheory(_id);
+      final List<Object?> data = await Future.wait([
+        _lessonRepository.getLessonTheory(_id),
+        _lessonRepository.getLessonGame(_id),
+      ]);
+
       emit(
         state.copyWith(
-          lessonTheory: theory,
-          status: theory != null ? LessonStatus.loaded : LessonStatus.failure,
+          game: data.last as IGame,
+          lessonTheory: data.first as ILessonTheory,
+          status: data.first != null && data.last != null
+              ? LessonStatus.loaded
+              : LessonStatus.failure,
         ),
       );
     } catch (error) {
@@ -39,7 +46,11 @@ class LessonCubit extends Cubit<LessonState> {
     }
   }
 
-  void onNextButtonPressed() {
+  void onNextButtonPressed(VoidCallback onTheoryFinished) {
+    if (state.step == 4) {
+      onTheoryFinished();
+      return;
+    }
     emit(
       state.copyWith(
         step: state.step + 1,
