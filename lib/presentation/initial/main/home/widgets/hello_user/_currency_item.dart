@@ -30,17 +30,17 @@ class _CurrencyItem extends StatelessWidget {
                   height: 44,
                   width: 44,
                 ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(bottom: 8.0),
+                  child: Text(
+                    context.tr(text),
+                    style: getTextTheme(context).labelSmall?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ),
               ],
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: 8.0),
-              child: Text(
-                context.tr(text),
-                style: getTextTheme(context).labelSmall?.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-              ),
             ),
             Text(
               "${value}x",

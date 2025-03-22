@@ -19,67 +19,71 @@ class _HelloUserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     return MainContainer(
+      height: 270,
       padding: const EdgeInsetsDirectional.symmetric(
         horizontal: 20,
         vertical: 16,
       ),
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      content: Stack(
         children: [
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${context.tr("helloUser")}\n$userName",
-                  maxLines: 2,
-                  style: textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  children: [
-                    _CurrencyItem(
-                      text: "bytes",
-                      icon: ImageAssets.bytes,
-                      value: bytes,
-                    ),
-                    _CurrencyItem(
-                      text: "vents",
-                      icon: ImageAssets.vents,
-                      value: fan,
-                    ),
-                    _CurrencyItem(
-                      text: "hash",
-                      icon: ImageAssets.hash,
-                      shouldShowDivider: false,
-                      value: hash,
-                    ),
-                  ],
-                ),
-              ],
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Text(
+              "${context.tr("helloUser")}\n$userName",
+              maxLines: 2,
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: onManageCurrencyTap,
-                  child: Text(
-                    context.tr("manageCurrency"),
-                    style: textTheme.labelSmall,
+          Positioned(
+            top: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: onManageCurrencyTap,
+              child: Text(
+                context.tr("manageCurrency"),
+                style: textTheme.labelSmall,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: SizedBox(
+              height: 140,
+              width: 180,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _CurrencyItem(
+                    text: "bytes",
+                    icon: ImageAssets.bytes,
+                    value: bytes,
                   ),
-                ),
-                const RobotAnimation(
-                  height: 200,
-                  width: 200,
-                ),
-              ],
+                  _CurrencyItem(
+                    text: "vents",
+                    icon: ImageAssets.vents,
+                    value: fan,
+                  ),
+                  _CurrencyItem(
+                    text: "hash",
+                    icon: ImageAssets.hash,
+                    shouldShowDivider: false,
+                    value: hash,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Positioned(
+            right: -30,
+            top: 10,
+            bottom: 10,
+            child: RobotAnimation(
+              height: 200,
+              width: 200,
             ),
           ),
         ],
