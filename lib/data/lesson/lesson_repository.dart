@@ -3,12 +3,16 @@ import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/category/category.dart';
 import 'package:dsa_learning/data/lesson/lesson.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
+import 'package:dsa_learning/data/theory/lesson_theory.dart';
 import 'package:dsa_learning/data/topic/topic.dart';
 import 'package:dsa_learning/domain/category/icategory.dart';
 import 'package:dsa_learning/domain/lesson/ilesson.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
+import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/domain/topic/itopic.dart';
+
+part 'lesson_repo_parser.dart';
 
 class LessonRepository implements ILessonRepository {
   LessonRepository({
@@ -36,33 +40,19 @@ class LessonRepository implements ILessonRepository {
     return [];
   }
 
-  ITopic _createTopic(String topic, List lessonData) {
-    return Topic(
-      title: topic,
-      lessons: _createLessons(lessonData),
-    );
-  }
+  @override
+  Future<ILessonTheory?> getLessonTheory(int id) async {
+    try {
+      final Response? response = await _networkingClient.get(
+        Endpoints.getLessonTheory(id),
+      );
 
-  List<ILesson> _createLessons(List lessonData) {
-    return lessonData.map(
-      (lesson) {
-        return Lesson.fromJson(lesson);
-      },
-    ).toList();
-  }
+      if (response == null) return null;
 
-  ICategory _createCategory(String category, Map categoryData) {
-    return Category(
-      title: category,
-      topics: _createTopics(categoryData),
-    );
-  }
-
-  List<ITopic> _createTopics(Map categoryData) {
-    return categoryData.keys.map(
-      (topic) {
-        return _createTopic(topic, categoryData[topic]);
-      },
-    ).toList();
+      return LessonTheory.fromJson(response.data);
+    } catch (error) {
+      logger.e(error);
+    }
+    return null;
   }
 }

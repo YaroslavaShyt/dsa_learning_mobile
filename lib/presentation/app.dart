@@ -14,11 +14,11 @@ class _MainApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: _navigationUtil.navigatorKey,
         theme: AppColorTheme.theme(context),
-        initialRoute: AppRoutes.routeInitial,
         onGenerateRoute: AppRouter.onGenerateRoute,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
+        home: InitialFactory.build(),
       ),
     );
   }

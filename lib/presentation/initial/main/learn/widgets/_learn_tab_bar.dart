@@ -8,7 +8,7 @@ class _LearnTabBar extends StatelessWidget {
   });
 
   final VoidCallback onCloseButtonTap;
-  final VoidCallback onStartButtonTap;
+  final void Function(int) onStartButtonTap;
   final List<ICategory> lessonsSummary;
 
   @override

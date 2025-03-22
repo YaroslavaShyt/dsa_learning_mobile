@@ -6,16 +6,21 @@ import 'package:flutter/material.dart';
 
 class TheoryWidget extends StatelessWidget {
   const TheoryWidget({
-    this.lessonName = 'Урок 1: Вступ',
-    this.stepName =
-        'Огляд алгоритмів сортування та їх важливість в програмуванні',
-    this.content = contentT,
+    required this.lessonName,
+    required this.stepName,
+    required this.content,
+    required this.onNextButtonTap,
+    required this.onBackButtonTap,
+    required this.onPauseButtonTap,
     super.key,
   });
 
   final String lessonName;
   final String stepName;
   final String content;
+  final VoidCallback onPauseButtonTap;
+  final VoidCallback onNextButtonTap;
+  final VoidCallback onBackButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +34,13 @@ class TheoryWidget extends StatelessWidget {
         children: [
           ProgressBar(lessonName: lessonName),
           StepName(stepName: stepName),
-          TheoryContent(content: content),
+          Expanded(
+            child: TheoryContent(content: content),
+          ),
           Buttons(
-            onLeftButtonTap: () {},
-            onRightButtonTap: () {},
+            onNextButtonTap: onNextButtonTap,
+            onBackButtonTap: onBackButtonTap,
+            onPauseButtonTap: onPauseButtonTap,
           ),
         ],
       ),

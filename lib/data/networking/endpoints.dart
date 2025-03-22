@@ -29,4 +29,5 @@ class Endpoints {
   /// LESSON
   static const String _lessonEndpoint = 'lessons';
   static const String getLessonSummaryEndpoint = '$_lessonEndpoint/summary';
+  static String getLessonTheory(int id) => '$_lessonEndpoint/$id/details';
 }

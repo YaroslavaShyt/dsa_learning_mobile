@@ -13,7 +13,7 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
   final Pattern pattern;
   final List<ILesson> lessonsSummary;
   final VoidCallback onCloseIconTap;
-  final VoidCallback? onStartTap;
+  final void Function(int) onStartTap;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
                     categoryName: title,
                     lesson: lessonsSummary[index],
                     onCloseIconTap: onCloseIconTap,
-                    onStartTap: onStartTap,
+                    onStartTap: () => onStartTap(lessonsSummary[index].id),
                   ),
                 ),
               );

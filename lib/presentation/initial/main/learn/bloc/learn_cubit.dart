@@ -4,6 +4,7 @@ import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/category/icategory.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_state.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/lesson_factory.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LearnCubit extends Cubit<LearnState> {
@@ -37,8 +38,11 @@ class LearnCubit extends Cubit<LearnState> {
     _navigationUtil.navigateBack();
   }
 
-  void onStartButtonTap() {
+  void onStartButtonTap(int id) {
     _navigationUtil.navigateBack();
-    _navigationUtil.navigateTo(AppRoutes.routeLesson);
+    _navigationUtil.navigateTo(
+      AppRoutes.routeLesson,
+      data: LessonRoutingArgs(id: id),
+    );
   }
 }

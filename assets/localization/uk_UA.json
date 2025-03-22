@@ -53,5 +53,7 @@
   "yes": "Так",
   "no": "Ні",
   "doYouWantToExit" : "Ви справді хочете вийти?",
-  "loadingInformationBytes": "Завантажуємо байти інформації..."
+  "loadingInformationBytes": "Завантажуємо байти інформації...",
+  "next": "Далі",
+  "pause": "Пауза"
 }
