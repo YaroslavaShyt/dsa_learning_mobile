@@ -20,53 +20,35 @@ class AchievementsService implements IAchievementsService {
   List<IAchievement> _achievements = [];
 
   List<IAchievement> _userAchievements = [];
-  List<IAchievement> _allAchievements = [];
 
   @override
   Future<void> init() async {
     try {
-      final data = await Future.wait([
+      final List<List<Object>> data = await Future.wait([
         _achievementsRepository.getAllAchievements(),
         _achievementsRepository.getUserAchievements(),
         _achievementsRepository.getUserStreak(),
       ]);
-      _allAchievements = data[0] as List<IAchievement>;
+
+      _achievements = data[0] as List<IAchievement>;
       _userAchievements = data[1] as List<IAchievement>;
       _streak = data[2] as List<IStreak>;
+
       _getUserAchievements();
-      _getLockedAchievements();
     } catch (error) {
-      print("logger achievements service:");
       logger.e(error);
     }
   }
 
   void _getUserAchievements() {
-    for (var achievement in _allAchievements) {
-      for (var usrAchievement in _userAchievements) {
-        if (usrAchievement.achievementType == achievement.achievementType) {
-          _achievements.add(usrAchievement);
+    _achievements.map(
+      (element) {
+        for (var achievement in _userAchievements) {
+          if (achievement.achievementType == element.achievementType) {
+            return achievement;
+          }
         }
-      }
-    }
-  }
-
-  void _getLockedAchievements() {
-    for (var achievement in _allAchievements) {
-      for (var userAchievement in _userAchievements) {
-        if (userAchievement.achievementType != achievement.achievementType) {
-          _achievements.add(achievement);
-        }
-      }
-      // if (!_userAchievements.contains(achievement)) {
-      //   _achievements.add(achievement);
-      // }
-    }
-  }
-
-  @override
-  Future<void> getStreak() {
-    // TODO: implement getStreak
-    throw UnimplementedError();
+      },
+    );
   }
 }

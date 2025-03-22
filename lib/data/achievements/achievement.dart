@@ -13,7 +13,7 @@ enum AchievementType {
   middle("middle"),
   persistence("persistence"),
   responsibility("responsibility"),
-  savyy("savyy"),
+  savvy("savvy"),
   senior("senior"),
   teamLead("team-lead");
 
@@ -91,7 +91,7 @@ class Achievement implements IAchievement {
       AchievementType.middle => ImageAssets.middle,
       AchievementType.persistence => ImageAssets.persistence,
       AchievementType.responsibility => ImageAssets.responsibility,
-      AchievementType.savyy => ImageAssets.savyy,
+      AchievementType.savvy => ImageAssets.savyy,
       AchievementType.senior => ImageAssets.senior,
       AchievementType.teamLead => ImageAssets.teamLead,
     };

@@ -54,42 +54,42 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                       vertical: 14,
                     ),
                     width: double.infinity,
-                    child: Scrollbar(
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                          start: 6,
-                          end: 10.0,
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              _StreakWidget(
-                                streak: state.streak,
-                                avatarPath: state.profilePhoto,
-                              ),
-                              const SizedBox(height: 20),
-                              _HelloUserWidget(
-                                userName: state.userName,
-                                hash: state.hash,
-                                fan: state.vent,
-                                bytes: state.bytes,
-                              ),
-                              const SizedBox(height: 20),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 6,
+                        end: 10.0,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            _StreakWidget(
+                              streak: state.streak,
+                              avatarPath: state.profilePhoto,
+                            ),
+                            const SizedBox(height: 20),
+                            _HelloUserWidget(
+                              userName: state.userName,
+                              hash: state.hash,
+                              fan: state.vent,
+                              bytes: state.bytes,
+                            ),
+                            const SizedBox(height: 20),
+                            if (state.achievements.isNotEmpty)
                               _AchievementsWidget(
                                 onSeeAllTap: () => showPopup(
                                   context: context,
                                   height: 400,
                                   child: AchievementsPopupContent(
                                     achievements: state.achievements,
+                                    onCloseButtonTap: cubit.onCloseButtonTap,
                                   ),
                                 ),
                                 achievements: state.achievements,
                               ),
-                              const SizedBox(height: 20),
-                              const _StatisticsWidget(),
-                              const SizedBox(height: 100),
-                            ],
-                          ),
+                            const SizedBox(height: 20),
+                            const _StatisticsWidget(),
+                            const SizedBox(height: 100),
+                          ],
                         ),
                       ),
                     ),

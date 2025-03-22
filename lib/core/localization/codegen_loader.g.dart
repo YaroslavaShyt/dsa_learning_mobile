@@ -83,7 +83,7 @@ static const Map<String,dynamic> _uk_UA = {
   "fromGallery": "Обрати фото з галереї",
   "plan": "План",
   "game": "Гра",
-  "savyy": "Кмітливість",
+  "savvy": "Кмітливість",
   "savvyDescription": "Модуль було завершено без помилок! Так тримати!",
   "devotion": "Відданість",
   "devotionDescription": "Не кожен зможе повернутись після пропущеного дня прогресу.",
@@ -102,7 +102,9 @@ static const Map<String,dynamic> _uk_UA = {
   "yes": "Так",
   "no": "Ні",
   "doYouWantToExit": "Ви справді хочете вийти?",
-  "loadingInformationBytes": "Завантажуємо байти інформації..."
+  "loadingInformationBytes": "Завантажуємо байти інформації...",
+  "next": "Далі",
+  "pause": "Пауза"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

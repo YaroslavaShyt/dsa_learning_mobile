@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
@@ -9,12 +10,15 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({
     required IAchievementsService achievementsService,
     required IUserService userService,
+    required INavigationUtil navigationUtil,
   })  : _achievementsService = achievementsService,
         _userService = userService,
+        _navigationUtil = navigationUtil,
         super(const HomeState());
 
   final IAchievementsService _achievementsService;
   final IUserService _userService;
+  final INavigationUtil _navigationUtil;
 
   IUser get _user => _userService.user!;
 
@@ -38,6 +42,10 @@ class HomeCubit extends Cubit<HomeState> {
       logger.e(error);
       emit(state.copyWith(status: HomeStatus.failure));
     }
+  }
+
+  void onCloseButtonTap() {
+    _navigationUtil.navigateBack();
   }
 
   void onUserDataChanged() {
