@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
-import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+const double _progressStep = 0.125;
 
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
@@ -39,12 +40,22 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onNextButtonPressed() {
-    emit(state.copyWith(step: state.step + 1));
+    emit(
+      state.copyWith(
+        step: state.step + 1,
+        progress: state.progress + _progressStep,
+      ),
+    );
   }
 
   void onBackButtonPressed(VoidCallback confirmExit) {
     if (state.step > 1) {
-      emit(state.copyWith(step: state.step - 1));
+      emit(
+        state.copyWith(
+          step: state.step - 1,
+          progress: state.progress - _progressStep,
+        ),
+      );
       return;
     }
     confirmExit();

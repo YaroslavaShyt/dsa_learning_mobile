@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dsa_learning/core/exceptions/user_not_found_exception.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/core/utils/parsers/background_parser.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
@@ -32,7 +33,14 @@ class UserRepository implements IUserRepository {
           data: response.data,
         );
       }
+    } on DioException catch (error) {
+      if (error is UserNotFoundException) {
+        print('kek');
+      }
     } catch (error) {
+      if (error is UserNotFoundException) {
+        throw UserNotFoundException();
+      }
       logger.e(error);
       rethrow;
     }

@@ -56,7 +56,7 @@ class Buttons extends StatelessWidget {
     required VoidCallback onPressed,
   }) {
     return MainOutlinedButton(
-      width: 70,
+      width: 60,
       color: color,
       onPressed: onPressed,
       child: Text(

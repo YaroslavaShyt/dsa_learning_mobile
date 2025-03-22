@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dsa_learning/core/exceptions/user_not_found_exception.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
@@ -62,6 +63,8 @@ class UserService extends Cubit<UserState> implements IUserService {
           user: user,
         ),
       );
+    } on UserNotFoundException catch (_) {
+      cleanUserData();
     } catch (error) {
       logger.e(error);
     }

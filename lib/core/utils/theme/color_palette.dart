@@ -15,10 +15,10 @@ class ColorPalette {
   static const mintGreen = Color(0xffCCFBFE);
 
   // WHITE
-  static final white = Color(0xffffffff).withValues(alpha: 0.83);
+  static final white = const Color(0xffffffff).withValues(alpha: 0.83);
 
   // BLACK
-  static final shadow = Color(0x00000000).withValues(alpha: 0.25);
+  static final shadow = const Color(0x00000000).withValues(alpha: 0.25);
 
   // BLUE
   static final neatBlue = const Color(0xffABC0D7);

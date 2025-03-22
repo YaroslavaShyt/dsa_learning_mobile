@@ -8,16 +8,19 @@ class LessonState extends Equatable {
     this.step = 1,
     this.status = LessonStatus.loading,
     this.lessonTheory,
+    this.progress = 0.0,
   });
 
   LessonState copyWith({
     int? step,
     LessonStatus? status,
     ILessonTheory? lessonTheory,
+    double? progress,
   }) {
     return LessonState(
       step: step ?? this.step,
       status: status ?? this.status,
+      progress: progress ?? this.progress,
       lessonTheory: lessonTheory ?? this.lessonTheory,
     );
   }
@@ -25,11 +28,13 @@ class LessonState extends Equatable {
   final int step;
   final LessonStatus status;
   final ILessonTheory? lessonTheory;
+  final double progress;
 
   @override
   List<Object?> get props => [
         step,
         status,
         lessonTheory,
+        progress,
       ];
 }

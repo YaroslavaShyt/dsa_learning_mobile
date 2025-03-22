@@ -30,6 +30,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                 if (state.status == LessonStatus.failure) const Text("oops"),
                 if (state.status == LessonStatus.loaded)
                   TheoryWidget(
+                    progress: state.progress,
                     lessonName: state.lessonTheory!.lessonTitle,
                     stepName: cubit.planStep,
                     content: cubit.theoryStep,
