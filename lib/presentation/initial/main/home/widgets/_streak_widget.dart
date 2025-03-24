@@ -23,10 +23,10 @@ class _StreakWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          AvatarWidget(
-            size: 30,
-            avatarPath: avatarPath,
-          ),
+          // AvatarWidget(
+          //   size: 30,
+          //   avatarPath: avatarPath,
+          // ),
           ..._buildStreak(),
         ],
       ),

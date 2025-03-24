@@ -3,6 +3,7 @@ import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/confirm_exit_popup.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                 if (state.status == LessonStatus.failure) const Text("oops"),
                 if (state.status == LessonStatus.loaded)
                   TheoryWidget(
+                    lessonTime: state.theoryTime,
+                    onUpdateTimer: cubit.onUpdateTimer,
                     progress: state.progress,
                     lessonName: state.lessonTheory!.lessonTitle,
                     stepName: cubit.planStep,
@@ -40,7 +43,6 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                     onBackButtonTap: () => cubit.onBackButtonPressed(
                       () => _confirmExit(context),
                     ),
-                    onPauseButtonTap: cubit.onPauseButtonTap,
                   ),
               ],
             ),
@@ -62,10 +64,11 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
 
   void _onTheoryFinished(BuildContext context) {
     showPopup(
+      height: 270,
       context: context,
-      child: ConfirmExitPopup(
-        onConfirmTap: cubit.onConfirmTap,
-        onCancelTap: cubit.onCancelTap,
+      child: TheoryFinishedPopup(
+        onConfirmTap: cubit.onLetsGoTap,
+        onCancelTap: cubit.onLaterTap,
       ),
     );
   }

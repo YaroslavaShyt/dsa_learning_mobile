@@ -1,5 +1,6 @@
 class Endpoints {
-  static const String baseEndpoint = 'http://10.0.0.35:5000/api/';
+  // ipconfig from windows
+  static const String baseEndpoint = 'http://10.0.0.39:5000/api/';
 
   // auth
   static const String _auth = 'auth';

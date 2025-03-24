@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
@@ -8,7 +9,7 @@ import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const double _progressStep = 0.125;
+const double _progressStep = 0.25;
 
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
@@ -48,6 +49,7 @@ class LessonCubit extends Cubit<LessonState> {
 
   void onNextButtonPressed(VoidCallback onTheoryFinished) {
     if (state.step == 4) {
+      emit(state.copyWith(progress: state.progress + _progressStep));
       onTheoryFinished();
       return;
     }
@@ -69,10 +71,13 @@ class LessonCubit extends Cubit<LessonState> {
       );
       return;
     }
+    emit(state.copyWith(progress: state.progress - _progressStep));
     confirmExit();
   }
 
-  void onPauseButtonTap() {}
+  void onUpdateTimer() {
+    emit(state.copyWith(theoryTime: state.theoryTime + 1));
+  }
 
   void onConfirmTap() {
     _navigationUtil.navigateBack(pagesNum: 2);
@@ -80,6 +85,16 @@ class LessonCubit extends Cubit<LessonState> {
 
   void onCancelTap() {
     _navigationUtil.navigateBack();
+  }
+
+  void onLaterTap() {
+    _navigationUtil.navigateBack();
+    _navigationUtil.navigateToAndReplace(AppRoutes.routeLessonFinished);
+  }
+
+  void onLetsGoTap() {
+    _navigationUtil.navigateBack();
+    emit(state.copyWith(activityType: ActivityType.game));
   }
 
   String get planStep {

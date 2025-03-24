@@ -12,17 +12,19 @@ class TheoryWidget extends StatelessWidget {
     required this.content,
     required this.onNextButtonTap,
     required this.onBackButtonTap,
-    required this.onPauseButtonTap,
+    required this.lessonTime,
+    required this.onUpdateTimer,
     super.key,
   });
 
+  final int lessonTime;
   final double progress;
   final String lessonName;
   final String stepName;
   final String content;
-  final VoidCallback onPauseButtonTap;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
+  final VoidCallback onUpdateTimer;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,8 @@ class TheoryWidget extends StatelessWidget {
         spacing: 20,
         children: [
           ProgressBar(
+            time: lessonTime,
+            updateTimer: onUpdateTimer,
             lessonName: lessonName,
             value: progress,
           ),
@@ -45,7 +49,6 @@ class TheoryWidget extends StatelessWidget {
           Buttons(
             onNextButtonTap: onNextButtonTap,
             onBackButtonTap: onBackButtonTap,
-            onPauseButtonTap: onPauseButtonTap,
           ),
         ],
       ),

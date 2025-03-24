@@ -55,5 +55,12 @@
   "doYouWantToExit" : "Ви справді хочете вийти?",
   "loadingInformationBytes": "Завантажуємо байти інформації...",
   "next": "Далі",
-  "pause": "Пауза"
+  "pause": "Пауза",
+  "niceJob": "Так тримати!",
+  "allTheoryIsLearned": "Увесь теоретичний матеріал пройдено.",
+  "reward": "Нагорода",
+  "letsCheckTheKnowledge": "Перевіримо, наскільки добре він був засвоєний?",
+  "later": "Пізніше",
+  "letsGo": "Вперед!",
+  "lessonIsOver": "Урок завершено!"
 }

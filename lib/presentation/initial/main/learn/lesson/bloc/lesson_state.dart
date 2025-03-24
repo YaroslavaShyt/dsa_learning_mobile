@@ -13,6 +13,7 @@ class LessonState extends Equatable {
     this.lessonTheory,
     this.game,
     this.progress = 0.0,
+    this.theoryTime = 0,
     this.activityType = ActivityType.theory,
   });
 
@@ -23,12 +24,14 @@ class LessonState extends Equatable {
     IGame? game,
     double? progress,
     ActivityType? activityType,
+    int? theoryTime,
   }) {
     return LessonState(
       step: step ?? this.step,
       game: game ?? this.game,
       status: status ?? this.status,
       progress: progress ?? this.progress,
+      theoryTime: theoryTime ?? this.theoryTime,
       activityType: activityType ?? this.activityType,
       lessonTheory: lessonTheory ?? this.lessonTheory,
     );
@@ -39,6 +42,7 @@ class LessonState extends Equatable {
   final ILessonTheory? lessonTheory;
   final IGame? game;
   final double progress;
+  final int theoryTime;
   final ActivityType activityType;
 
   @override
@@ -48,5 +52,6 @@ class LessonState extends Equatable {
         status,
         lessonTheory,
         progress,
+        theoryTime,
       ];
 }

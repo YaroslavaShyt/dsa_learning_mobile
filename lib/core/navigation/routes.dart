@@ -7,4 +7,5 @@ class AppRoutes {
   static const String routeMain = 'main';
 
   static const String routeLesson = 'lesson';
+  static const String routeLessonFinished = 'lessonFinished';
 }

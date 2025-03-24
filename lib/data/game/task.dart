@@ -23,7 +23,7 @@ class Task implements ITask {
       id: data[_taskId],
       questionNumber: data[_questionNumber],
       question: data[_question],
-      answerOptions: data[_answerOptions],
+      answerOptions: List<String>.from(data[_answerOptions]),
       correctAnswer: data[_correctAnswer],
       type: GameAnswersType.apiToType(data[_gameAnswersType]),
     );

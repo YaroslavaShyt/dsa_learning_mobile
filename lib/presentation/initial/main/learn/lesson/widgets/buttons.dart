@@ -8,11 +8,9 @@ class Buttons extends StatelessWidget {
   const Buttons({
     required this.onBackButtonTap,
     required this.onNextButtonTap,
-    required this.onPauseButtonTap,
     super.key,
   });
 
-  final VoidCallback onPauseButtonTap;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
 
@@ -28,13 +26,6 @@ class Buttons extends StatelessWidget {
           colorScheme.onSurface.withValues(alpha: 0.8),
           title: context.tr('back'),
           onPressed: onBackButtonTap,
-          isActive: false,
-        ),
-        _buildButton(
-          textTheme,
-          colorScheme.onSurface.withValues(alpha: 0.6),
-          title: context.tr('pause'),
-          onPressed: onNextButtonTap,
           isActive: false,
         ),
         _buildButton(

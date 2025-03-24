@@ -1,16 +1,23 @@
+import 'dart:async';
+
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
   const ProgressBar({
+    required this.time,
+    required this.updateTimer,
     required this.value,
     required this.lessonName,
     super.key,
   });
 
+  final VoidCallback updateTimer;
+  final int time;
   final String lessonName;
   final double value;
 
@@ -22,10 +29,12 @@ class _ProgressBarState extends State<ProgressBar>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  late final Timer? _timer;
 
   @override
   void initState() {
     super.initState();
+    _startTimer();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -56,9 +65,37 @@ class _ProgressBarState extends State<ProgressBar>
     }
   }
 
+  void _startTimer() {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        if (_animation.value == 1) {
+          _stopTimer();
+          return;
+        }
+        widget.updateTimer();
+      },
+    );
+  }
+
+  void _stopTimer() {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+  }
+
+  String _formatTime(int seconds) {
+    return DateFormat('mm:ss').format(
+      DateTime(0).add(
+        Duration(seconds: seconds),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _controller.dispose();
+    _stopTimer();
     super.dispose();
   }
 
@@ -75,17 +112,22 @@ class _ProgressBarState extends State<ProgressBar>
         vertical: 20,
       ),
       content: Column(
+        spacing: 10,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 widget.lessonName,
                 style: textTheme.labelMedium,
               ),
+              Text(
+                _formatTime(widget.time),
+                style: textTheme.labelMedium,
+              ),
             ],
           ),
-          const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(boxShadow: [mainBoxShadow(context)]),
             child: AnimatedBuilder(
