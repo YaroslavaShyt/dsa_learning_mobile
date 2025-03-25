@@ -9,13 +9,17 @@ class AnswersWidget extends StatelessWidget {
     required this.onTap,
     required this.isSelectedCorrect,
     required this.isSelectedIncorrect,
+    required this.selectedAnswer,
+    required this.correctAnswer,
     super.key,
   });
 
   final List<String> answers;
-  final VoidCallback onTap;
+  final Function(String) onTap;
   final bool isSelectedCorrect;
   final bool isSelectedIncorrect;
+  final String selectedAnswer;
+  final String correctAnswer;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +31,14 @@ class AnswersWidget extends StatelessWidget {
         answers.length,
         (int index) {
           return GestureDetector(
-            onTap: onTap,
+            onTap: selectedAnswer.isEmpty ? () => onTap(answers[index]) : null,
             child: MainContainer(
               showBorder: true,
-              borderColor: isSelectedCorrect
-                  ? colorScheme.primaryFixed
-                  : isSelectedIncorrect
-                      ? colorScheme.error
-                      : null,
+              borderColor: _isSelected(answers[index])
+                  ? _isSelectedCorrect(answers[index])
+                      ? colorScheme.primaryFixed
+                      : colorScheme.error
+                  : null,
               margin: const EdgeInsetsDirectional.only(bottom: 10),
               height: 90,
               padding: const EdgeInsetsDirectional.symmetric(
@@ -57,5 +61,13 @@ class AnswersWidget extends StatelessWidget {
         },
       ),
     );
+  }
+
+  bool _isSelected(String answer) {
+    return answer == selectedAnswer;
+  }
+
+  bool _isSelectedCorrect(String answer) {
+    return answer == correctAnswer;
   }
 }

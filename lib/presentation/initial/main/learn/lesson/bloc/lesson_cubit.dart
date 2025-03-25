@@ -149,4 +149,31 @@ class LessonCubit extends Cubit<LessonState> {
       ),
     );
   }
+
+  void onAnswerSelected(String answer) {
+    emit(state.copyWith(selectedAnswer: answer));
+  }
+
+  void onNextGameButtonPressed() {
+    if (state.selectedAnswer.isEmpty) return;
+
+    if (state.gameStep == state.game!.tasks.length - 1) {
+      _navigationUtil.navigateToAndReplace(
+        AppRoutes.routeLessonFinished,
+        data: LessonFinishedRoutingArgs(
+          onToLessonsPressed: _navigationUtil.navigateBack,
+          time: _formatTime(state.gameTime),
+          lessonName: state.game?.title ?? '',
+          lessonDescription: '',
+          isGame: true,
+          bytes: 0,
+          hash: 0,
+          fan: 0,
+          achievements: [],
+        ),
+      );
+      return;
+    }
+    emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
+  }
 }

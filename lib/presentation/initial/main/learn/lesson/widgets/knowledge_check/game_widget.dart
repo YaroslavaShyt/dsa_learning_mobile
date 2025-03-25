@@ -16,6 +16,7 @@ class GameWidget extends StatelessWidget {
     required this.lessonTime,
     required this.onUpdateTimer,
     required this.onAnswerSelected,
+    required this.selectedAnswer,
     super.key,
   });
 
@@ -27,7 +28,8 @@ class GameWidget extends StatelessWidget {
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
   final VoidCallback onUpdateTimer;
-  final VoidCallback onAnswerSelected;
+  final Function(String) onAnswerSelected;
+  final String selectedAnswer;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,8 @@ class GameWidget extends StatelessWidget {
                 question: task.question,
               ),
               AnswersWidget(
+                correctAnswer: task.correctAnswer,
+                selectedAnswer: selectedAnswer,
                 onTap: onAnswerSelected,
                 isSelectedCorrect: false,
                 isSelectedIncorrect: false,
