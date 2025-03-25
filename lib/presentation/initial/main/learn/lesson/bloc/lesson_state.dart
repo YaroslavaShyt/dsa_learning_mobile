@@ -9,6 +9,8 @@ enum ActivityType { theory, game }
 class LessonState extends Equatable {
   const LessonState({
     this.step = 1,
+    this.gameStep = 0,
+    this.gameTime = 0,
     this.status = LessonStatus.loading,
     this.lessonTheory,
     this.game,
@@ -38,11 +40,13 @@ class LessonState extends Equatable {
   }
 
   final int step;
+  final int gameStep;
   final LessonStatus status;
   final ILessonTheory? lessonTheory;
   final IGame? game;
   final double progress;
   final int theoryTime;
+  final int gameTime;
   final ActivityType activityType;
 
   @override
@@ -53,5 +57,8 @@ class LessonState extends Equatable {
         lessonTheory,
         progress,
         theoryTime,
+        activityType,
+        gameStep,
+        gameTime,
       ];
 }

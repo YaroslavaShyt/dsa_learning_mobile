@@ -3,6 +3,7 @@ import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/confirm_exit_popup.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/game_widget.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -29,21 +30,40 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                 const MainBackground(),
                 if (state.status == LessonStatus.loading) LoaderFactory.build(),
                 if (state.status == LessonStatus.failure) const Text("oops"),
-                if (state.status == LessonStatus.loaded)
-                  TheoryWidget(
-                    lessonTime: state.theoryTime,
-                    onUpdateTimer: cubit.onUpdateTimer,
-                    progress: state.progress,
-                    lessonName: state.lessonTheory!.lessonTitle,
-                    stepName: cubit.planStep,
-                    content: cubit.theoryStep,
-                    onNextButtonTap: () => cubit.onNextButtonPressed(
-                      () => _onTheoryFinished(context),
+                if (state.status == LessonStatus.loaded) ...[
+                  if (state.activityType == ActivityType.theory)
+                    TheoryWidget(
+                      lessonTime: state.theoryTime,
+                      onUpdateTimer: cubit.onUpdateTimer,
+                      progress: state.progress,
+                      lessonName: state.lessonTheory!.lessonTitle,
+                      stepName: cubit.planStep,
+                      content: cubit.theoryStep,
+                      onNextButtonTap: () => cubit.onNextButtonPressed(
+                        () => _onTheoryFinished(context),
+                      ),
+                      onBackButtonTap: () => cubit.onBackButtonPressed(
+                        () => _confirmExit(context),
+                      ),
                     ),
-                    onBackButtonTap: () => cubit.onBackButtonPressed(
-                      () => _confirmExit(context),
+                  if (state.activityType == ActivityType.game)
+                    GameWidget(
+                      onAnswerSelected: () {},
+                      task: cubit.task,
+                      lessonTime: state.theoryTime,
+                      onUpdateTimer: cubit.onUpdateTimer,
+                      progress: state.progress,
+                      gameName: state.game!.title,
+                      stepName: cubit.planStep,
+                      question: cubit.theoryStep,
+                      onNextButtonTap: () => cubit.onNextButtonPressed(
+                        () => _onTheoryFinished(context),
+                      ),
+                      onBackButtonTap: () => cubit.onBackButtonPressed(
+                        () => _confirmExit(context),
+                      ),
                     ),
-                  ),
+                ],
               ],
             ),
           ),

@@ -7,19 +7,23 @@ const String _description = 'description';
 const String _achievedOn = 'createdAt';
 
 enum AchievementType {
-  locked(''),
-  devotion("devotion"),
-  junior("junior"),
-  middle("middle"),
-  persistence("persistence"),
-  responsibility("responsibility"),
-  savvy("savvy"),
-  senior("senior"),
-  teamLead("team-lead");
+  locked('', ImageAssets.lockedAchievement),
+  devotion("devotion", ImageAssets.devotion),
+  junior("junior", ImageAssets.junior),
+  middle("middle", ImageAssets.middle),
+  persistence("persistence", ImageAssets.persistence),
+  responsibility("responsibility", ImageAssets.responsibility),
+  savvy("savvy", ImageAssets.savyy),
+  senior("senior", ImageAssets.senior),
+  teamLead("team-lead", ImageAssets.teamLead);
 
-  const AchievementType(this.apiString);
+  const AchievementType(
+    this.apiString,
+    this.image,
+  );
 
   final String apiString;
+  final String image;
 }
 
 class Achievement implements IAchievement {

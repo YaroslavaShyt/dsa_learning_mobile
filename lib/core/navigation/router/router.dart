@@ -69,7 +69,9 @@ class AppRouter {
 
   static MaterialPageRoute _buildLessonFinished(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (_) => LessonFinishedFactory.build(),
+      builder: (_) => LessonFinishedFactory.build(
+        settings.arguments as LessonFinishedRoutingArgs,
+      ),
     );
   }
 }

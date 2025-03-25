@@ -10,6 +10,8 @@ class MainContainer extends StatelessWidget {
     this.margin = EdgeInsetsDirectional.zero,
     this.borderRadius = 20,
     this.color,
+    this.showBorder = false,
+    this.borderColor,
     super.key,
   });
 
@@ -21,6 +23,8 @@ class MainContainer extends StatelessWidget {
   final double? width;
   final Widget? content;
   final Color? color;
+  final bool showBorder;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,15 @@ class MainContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? colorScheme.onSurface.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(borderRadius ?? 20),
+        border: showBorder
+            ? Border.all(
+                width: 2,
+                color: borderColor ??
+                    colorScheme.onSurface.withValues(
+                      alpha: 0.4,
+                    ),
+              )
+            : null,
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),

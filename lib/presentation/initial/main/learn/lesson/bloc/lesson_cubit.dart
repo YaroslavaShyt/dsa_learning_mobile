@@ -4,9 +4,12 @@ import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
+import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 const double _progressStep = 0.25;
@@ -89,7 +92,20 @@ class LessonCubit extends Cubit<LessonState> {
 
   void onLaterTap() {
     _navigationUtil.navigateBack();
-    _navigationUtil.navigateToAndReplace(AppRoutes.routeLessonFinished);
+    _navigationUtil.navigateToAndReplace(
+      AppRoutes.routeLessonFinished,
+      data: LessonFinishedRoutingArgs(
+        onToLessonsPressed: _navigationUtil.navigateBack,
+        time: _formatTime(state.theoryTime),
+        lessonName: state.lessonTheory?.lessonTitle ?? '',
+        lessonDescription: '',
+        isGame: false,
+        bytes: 0,
+        hash: 0,
+        fan: 0,
+        achievements: [],
+      ),
+    );
   }
 
   void onLetsGoTap() {
@@ -111,5 +127,17 @@ class LessonCubit extends Cubit<LessonState> {
     if (state.step == 3) return state.lessonTheory!.lessonTheory.theoryStep3;
     if (state.step == 4) return state.lessonTheory!.lessonTheory.theoryStep4;
     return '';
+  }
+
+  ITask get task {
+    return state.game!.tasks[state.gameStep];
+  }
+
+  String _formatTime(int seconds) {
+    return DateFormat('mm:ss').format(
+      DateTime(0).add(
+        Duration(seconds: seconds),
+      ),
+    );
   }
 }
