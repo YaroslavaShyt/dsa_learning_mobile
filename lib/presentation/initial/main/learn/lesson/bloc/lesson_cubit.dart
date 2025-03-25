@@ -35,11 +35,14 @@ class LessonCubit extends Cubit<LessonState> {
         _lessonRepository.getLessonGame(_id),
       ]);
 
+      final IGame? game = data.last as IGame?;
+
       emit(
         state.copyWith(
-          game: data.last as IGame,
-          lessonTheory: data.first as ILessonTheory,
-          status: data.first != null && data.last != null
+          gameTime: game?.timeLimit,
+          game: game,
+          lessonTheory: data.first as ILessonTheory?,
+          status: data.first != null && game != null
               ? LessonStatus.loaded
               : LessonStatus.failure,
         ),
@@ -80,6 +83,12 @@ class LessonCubit extends Cubit<LessonState> {
 
   void onUpdateTimer() {
     emit(state.copyWith(theoryTime: state.theoryTime + 1));
+  }
+
+  void onUpdateGameTimer() {
+    if (state.gameTime > 0) {
+      emit(state.copyWith(gameTime: state.gameTime - 1));
+    }
   }
 
   void onConfirmTap() {

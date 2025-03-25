@@ -6,12 +6,15 @@ import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'check_box/check_box.dart';
+
 class GameProgressBar extends StatefulWidget {
   const GameProgressBar({
     required this.time,
     required this.updateTimer,
     required this.value,
     required this.gameName,
+    required this.questionsNum,
     super.key,
   });
 
@@ -19,6 +22,7 @@ class GameProgressBar extends StatefulWidget {
   final int time;
   final String gameName;
   final double value;
+  final int questionsNum;
 
   @override
   State<GameProgressBar> createState() => _GameProgressBarState();
@@ -27,7 +31,6 @@ class GameProgressBar extends StatefulWidget {
 class _GameProgressBarState extends State<GameProgressBar>
     with TickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
   late final Timer? _timer;
 
   @override
@@ -39,39 +42,13 @@ class _GameProgressBarState extends State<GameProgressBar>
       vsync: this,
     );
 
-    _animation = Tween<double>(begin: 0.0, end: widget.value).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-
     _controller.forward();
-  }
-
-  @override
-  void didUpdateWidget(covariant GameProgressBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.value != widget.value) {
-      _controller.reset();
-      _animation = Tween<double>(
-        begin: oldWidget.value,
-        end: widget.value,
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Curves.easeInOut,
-        ),
-      );
-      _controller.forward();
-    }
   }
 
   void _startTimer() {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        if (_animation.value == 1) {
-          _stopTimer();
-          return;
-        }
         widget.updateTimer();
       },
     );
@@ -115,12 +92,20 @@ class _GameProgressBarState extends State<GameProgressBar>
         children: [
           Column(
             spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 widget.gameName,
                 style: textTheme.labelMedium,
               ),
+              ...List.generate(widget.questionsNum, (int index) {
+                return MainCheckbox(
+                  size: 26,
+                  isChecked: false,
+                  isCorrect: true,
+                );
+              }),
             ],
           ),
           Container(

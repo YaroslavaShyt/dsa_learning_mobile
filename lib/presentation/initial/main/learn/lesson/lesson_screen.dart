@@ -49,13 +49,12 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                   if (state.activityType == ActivityType.game)
                     GameWidget(
                       onAnswerSelected: () {},
+                      questionsNum: state.game!.tasks.length,
                       task: cubit.task,
-                      lessonTime: state.theoryTime,
-                      onUpdateTimer: cubit.onUpdateTimer,
+                      lessonTime: state.gameTime,
+                      onUpdateTimer: cubit.onUpdateGameTimer,
                       progress: state.progress,
                       gameName: state.game!.title,
-                      stepName: cubit.planStep,
-                      question: cubit.theoryStep,
                       onNextButtonTap: () => cubit.onNextButtonPressed(
                         () => _onTheoryFinished(context),
                       ),

@@ -8,10 +8,9 @@ import 'package:flutter/material.dart';
 class GameWidget extends StatelessWidget {
   const GameWidget({
     required this.task,
+    required this.questionsNum,
     required this.progress,
     required this.gameName,
-    required this.stepName,
-    required this.question,
     required this.onNextButtonTap,
     required this.onBackButtonTap,
     required this.lessonTime,
@@ -20,12 +19,11 @@ class GameWidget extends StatelessWidget {
     super.key,
   });
 
+  final int questionsNum;
   final ITask task;
   final int lessonTime;
   final double progress;
   final String gameName;
-  final String stepName;
-  final String question;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
   final VoidCallback onUpdateTimer;
@@ -45,6 +43,7 @@ class GameWidget extends StatelessWidget {
             spacing: 20,
             children: [
               GameProgressBar(
+                questionsNum: questionsNum,
                 time: lessonTime,
                 updateTimer: onUpdateTimer,
                 value: progress,

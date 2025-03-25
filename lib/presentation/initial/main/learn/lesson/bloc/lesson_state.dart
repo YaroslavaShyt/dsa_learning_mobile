@@ -25,6 +25,7 @@ class LessonState extends Equatable {
     ILessonTheory? lessonTheory,
     IGame? game,
     double? progress,
+    int? gameTime,
     ActivityType? activityType,
     int? theoryTime,
   }) {
@@ -32,6 +33,7 @@ class LessonState extends Equatable {
       step: step ?? this.step,
       game: game ?? this.game,
       status: status ?? this.status,
+      gameTime: gameTime ?? this.gameTime,
       progress: progress ?? this.progress,
       theoryTime: theoryTime ?? this.theoryTime,
       activityType: activityType ?? this.activityType,
