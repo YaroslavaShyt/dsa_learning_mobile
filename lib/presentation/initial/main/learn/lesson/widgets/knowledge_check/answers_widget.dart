@@ -15,7 +15,7 @@ class AnswersWidget extends StatelessWidget {
   });
 
   final List<String> answers;
-  final Function(String) onTap;
+  final Function(String, bool) onTap;
   final bool isSelectedCorrect;
   final bool isSelectedIncorrect;
   final String selectedAnswer;
@@ -31,7 +31,12 @@ class AnswersWidget extends StatelessWidget {
         answers.length,
         (int index) {
           return GestureDetector(
-            onTap: selectedAnswer.isEmpty ? () => onTap(answers[index]) : null,
+            onTap: selectedAnswer.isEmpty
+                ? () => onTap(
+                      answers[index],
+                      _isSelectedCorrect(answers[index]),
+                    )
+                : null,
             child: MainContainer(
               showBorder: true,
               borderColor: _isSelected(answers[index])

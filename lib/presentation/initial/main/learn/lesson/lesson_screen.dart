@@ -99,7 +99,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
         hash: hash,
         vents: vents,
         onConfirmTap: cubit.onLetsGoTap,
-        onCancelTap: () => cubit.onLaterTap(bytes, hash, vents),
+        onCancelTap: cubit.onLaterTap,
       ),
     );
   }

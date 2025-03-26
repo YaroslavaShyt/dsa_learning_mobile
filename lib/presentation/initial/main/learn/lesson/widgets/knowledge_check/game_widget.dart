@@ -28,7 +28,7 @@ class GameWidget extends StatelessWidget {
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
   final VoidCallback onUpdateTimer;
-  final Function(String) onAnswerSelected;
+  final Function(String, bool) onAnswerSelected;
   final String selectedAnswer;
 
   @override

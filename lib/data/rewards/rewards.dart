@@ -1,6 +1,6 @@
 enum Rewards {
   endOfTheoryLesson(bytes: 10, hash: 0, vents: 0),
-  endOfGame(bytes: 10, hash: 0, vents: 0);
+  endOfGame(bytes: 2, hash: 0, vents: 0);
 
   const Rewards({
     required this.bytes,

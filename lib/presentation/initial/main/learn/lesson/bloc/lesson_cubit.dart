@@ -33,6 +33,10 @@ class LessonCubit extends Cubit<LessonState> {
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
 
+  int _hash = 0;
+  int _vents = 0;
+  int _bytes = 0;
+
   Future<void> init() async {
     try {
       final List<Object?> data = await Future.wait([
@@ -62,16 +66,17 @@ class LessonCubit extends Cubit<LessonState> {
     if (state.step == 4) {
       emit(state.copyWith(progress: state.progress + _progressStep));
 
-      final int bytes = Rewards.endOfTheoryLesson.bytes;
-      final int hash = Rewards.endOfTheoryLesson.hash;
-      final int vents = Rewards.endOfTheoryLesson.vents;
+      _bytes = Rewards.endOfTheoryLesson.bytes;
+      _hash = Rewards.endOfTheoryLesson.hash;
+      _vents = Rewards.endOfTheoryLesson.vents;
 
       _rewardsService.updateBalance(
-        bytes: bytes,
-        hash: hash,
-        vents: vents,
+        bytes: _bytes,
+        hash: _hash,
+        vents: _vents,
       );
-      onTheoryFinished(bytes, hash, vents);
+
+      onTheoryFinished(_bytes, _hash, _vents);
       return;
     }
     emit(
@@ -114,7 +119,7 @@ class LessonCubit extends Cubit<LessonState> {
     _navigationUtil.navigateBack();
   }
 
-  void onLaterTap(int bytes, int hash, int vents) {
+  void onLaterTap() {
     _navigationUtil.navigateBack();
     _navigationUtil.navigateToAndReplace(
       AppRoutes.routeLessonFinished,
@@ -124,9 +129,9 @@ class LessonCubit extends Cubit<LessonState> {
         lessonName: state.lessonTheory?.lessonTitle ?? '',
         lessonDescription: '',
         isGame: false,
-        bytes: bytes,
-        hash: hash,
-        fan: vents,
+        bytes: _bytes,
+        hash: _hash,
+        fan: _vents,
         achievements: [],
       ),
     );
@@ -165,14 +170,23 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
-  void onAnswerSelected(String answer) {
-    emit(state.copyWith(selectedAnswer: answer));
+  void onAnswerSelected(String answer, bool isCorrect) {
+    emit(
+      state.copyWith(
+        selectedAnswer: answer,
+        gameCorrectAnswers: state.gameCorrectAnswers + (isCorrect ? 1 : 0),
+      ),
+    );
   }
 
   void onNextGameButtonPressed() {
     if (state.selectedAnswer.isEmpty) return;
 
     if (state.gameStep == state.game!.tasks.length - 1) {
+      final int bytes = Rewards.endOfGame.bytes * state.gameCorrectAnswers;
+      _rewardsService.updateBalance(bytes: bytes);
+      _bytes += bytes;
+
       _navigationUtil.navigateToAndReplace(
         AppRoutes.routeLessonFinished,
         data: LessonFinishedRoutingArgs(
@@ -181,9 +195,9 @@ class LessonCubit extends Cubit<LessonState> {
           lessonName: state.game?.title ?? '',
           lessonDescription: '',
           isGame: true,
-          bytes: 0,
-          hash: 0,
-          fan: 0,
+          bytes: _bytes,
+          hash: _hash,
+          fan: _vents,
           achievements: [],
         ),
       );
