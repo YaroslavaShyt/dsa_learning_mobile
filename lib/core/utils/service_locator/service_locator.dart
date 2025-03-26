@@ -99,6 +99,9 @@ class _ServiceLocator {
   }
 
   static List<BlocProvider> get cubitAsService => [
+        BlocProvider<RewardsService>(
+          create: (BuildContext context) => RewardsService(),
+        ),
         BlocProvider<AuthService>(
           create: (_) => AuthService(
             tokenService: sl.get<ITokenService>(),
@@ -108,8 +111,9 @@ class _ServiceLocator {
         BlocProvider<UserService>(
           create: (BuildContext context) => UserService(
             localStorage: sl.get<ILocalStorage>(),
-            authService: BlocProvider.of<AuthService>(context),
             userRepository: sl.get<IUserRepository>(),
+            authService: BlocProvider.of<AuthService>(context),
+            rewardsService: BlocProvider.of<RewardsService>(context),
           )..onAuthStateChanged(),
         ),
       ];

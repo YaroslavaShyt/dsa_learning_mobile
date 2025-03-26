@@ -6,14 +6,14 @@ class _HelloUserWidget extends StatelessWidget {
     required this.bytes,
     required this.hash,
     required this.fan,
-    this.onManageCurrencyTap,
+    required this.onManageCurrencyTap,
   });
 
   final int fan;
   final int hash;
   final int bytes;
   final String userName;
-  final VoidCallback? onManageCurrencyTap;
+  final VoidCallback onManageCurrencyTap;
 
   @override
   Widget build(BuildContext context) {

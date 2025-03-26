@@ -5,6 +5,7 @@ import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
+import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
@@ -18,9 +19,11 @@ class UserService extends Cubit<UserState> implements IUserService {
     required IAuthService authService,
     required IUserRepository userRepository,
     required ILocalStorage localStorage,
+    required IRewardsService rewardsService,
   })  : _authService = authService,
         _userRepository = userRepository,
         _localStorage = localStorage,
+        _rewardsService = rewardsService,
         super(const UserState());
 
   @override
@@ -29,6 +32,7 @@ class UserService extends Cubit<UserState> implements IUserService {
   final IAuthService _authService;
   final IUserRepository _userRepository;
   final ILocalStorage _localStorage;
+  final IRewardsService _rewardsService;
 
   StreamSubscription<AuthState>? _authStream;
 

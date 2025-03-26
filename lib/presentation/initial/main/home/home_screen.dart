@@ -8,8 +8,9 @@ import 'package:dsa_learning/domain/achievements/istreak.dart';
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
+import 'package:dsa_learning/presentation/initial/main/home/shop/shop_factory.dart';
+import 'package:dsa_learning/presentation/initial/main/home/shop/shop_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievements_popup_content.dart';
-import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -68,6 +69,7 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                             ),
                             const SizedBox(height: 20),
                             _HelloUserWidget(
+                              onManageCurrencyTap: () => _showShop(context),
                               userName: state.userName,
                               hash: state.hash,
                               fan: state.vent,
@@ -99,6 +101,14 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
           },
         ),
       ),
+    );
+  }
+
+  void _showShop(BuildContext context) {
+    showPopup(
+      height: 300,
+      context: context,
+      child: ShopFactory.build(),
     );
   }
 }

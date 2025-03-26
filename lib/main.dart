@@ -15,6 +15,7 @@ import 'package:dsa_learning/data/services/auth/auth_service.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/data/auth/auth_repository.dart';
 import 'package:dsa_learning/data/services/permission/permission_service.dart';
+import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/data/user/user_repository.dart';
 import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
