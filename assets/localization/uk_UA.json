@@ -52,7 +52,7 @@
   "team-leadDescription": "Тех-гуру, чи цей застосунок для вас взагалі?",
   "yes": "Так",
   "no": "Ні",
-  "doYouWantToExit" : "Ви справді хочете вийти?",
+  "doYouWantToExit": "Ви справді хочете вийти?",
   "loadingInformationBytes": "Завантажуємо байти інформації...",
   "next": "Далі",
   "pause": "Пауза",
@@ -63,5 +63,11 @@
   "later": "Пізніше",
   "letsGo": "Вперед!",
   "lessonIsOver": "Урок завершено!",
-  "toLessons": "До навчання"
+  "toLessons": "До навчання",
+  "shop": "Магазин",
+  "myBalance": "Мій баланс",
+  "offers": "Пропозиції",
+  "total": "Всього",
+  "buyVentsToCoolSystem": "Вентилятори: охолодити систему та навчатись далі.",
+  "buyHashToFreezeStreak": "Застосуйте Хеш, аби відновити пропущений день"
 }

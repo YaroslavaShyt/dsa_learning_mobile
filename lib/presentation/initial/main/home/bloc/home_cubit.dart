@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
+import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
@@ -11,14 +12,17 @@ class HomeCubit extends Cubit<HomeState> {
     required IAchievementsService achievementsService,
     required IUserService userService,
     required INavigationUtil navigationUtil,
+    required IRewardsService rewardsService,
   })  : _achievementsService = achievementsService,
         _userService = userService,
         _navigationUtil = navigationUtil,
+        _rewardsService = rewardsService,
         super(const HomeState());
 
-  final IAchievementsService _achievementsService;
   final IUserService _userService;
   final INavigationUtil _navigationUtil;
+  final IRewardsService _rewardsService;
+  final IAchievementsService _achievementsService;
 
   IUser get _user => _userService.user!;
 
@@ -32,9 +36,9 @@ class HomeCubit extends Cubit<HomeState> {
           streak: _achievementsService.streak,
           achievements: _achievementsService.achievements,
           userName: _user.firstName,
-          hash: _user.hash,
-          bytes: _user.bytes,
-          vent: _user.fans,
+          hash: _rewardsService.hash,
+          bytes: _rewardsService.bytes,
+          vent: _rewardsService.vents,
           profilePhoto: _user.profilePhoto,
         ),
       );
@@ -50,5 +54,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onUserDataChanged() {
     emit(state.copyWith(profilePhoto: _user.profilePhoto));
+  }
+
+  void onRewardsChanged() {
+    emit(
+      state.copyWith(
+        hash: _rewardsService.hash,
+        bytes: _rewardsService.bytes,
+        vent: _rewardsService.vents,
+      ),
+    );
   }
 }

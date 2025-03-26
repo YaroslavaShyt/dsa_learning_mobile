@@ -11,6 +11,7 @@ import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart
 import 'package:dsa_learning/presentation/initial/main/home/shop/shop_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/shop_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievements_popup_content.dart';
+import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -106,7 +107,7 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
 
   void _showShop(BuildContext context) {
     showPopup(
-      height: 300,
+      height: 450,
       context: context,
       child: ShopFactory.build(),
     );

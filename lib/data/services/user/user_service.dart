@@ -59,6 +59,11 @@ class UserService extends Cubit<UserState> implements IUserService {
 
       if (user != null) {
         user = user.copyWith(profilePhoto: profilePhoto);
+        _rewardsService.init(
+          bytes: user.bytes,
+          hash: user.hash,
+          vents: user.fans,
+        );
       }
       emit(
         state.copyWith(

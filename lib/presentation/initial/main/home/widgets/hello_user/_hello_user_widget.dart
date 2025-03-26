@@ -40,11 +40,15 @@ class _HelloUserWidget extends StatelessWidget {
           Positioned(
             top: 0,
             right: 0,
-            child: GestureDetector(
+            child: TapAnimatedWidget(
               onTap: onManageCurrencyTap,
-              child: Text(
-                context.tr("manageCurrency"),
-                style: textTheme.labelSmall,
+              child: SizedBox(
+                height: 20,
+                width: 130,
+                child: Text(
+                  context.tr("manageCurrency"),
+                  style: textTheme.labelSmall,
+                ),
               ),
             ),
           ),

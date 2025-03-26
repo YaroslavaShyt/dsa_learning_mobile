@@ -112,7 +112,13 @@ static const Map<String,dynamic> _uk_UA = {
   "later": "Пізніше",
   "letsGo": "Вперед!",
   "lessonIsOver": "Урок завершено!",
-  "toLessons": "До навчання"
+  "toLessons": "До навчання",
+  "shop": "Магазин",
+  "myBalance": "Мій баланс",
+  "offers": "Пропозиції",
+  "total": "Всього",
+  "buyVentsToCoolSystem": "Вентилятори: охолодити систему та навчатись далі.",
+  "buyHashToFreezeStreak": "Застосуйте Хеш, аби відновити пропущений день"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

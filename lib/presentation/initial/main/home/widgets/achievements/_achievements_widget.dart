@@ -28,13 +28,17 @@ class _AchievementsWidget extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
               ),
-              GestureDetector(
+              TapAnimatedWidget(
                 onTap: onSeeAllTap,
-                child: Text(
-                  context.tr("seeAll"),
-                  style: getTextTheme(context).labelSmall?.copyWith(
-                        fontSize: 12,
-                      ),
+                child: SizedBox(
+                  height: 20,
+                  width: 100,
+                  child: Text(
+                    context.tr("seeAll"),
+                    style: getTextTheme(context).labelSmall?.copyWith(
+                          fontSize: 12,
+                        ),
+                  ),
                 ),
               ),
             ],
