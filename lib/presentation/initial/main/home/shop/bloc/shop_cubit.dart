@@ -35,6 +35,7 @@ class ShopCubit extends Cubit<ShopState> {
 
     emit(
       state.copyWith(
+        ventsBalance: state.ventsBalance + 1,
         bytesBalance: state.bytesBalance - _ventsPrice,
         selectedVents: state.selectedVents + 1,
         totalBytes: state.totalBytes + _ventsPrice,
@@ -49,6 +50,7 @@ class ShopCubit extends Cubit<ShopState> {
 
     emit(
       state.copyWith(
+        ventsBalance: state.ventsBalance - 1,
         bytesBalance: state.bytesBalance + _ventsPrice,
         selectedVents: state.selectedVents - 1,
         totalBytes: state.totalBytes - _ventsPrice,
@@ -64,9 +66,10 @@ class ShopCubit extends Cubit<ShopState> {
 
     emit(
       state.copyWith(
-        hashBalance: state.hashBalance - _hashPrice,
+        hashBalance: state.hashBalance + 1,
         selectedVents: state.selectedHash + 1,
         totalBytes: state.totalBytes + _hashPrice,
+        bytesBalance: state.bytesBalance - _hashPrice,
       ),
     );
   }
@@ -78,9 +81,10 @@ class ShopCubit extends Cubit<ShopState> {
 
     emit(
       state.copyWith(
-        hashBalance: state.hashBalance + _hashPrice,
+        hashBalance: state.hashBalance - 1,
         selectedHash: state.selectedHash - 1,
         totalBytes: state.totalBytes - _hashPrice,
+        bytesBalance: state.bytesBalance + _hashPrice,
       ),
     );
   }
