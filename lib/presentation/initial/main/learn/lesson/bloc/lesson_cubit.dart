@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/data/rewards/rewards.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
+import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
@@ -19,14 +21,17 @@ class LessonCubit extends Cubit<LessonState> {
     required int lessonId,
     required ILessonRepository lessonRepository,
     required INavigationUtil navigationUtil,
+    required IRewardsService rewardsService,
   })  : _id = lessonId,
         _lessonRepository = lessonRepository,
         _navigationUtil = navigationUtil,
+        _rewardsService = rewardsService,
         super(const LessonState());
 
   final int _id;
   final ILessonRepository _lessonRepository;
   final INavigationUtil _navigationUtil;
+  final IRewardsService _rewardsService;
 
   Future<void> init() async {
     try {
@@ -53,10 +58,20 @@ class LessonCubit extends Cubit<LessonState> {
     }
   }
 
-  void onNextButtonPressed(VoidCallback onTheoryFinished) {
+  void onNextButtonPressed(void Function(int, int, int) onTheoryFinished) {
     if (state.step == 4) {
       emit(state.copyWith(progress: state.progress + _progressStep));
-      onTheoryFinished();
+
+      final int bytes = Rewards.endOfTheoryLesson.bytes;
+      final int hash = Rewards.endOfTheoryLesson.hash;
+      final int vents = Rewards.endOfTheoryLesson.vents;
+
+      _rewardsService.updateBalance(
+        bytes: bytes,
+        hash: hash,
+        vents: vents,
+      );
+      onTheoryFinished(bytes, hash, vents);
       return;
     }
     emit(
@@ -99,7 +114,7 @@ class LessonCubit extends Cubit<LessonState> {
     _navigationUtil.navigateBack();
   }
 
-  void onLaterTap() {
+  void onLaterTap(int bytes, int hash, int vents) {
     _navigationUtil.navigateBack();
     _navigationUtil.navigateToAndReplace(
       AppRoutes.routeLessonFinished,
@@ -109,9 +124,9 @@ class LessonCubit extends Cubit<LessonState> {
         lessonName: state.lessonTheory?.lessonTitle ?? '',
         lessonDescription: '',
         isGame: false,
-        bytes: 0,
-        hash: 0,
-        fan: 0,
+        bytes: bytes,
+        hash: hash,
+        fan: vents,
         achievements: [],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
@@ -8,11 +9,17 @@ class TheoryFinishedPopup extends StatelessWidget {
   const TheoryFinishedPopup({
     required this.onConfirmTap,
     required this.onCancelTap,
+    required this.bytes,
+    required this.hash,
+    required this.vents,
     super.key,
   });
 
   final VoidCallback onConfirmTap;
   final VoidCallback onCancelTap;
+  final int bytes;
+  final int hash;
+  final int vents;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +53,41 @@ class TheoryFinishedPopup extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Text(
-            context.tr("reward"),
-            textAlign: TextAlign.center,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
+          Row(
+            children: [
+              Text(
+                context.tr("reward"),
+                textAlign: TextAlign.center,
+                style: textTheme.titleLarge?.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              if (bytes > 0) ...[
+                Text(bytes.toString()),
+                Image.asset(
+                  height: 16,
+                  width: 16,
+                  ImageAssets.bytes,
+                ),
+              ],
+              if (hash > 0) ...[
+                Text(hash.toString()),
+                Image.asset(
+                  height: 16,
+                  width: 16,
+                  ImageAssets.hash,
+                ),
+              ],
+              if (vents > 0) ...[
+                Text(vents.toString()),
+                Image.asset(
+                  height: 16,
+                  width: 16,
+                  ImageAssets.vents,
+                ),
+              ]
+            ],
           ),
           Text(
             context.tr("letsCheckTheKnowledge"),

@@ -40,7 +40,12 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                       stepName: cubit.planStep,
                       content: cubit.theoryStep,
                       onNextButtonTap: () => cubit.onNextButtonPressed(
-                        () => _onTheoryFinished(context),
+                        (bytes, hash, vents) => _onTheoryFinished(
+                          context,
+                          bytes: bytes,
+                          hash: hash,
+                          vents: vents,
+                        ),
                       ),
                       onBackButtonTap: () => cubit.onBackButtonPressed(
                         () => _confirmExit(context),
@@ -80,13 +85,21 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
     );
   }
 
-  void _onTheoryFinished(BuildContext context) {
+  void _onTheoryFinished(
+    BuildContext context, {
+    required int bytes,
+    required int hash,
+    required int vents,
+  }) {
     showPopup(
       height: 270,
       context: context,
       child: TheoryFinishedPopup(
+        bytes: bytes,
+        hash: hash,
+        vents: vents,
         onConfirmTap: cubit.onLetsGoTap,
-        onCancelTap: cubit.onLaterTap,
+        onCancelTap: () => cubit.onLaterTap(bytes, hash, vents),
       ),
     );
   }
