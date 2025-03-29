@@ -1,13 +1,17 @@
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/data/services/achievements/achievemens_state.dart';
 import 'package:dsa_learning/domain/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
 import 'package:dsa_learning/domain/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AchievementsService implements IAchievementsService {
+class AchievementsService extends Cubit<AchievementsState>
+    implements IAchievementsService {
   AchievementsService({
     required IAchievementsRepository achievementsRepository,
-  }) : _achievementsRepository = achievementsRepository;
+  })  : _achievementsRepository = achievementsRepository,
+        super(const AchievementsState());
 
   final IAchievementsRepository _achievementsRepository;
 
@@ -20,6 +24,8 @@ class AchievementsService implements IAchievementsService {
   List<IAchievement> _achievements = [];
 
   List<IAchievement> _userAchievements = [];
+
+  bool _wasStreakUpdatedToday = false;
 
   @override
   Future<void> init() async {
@@ -35,6 +41,23 @@ class AchievementsService implements IAchievementsService {
       _streak = data[2] as List<IStreak>;
 
       _getUserAchievements();
+
+      emit(state.copyWith(streak: _streak, achievements: _achievements));
+    } catch (error) {
+      logger.e(error);
+    }
+  }
+
+  @override
+  Future<void> updateStreak() async {
+    try {
+      if (_wasStreakUpdatedToday) return;
+
+      await _achievementsRepository.updateUserStreak();
+      _streak = await _achievementsRepository.getUserStreak();
+
+      _wasStreakUpdatedToday = true;
+      emit(state.copyWith(streak: _streak));
     } catch (error) {
       logger.e(error);
     }

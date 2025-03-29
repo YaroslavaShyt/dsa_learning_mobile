@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/data/services/achievements/achievements_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/main.dart';
@@ -19,11 +20,12 @@ class LessonFactory {
   static Widget build(LessonRoutingArgs args) {
     return BlocProvider(
       create: (BuildContext context) => LessonCubit(
-          lessonId: args.id,
-          lessonRepository: sl.get<ILessonRepository>(),
-          navigationUtil: sl.get<INavigationUtil>(),
-          rewardsService: BlocProvider.of<RewardsService>(context))
-        ..init(),
+        lessonId: args.id,
+        navigationUtil: sl.get<INavigationUtil>(),
+        lessonRepository: sl.get<ILessonRepository>(),
+        rewardsService: BlocProvider.of<RewardsService>(context),
+        achievementsService: BlocProvider.of<AchievementsService>(context),
+      )..init(),
       child: Builder(
         builder: (BuildContext context) {
           return LessonScreen(

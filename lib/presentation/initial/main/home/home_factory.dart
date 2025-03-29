@@ -1,9 +1,10 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/data/services/achievements/achievemens_state.dart';
+import 'package:dsa_learning/data/services/achievements/achievements_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
-import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/home_screen.dart';
@@ -16,11 +17,16 @@ class HomeFactory {
       create: (BuildContext context) => HomeCubit(
         navigationUtil: sl.get<INavigationUtil>(),
         userService: BlocProvider.of<UserService>(context),
-        achievementsService: sl.get<IAchievementsService>(),
+        achievementsService: BlocProvider.of<AchievementsService>(context),
         rewardsService: BlocProvider.of<RewardsService>(context),
       )..init(),
       child: MultiBlocListener(
         listeners: [
+          BlocListener<AchievementsService, AchievementsState>(
+            listener: (BuildContext context, AchievementsState state) {
+              BlocProvider.of<HomeCubit>(context).onAchievementsChanged();
+            },
+          ),
           BlocListener<RewardsService, RewardsState>(
             listener: (BuildContext context, RewardsState state) {
               BlocProvider.of<HomeCubit>(context).onRewardsChanged();

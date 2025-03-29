@@ -128,4 +128,18 @@ class AchievementsRepository implements IAchievementsRepository {
     }
     return [];
   }
+
+  @override
+  Future<void> updateUserStreak() async {
+    try {
+      final Response? response = await _networkingClient.post(
+        Endpoints.updateUserStreakEndpoint,
+        body: {
+          "status": "LEARNED",
+        },
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

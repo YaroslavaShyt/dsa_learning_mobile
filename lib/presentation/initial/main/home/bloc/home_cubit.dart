@@ -65,4 +65,13 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+
+  void onAchievementsChanged() {
+    emit(
+      state.copyWith(
+        achievements: _achievementsService.achievements,
+        streak: _achievementsService.streak,
+      ),
+    );
+  }
 }

@@ -57,20 +57,16 @@ class _ServiceLocator {
       ),
     );
     sl.registerFactory<ILessonRepository>(
-      () => LessonRepository(
-        networkingClient: networkingClient,
-      ),
+      () => LessonRepository(networkingClient: networkingClient),
+    );
+    sl.registerFactory<IRewardsRepository>(
+      () => RewardsRepository(networkingClient: networkingClient),
     );
   }
 
   static void _initService() {
     sl.registerFactory<ITokenService>(
       () => TokenService(storage: sl.get<ISecureStorage>()),
-    );
-    sl.registerSingleton<IAchievementsService>(
-      AchievementsService(
-        achievementsRepository: sl.get<IAchievementsRepository>(),
-      ),
     );
     sl.registerFactory<IPermissionService>(
       () => PermissionService(
@@ -100,7 +96,14 @@ class _ServiceLocator {
 
   static List<BlocProvider> get cubitAsService => [
         BlocProvider<RewardsService>(
-          create: (BuildContext context) => RewardsService(),
+          create: (BuildContext context) => RewardsService(
+            rewardsRepository: sl.get<IRewardsRepository>(),
+          ),
+        ),
+        BlocProvider<AchievementsService>(
+          create: (BuildContext context) => AchievementsService(
+            achievementsRepository: sl.get<IAchievementsRepository>(),
+          ),
         ),
         BlocProvider<AuthService>(
           create: (_) => AuthService(

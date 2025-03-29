@@ -42,12 +42,14 @@ class NetworkingClient implements INetworkingClient {
   @override
   Future<Response?> get(
     String endpoint, {
+    Map<String, dynamic>? queryParameters,
     Map<String, dynamic> body = const <String, dynamic>{},
   }) async {
     try {
       return _dio.get(
         endpoint,
         data: body,
+        queryParameters: queryParameters,
       );
     } catch (e) {
       rethrow;
@@ -57,12 +59,14 @@ class NetworkingClient implements INetworkingClient {
   @override
   Future<Response?> post(
     String endpoint, {
+    Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
     try {
       return _dio.post(
         endpoint,
         data: body,
+        queryParameters: queryParameters,
       );
     } catch (e) {
       rethrow;
@@ -72,12 +76,14 @@ class NetworkingClient implements INetworkingClient {
   @override
   Future<Response?> put(
     String endpoint, {
-    required Map<String, dynamic> body,
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
   }) async {
     try {
       return _dio.put(
         endpoint,
         data: body,
+        queryParameters: queryParameters,
       );
     } catch (e) {
       rethrow;

@@ -1,5 +1,6 @@
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
+import 'package:dsa_learning/domain/rewards/irewards_repository.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,12 @@ const int _hashPrice = 50;
 const int _ventsPrice = 10;
 
 class RewardsService extends Cubit<RewardsState> implements IRewardsService {
-  RewardsService() : super(const RewardsState());
+  RewardsService({
+    required IRewardsRepository rewardsRepository,
+  })  : _rewardsRepository = rewardsRepository,
+        super(const RewardsState());
+
+  final IRewardsRepository _rewardsRepository;
 
   @override
   int get bytes => state.bytes;
@@ -40,12 +46,22 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
     int vents = 0,
   }) async {
     try {
+      final int newBytes = state.bytes + bytes;
+      final int newHash = state.hash + hash;
+      final int newVents = state.vents + vents;
+
       emit(
         state.copyWith(
-          bytes: state.bytes + bytes,
-          hash: state.hash + hash,
-          vents: state.vents + vents,
+          bytes: newBytes,
+          hash: newHash,
+          vents: newVents,
         ),
+      );
+
+      await _rewardsRepository.update(
+        bytes: newBytes,
+        hash: newHash,
+        vents: newVents,
       );
     } catch (error) {
       logger.e(error);

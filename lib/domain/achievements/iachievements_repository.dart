@@ -12,4 +12,6 @@ abstract interface class IAchievementsRepository {
   });
 
   Future<List<IStreak>> getUserStreak();
+
+  Future<void> updateUserStreak();
 }

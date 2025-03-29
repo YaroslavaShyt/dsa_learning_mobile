@@ -7,6 +7,7 @@ import 'package:dsa_learning/data/rewards/rewards.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
+import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
@@ -22,16 +23,19 @@ class LessonCubit extends Cubit<LessonState> {
     required ILessonRepository lessonRepository,
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
+    required IAchievementsService achievementsService,
   })  : _id = lessonId,
         _lessonRepository = lessonRepository,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
+        _achievementsService = achievementsService,
         super(const LessonState());
 
   final int _id;
   final ILessonRepository _lessonRepository;
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
+  final IAchievementsService _achievementsService;
 
   int _hash = 0;
   int _vents = 0;
@@ -120,6 +124,8 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onLaterTap() {
+    _achievementsService.updateStreak();
+
     _navigationUtil.navigateBack();
     _navigationUtil.navigateToAndReplace(
       AppRoutes.routeLessonFinished,
@@ -183,6 +189,8 @@ class LessonCubit extends Cubit<LessonState> {
     if (state.selectedAnswer.isEmpty) return;
 
     if (state.gameStep == state.game!.tasks.length - 1) {
+      _achievementsService.updateStreak();
+
       final int bytes = Rewards.endOfGame.bytes * state.gameCorrectAnswers;
       _rewardsService.updateBalance(bytes: bytes);
       _bytes += bytes;
