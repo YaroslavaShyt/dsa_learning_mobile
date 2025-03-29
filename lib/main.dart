@@ -1,6 +1,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/navigation_util.dart';
+import 'package:dsa_learning/core/navigation/route_observer.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/constants/system.dart';
 import 'package:dsa_learning/core/navigation/router/router.dart';

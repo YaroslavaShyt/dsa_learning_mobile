@@ -23,52 +23,60 @@ class AppRouter {
     };
   }
 
-  static MaterialPageRoute _buildInitial(RouteSettings settings) {
+  static PageRoute _buildInitial(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => InitialFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildAuth(RouteSettings settings) {
+  static PageRoute _buildAuth(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => AuthFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildMain(RouteSettings settings) {
+  static PageRoute _buildMain(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => MainFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildHome(RouteSettings settings) {
+  static PageRoute _buildHome(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => HomeFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildProfile(RouteSettings settings) {
+  static PageRoute _buildProfile(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => ProfileFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildLearn(RouteSettings settings) {
+  static PageRoute _buildLearn(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => LearnFactory.build(),
     );
   }
 
-  static MaterialPageRoute _buildLesson(RouteSettings settings) {
+  static PageRoute _buildLesson(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => LessonFactory.build(
         settings.arguments as LessonRoutingArgs,
       ),
     );
   }
 
-  static MaterialPageRoute _buildLessonFinished(RouteSettings settings) {
+  static PageRoute _buildLessonFinished(RouteSettings settings) {
     return MaterialPageRoute(
+      settings: settings,
       builder: (_) => LessonFinishedFactory.build(
         settings.arguments as LessonFinishedRoutingArgs,
       ),

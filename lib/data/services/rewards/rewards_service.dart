@@ -41,14 +41,14 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
 
   @override
   Future<void> updateBalance({
-    int bytes = 0,
-    int hash = 0,
-    int vents = 0,
+    int? bytes,
+    int? hash,
+    int? vents,
   }) async {
     try {
-      final int newBytes = state.bytes + bytes;
-      final int newHash = state.hash + hash;
-      final int newVents = state.vents + vents;
+      final int newBytes = state.bytes + (bytes ?? 0);
+      final int newHash = state.hash + (hash ?? 0);
+      final int newVents = state.vents + (vents ?? 0);
 
       emit(
         state.copyWith(
@@ -76,11 +76,9 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
     try {
       final int minusBytes = hash * _hashPrice + vents * _ventsPrice;
 
-      await updateBalance(
-        hash: hash,
-        vents: vents,
-        bytes: state.bytes - minusBytes,
-      );
+      await updateBalance(hash: hash, vents: vents);
+
+      emit(state.copyWith(bytes: state.bytes - minusBytes));
     } catch (error) {
       logger.e(error);
     }

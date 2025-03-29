@@ -8,6 +8,7 @@ class ShopState extends Equatable {
     this.selectedHash = 0,
     this.selectedVents = 0,
     this.totalBytes = 0,
+    this.isPurchaseInProgress = false,
   });
 
   ShopState copyWith({
@@ -17,6 +18,7 @@ class ShopState extends Equatable {
     int? selectedVents,
     int? selectedHash,
     int? totalBytes,
+    bool? isPurchaseInProgress,
   }) {
     return ShopState(
       bytesBalance: bytesBalance ?? this.bytesBalance,
@@ -25,6 +27,7 @@ class ShopState extends Equatable {
       selectedVents: selectedVents ?? this.selectedVents,
       selectedHash: selectedHash ?? this.selectedHash,
       totalBytes: totalBytes ?? this.totalBytes,
+      isPurchaseInProgress: isPurchaseInProgress ?? this.isPurchaseInProgress,
     );
   }
 
@@ -35,6 +38,7 @@ class ShopState extends Equatable {
   final int selectedVents;
   final int selectedHash;
   final int totalBytes;
+  final bool isPurchaseInProgress;
 
   @override
   List<Object?> get props => [

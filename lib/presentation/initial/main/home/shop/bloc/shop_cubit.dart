@@ -1,4 +1,6 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/core/navigation/routes.dart';
+import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/bloc/shop_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,8 @@ class ShopCubit extends Cubit<ShopState> {
 
   final IRewardsService _rewardsService;
   final INavigationUtil _navigationUtil;
+
+  bool get isButtonActive => state.selectedHash > 0 || state.selectedVents > 0;
 
   void init() {
     emit(
@@ -67,7 +71,7 @@ class ShopCubit extends Cubit<ShopState> {
     emit(
       state.copyWith(
         hashBalance: state.hashBalance + 1,
-        selectedVents: state.selectedHash + 1,
+        selectedHash: state.selectedHash + 1,
         totalBytes: state.totalBytes + _hashPrice,
         bytesBalance: state.bytesBalance - _hashPrice,
       ),
@@ -89,7 +93,21 @@ class ShopCubit extends Cubit<ShopState> {
     );
   }
 
-  void onConfirmButtonPressed() {}
+  Future<void> onConfirmButtonPressed() async {
+    try {
+      if (state.selectedVents == 0 && state.selectedHash == 0) return;
+      emit(state.copyWith(isPurchaseInProgress: true));
+
+      await _rewardsService.buyReward(
+        hash: state.selectedHash,
+        vents: state.selectedVents,
+      );
+
+      _navigationUtil.navigateBackToStart();
+    } catch (error) {
+      logger.e(error);
+    }
+  }
 
   void onCloseButtonTap() {
     _navigationUtil.navigateBack();

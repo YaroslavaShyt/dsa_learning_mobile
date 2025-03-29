@@ -66,22 +66,50 @@ class ShopScreen extends StatelessWidget {
                   horizontal: 50.0,
                 ),
                 child: MainOutlinedButton(
+                  isActive: cubit.isButtonActive,
                   height: 50,
                   onPressed: cubit.onConfirmButtonPressed,
-                  child: Text(
-                    context.tr('confirm'),
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.primaryFixed,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                    ),
-                  ),
+                  child: state.isPurchaseInProgress
+                      ? _buildLoading(colorScheme)
+                      : _buildText(
+                          context,
+                          textTheme,
+                          colorScheme,
+                        ),
                 ),
               ),
             ],
           ),
         );
       },
+    );
+  }
+
+  Widget _buildLoading(ColorScheme colorScheme) {
+    return SizedBox(
+      height: 20,
+      width: 20,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+        color: colorScheme.primaryFixed,
+      ),
+    );
+  }
+
+  Widget _buildText(
+    BuildContext context,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
+    return Text(
+      context.tr('confirm'),
+      style: textTheme.bodyMedium?.copyWith(
+        color: cubit.isButtonActive
+            ? colorScheme.primaryFixed
+            : colorScheme.onSurface.withValues(alpha: 0.4),
+        fontWeight: FontWeight.w700,
+        fontSize: 18,
+      ),
     );
   }
 }

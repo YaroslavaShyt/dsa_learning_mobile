@@ -12,6 +12,7 @@ class _MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: _ServiceLocator.cubitAsService,
       child: MaterialApp(
+        navigatorObservers: [ObserverUtils.routeObserver],
         navigatorKey: _navigationUtil.navigatorKey,
         theme: AppColorTheme.theme(context),
         onGenerateRoute: AppRouter.onGenerateRoute,

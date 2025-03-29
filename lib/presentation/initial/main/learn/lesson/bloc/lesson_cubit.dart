@@ -205,7 +205,7 @@ class LessonCubit extends Cubit<LessonState> {
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
             onToLessonsPressed: _navigationUtil.navigateBack,
-            time: _formatTime(state.gameTime),
+            time: _formatTime(state.gameTime + state.theoryTime),
             lessonName: state.game?.title ?? '',
             lessonDescription: '',
             isGame: true,

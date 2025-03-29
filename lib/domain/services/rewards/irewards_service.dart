@@ -19,9 +19,9 @@ abstract interface class IRewardsService {
   });
 
   Future<void> updateBalance({
-    int bytes = 0,
-    int hash = 0,
-    int vents = 0,
+    int? bytes,
+    int? hash,
+    int? vents,
   });
 
   void resetData();
