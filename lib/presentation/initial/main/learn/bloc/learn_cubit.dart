@@ -3,6 +3,7 @@ import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/category/icategory.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
+import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/lesson_factory.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,17 +12,22 @@ class LearnCubit extends Cubit<LearnState> {
   LearnCubit({
     required INavigationUtil navigationUtil,
     required ILessonRepository lessonRepository,
+    required ILessonService lessonService,
   })  : _navigationUtil = navigationUtil,
         _lessonRepository = lessonRepository,
+        _lessonService = lessonService,
         super(const LearnState());
 
   final INavigationUtil _navigationUtil;
   final ILessonRepository _lessonRepository;
+  final ILessonService _lessonService;
 
   Future<void> init() async {
     try {
       final List<ICategory> summary =
           await _lessonRepository.getLessonsSummary();
+      await _lessonService.init();
+
       emit(
         state.copyWith(
           lessonsSummary: summary,

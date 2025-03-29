@@ -37,4 +37,8 @@ class Endpoints {
   static String getLessonTheory(int id) => '$_lessonEndpoint/$id/details';
 
   static String getLessonGame(int id) => '$_lessonEndpoint/$id/game';
+
+  static const String _trainings = 'trainings';
+  static const String getLearnedLessonsEndpoint = '$_trainings/user';
+  static const String finishLessonEndpoint = '$_trainings/complete';
 }

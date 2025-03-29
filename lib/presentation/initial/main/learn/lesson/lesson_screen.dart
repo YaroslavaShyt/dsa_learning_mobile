@@ -4,6 +4,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/confirm_exit_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/game_widget.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/finish_on_theory_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -99,7 +100,24 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
         hash: hash,
         vents: vents,
         onConfirmTap: cubit.onLetsGoTap,
-        onCancelTap: cubit.onLaterTap,
+        onCancelTap: () {
+          cubit.onLaterTap();
+          _onFinishOnTheory(context);
+        },
+      ),
+    );
+  }
+
+  void _onFinishOnTheory(BuildContext context) {
+    showPopup(
+      height: 270,
+      context: context,
+      child: FinishOnTheoryPopup(
+        onConfirmTap: () {
+          cubit.onLaterTap();
+          cubit.onLaterTap();
+        },
+        onCancelTap: cubit.onLetsGoTap,
       ),
     );
   }

@@ -74,6 +74,9 @@ class _ServiceLocator {
         localStorage: sl.get<ILocalStorage>(),
       ),
     );
+    sl.registerSingleton<ILessonService>(
+      LessonService(lessonRepository: sl.get<ILessonRepository>()),
+    );
   }
 
   static void _initUtils() {

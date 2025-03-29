@@ -8,4 +8,8 @@ abstract interface class ILessonRepository {
   Future<ILessonTheory?> getLessonTheory(int id);
 
   Future<IGame?> getLessonGame(int id);
+
+  Future<Set<int>> getLearnedLessonsIds();
+
+  Future<void> completeLesson(int id);
 }

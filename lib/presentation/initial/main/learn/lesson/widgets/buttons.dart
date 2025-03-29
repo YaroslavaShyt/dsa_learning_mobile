@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 
 class Buttons extends StatelessWidget {
   const Buttons({
+    required this.isAnswerSelected,
     required this.onBackButtonTap,
     required this.onNextButtonTap,
     super.key,
   });
 
+  final bool isAnswerSelected;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
 
@@ -30,10 +32,12 @@ class Buttons extends StatelessWidget {
         ),
         _buildButton(
           textTheme,
-          colorScheme.primaryFixed,
+          isAnswerSelected
+              ? colorScheme.primaryFixed
+              : colorScheme.onSurface.withValues(alpha: 0.8),
           title: context.tr('next'),
           onPressed: onNextButtonTap,
-          isActive: true,
+          isActive: isAnswerSelected,
         ),
       ],
     );
@@ -47,6 +51,7 @@ class Buttons extends StatelessWidget {
     required VoidCallback onPressed,
   }) {
     return MainOutlinedButton(
+      isActive: isActive,
       width: 60,
       color: color,
       onPressed: onPressed,

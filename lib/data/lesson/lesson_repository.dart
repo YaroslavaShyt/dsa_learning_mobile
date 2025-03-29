@@ -73,4 +73,34 @@ class LessonRepository implements ILessonRepository {
     }
     return null;
   }
+
+  @override
+  Future<Set<int>> getLearnedLessonsIds() async {
+    try {
+      final Response? response = await _networkingClient.get(
+        Endpoints.getLearnedLessonsEndpoint,
+      );
+
+      if (response == null || response.data == null) return {};
+
+      final List<dynamic> dataList = response.data;
+      return dataList.map<int>((item) => item as int).toSet();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> completeLesson(int id) async {
+    try {
+      await _networkingClient.post(
+        Endpoints.finishLessonEndpoint,
+        queryParameters: {
+          'training-id': id,
+        },
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

@@ -66,6 +66,7 @@ class GameWidget extends StatelessWidget {
             ],
           ),
           Buttons(
+            isAnswerSelected: selectedAnswer.isNotEmpty,
             onBackButtonTap: onBackButtonTap,
             onNextButtonTap: onNextButtonTap,
           ),

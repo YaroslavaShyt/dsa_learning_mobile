@@ -8,6 +8,7 @@ import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
+import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 const double _progressStep = 0.25;
 
+typedef RewardFunc = void Function(int, int, int);
+
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
     required int lessonId,
@@ -24,22 +27,27 @@ class LessonCubit extends Cubit<LessonState> {
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
     required IAchievementsService achievementsService,
+    required ILessonService lessonService,
   })  : _id = lessonId,
         _lessonRepository = lessonRepository,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
         _achievementsService = achievementsService,
+        _lessonService = lessonService,
         super(const LessonState());
 
   final int _id;
-  final ILessonRepository _lessonRepository;
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
+  final ILessonRepository _lessonRepository;
   final IAchievementsService _achievementsService;
+  final ILessonService _lessonService;
 
   int _hash = 0;
   int _vents = 0;
   int _bytes = 0;
+
+  bool get _isLessonLearned => _lessonService.isLessonLearned(_id);
 
   Future<void> init() async {
     try {
@@ -66,7 +74,7 @@ class LessonCubit extends Cubit<LessonState> {
     }
   }
 
-  void onNextButtonPressed(void Function(int, int, int) onTheoryFinished) {
+  Future<void> onNextButtonPressed(RewardFunc onTheoryFinished) async {
     if (state.step == 4) {
       emit(state.copyWith(progress: state.progress + _progressStep));
 
@@ -74,13 +82,11 @@ class LessonCubit extends Cubit<LessonState> {
       _hash = Rewards.endOfTheoryLesson.hash;
       _vents = Rewards.endOfTheoryLesson.vents;
 
-      _rewardsService.updateBalance(
-        bytes: _bytes,
-        hash: _hash,
-        vents: _vents,
+      onTheoryFinished(
+        _isLessonLearned ? 0 : _bytes,
+        _isLessonLearned ? 0 : _hash,
+        _isLessonLearned ? 0 : _vents,
       );
-
-      onTheoryFinished(_bytes, _hash, _vents);
       return;
     }
     emit(
@@ -92,16 +98,28 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onBackButtonPressed(VoidCallback confirmExit) {
-    if (state.step > 1) {
+    if (state.activityType == ActivityType.theory) {
+      if (state.step > 1) {
+        emit(
+          state.copyWith(
+            step: state.step > 1 ? state.step - 1 : null,
+            progress: state.progress - _progressStep,
+          ),
+        );
+        return;
+      }
+      emit(state.copyWith(progress: state.progress - _progressStep));
+      confirmExit();
+      return;
+    }
+    if (state.gameStep > 1) {
       emit(
         state.copyWith(
-          step: state.step - 1,
-          progress: state.progress - _progressStep,
+          step: state.gameStep - 1,
         ),
       );
       return;
     }
-    emit(state.copyWith(progress: state.progress - _progressStep));
     confirmExit();
   }
 
@@ -124,23 +142,7 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onLaterTap() {
-    _achievementsService.updateStreak();
-
     _navigationUtil.navigateBack();
-    _navigationUtil.navigateToAndReplace(
-      AppRoutes.routeLessonFinished,
-      data: LessonFinishedRoutingArgs(
-        onToLessonsPressed: _navigationUtil.navigateBack,
-        time: _formatTime(state.theoryTime),
-        lessonName: state.lessonTheory?.lessonTitle ?? '',
-        lessonDescription: '',
-        isGame: false,
-        bytes: _bytes,
-        hash: _hash,
-        fan: _vents,
-        achievements: [],
-      ),
-    );
   }
 
   void onLetsGoTap() {
@@ -185,32 +187,39 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
-  void onNextGameButtonPressed() {
-    if (state.selectedAnswer.isEmpty) return;
+  Future<void> onNextGameButtonPressed() async {
+    try {
+      if (state.selectedAnswer.isEmpty) return;
 
-    if (state.gameStep == state.game!.tasks.length - 1) {
-      _achievementsService.updateStreak();
+      if (state.gameStep == state.game!.tasks.length - 1) {
+        _achievementsService.updateStreak();
 
-      final int bytes = Rewards.endOfGame.bytes * state.gameCorrectAnswers;
-      _rewardsService.updateBalance(bytes: bytes);
-      _bytes += bytes;
+        _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
 
-      _navigationUtil.navigateToAndReplace(
-        AppRoutes.routeLessonFinished,
-        data: LessonFinishedRoutingArgs(
-          onToLessonsPressed: _navigationUtil.navigateBack,
-          time: _formatTime(state.gameTime),
-          lessonName: state.game?.title ?? '',
-          lessonDescription: '',
-          isGame: true,
-          bytes: _bytes,
-          hash: _hash,
-          fan: _vents,
-          achievements: [],
-        ),
-      );
-      return;
+        await Future.wait([
+          _rewardsService.updateBalance(bytes: _bytes),
+          _lessonService.updateLearnedLessons(_id),
+        ]);
+
+        _navigationUtil.navigateToAndReplace(
+          AppRoutes.routeLessonFinished,
+          data: LessonFinishedRoutingArgs(
+            onToLessonsPressed: _navigationUtil.navigateBack,
+            time: _formatTime(state.gameTime),
+            lessonName: state.game?.title ?? '',
+            lessonDescription: '',
+            isGame: true,
+            bytes: _isLessonLearned ? 0 : _bytes,
+            hash: _isLessonLearned ? 0 : _hash,
+            fan: _isLessonLearned ? 0 : _vents,
+            achievements: [],
+          ),
+        );
+        return;
+      }
+      emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
+    } catch (error) {
+      logger.e(error);
     }
-    emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
   }
 }

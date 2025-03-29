@@ -47,6 +47,7 @@ class TheoryWidget extends StatelessWidget {
             child: TheoryContent(content: content),
           ),
           Buttons(
+            isAnswerSelected: true,
             onNextButtonTap: onNextButtonTap,
             onBackButtonTap: onBackButtonTap,
           ),
