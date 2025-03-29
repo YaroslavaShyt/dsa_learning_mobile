@@ -4,6 +4,7 @@ import 'package:dsa_learning/presentation/initial/main/home/shop/bloc/shop_cubit
 import 'package:dsa_learning/presentation/initial/main/home/shop/bloc/shop_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/widgets/my_balance_widget.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/widgets/offers_widget.dart';
+import 'package:dsa_learning/presentation/initial/main/home/shop/widgets/title_widget.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/widgets/total_row.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -26,59 +27,49 @@ class ShopScreen extends StatelessWidget {
     return BlocBuilder<ShopCubit, ShopState>(
       builder: (BuildContext context, ShopState state) {
         return Padding(
-          padding: const EdgeInsetsDirectional.all(8.0),
-          child: Column(
-            spacing: 6,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(width: 30),
-                  Text(
-                    context.tr('shop'),
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  CloseButton(
-                    onPressed: cubit.onCloseButtonTap,
-                  ),
-                ],
-              ),
-              MyBalanceWidget(
-                hash: state.hashBalance,
-                vents: state.ventsBalance,
-                bytes: state.bytesBalance,
-              ),
-              OffersWidget(
-                hash: state.selectedHash,
-                vents: state.selectedVents,
-                onVentsIncrement: cubit.onVentsIncrement,
-                onVentsDecrement: cubit.onVentsDecrement,
-                onHashIncrement: cubit.onHashIncrement,
-                onHashDecrement: cubit.onHashDecrement,
-              ),
-              TotalRow(
-                bytes: state.totalBytes,
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  horizontal: 50.0,
+          padding: const EdgeInsetsDirectional.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 6,
+              children: [
+                TitleWidget(
+                  onCloseButtonTap: cubit.onCloseButtonTap,
                 ),
-                child: MainOutlinedButton(
-                  isActive: cubit.isButtonActive,
-                  height: 50,
-                  onPressed: cubit.onConfirmButtonPressed,
-                  child: state.isPurchaseInProgress
-                      ? _buildLoading(colorScheme)
-                      : _buildText(
-                          context,
-                          textTheme,
-                          colorScheme,
-                        ),
+                MyBalanceWidget(
+                  hash: state.hashBalance,
+                  vents: state.ventsBalance,
+                  bytes: state.bytesBalance,
                 ),
-              ),
-            ],
+                OffersWidget(
+                  hash: state.selectedHash,
+                  vents: state.selectedVents,
+                  onVentsIncrement: cubit.onVentsIncrement,
+                  onVentsDecrement: cubit.onVentsDecrement,
+                  onHashIncrement: cubit.onHashIncrement,
+                  onHashDecrement: cubit.onHashDecrement,
+                ),
+                TotalRow(
+                  bytes: state.totalBytes,
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 50.0,
+                  ),
+                  child: MainOutlinedButton(
+                    isActive: cubit.isButtonActive,
+                    height: 50,
+                    onPressed: cubit.onConfirmButtonPressed,
+                    child: state.isPurchaseInProgress
+                        ? _buildLoading(colorScheme)
+                        : _buildText(
+                            context,
+                            textTheme,
+                            colorScheme,
+                          ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

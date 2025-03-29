@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/core/widgets/popup/popup_mixin.dart';
 import 'package:dsa_learning/data/services/achievements/achievemens_state.dart';
 import 'package:dsa_learning/data/services/achievements/achievements_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
@@ -11,7 +12,7 @@ import 'package:dsa_learning/presentation/initial/main/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeFactory {
+class HomeFactory with PopUpMixin {
   static Widget build() {
     return BlocProvider<HomeCubit>(
       create: (BuildContext context) => HomeCubit(
@@ -19,7 +20,7 @@ class HomeFactory {
         userService: BlocProvider.of<UserService>(context),
         achievementsService: BlocProvider.of<AchievementsService>(context),
         rewardsService: BlocProvider.of<RewardsService>(context),
-      )..init(),
+      ),
       child: MultiBlocListener(
         listeners: [
           BlocListener<AchievementsService, AchievementsState>(

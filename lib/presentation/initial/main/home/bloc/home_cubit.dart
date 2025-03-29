@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/domain/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
@@ -24,12 +27,15 @@ class HomeCubit extends Cubit<HomeState> {
   final IRewardsService _rewardsService;
   final IAchievementsService _achievementsService;
 
+  bool _lostStreak = false;
+
   IUser get _user => _userService.user!;
 
-  Future<void> init() async {
+  Future<void> init(VoidCallback onLostStreak) async {
     try {
       emit(state.copyWith(status: HomeStatus.loading));
       await _achievementsService.init();
+      _lostStreak = shouldShowLostStreakPopup(_achievementsService.streak);
       emit(
         state.copyWith(
           status: HomeStatus.success,
@@ -42,6 +48,8 @@ class HomeCubit extends Cubit<HomeState> {
           profilePhoto: _user.profilePhoto,
         ),
       );
+
+      if (_lostStreak) onLostStreak();
     } catch (error) {
       logger.e(error);
       emit(state.copyWith(status: HomeStatus.failure));
@@ -73,5 +81,21 @@ class HomeCubit extends Cubit<HomeState> {
         streak: _achievementsService.streak,
       ),
     );
+  }
+
+  Future<void> onLostStreakConfirmTap() async {
+    try {
+      await _rewardsService.useHash();
+      _achievementsService.updateStreakWithHash();
+      emit(
+        state.copyWith(
+          hash: _rewardsService.hash,
+          streak: _achievementsService.streak,
+        ),
+      );
+      _navigationUtil.navigateBackToStart();
+    } catch (error) {
+      logger.e(error);
+    }
   }
 }

@@ -21,64 +21,58 @@ class MyBalanceWidget extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        spacing: 4,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${context.tr('myBalance')}:',
+            style: textTheme.bodyMedium?.copyWith(
+              fontSize: 14,
+            ),
+          ),
+          Wrap(
+            children: [
+              _buildCurrency('bytes', ImageAssets.bytes, bytes, context),
+              _buildCurrency('hash', ImageAssets.hash, hash, context),
+              _buildCurrency('vents', ImageAssets.vents, vents, context),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCurrency(
+    String name,
+    String image,
+    int quantity,
+    BuildContext context,
+  ) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          context.tr('myBalance'),
+        Image.asset(
+          height: 40,
+          width: 40,
+          image,
         ),
-        Wrap(
-          children: [
-            Image.asset(
-              height: 40,
-              width: 40,
-              ImageAssets.bytes,
-            ),
-            Text(
-              '${context.tr('bytes')}: ',
-            ),
-            Text(
-              '${bytes}X',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.primaryFixed,
-                fontSize: 16,
-              ),
-            ),
-            Image.asset(
-              height: 40,
-              width: 40,
-              ImageAssets.hash,
-            ),
-            Text(
-              '${context.tr('hash')}: ',
-            ),
-            Text(
-              '${hash}X:',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.primaryFixed,
-                fontSize: 16,
-              ),
-            ),
-            Row(
-              children: [
-                Image.asset(
-                  height: 40,
-                  width: 40,
-                  ImageAssets.vents,
-                ),
-                Text(
-                  '${context.tr('vents')}: ',
-                ),
-                Text(
-                  '${vents}X:',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.primaryFixed,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ],
+        Text(
+          '${context.tr(name)}:  ',
+        ),
+        Text(
+          '${quantity}X:',
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.primaryFixed,
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+          ),
         ),
       ],
     );

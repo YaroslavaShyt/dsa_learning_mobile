@@ -27,10 +27,14 @@ class OffersWidget extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
 
     return Column(
+      spacing: 4,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          context.tr('offers'),
+          "${context.tr('offers')}:",
+          style: textTheme.bodyMedium?.copyWith(
+            fontSize: 14,
+          ),
         ),
         Row(
           children: [
@@ -76,13 +80,13 @@ class OffersWidget extends StatelessWidget {
         Row(
           children: [
             Image.asset(
-              height: 60,
-              width: 60,
+              height: 50,
+              width: 50,
               image,
             ),
             Flexible(
               child: Padding(
-                padding: const EdgeInsetsDirectional.only(bottom: 18.0),
+                padding: const EdgeInsetsDirectional.only(bottom: 6.0),
                 child: Text(
                   context.tr(text),
                   style: textTheme.bodyMedium?.copyWith(

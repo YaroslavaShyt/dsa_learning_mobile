@@ -53,7 +53,7 @@ class AchievementsService extends Cubit<AchievementsState>
     try {
       if (_wasStreakUpdatedToday) return;
 
-      await _achievementsRepository.updateUserStreak();
+      await _achievementsRepository.updateUserStreak(StreakStatus.learned);
       _streak = await _achievementsRepository.getUserStreak();
 
       _wasStreakUpdatedToday = true;
@@ -72,6 +72,19 @@ class AchievementsService extends Cubit<AchievementsState>
           }
         }
       },
+    );
+  }
+
+  @override
+  void updateStreakWithHash() {
+    final int index = _streak.indexWhere(
+      (streak) => DateTime.now().day - streak.date.day == 1,
+    );
+
+    _streak[index] = _streak[index].copyWith(status: StreakStatus.frozen);
+    _achievementsRepository.updateUserStreak(
+      StreakStatus.frozen,
+      _streak[index].date,
     );
   }
 }

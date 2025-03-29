@@ -25,4 +25,6 @@ abstract interface class IRewardsService {
   });
 
   void resetData();
+
+  Future<void> useHash();
 }

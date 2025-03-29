@@ -19,23 +19,29 @@ class TotalRow extends StatelessWidget {
 
     return Row(
       children: [
-        Text(
-          '${context.tr('total')}: ',
-          style: textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
+        Padding(
+          padding: const EdgeInsetsDirectional.only(bottom: 8.0),
+          child: Text(
+            '${context.tr('total')}:  ',
+            style: textTheme.bodyMedium?.copyWith(
+              fontSize: 14,
+            ),
           ),
         ),
-        Text(
-          '${bytes}X',
-          style: textTheme.bodyMedium?.copyWith(
-            color: colorScheme.primaryFixed,
-            fontSize: 16,
+        Padding(
+          padding: const EdgeInsetsDirectional.only(bottom: 8.0),
+          child: Text(
+            '${bytes}X',
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.primaryFixed,
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
           ),
         ),
         Image.asset(
-          height: 50,
-          width: 50,
+          height: 40,
+          width: 40,
           ImageAssets.bytes,
         ),
       ],

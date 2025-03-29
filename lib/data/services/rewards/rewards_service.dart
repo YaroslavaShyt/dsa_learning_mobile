@@ -94,4 +94,17 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
       ),
     );
   }
+
+  @override
+  Future<void> useHash() async {
+    if (state.hash > 0) {
+      emit(state.copyWith(hash: state.hash - 1));
+
+      await _rewardsRepository.update(
+        bytes: state.bytes,
+        hash: state.hash,
+        vents: state.vents,
+      );
+    }
+  }
 }

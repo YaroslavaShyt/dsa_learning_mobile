@@ -10,26 +10,32 @@ class Streak implements IStreak {
   });
 
   @override
+  Streak copyWith({
+    DateTime? date,
+    StreakStatus? status,
+  }) {
+    return Streak(
+      status: status ?? this.status,
+      date: date ?? this.date,
+    );
+  }
+
+  @override
   DateTime date;
 
   @override
   StreakStatus status;
 
   factory Streak.fromJson(Map<dynamic, dynamic> json) {
-    print(json);
-    // Check if the date is a string and parse it, or handle differently
-    String dateString = json[_apiDate]?.toString() ?? '';
+    final String dateString = json[_apiDate]?.toString() ?? '';
 
-    // Ensure that we have a valid date string
     if (dateString.isEmpty) {
       throw ArgumentError('Invalid date string: $dateString');
     }
 
-    print(DateTime.parse(dateString)); // this is the correct place to parse
-
     return Streak(
       status: _statusFromString(json[_apiStatus]),
-      date: DateTime.parse(dateString), // Ensure the date is parsed correctly
+      date: DateTime.parse(dateString),
     );
   }
 

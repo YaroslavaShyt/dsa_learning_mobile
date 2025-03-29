@@ -31,7 +31,10 @@ class _CurrencyItem extends StatelessWidget {
                   width: 44,
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.only(bottom: 8.0),
+                  padding: const EdgeInsetsDirectional.only(
+                    bottom: 8.0,
+                    end: 10,
+                  ),
                   child: Text(
                     context.tr(text),
                     style: getTextTheme(context).labelSmall?.copyWith(
@@ -42,12 +45,18 @@ class _CurrencyItem extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              "${value}x",
-              style: getTextTheme(context).labelSmall?.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: getColorScheme(context).primaryFixed),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(bottom: 6),
+                child: Text(
+                  "${value}x",
+                  overflow: TextOverflow.ellipsis,
+                  style: getTextTheme(context).labelSmall?.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: getColorScheme(context).primaryFixed),
+                ),
+              ),
             ),
           ],
         ),

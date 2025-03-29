@@ -38,21 +38,6 @@ class _HelloUserWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0,
-            right: 0,
-            child: TapAnimatedWidget(
-              onTap: onManageCurrencyTap,
-              child: SizedBox(
-                height: 20,
-                width: 130,
-                child: Text(
-                  context.tr("manageCurrency"),
-                  style: textTheme.labelSmall,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
             left: 0,
             bottom: 0,
             child: SizedBox(
@@ -88,6 +73,21 @@ class _HelloUserWidget extends StatelessWidget {
             child: RobotAnimation(
               height: 200,
               width: 200,
+            ),
+          ),
+          Positioned(
+            top: 0,
+            right: 0,
+            child: TapAnimatedWidget(
+              onTap: onManageCurrencyTap,
+              child: SizedBox(
+                height: 50,
+                width: 130,
+                child: Text(
+                  context.tr("manageCurrency"),
+                  style: textTheme.labelSmall,
+                ),
+              ),
             ),
           ),
         ],

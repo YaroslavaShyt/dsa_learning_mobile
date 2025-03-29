@@ -11,6 +11,7 @@ import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart
 import 'package:dsa_learning/presentation/initial/main/home/shop/shop_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/shop_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievements_popup_content.dart';
+import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -21,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-part 'widgets/_streak_widget.dart';
+part 'widgets/streak/_streak_widget.dart';
 part 'widgets/achievements/_achievements_widget.dart';
 part 'widgets/hello_user/_currency_item.dart';
 part 'widgets/hello_user/_hello_user_widget.dart';
@@ -29,13 +30,24 @@ part 'widgets/statistics/_bar_chart.dart';
 part 'widgets/statistics/_legend_item.dart';
 part 'widgets/statistics/_statistics_widget.dart';
 
-class HomeScreen extends StatelessWidget with PopUpMixin {
+class HomeScreen extends StatefulWidget with PopUpMixin {
   const HomeScreen({
     required this.cubit,
     super.key,
   });
 
   final HomeCubit cubit;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    widget.cubit.init(() => _onLostStreak(context));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +91,7 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
                             const SizedBox(height: 20),
                             if (state.achievements.isNotEmpty)
                               _AchievementsWidget(
-                                onSeeAllTap: () => showPopup(
-                                  context: context,
-                                  height: 400,
-                                  child: AchievementsPopupContent(
-                                    achievements: state.achievements,
-                                    onCloseButtonTap: cubit.onCloseButtonTap,
-                                  ),
-                                ),
+                                onSeeAllTap: () => _onSeeAllTap(context, state),
                                 achievements: state.achievements,
                               ),
                             const SizedBox(height: 20),
@@ -105,11 +110,34 @@ class HomeScreen extends StatelessWidget with PopUpMixin {
     );
   }
 
+  void _onSeeAllTap(BuildContext context, HomeState state) {
+    widget.showPopup(
+      context: context,
+      height: 400,
+      child: AchievementsPopupContent(
+        achievements: state.achievements,
+        onCloseButtonTap: widget.cubit.onCloseButtonTap,
+      ),
+    );
+  }
+
   void _showShop(BuildContext context) {
-    showPopup(
+    widget.showPopup(
       height: 450,
       context: context,
       child: ShopFactory.build(),
+    );
+  }
+
+  void _onLostStreak(BuildContext context) {
+    widget.showPopup(
+      height: 250,
+      context: context,
+      child: LostStreakContent(
+        onCloseButtonTap: widget.cubit.onCloseButtonTap,
+        onConfirmTap: widget.cubit.onLostStreakConfirmTap,
+        onCancelTap: widget.cubit.onCloseButtonTap,
+      ),
     );
   }
 }

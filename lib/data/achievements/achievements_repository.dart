@@ -110,8 +110,11 @@ class AchievementsRepository implements IAchievementsRepository {
       if (response == null) return [];
 
       if (response.statusCode == 200) {
-        final List<dynamic> data =
-            response.data.map((element) => Map.of(element)).toList();
+        final List<dynamic> data = response.data
+            .map(
+              (element) => Map.of(element),
+            )
+            .toList();
 
         final List<Future<IStreak>> streak = data.map(
           (streak) {
@@ -130,12 +133,13 @@ class AchievementsRepository implements IAchievementsRepository {
   }
 
   @override
-  Future<void> updateUserStreak() async {
+  Future<void> updateUserStreak(StreakStatus status, [DateTime? date]) async {
     try {
       final Response? response = await _networkingClient.post(
         Endpoints.updateUserStreakEndpoint,
         body: {
-          "status": "LEARNED",
+          "status": status.name.toUpperCase(),
+          if (date != null) "date": date.toIso8601String()
         },
       );
     } catch (error) {

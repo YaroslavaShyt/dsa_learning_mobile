@@ -9,4 +9,6 @@ abstract interface class IAchievementsService {
   List<IStreak> get streak;
 
   List<IAchievement> get achievements;
+
+  void updateStreakWithHash();
 }

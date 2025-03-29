@@ -1,4 +1,4 @@
-part of '../home_screen.dart';
+part of '../../home_screen.dart';
 
 class _StreakWidget extends StatelessWidget {
   const _StreakWidget({
@@ -23,17 +23,20 @@ class _StreakWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          // TODO: avatar in streak
           // AvatarWidget(
           //   size: 30,
           //   avatarPath: avatarPath,
           // ),
-          ..._buildStreak(),
+          ..._buildStreak(context),
         ],
       ),
     );
   }
 
-  List<Column> _buildStreak() {
+  List<Column> _buildStreak(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+
     final today = DateTime.now();
     final last7Days = List.generate(
       7,
@@ -56,7 +59,16 @@ class _StreakWidget extends StatelessWidget {
               height: 20,
               _getStreakImagePath(streakForDay.status),
             ),
-            Text(DateFormat.E().format(day)),
+            Text(
+              DateFormat.E().format(day),
+              style: textTheme.bodyMedium?.copyWith(
+                fontSize: 14,
+                fontWeight: streakForDay.status == StreakStatus.learned ||
+                        streakForDay.status == StreakStatus.frozen
+                    ? FontWeight.w700
+                    : null,
+              ),
+            ),
           ],
         );
       },
