@@ -19,7 +19,6 @@ class MyBalanceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
-    final ColorScheme colorScheme = getColorScheme(context);
 
     return SizedBox(
       width: double.infinity,
