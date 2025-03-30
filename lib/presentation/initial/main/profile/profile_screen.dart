@@ -1,6 +1,5 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/core/widgets/popup/popup_mixin.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/widgets/add_avatar_popup_content/add_avatar_content.dart';
@@ -9,6 +8,7 @@ import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dar
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
+import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

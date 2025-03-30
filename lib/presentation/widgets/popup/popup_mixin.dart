@@ -1,4 +1,4 @@
-import 'package:dsa_learning/core/widgets/popup/popup.dart';
+import 'package:dsa_learning/presentation/widgets/popup/popup.dart';
 import 'package:flutter/material.dart';
 
 mixin PopUpMixin {

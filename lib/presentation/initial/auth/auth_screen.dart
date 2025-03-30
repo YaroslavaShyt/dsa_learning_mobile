@@ -6,10 +6,10 @@ import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_cubit.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_state.dart';
+import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
 import 'package:dsa_learning/presentation/widgets/input/main_text_field.dart';
-import 'package:dsa_learning/presentation/widgets/loaders/main_loader.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -85,7 +85,7 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
                   onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
                 ),
               if (state.status == AuthCubitStatus.authInProgress)
-                const MainLoader(),
+                LoaderFactory.build(),
             ],
           );
         },

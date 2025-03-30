@@ -1,4 +1,3 @@
-import 'package:dsa_learning/core/widgets/popup/popup_mixin.dart';
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
@@ -8,6 +7,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theo
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
+import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
