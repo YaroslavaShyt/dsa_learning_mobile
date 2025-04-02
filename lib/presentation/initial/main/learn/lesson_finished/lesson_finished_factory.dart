@@ -1,4 +1,4 @@
-import 'package:dsa_learning/data/achievements/achievement.dart';
+import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
-import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 
 abstract interface class IAchievementsRepository {
   Future<List<IAchievement>> getAllAchievements();

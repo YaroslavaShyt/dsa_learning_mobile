@@ -5,21 +5,32 @@ import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
+import 'package:dsa_learning/domain/statistics/istatistics_repository.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/home_screen.dart';
+import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeFactory {
   static Widget build() {
-    return BlocProvider<HomeCubit>(
-      create: (BuildContext context) => HomeCubit(
-        navigationUtil: sl.get<INavigationUtil>(),
-        userService: BlocProvider.of<UserService>(context),
-        achievementsService: BlocProvider.of<AchievementsService>(context),
-        rewardsService: BlocProvider.of<RewardsService>(context),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<StatisticsCubit>(
+          create: (BuildContext context) => StatisticsCubit(
+            statisticsRepository: sl.get<IStatisticsRepository>(),
+          )..init(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (BuildContext context) => HomeCubit(
+            navigationUtil: sl.get<INavigationUtil>(),
+            userService: BlocProvider.of<UserService>(context),
+            achievementsService: BlocProvider.of<AchievementsService>(context),
+            rewardsService: BlocProvider.of<RewardsService>(context),
+          ),
+        ),
+      ],
       child: MultiBlocListener(
         listeners: [
           BlocListener<AchievementsService, AchievementsState>(

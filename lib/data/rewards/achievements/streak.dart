@@ -1,4 +1,4 @@
-import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 
 const String _apiDate = 'date';
 const String _apiStatus = 'status';

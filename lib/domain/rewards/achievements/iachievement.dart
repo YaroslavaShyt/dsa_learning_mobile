@@ -1,4 +1,4 @@
-import 'package:dsa_learning/data/achievements/achievement.dart';
+import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 
 abstract interface class IAchievement {
   IAchievement({

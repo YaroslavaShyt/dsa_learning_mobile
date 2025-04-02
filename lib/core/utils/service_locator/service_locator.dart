@@ -62,6 +62,9 @@ class _ServiceLocator {
     sl.registerFactory<IRewardsRepository>(
       () => RewardsRepository(networkingClient: networkingClient),
     );
+    sl.registerFactory<IStatisticsRepository>(
+      () => StatisticsRepository(networkingClient: networkingClient),
+    );
   }
 
   static void _initService() {

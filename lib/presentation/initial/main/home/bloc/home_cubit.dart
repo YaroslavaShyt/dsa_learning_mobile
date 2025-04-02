@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
-import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';

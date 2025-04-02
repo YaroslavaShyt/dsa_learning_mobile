@@ -1,5 +1,5 @@
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

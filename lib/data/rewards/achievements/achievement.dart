@@ -1,5 +1,5 @@
 import 'package:dsa_learning/core/constants/image_assets.dart';
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 
 const String _id = 'achievementId';
 const String _title = 'achievementName';

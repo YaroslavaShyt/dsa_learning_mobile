@@ -1,8 +1,8 @@
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/achievements/achievemens_state.dart';
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
-import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
-import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievements_repository.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

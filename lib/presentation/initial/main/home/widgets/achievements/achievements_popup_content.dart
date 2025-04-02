@@ -1,6 +1,6 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievement_component.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/close_button.dart';
 import 'package:easy_localization/easy_localization.dart';

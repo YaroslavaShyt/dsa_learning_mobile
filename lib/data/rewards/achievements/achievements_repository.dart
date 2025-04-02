@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:dsa_learning/core/utils/parsers/background_parser.dart';
-import 'package:dsa_learning/data/achievements/achievement.dart';
-import 'package:dsa_learning/data/achievements/streak.dart';
+import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
+import 'package:dsa_learning/data/rewards/achievements/streak.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
-import 'package:dsa_learning/domain/achievements/iachievement.dart';
-import 'package:dsa_learning/domain/achievements/iachievements_repository.dart';
-import 'package:dsa_learning/domain/achievements/istreak.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
+import 'package:dsa_learning/domain/rewards/achievements/iachievements_repository.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
 
 class AchievementsRepository implements IAchievementsRepository {

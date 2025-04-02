@@ -25,7 +25,7 @@ class _StatisticsWidget extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 200,
               child: _BarChart(),
             ),

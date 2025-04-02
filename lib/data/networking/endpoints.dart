@@ -30,6 +30,10 @@ class Endpoints {
   static const String _rewards = 'rewards';
   static const String rewardsEndpoint = '$_rewards/update';
 
+  /// STATISTICS
+  static const String _statistics = 'statistics';
+  static const String statisticsEndpoint = '$_statistics/';
+
   /// LESSON
   static const String _lessonEndpoint = 'lessons';
   static const String getLessonSummaryEndpoint = '$_lessonEndpoint/summary';
