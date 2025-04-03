@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 
 class PlanContainer extends StatelessWidget {
   const PlanContainer({
-    this.planStep1 =
-        'Огляд алгоритмів сортування та їх важливість в програмуванні.',
-    this.planStep2 = 'Визначення поняття "сортування" та основні терміни.',
-    this.planStep3 = 'Класифікація алгоритмів сортування.',
-    this.planStep4 =
-        'Оцінка складності алгоритмів сортування (O(n), O(n^2) тощо)',
+    required this.planStep1,
+    required this.planStep2,
+    required this.planStep3,
+    required this.planStep4,
     super.key,
   });
 
@@ -25,6 +23,7 @@ class PlanContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
+
     return Positioned(
       left: 10,
       right: 10,
@@ -39,14 +38,15 @@ class PlanContainer extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 10,
               children: [
                 Text(
                   context.tr("plan"),
                   style: textTheme.labelMedium?.copyWith(
                     fontSize: 16,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(width: 10),
                 Image.asset(
                   height: 30,
                   width: 30,
@@ -68,7 +68,8 @@ class PlanContainer extends StatelessWidget {
                   ),
                 ),
                 Radio(
-                  value: true,
+                  activeColor: colorScheme.onSurface,
+                  value: '',
                   groupValue: '',
                   onChanged: (v) {},
                 ),
@@ -78,7 +79,8 @@ class PlanContainer extends StatelessWidget {
               children: [
                 const SizedBox(width: 20),
                 Radio(
-                  value: true,
+                  activeColor: colorScheme.onSurface,
+                  value: '',
                   groupValue: '',
                   onChanged: (v) {},
                 ),
@@ -108,7 +110,8 @@ class PlanContainer extends StatelessWidget {
                   ),
                 ),
                 Radio(
-                  value: true,
+                  activeColor: colorScheme.onSurface,
+                  value: '',
                   groupValue: '',
                   onChanged: (v) {},
                 ),
@@ -140,16 +143,18 @@ class PlanContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  context.tr("game"),
+                  context.tr("knowledgeCheck"),
                   style: textTheme.labelMedium?.copyWith(
                     fontSize: 16,
+                    color: colorScheme.primaryFixed,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(width: 6),
                 Image.asset(
-                  height: 30,
-                  width: 30,
-                  ImageAssets.game,
+                  height: 40,
+                  width: 40,
+                  ImageAssets.savyy,
                 )
               ],
             ),

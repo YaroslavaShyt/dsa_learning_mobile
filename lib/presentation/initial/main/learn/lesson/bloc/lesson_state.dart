@@ -19,6 +19,7 @@ class LessonState extends Equatable {
     this.activityType = ActivityType.theory,
     this.selectedAnswer = '',
     this.gameCorrectAnswers = 0,
+    this.gameProgress = const [],
   });
 
   LessonState copyWith({
@@ -33,6 +34,7 @@ class LessonState extends Equatable {
     int? gameStep,
     String? selectedAnswer,
     int? gameCorrectAnswers,
+    List<bool>? gameProgress,
   }) {
     return LessonState(
       step: step ?? this.step,
@@ -45,6 +47,7 @@ class LessonState extends Equatable {
       theoryTime: theoryTime ?? this.theoryTime,
       activityType: activityType ?? this.activityType,
       lessonTheory: lessonTheory ?? this.lessonTheory,
+      gameProgress: gameProgress ?? this.gameProgress,
       gameCorrectAnswers: gameCorrectAnswers ?? this.gameCorrectAnswers,
     );
   }
@@ -60,6 +63,7 @@ class LessonState extends Equatable {
   final ActivityType activityType;
   final String selectedAnswer;
   final int gameCorrectAnswers;
+  final List<bool> gameProgress;
 
   @override
   List<Object?> get props => [
@@ -74,5 +78,6 @@ class LessonState extends Equatable {
         gameTime,
         selectedAnswer,
         gameCorrectAnswers,
+        gameProgress,
       ];
 }

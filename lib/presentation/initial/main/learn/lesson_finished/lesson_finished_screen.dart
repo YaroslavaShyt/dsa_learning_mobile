@@ -5,7 +5,9 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/wid
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/lesson_finished_container.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/lesson_is_over_text.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/reward_row.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/stars_background.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +28,20 @@ class LessonFinishedScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          fit: StackFit.expand,
+          fit: StackFit.loose,
           children: [
             const MainBackground(),
-            // const StarsBackground(),
-            // Positioned(
-            //   child: const SizedBox(
-            //     child: Padding(
-            //       padding: EdgeInsets.only(top: 50.0),
-            //       child: RobotAnimation(),
-            //     ),
-            //   ),
-            // ),
+            const StarsBackground(),
+            const Positioned(
+              top: 100,
+              left: 50,
+              right: 50,
+              child: SizedBox(
+                height: 400,
+                width: 450,
+                child: RobotAnimation(),
+              ),
+            ),
             Positioned(
               top: 10,
               left: 20,
@@ -52,7 +56,7 @@ class LessonFinishedScreen extends StatelessWidget {
             Positioned(
               left: 20,
               right: 20,
-              bottom: MediaQuery.sizeOf(context).height / 2.5,
+              bottom: MediaQuery.sizeOf(context).height / 4,
               child: const LessonIsOverText(),
             ),
             Positioned(

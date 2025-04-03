@@ -57,7 +57,7 @@ class TheoryFinishedPopup extends StatelessWidget {
             children: [
               if (bytes != 0 || hash != 0 || vents != 0)
                 Text(
-                  context.tr("reward"),
+                  '${context.tr("reward")}:    ',
                   textAlign: TextAlign.center,
                   style: textTheme.titleLarge?.copyWith(
                     fontSize: 16,
@@ -65,7 +65,14 @@ class TheoryFinishedPopup extends StatelessWidget {
                   ),
                 ),
               if (bytes > 0) ...[
-                Text(bytes.toString()),
+                Text(
+                  '${bytes.toString()}x',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    color: colorScheme.primaryFixed,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 Image.asset(
                   height: 16,
                   width: 16,
@@ -73,7 +80,14 @@ class TheoryFinishedPopup extends StatelessWidget {
                 ),
               ],
               if (hash > 0) ...[
-                Text(hash.toString()),
+                Text(
+                  '${hash.toString()}x',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    color: colorScheme.primaryFixed,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 Image.asset(
                   height: 16,
                   width: 16,
@@ -81,7 +95,14 @@ class TheoryFinishedPopup extends StatelessWidget {
                 ),
               ],
               if (vents > 0) ...[
-                Text(vents.toString()),
+                Text(
+                  '${vents.toString()}x',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    color: colorScheme.primaryFixed,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 Image.asset(
                   height: 16,
                   width: 16,

@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 class TheoryContent extends StatelessWidget {
   const TheoryContent({
     required this.content,
+    required this.controller,
     super.key,
   });
 
   final String content;
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
+
     return MainContainer(
       height: 500,
       borderRadius: 14,
@@ -26,38 +29,16 @@ class TheoryContent extends StatelessWidget {
       content: Stack(
         children: [
           SingleChildScrollView(
+            controller: controller,
             child: Column(
               children: [
                 Text(
-                  content + content,
+                  content,
                   style: textTheme.labelMedium?.copyWith(
                     fontSize: 18,
                   ),
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            child: Container(
-              height: 50,
-              width: 100,
-              // decoration: BoxDecoration(
-              //   gradient: LinearGradient(
-              //     begin: Alignment.topCenter,
-              //     end: Alignment.bottomCenter,
-              //     colors: [
-              //       colorScheme.onInverseSurface.withValues(
-              //         alpha: 0.2,
-              //         green: 0.5,
-              //       ),
-              //       colorScheme.onInverseSurface.withValues(
-              //         alpha: 0.7,
-              //         green: 0.5,
-              //       )
-              //     ],
-              //   ),
-              // ),
             ),
           ),
         ],

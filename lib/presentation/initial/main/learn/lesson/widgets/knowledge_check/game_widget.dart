@@ -17,6 +17,7 @@ class GameWidget extends StatelessWidget {
     required this.onUpdateTimer,
     required this.onAnswerSelected,
     required this.selectedAnswer,
+    required this.gameProgress,
     super.key,
   });
 
@@ -30,6 +31,7 @@ class GameWidget extends StatelessWidget {
   final VoidCallback onUpdateTimer;
   final Function(String, bool) onAnswerSelected;
   final String selectedAnswer;
+  final List<bool> gameProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class GameWidget extends StatelessWidget {
             spacing: 20,
             children: [
               GameProgressBar(
+                gameProgress: gameProgress,
                 questionsNum: questionsNum,
                 time: lessonTime,
                 updateTimer: onUpdateTimer,

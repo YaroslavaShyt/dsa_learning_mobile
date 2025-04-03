@@ -13,13 +13,13 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
   final Pattern pattern;
   final List<ILesson> lessonsSummary;
   final VoidCallback onCloseIconTap;
-  final void Function(int) onStartTap;
+  final void Function(int, int) onStartTap;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     return MainContainer(
-      height: 240,
+      height: 220,
       width: double.infinity,
       padding: const EdgeInsetsDirectional.all(20),
       margin: const EdgeInsetsDirectional.only(start: 4, end: 4, bottom: 20),
@@ -27,7 +27,7 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
         children: [
           Positioned(
             child: SizedBox(
-              width: 100,
+              width: MediaQuery.sizeOf(context).width / 2,
               child: Text(
                 title,
                 style: textTheme.labelSmall?.copyWith(
@@ -56,7 +56,10 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
                     categoryName: title,
                     lesson: lessonsSummary[index],
                     onCloseIconTap: onCloseIconTap,
-                    onStartTap: () => onStartTap(lessonsSummary[index].id),
+                    onStartTap: () => onStartTap(
+                      lessonsSummary[index].id,
+                      lessonsSummary[index].gameId,
+                    ),
                   ),
                 ),
               );

@@ -15,29 +15,23 @@ class GameQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            step.toString(),
-            style: textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w700,
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(
+              question,
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
             ),
           ),
-        ),
-        Flexible(
-          flex: 2,
-          child: Text(
-            question,
-            textAlign: TextAlign.center,
-            style: textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        const SizedBox.shrink(),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theo
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_content.dart';
 import 'package:flutter/material.dart';
 
-class TheoryWidget extends StatelessWidget {
+class TheoryWidget extends StatefulWidget {
   const TheoryWidget({
     required this.progress,
     required this.lessonName,
@@ -27,6 +27,25 @@ class TheoryWidget extends StatelessWidget {
   final VoidCallback onUpdateTimer;
 
   @override
+  State<TheoryWidget> createState() => _TheoryWidgetState();
+}
+
+class _TheoryWidgetState extends State<TheoryWidget> {
+  late final ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(
@@ -37,19 +56,28 @@ class TheoryWidget extends StatelessWidget {
         spacing: 20,
         children: [
           ProgressBar(
-            time: lessonTime,
-            updateTimer: onUpdateTimer,
-            lessonName: lessonName,
-            value: progress,
+            time: widget.lessonTime,
+            updateTimer: widget.onUpdateTimer,
+            lessonName: widget.lessonName,
+            value: widget.progress,
           ),
-          StepName(stepName: stepName),
+          StepName(stepName: widget.stepName),
           Expanded(
-            child: TheoryContent(content: content),
+            child: TheoryContent(
+              controller: _controller,
+              content: widget.content,
+            ),
           ),
           Buttons(
             isAnswerSelected: true,
-            onNextButtonTap: onNextButtonTap,
-            onBackButtonTap: onBackButtonTap,
+            onNextButtonTap: () {
+              widget.onNextButtonTap.call();
+              _controller.jumpTo(0);
+            },
+            onBackButtonTap: () {
+              widget.onBackButtonTap.call();
+              _controller.jumpTo(0);
+            },
           ),
         ],
       ),

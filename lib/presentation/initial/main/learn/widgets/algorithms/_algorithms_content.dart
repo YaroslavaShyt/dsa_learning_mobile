@@ -8,7 +8,7 @@ class _AlgorithmsContent extends StatelessWidget {
   });
 
   final VoidCallback onCloseButtonTap;
-  final void Function(int) onStartButtonTap;
+  final void Function(int, int) onStartButtonTap;
   final ICategory categorySummary;
 
   @override

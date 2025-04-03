@@ -26,10 +26,11 @@ class AnswersWidget extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    return Column(
-      children: List.generate(
-        answers.length,
-        (int index) {
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * 0.5,
+      child: ListView.builder(
+        itemCount: answers.length,
+        itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: selectedAnswer.isEmpty
                 ? () => onTap(
@@ -53,10 +54,12 @@ class AnswersWidget extends StatelessWidget {
               width: double.infinity,
               content: Row(
                 children: [
-                  Text(
-                    answers[index],
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontSize: 18,
+                  Flexible(
+                    child: Text(
+                      answers[index],
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ],

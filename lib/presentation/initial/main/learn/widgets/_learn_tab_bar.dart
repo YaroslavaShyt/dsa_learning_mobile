@@ -8,14 +8,18 @@ class _LearnTabBar extends StatelessWidget {
   });
 
   final VoidCallback onCloseButtonTap;
-  final void Function(int) onStartButtonTap;
+  final void Function(int, int) onStartButtonTap;
   final List<ICategory> lessonsSummary;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     return MainTabBar(
-      labelStyle: textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700),
+      labelStyle: textTheme.labelSmall?.copyWith(
+        fontWeight: FontWeight.w700,
+        fontSize: 16,
+        fontFamily: 'nunito',
+      ),
       tabs: [
         Tab(
           child: Text(

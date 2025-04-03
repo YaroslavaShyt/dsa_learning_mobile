@@ -26,7 +26,8 @@ class FinishOnTheoryPopup extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
+          Padding(
+            padding: const EdgeInsetsDirectional.only(top: 18.0),
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -38,20 +39,27 @@ class FinishOnTheoryPopup extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            context.tr("doYouWantEndLesson"),
-            textAlign: TextAlign.center,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Text(
-            context.tr("allTheRewardsWillBeLost"),
-            textAlign: TextAlign.center,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  context.tr("doYouWantEndLesson"),
+                  textAlign: TextAlign.center,
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  context.tr("allTheRewardsWillBeLost"),
+                  textAlign: TextAlign.center,
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(
@@ -66,7 +74,7 @@ class FinishOnTheoryPopup extends StatelessWidget {
                   child: Text(
                     context.tr("yes"),
                     style: textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurface,
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
                       fontWeight: FontWeight.w700,
                     ),
                   ),

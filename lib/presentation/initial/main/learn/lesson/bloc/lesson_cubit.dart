@@ -20,15 +20,23 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
+// TODO: achievements backend
+// TODO: update statistics when finishing learning
+// TODO: add illustrations into the lesson
+// TODO: decide something with avatar
+// TODO: add sounds and vibration
+
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
     required int lessonId,
+    required int gameId,
     required ILessonRepository lessonRepository,
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
     required IAchievementsService achievementsService,
     required ILessonService lessonService,
   })  : _id = lessonId,
+        _gameId = gameId,
         _lessonRepository = lessonRepository,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
@@ -37,6 +45,7 @@ class LessonCubit extends Cubit<LessonState> {
         super(const LessonState());
 
   final int _id;
+  final int _gameId;
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
   final ILessonRepository _lessonRepository;
@@ -53,7 +62,7 @@ class LessonCubit extends Cubit<LessonState> {
     try {
       final List<Object?> data = await Future.wait([
         _lessonRepository.getLessonTheory(_id),
-        _lessonRepository.getLessonGame(_id),
+        _lessonRepository.getLessonGame(_gameId),
       ]);
 
       final IGame? game = data.last as IGame?;
@@ -183,6 +192,7 @@ class LessonCubit extends Cubit<LessonState> {
       state.copyWith(
         selectedAnswer: answer,
         gameCorrectAnswers: state.gameCorrectAnswers + (isCorrect ? 1 : 0),
+        gameProgress: [...state.gameProgress, isCorrect],
       ),
     );
   }
@@ -196,6 +206,10 @@ class LessonCubit extends Cubit<LessonState> {
 
         _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
 
+        if (state.gameTime > 0) {
+          _bytes += 10;
+        }
+
         await Future.wait([
           _rewardsService.updateBalance(bytes: _bytes),
           _lessonService.updateLearnedLessons(_id),
@@ -205,7 +219,8 @@ class LessonCubit extends Cubit<LessonState> {
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
             onToLessonsPressed: _navigationUtil.navigateBack,
-            time: _formatTime(state.gameTime + state.theoryTime),
+            time: _formatTime(
+                (state.game!.timeLimit - state.gameTime) + state.theoryTime),
             lessonName: state.game?.title ?? '',
             lessonDescription: '',
             isGame: true,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -15,6 +16,7 @@ class GameProgressBar extends StatefulWidget {
     required this.value,
     required this.gameName,
     required this.questionsNum,
+    required this.gameProgress,
     super.key,
   });
 
@@ -23,6 +25,7 @@ class GameProgressBar extends StatefulWidget {
   final String gameName;
   final double value;
   final int questionsNum;
+  final List<bool> gameProgress;
 
   @override
   State<GameProgressBar> createState() => _GameProgressBarState();
@@ -90,39 +93,83 @@ class _GameProgressBarState extends State<GameProgressBar>
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            spacing: 10,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                widget.gameName,
-                style: textTheme.labelMedium,
-              ),
-              ...List.generate(widget.questionsNum, (int index) {
-                return MainCheckbox(
-                  size: 26,
-                  isChecked: false,
-                  isCorrect: true,
-                );
-              }),
-            ],
+          Flexible(
+            flex: 2,
+            child: Column(
+              spacing: 10,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  widget.gameName,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.labelMedium,
+                ),
+                Row(
+                  spacing: 10,
+                  children: List.generate(
+                    widget.questionsNum,
+                    (int index) {
+                      final isChecked = widget.gameProgress.length > index;
+                      final isCorrect =
+                          isChecked ? widget.gameProgress[index] : true;
+                      return MainCheckbox(
+                        size: 26,
+                        isChecked: isChecked,
+                        isCorrect: isCorrect,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-          Container(
-            padding: const EdgeInsetsDirectional.symmetric(
-              horizontal: 10,
-              vertical: 6,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: colorScheme.error,
-            ),
-            child: Text(
-              _formatTime(widget.time),
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
+          Flexible(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: widget.time == 0
+                        ? colorScheme.onSurface.withValues(alpha: 0.3)
+                        : colorScheme.error,
+                  ),
+                  child: Text(
+                    _formatTime(widget.time),
+                    style: textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                if (widget.time > 0)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(bottom: 8.0),
+                        child: Text(
+                          '+10',
+                          style: textTheme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: colorScheme.primaryFixed,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        height: 30,
+                        width: 30,
+                        ImageAssets.bytes,
+                      )
+                    ],
+                  ),
+              ],
             ),
           ),
         ],

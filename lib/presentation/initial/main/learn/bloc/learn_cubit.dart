@@ -44,11 +44,14 @@ class LearnCubit extends Cubit<LearnState> {
     _navigationUtil.navigateBack();
   }
 
-  void onStartButtonTap(int id) {
+  void onStartButtonTap(int id, int gameId) {
     _navigationUtil.navigateBack();
     _navigationUtil.navigateTo(
       AppRoutes.routeLesson,
-      data: LessonRoutingArgs(id: id),
+      data: LessonRoutingArgs(
+        id: id,
+        gameId: gameId,
+      ),
     );
   }
 }

@@ -12,9 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LessonRoutingArgs {
   LessonRoutingArgs({
     required this.id,
+    required this.gameId,
   });
 
   final int id;
+  final int gameId;
 }
 
 class LessonFactory {
@@ -22,6 +24,7 @@ class LessonFactory {
     return BlocProvider(
       create: (BuildContext context) => LessonCubit(
         lessonId: args.id,
+        gameId: args.gameId,
         lessonService: sl.get<ILessonService>(),
         navigationUtil: sl.get<INavigationUtil>(),
         lessonRepository: sl.get<ILessonRepository>(),
