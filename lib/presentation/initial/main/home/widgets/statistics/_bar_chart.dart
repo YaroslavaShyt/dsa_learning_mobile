@@ -12,67 +12,18 @@ class _BarChart extends StatelessWidget {
       builder: (BuildContext context, StatisticsState state) {
         return BarChart(
           BarChartData(
-            barTouchData: BarTouchData(
-              enabled: true,
-              touchTooltipData: BarTouchTooltipData(
-                getTooltipItem: ,
-                tooltipMargin: -30,
-                getTooltipColor: (_) {
-                  return Colors.transparent;
-                },
-              ),
-            ),
+            barTouchData: _barTouchData(textTheme),
             backgroundColor: colorScheme.surface,
             maxY: state.maxValue.toDouble(),
-            gridData: FlGridData(
-              verticalInterval: 0.35,
-              horizontalInterval: 5,
-              getDrawingVerticalLine: (_) {
-                return FlLine(
-                  color: colorScheme.onSurface.withValues(alpha: 0.4),
-                  dashArray: [0, 1, 1],
-                  strokeWidth: 1.2,
-                );
-              },
-              getDrawingHorizontalLine: (_) {
-                return FlLine(
-                  color: colorScheme.onSurface.withValues(alpha: 0.4),
-                  dashArray: [0, 1, 1],
-                  strokeWidth: 1.2,
-                );
-              },
-              //  show: false,
-            ),
-            borderData: FlBorderData(
-              show: false,
-            ),
+            gridData: _gridData(colorScheme),
+            borderData: FlBorderData(show: false),
             titlesData: _buildTitlesData(
               colorScheme,
               textTheme,
               state.statistics,
             ),
             extraLinesData: _buildExtraLinesData(colorScheme, state.maxValue),
-            barGroups: [
-              ...state.statistics.map<BarChartGroupData>(
-                (item) => BarChartGroupData(
-                  showingTooltipIndicators: [
-                    if (item.algorithms > 0) 0,
-                    if (item.dataStructures > 0) 1
-                  ],
-                  x: state.statistics.indexOf(item),
-                  barRods: [
-                    _buildData(
-                      value: item.algorithms,
-                      color: colorScheme.error,
-                    ),
-                    _buildData(
-                      value: item.dataStructures,
-                      color: colorScheme.onSecondaryContainer,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            barGroups: _barChartGroupData(colorScheme, state),
           ),
         );
       },
@@ -176,5 +127,71 @@ class _BarChart extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  BarTouchData _barTouchData(TextTheme textTheme) {
+    return BarTouchData(
+      enabled: false,
+      touchTooltipData: BarTouchTooltipData(
+        fitInsideVertically: true,
+        tooltipMargin: -50,
+        getTooltipColor: (spot) => Colors.transparent,
+        getTooltipItem: (_, __, dot, ___) {
+          return BarTooltipItem(
+            dot.toY.toInt().toString(),
+            textTheme.bodyMedium!.copyWith(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  FlGridData _gridData(ColorScheme colorScheme) {
+    return FlGridData(
+      verticalInterval: 0.335,
+      horizontalInterval: 5,
+      getDrawingVerticalLine: (_) {
+        return FlLine(
+          color: colorScheme.onSurface.withValues(alpha: 0.4),
+          dashArray: [0, 1, 1],
+          strokeWidth: 1.2,
+        );
+      },
+      getDrawingHorizontalLine: (_) {
+        return FlLine(
+          color: colorScheme.onSurface.withValues(alpha: 0.4),
+          dashArray: [0, 1, 1],
+          strokeWidth: 1.2,
+        );
+      },
+    );
+  }
+
+  List<BarChartGroupData> _barChartGroupData(
+      ColorScheme colorScheme, StatisticsState state) {
+    return [
+      ...state.statistics.map<BarChartGroupData>(
+        (item) => BarChartGroupData(
+          showingTooltipIndicators: [
+            if (item.algorithms > 0) 0,
+            if (item.dataStructures > 0) 1
+          ],
+          x: state.statistics.indexOf(item),
+          barRods: [
+            _buildData(
+              value: item.algorithms,
+              color: colorScheme.error,
+            ),
+            _buildData(
+              value: item.dataStructures,
+              color: colorScheme.onSecondaryContainer,
+            ),
+          ],
+        ),
+      ),
+    ];
   }
 }
