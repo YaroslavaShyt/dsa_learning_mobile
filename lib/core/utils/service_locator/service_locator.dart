@@ -98,6 +98,7 @@ class _ServiceLocator {
         fileHandler: sl.get<IFileHandler>(),
       ),
     );
+    sl.registerFactory<IVibrationHandler>(() => VibrationHandler());
   }
 
   static List<BlocProvider> get cubitAsService => [

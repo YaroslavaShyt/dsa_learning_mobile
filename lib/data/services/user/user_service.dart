@@ -80,6 +80,8 @@ class UserService extends Cubit<UserState> implements IUserService {
   Future<void> updateUser({
     String? profilePhoto,
     List<String>? unlockedAvatars,
+    bool? vibration,
+    bool? sound,
   }) async {
     try {
       emit(
@@ -87,6 +89,8 @@ class UserService extends Cubit<UserState> implements IUserService {
           user: user?.copyWith(
             profilePhoto: profilePhoto,
             unlockedAvatars: unlockedAvatars,
+            vibration: vibration,
+            sounds: sound,
           ),
         ),
       );

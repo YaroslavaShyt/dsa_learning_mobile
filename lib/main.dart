@@ -16,6 +16,7 @@ import 'package:dsa_learning/data/services/achievements/achievements_service.dar
 import 'package:dsa_learning/data/services/auth/auth_service.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/data/auth/auth_repository.dart';
+import 'package:dsa_learning/data/services/handlers/sounds/vibration_handler.dart';
 import 'package:dsa_learning/data/services/lessons/lesson_service.dart';
 import 'package:dsa_learning/data/services/permission/permission_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
@@ -31,6 +32,7 @@ import 'package:dsa_learning/domain/handlers/images/iselect_image_handler.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/rewards/irewards_repository.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/permission/ipermission_service.dart';
 import 'package:dsa_learning/domain/statistics/istatistics_repository.dart';

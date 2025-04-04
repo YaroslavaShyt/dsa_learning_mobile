@@ -6,6 +6,8 @@ class ProfileState extends Equatable {
     this.profilePhoto = '',
     this.isAboutInfoShown = false,
     this.isLanguageShown = false,
+    this.isSoundEnabled = true,
+    this.isVibrationEnabled = true,
   });
 
   ProfileState copyWith({
@@ -13,12 +15,16 @@ class ProfileState extends Equatable {
     String? profilePhoto,
     bool? isAboutInfoShown,
     bool? isLanguageShown,
+    bool? isVibrationEnabled,
+    bool? isSoundEnabled,
   }) {
     return ProfileState(
       userName: userName ?? this.userName,
       profilePhoto: profilePhoto ?? this.profilePhoto,
       isAboutInfoShown: isAboutInfoShown ?? this.isAboutInfoShown,
       isLanguageShown: isLanguageShown ?? this.isLanguageShown,
+      isVibrationEnabled: isVibrationEnabled ?? this.isVibrationEnabled,
+      isSoundEnabled: isSoundEnabled ?? this.isSoundEnabled,
     );
   }
 
@@ -26,6 +32,8 @@ class ProfileState extends Equatable {
   final String profilePhoto;
   final bool isLanguageShown;
   final bool isAboutInfoShown;
+  final bool isVibrationEnabled;
+  final bool isSoundEnabled;
 
   @override
   List<Object?> get props => [
@@ -33,5 +41,7 @@ class ProfileState extends Equatable {
         profilePhoto,
         isLanguageShown,
         isAboutInfoShown,
+        isVibrationEnabled,
+        isSoundEnabled,
       ];
 }

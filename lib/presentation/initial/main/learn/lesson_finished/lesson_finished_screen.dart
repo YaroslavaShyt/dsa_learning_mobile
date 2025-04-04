@@ -1,5 +1,7 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
+import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/achievements_row.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/lesson_finished_container.dart';
@@ -12,13 +14,24 @@ import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class LessonFinishedScreen extends StatelessWidget {
+class LessonFinishedScreen extends StatefulWidget {
   const LessonFinishedScreen({
     required this.args,
     super.key,
   });
 
   final LessonFinishedRoutingArgs args;
+
+  @override
+  State<LessonFinishedScreen> createState() => _LessonFinishedScreenState();
+}
+
+class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
+  @override
+  void initState() {
+    super.initState();
+    sl.get<IVibrationHandler>().vibrate(repeat: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +60,10 @@ class LessonFinishedScreen extends StatelessWidget {
               left: 20,
               right: 20,
               child: LessonFinishedContainer(
-                time: args.time,
-                lessonName: args.lessonName,
-                lessonDescription: args.lessonDescription,
-                isGame: args.isGame,
+                time: widget.args.time,
+                lessonName: widget.args.lessonName,
+                lessonDescription: widget.args.lessonDescription,
+                isGame: widget.args.isGame,
               ),
             ),
             Positioned(
@@ -64,9 +77,9 @@ class LessonFinishedScreen extends StatelessWidget {
               right: 20,
               bottom: MediaQuery.sizeOf(context).height / 2.5 - 100,
               child: RewardRow(
-                fan: args.fan,
-                hash: args.hash,
-                bytes: args.bytes,
+                fan: widget.args.fan,
+                hash: widget.args.hash,
+                bytes: widget.args.bytes,
               ),
             ),
             Positioned(
@@ -74,7 +87,7 @@ class LessonFinishedScreen extends StatelessWidget {
               right: 20,
               bottom: MediaQuery.sizeOf(context).height / 2.5 - 240,
               child: AchievementsRow(
-                achievements: args.achievements,
+                achievements: widget.args.achievements,
               ),
             ),
             Positioned(
@@ -82,7 +95,7 @@ class LessonFinishedScreen extends StatelessWidget {
               left: 20,
               right: 20,
               child: MainOutlinedButton(
-                onPressed: args.onToLessonsPressed,
+                onPressed: widget.args.onToLessonsPressed,
                 child: Text(
                   context.tr("toLessons"),
                   style: textTheme.bodyMedium?.copyWith(

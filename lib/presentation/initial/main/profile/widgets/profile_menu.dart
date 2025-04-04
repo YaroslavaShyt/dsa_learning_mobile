@@ -8,6 +8,10 @@ class _ProfileMenu extends StatelessWidget {
     required this.isAboutInfoShown,
     required this.onAboutInfoTap,
     required this.onExitTap,
+    required this.isSoundEnabled,
+    required this.isVibrationEnabled,
+    required this.onSoundTap,
+    required this.onVibrationTap,
   });
 
   final bool isLanguageShown;
@@ -16,12 +20,38 @@ class _ProfileMenu extends StatelessWidget {
   final bool isAboutInfoShown;
   final VoidCallback onAboutInfoTap;
   final VoidCallback onExitTap;
+  final bool isVibrationEnabled;
+  final bool isSoundEnabled;
+  final VoidCallback onSoundTap;
+  final VoidCallback onVibrationTap;
 
   @override
   Widget build(BuildContext context) {
     return MainContainer(
       content: Column(
         children: [
+          _MenuComponent(
+            title: context.tr('vibration'),
+            subtitle: context.tr(isVibrationEnabled ? 'yes' : 'no'),
+            onTap: onVibrationTap,
+            icon: Icons.vibration_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('sound'),
+            subtitle: context.tr(isSoundEnabled ? 'yes' : 'no'),
+            onTap: onSoundTap,
+            icon: Icons.music_note_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('exit'),
+            onTap: onExitTap,
+            icon: Icons.exit_to_app_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('deleteAccount'),
+            onTap: onDeleteAccountTap,
+            icon: Icons.delete_outline_rounded,
+          ),
           _MenuComponent(
             isComponentsShown: isLanguageShown,
             title: context.tr('language'),
@@ -30,16 +60,6 @@ class _ProfileMenu extends StatelessWidget {
               'Українська', //"English", "Espanol",
             ],
             selectedComponent: 'Українська',
-          ),
-          _MenuComponent(
-            title: context.tr('deleteAccount'),
-            onTap: onDeleteAccountTap,
-            icon: Icons.delete_outline_rounded,
-          ),
-          _MenuComponent(
-            title: context.tr('exit'),
-            onTap: onExitTap,
-            icon: Icons.exit_to_app_rounded,
           ),
           _MenuComponent(
             isComponentsShown: isAboutInfoShown,

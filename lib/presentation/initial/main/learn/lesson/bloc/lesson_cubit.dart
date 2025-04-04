@@ -8,6 +8,7 @@ import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
@@ -25,6 +26,8 @@ typedef RewardFunc = void Function(int, int, int);
 // TODO: add illustrations into the lesson
 // TODO: add sounds and vibration
 
+// TODO: animations on/off?
+
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
     required int lessonId,
@@ -34,6 +37,7 @@ class LessonCubit extends Cubit<LessonState> {
     required IRewardsService rewardsService,
     required IAchievementsService achievementsService,
     required ILessonService lessonService,
+    required IVibrationHandler vibrationHandler,
   })  : _id = lessonId,
         _gameId = gameId,
         _lessonRepository = lessonRepository,
@@ -41,6 +45,7 @@ class LessonCubit extends Cubit<LessonState> {
         _rewardsService = rewardsService,
         _achievementsService = achievementsService,
         _lessonService = lessonService,
+        _vibrationHandler = vibrationHandler,
         super(const LessonState());
 
   final int _id;
@@ -50,6 +55,7 @@ class LessonCubit extends Cubit<LessonState> {
   final ILessonRepository _lessonRepository;
   final IAchievementsService _achievementsService;
   final ILessonService _lessonService;
+  final IVibrationHandler _vibrationHandler;
 
   int _hash = 0;
   int _vents = 0;
@@ -194,6 +200,11 @@ class LessonCubit extends Cubit<LessonState> {
         gameProgress: [...state.gameProgress, isCorrect],
       ),
     );
+    if (isCorrect) {
+      _vibrationHandler.vibratePositive();
+      return;
+    }
+    _vibrationHandler.vibrateNegative();
   }
 
   Future<void> onNextGameButtonPressed() async {

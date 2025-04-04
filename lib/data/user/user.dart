@@ -7,6 +7,8 @@ const String _fans = 'fans';
 const String _hash = 'hash';
 const String _currentAvatar = 'currentAvatar';
 const String _unlockedAvatars = 'avatars';
+const String _vibration = 'vibration';
+const String _sound = 'sound';
 
 class User implements IUser {
   User({
@@ -17,6 +19,8 @@ class User implements IUser {
     required this.hash,
     required this.profilePhoto,
     required this.unlockedAvatars,
+    required this.vibration,
+    required this.sounds,
   });
 
   @override
@@ -28,6 +32,8 @@ class User implements IUser {
     int? hash,
     String? profilePhoto,
     List<String>? unlockedAvatars,
+    bool? vibration,
+    bool? sounds,
   }) {
     return User(
       id: id ?? this.id,
@@ -37,6 +43,8 @@ class User implements IUser {
       hash: hash ?? this.fans,
       profilePhoto: profilePhoto ?? this.profilePhoto,
       unlockedAvatars: unlockedAvatars ?? this.unlockedAvatars,
+      vibration: vibration ?? this.vibration,
+      sounds: sounds ?? this.sounds,
     );
   }
 
@@ -50,6 +58,8 @@ class User implements IUser {
       _bytes: bytes.toString(),
       _hash: hash.toString(),
       _fans: fans.toString(),
+      _vibration: vibration.toString(),
+      _sound: sounds.toString(),
     };
   }
 
@@ -62,6 +72,8 @@ class User implements IUser {
       hash: data[_hash],
       profilePhoto: data[_currentAvatar],
       unlockedAvatars: (data[_unlockedAvatars] as String).split(','),
+      vibration: data[_vibration],
+      sounds: data[_sound],
     );
   }
 
@@ -85,4 +97,10 @@ class User implements IUser {
 
   @override
   final List<String> unlockedAvatars;
+
+  @override
+  final bool vibration;
+
+  @override
+  final bool sounds;
 }

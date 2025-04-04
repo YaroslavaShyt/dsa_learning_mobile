@@ -7,6 +7,8 @@ abstract interface class IUser {
     required this.hash,
     this.profilePhoto = '',
     this.unlockedAvatars = const [],
+    this.sounds = true,
+    this.vibration = true,
   });
 
   IUser copyWith({
@@ -17,6 +19,8 @@ abstract interface class IUser {
     int? hash,
     String? profilePhoto,
     List<String>? unlockedAvatars,
+    bool? vibration,
+    bool? sounds,
   });
 
   Map<String, String> toJson(IUser user);
@@ -28,4 +32,6 @@ abstract interface class IUser {
   final int hash;
   final String profilePhoto;
   final List<String> unlockedAvatars;
+  final bool vibration;
+  final bool sounds;
 }

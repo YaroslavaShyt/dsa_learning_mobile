@@ -42,7 +42,6 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                   left: 20,
                   top: 40,
                   right: 20,
-                  bottom: 40,
                   child: Column(
                     children: [
                       _UserInfoWidget(
@@ -51,6 +50,10 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                         onAvatarTap: () => _onAvatarTap(context),
                       ),
                       _ProfileMenu(
+                        isSoundEnabled: state.isSoundEnabled,
+                        isVibrationEnabled: state.isVibrationEnabled,
+                        onSoundTap: cubit.onSoundTap,
+                        onVibrationTap: cubit.onVibrationTap,
                         isAboutInfoShown: state.isAboutInfoShown,
                         isLanguageShown: state.isLanguageShown,
                         onAboutInfoTap: cubit.onAboutInfoTap,

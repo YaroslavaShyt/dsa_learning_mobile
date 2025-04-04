@@ -9,6 +9,7 @@ class _MenuComponent extends StatelessWidget {
     this.icon = Icons.keyboard_arrow_down,
     this.components = const [],
     this.selectedComponent,
+    this.subtitle,
   });
 
   final String title;
@@ -18,6 +19,7 @@ class _MenuComponent extends StatelessWidget {
   final IconData icon;
   final List<String> components;
   final String? selectedComponent;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +47,26 @@ class _MenuComponent extends StatelessWidget {
                   title,
                   style: textTheme.labelMedium,
                 ),
-                Icon(
-                  isComponentsShown ? Icons.keyboard_arrow_up : icon,
-                  size: 30,
-                  color: colorScheme.onSurface,
-                  shadows: [
-                    BoxShadow(
-                      color: colorScheme.shadow.withValues(alpha: 0.5),
-                      offset: const Offset(1, 1),
-                      blurRadius: 10,
-                      spreadRadius: 1,
+                Row(
+                  spacing: 10,
+                  children: [
+                    if (subtitle != null)
+                      Text(
+                        subtitle!,
+                        style: textTheme.labelMedium,
+                      ),
+                    Icon(
+                      isComponentsShown ? Icons.keyboard_arrow_up : icon,
+                      size: 30,
+                      color: colorScheme.onSurface,
+                      shadows: [
+                        BoxShadow(
+                          color: colorScheme.shadow.withValues(alpha: 0.5),
+                          offset: const Offset(1, 1),
+                          blurRadius: 10,
+                          spreadRadius: 1,
+                        ),
+                      ],
                     ),
                   ],
                 ),

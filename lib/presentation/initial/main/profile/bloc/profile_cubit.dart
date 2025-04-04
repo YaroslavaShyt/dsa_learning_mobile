@@ -31,8 +31,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> init() async {
     try {
-      final String profilePhoto = _userService.user?.profilePhoto ?? '';
-      emit(state.copyWith(profilePhoto: File(profilePhoto).path));
+      emit(
+        state.copyWith(
+          profilePhoto: _userService.user?.profilePhoto ?? '',
+          isSoundEnabled: _userService.user!.sounds,
+          isVibrationEnabled: _userService.user!.vibration,
+        ),
+      );
     } catch (error) {
       logger.e(error);
     }
@@ -88,5 +93,23 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void onCancelTap() {
     _navigationUtil.navigateBack();
+  }
+
+  Future<void> onVibrationTap() async {
+    try {
+      emit(state.copyWith(isVibrationEnabled: !state.isVibrationEnabled));
+      await _userService.updateUser(vibration: state.isVibrationEnabled);
+    } catch (error) {
+      logger.e(error);
+    }
+  }
+
+  Future<void> onSoundTap() async {
+    try {
+      emit(state.copyWith(isSoundEnabled: !state.isSoundEnabled));
+      await _userService.updateUser(sound: state.isSoundEnabled);
+    } catch (error) {
+      logger.e(error);
+    }
   }
 }
