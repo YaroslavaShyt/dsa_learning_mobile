@@ -82,14 +82,23 @@ class UserService extends Cubit<UserState> implements IUserService {
   @override
   Future<void> updateUser({
     String? profilePhoto,
+    List<String>? unlockedAvatars,
   }) async {
-    emit(
-      state.copyWith(
-        user: user?.copyWith(
-          profilePhoto: profilePhoto,
+    try {
+      emit(
+        state.copyWith(
+          user: user?.copyWith(
+            profilePhoto: profilePhoto,
+            unlockedAvatars: unlockedAvatars,
+          ),
         ),
-      ),
-    );
+      );
+      await _userRepository.updateUser(
+        state.user!.toJson(state.user!),
+      );
+    } catch (error) {
+      logger.e(error);
+    }
   }
 
   @override

@@ -61,6 +61,7 @@ flutter:
     - assets/
     - assets/localization/
     - assets/animations/
+    - assets/animations/avatars/
     - assets/images/
     - assets/images/streak/
     - assets/images/currency/

@@ -5,6 +5,8 @@ const String _firstName = 'firstName';
 const String _bytes = 'bytes';
 const String _fans = 'fans';
 const String _hash = 'hash';
+const String _currentAvatar = 'currentAvatar';
+const String _unlockedAvatars = 'avatars';
 
 class User implements IUser {
   User({
@@ -13,7 +15,8 @@ class User implements IUser {
     required this.bytes,
     required this.fans,
     required this.hash,
-    this.profilePhoto = '',
+    required this.profilePhoto,
+    required this.unlockedAvatars,
   });
 
   @override
@@ -24,6 +27,7 @@ class User implements IUser {
     int? fans,
     int? hash,
     String? profilePhoto,
+    List<String>? unlockedAvatars,
   }) {
     return User(
       id: id ?? this.id,
@@ -32,7 +36,18 @@ class User implements IUser {
       fans: fans ?? this.fans,
       hash: hash ?? this.fans,
       profilePhoto: profilePhoto ?? this.profilePhoto,
+      unlockedAvatars: unlockedAvatars ?? this.unlockedAvatars,
     );
+  }
+
+  @override
+  Map<String, String> toJson(IUser user) {
+    return {
+      if (user.firstName != firstName) _firstName: firstName,
+      if (user.unlockedAvatars != unlockedAvatars)
+        _unlockedAvatars: unlockedAvatars.join(','),
+      if (user.profilePhoto != profilePhoto) _currentAvatar: profilePhoto,
+    };
   }
 
   factory User.fromJson(Map<dynamic, dynamic> data) {
@@ -42,6 +57,8 @@ class User implements IUser {
       bytes: data[_bytes],
       fans: data[_fans],
       hash: data[_hash],
+      profilePhoto: data[_currentAvatar],
+      unlockedAvatars: (data[_unlockedAvatars] as String).split(','),
     );
   }
 
@@ -62,4 +79,7 @@ class User implements IUser {
 
   @override
   final String profilePhoto;
+
+  @override
+  final List<String> unlockedAvatars;
 }

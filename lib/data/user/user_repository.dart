@@ -46,4 +46,16 @@ class UserRepository implements IUserRepository {
     }
     return null;
   }
+
+  @override
+  Future<void> updateUser(Map<String, String> data) async {
+    try {
+      await _networkingClient.put(
+        Endpoints.userEndpoint,
+        body: data,
+      );
+    } catch (error) {
+      logger.e(error);
+    }
+  }
 }

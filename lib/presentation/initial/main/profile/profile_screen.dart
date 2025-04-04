@@ -1,8 +1,8 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
-import 'package:dsa_learning/presentation/initial/main/profile/widgets/add_avatar_popup_content/add_avatar_content.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/widgets/confirm_exit/confirm_exit_popup_content.dart';
 import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
@@ -70,12 +70,11 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
   }
 
   void _onAvatarTap(BuildContext context) {
-    showPopup(
+    showModalBottomSheet(
       context: context,
-      child: AddAvatarContent(
-        onAddAvatarFromCameraTap: cubit.onAddAvatarFromCameraTapped,
-        onAddAvatarFromGalleryTap: cubit.onAddAvatarFromGalleryTapped,
-      ),
+      builder: (BuildContext context) {
+        return AvatarFactory.build();
+      },
     );
   }
 

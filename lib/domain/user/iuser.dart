@@ -6,6 +6,7 @@ abstract interface class IUser {
     required this.fans,
     required this.hash,
     this.profilePhoto = '',
+    this.unlockedAvatars = const [],
   });
 
   IUser copyWith({
@@ -15,7 +16,10 @@ abstract interface class IUser {
     int? fans,
     int? hash,
     String? profilePhoto,
+    List<String>? unlockedAvatars,
   });
+
+  Map<String, String> toJson(IUser user);
 
   final String id;
   final String firstName;
@@ -23,4 +27,5 @@ abstract interface class IUser {
   final int fans;
   final int hash;
   final String profilePhoto;
+  final List<String> unlockedAvatars;
 }

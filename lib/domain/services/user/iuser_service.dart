@@ -7,6 +7,7 @@ abstract interface class IUserService {
 
   Future<void> updateUser({
     String? profilePhoto,
+    List<String>? unlockedAvatars,
   });
 
   Future<void> cleanUserData();
