@@ -14,7 +14,7 @@ class AvatarFactory {
         navigationUtil: sl.get<INavigationUtil>(),
         rewardsService: BlocProvider.of<RewardsService>(context),
         userService: BlocProvider.of<UserService>(context),
-      ),
+      )..init(),
       child: Builder(
         builder: (context) {
           return AvatarScreen(

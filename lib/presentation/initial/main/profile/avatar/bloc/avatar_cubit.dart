@@ -4,6 +4,7 @@ import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
+import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/bloc/avatar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,9 +22,28 @@ class AvatarCubit extends Cubit<AvatarState> {
   final IRewardsService _rewardsService;
   final IUserService _userService;
 
+  List<Map<String, dynamic>> get avatars => _avatars;
+  final List<Map<String, dynamic>> _avatars = [
+    {'name': Avatars.first, 'price': 0, 'isBought': true},
+    {'name': Avatars.second, 'price': 100, 'isBought': false},
+    {'name': Avatars.third, 'price': 150, 'isBought': false},
+    {'name': Avatars.fourth, 'price': 2000, 'isBought': false},
+  ];
+
   bool isEnoughMoney(int price) => _rewardsService.bytes >= price;
 
   VoidCallback get onCloseButtonTap => _navigationUtil.navigateBackToStart;
+
+  String get selectedAvatar => _userService.user!.profilePhoto;
+
+  void init() {
+    for (var i = 0; i < _avatars.length; i++) {
+      final Avatars avatar = _avatars[i]['name'];
+      if (_userService.user!.unlockedAvatars.contains(avatar.name)) {
+        _avatars[i]['isBought'] = true;
+      }
+    }
+  }
 
   Future<void> onPurchaseButtonTap(String name, int price) async {
     try {
@@ -37,10 +57,27 @@ class AvatarCubit extends Cubit<AvatarState> {
         [
           _rewardsService.updateBalance(bytes: -price),
           _userService.updateUser(
-            profilePhoto: name,
+            profilePhoto: Avatars.values
+                .firstWhere((avatar) => avatar.name == name)
+                .lottie,
             unlockedAvatars: _userService.user!.unlockedAvatars,
           ),
         ],
+      );
+      _navigationUtil.navigateBackToStart();
+    } catch (error) {
+      logger.e(error);
+    }
+  }
+
+  Future<void> changeAvatar(String name) async {
+    try {
+      _userService.updateUser(
+        profilePhoto: Avatars.values
+            .firstWhere(
+              (avatar) => avatar.name == name,
+            )
+            .lottie,
       );
       _navigationUtil.navigateBackToStart();
     } catch (error) {

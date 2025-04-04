@@ -43,10 +43,13 @@ class User implements IUser {
   @override
   Map<String, String> toJson(IUser user) {
     return {
-      if (user.firstName != firstName) _firstName: firstName,
-      if (user.unlockedAvatars != unlockedAvatars)
-        _unlockedAvatars: unlockedAvatars.join(','),
-      if (user.profilePhoto != profilePhoto) _currentAvatar: profilePhoto,
+      _id: id,
+      _firstName: firstName,
+      _unlockedAvatars: unlockedAvatars.join(','),
+      _currentAvatar: profilePhoto,
+      _bytes: bytes.toString(),
+      _hash: hash.toString(),
+      _fans: fans.toString(),
     };
   }
 

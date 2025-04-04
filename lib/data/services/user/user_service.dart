@@ -53,12 +53,9 @@ class UserService extends Cubit<UserState> implements IUserService {
   @override
   Future<void> init() async {
     try {
-      IUser? user = await _userRepository.getUser();
-      final String profilePhoto =
-          await _localStorage.read(key: _avatarKey) ?? '';
+      final IUser? user = await _userRepository.getUser();
 
       if (user != null) {
-        user = user.copyWith(profilePhoto: profilePhoto);
         _rewardsService.init(
           bytes: user.bytes,
           hash: user.hash,

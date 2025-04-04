@@ -1,5 +1,6 @@
 import 'package:dsa_learning/core/constants/animation_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -28,7 +29,14 @@ class AvatarWidget extends StatelessWidget {
         child: LottieBuilder.asset(
           height: size,
           width: size,
-          LottieAssets.avatar1,
+          avatarPath.isEmpty
+              ? LottieAssets.avatar1
+              : (Avatars.values
+                  .firstWhere(
+                    (avatar) => avatar.lottie == avatarPath,
+                    orElse: () => Avatars.first,
+                  )
+                  .lottie),
         ),
       ),
     );
