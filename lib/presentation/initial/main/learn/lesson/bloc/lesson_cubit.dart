@@ -23,7 +23,6 @@ typedef RewardFunc = void Function(int, int, int);
 // TODO: achievements backend
 // TODO: update statistics when finishing learning
 // TODO: add illustrations into the lesson
-// TODO: decide something with avatar
 // TODO: add sounds and vibration
 
 class LessonCubit extends Cubit<LessonState> {
