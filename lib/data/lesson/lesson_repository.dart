@@ -91,14 +91,14 @@ class LessonRepository implements ILessonRepository {
   }
 
   @override
-  Future<void> completeLesson(int id) async {
+  Future<void> completeLesson(int id, int time) async {
     try {
-      await _networkingClient.post(
-        Endpoints.finishLessonEndpoint,
-        queryParameters: {
-          'training-id': id,
-        },
-      );
+      await _networkingClient
+          .post(Endpoints.finishLessonEndpoint, queryParameters: {
+        'training-id': id,
+      }, body: {
+        'time': time.toString(),
+      });
     } catch (error) {
       rethrow;
     }

@@ -11,5 +11,5 @@ abstract interface class ILessonRepository {
 
   Future<Set<int>> getLearnedLessonsIds();
 
-  Future<void> completeLesson(int id);
+  Future<void> completeLesson(int id, int time);
 }

@@ -1,6 +1,6 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/achievements_row.dart';

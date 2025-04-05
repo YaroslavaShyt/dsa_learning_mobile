@@ -8,10 +8,11 @@ import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
-import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/theory/ilesson_theory.dart';
+import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,8 +25,8 @@ typedef RewardFunc = void Function(int, int, int);
 // TODO: achievements backend
 // TODO: update statistics when finishing learning
 // TODO: add illustrations into the lesson
-// TODO: add sounds and vibration
 
+// TODO: add sounds and vibration
 // TODO: animations on/off?
 
 class LessonCubit extends Cubit<LessonState> {
@@ -38,6 +39,8 @@ class LessonCubit extends Cubit<LessonState> {
     required IAchievementsService achievementsService,
     required ILessonService lessonService,
     required IVibrationHandler vibrationHandler,
+    required bool isVibrationEnabled,
+    required StatisticsCubit statisticsCubit,
   })  : _id = lessonId,
         _gameId = gameId,
         _lessonRepository = lessonRepository,
@@ -46,6 +49,8 @@ class LessonCubit extends Cubit<LessonState> {
         _achievementsService = achievementsService,
         _lessonService = lessonService,
         _vibrationHandler = vibrationHandler,
+        _isVibrationEnabled = isVibrationEnabled,
+        _statisticsCubit = statisticsCubit,
         super(const LessonState());
 
   final int _id;
@@ -56,6 +61,8 @@ class LessonCubit extends Cubit<LessonState> {
   final IAchievementsService _achievementsService;
   final ILessonService _lessonService;
   final IVibrationHandler _vibrationHandler;
+  final bool _isVibrationEnabled;
+  final StatisticsCubit _statisticsCubit;
 
   int _hash = 0;
   int _vents = 0;
@@ -200,11 +207,13 @@ class LessonCubit extends Cubit<LessonState> {
         gameProgress: [...state.gameProgress, isCorrect],
       ),
     );
-    if (isCorrect) {
-      _vibrationHandler.vibratePositive();
-      return;
+    if (_isVibrationEnabled) {
+      if (isCorrect) {
+        _vibrationHandler.vibratePositive();
+        return;
+      }
+      _vibrationHandler.vibrateNegative();
     }
-    _vibrationHandler.vibrateNegative();
   }
 
   Future<void> onNextGameButtonPressed() async {
@@ -220,17 +229,21 @@ class LessonCubit extends Cubit<LessonState> {
           _bytes += 10;
         }
 
+        final int time =
+            (state.game!.timeLimit - state.gameTime) + state.theoryTime;
+
         await Future.wait([
           _rewardsService.updateBalance(bytes: _bytes),
-          _lessonService.updateLearnedLessons(_id),
+          _lessonService.updateLearnedLessons(_id, time),
         ]);
+
+        _statisticsCubit.init();
 
         _navigationUtil.navigateToAndReplace(
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
             onToLessonsPressed: _navigationUtil.navigateBack,
-            time: _formatTime(
-                (state.game!.timeLimit - state.gameTime) + state.theoryTime),
+            time: _formatTime(time),
             lessonName: state.game?.title ?? '',
             lessonDescription: '',
             isGame: true,

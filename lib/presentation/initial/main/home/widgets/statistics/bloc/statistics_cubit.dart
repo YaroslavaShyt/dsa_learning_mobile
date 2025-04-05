@@ -19,7 +19,7 @@ class StatisticsCubit extends Cubit<StatisticsState> {
 
       emit(
         state.copyWith(
-          statistics: statistics,
+          statistics: statistics.sublist(statistics.length - 3),
           maxValue: _findMaxValue(),
         ),
       );

@@ -17,11 +17,6 @@ class HomeFactory {
   static Widget build() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<StatisticsCubit>(
-          create: (BuildContext context) => StatisticsCubit(
-            statisticsRepository: sl.get<IStatisticsRepository>(),
-          )..init(),
-        ),
         BlocProvider<HomeCubit>(
           create: (BuildContext context) => HomeCubit(
             navigationUtil: sl.get<INavigationUtil>(),

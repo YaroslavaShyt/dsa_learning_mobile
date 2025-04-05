@@ -126,5 +126,10 @@ class _ServiceLocator {
             rewardsService: BlocProvider.of<RewardsService>(context),
           )..onAuthStateChanged(),
         ),
+        BlocProvider<StatisticsCubit>(
+          create: (BuildContext context) => StatisticsCubit(
+            statisticsRepository: sl.get<IStatisticsRepository>(),
+          ),
+        ),
       ];
 }

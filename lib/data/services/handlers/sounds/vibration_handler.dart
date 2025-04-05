@@ -1,4 +1,4 @@
-import 'package:dsa_learning/domain/services/handlers/sounds/isounds_handler.dart';
+import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
 import 'package:vibration/vibration.dart';
 
 const int _defaultVibrationDuration = 500;

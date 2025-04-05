@@ -3,7 +3,7 @@ abstract interface class ILessonService {
 
   Set<int> get learnedLessonsId;
 
-  Future<void> updateLearnedLessons(int id);
+  Future<void> updateLearnedLessons(int id, int time);
 
   bool isLessonLearned(int id);
 }

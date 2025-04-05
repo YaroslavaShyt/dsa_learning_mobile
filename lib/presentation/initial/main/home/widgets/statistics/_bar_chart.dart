@@ -15,7 +15,7 @@ class _BarChart extends StatelessWidget {
             barTouchData: _barTouchData(textTheme),
             backgroundColor: colorScheme.surface,
             maxY: state.maxValue.toDouble(),
-            gridData: _gridData(colorScheme),
+            gridData: _gridData(colorScheme, state.maxValue),
             borderData: FlBorderData(show: false),
             titlesData: _buildTitlesData(
               colorScheme,
@@ -39,7 +39,7 @@ class _BarChart extends StatelessWidget {
         topRight: Radius.circular(10),
         topLeft: Radius.circular(10),
       ),
-      toY: value.toDouble(),
+      toY: value.toDouble() / 60,
       width: 50,
       color: color,
     );
@@ -138,7 +138,7 @@ class _BarChart extends StatelessWidget {
         getTooltipColor: (spot) => Colors.transparent,
         getTooltipItem: (_, __, dot, ___) {
           return BarTooltipItem(
-            dot.toY.toInt().toString(),
+            dot.toY.ceilToDouble().toString(),
             textTheme.bodyMedium!.copyWith(
               fontSize: 14,
               fontWeight: FontWeight.w700,
@@ -149,10 +149,10 @@ class _BarChart extends StatelessWidget {
     );
   }
 
-  FlGridData _gridData(ColorScheme colorScheme) {
+  FlGridData _gridData(ColorScheme colorScheme, int maxValue) {
     return FlGridData(
       verticalInterval: 0.335,
-      horizontalInterval: 5,
+      horizontalInterval: (maxValue / 60) * 10,
       getDrawingVerticalLine: (_) {
         return FlLine(
           color: colorScheme.onSurface.withValues(alpha: 0.4),

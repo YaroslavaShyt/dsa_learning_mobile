@@ -23,10 +23,10 @@ class LessonService implements ILessonService {
   }
 
   @override
-  Future<void> updateLearnedLessons(int id) async {
+  Future<void> updateLearnedLessons(int id, int time) async {
     try {
       _learnedLessonsId.add(id);
-      _lessonRepository.completeLesson(id);
+      _lessonRepository.completeLesson(id, time);
     } catch (error) {
       logger.e(error);
     }

@@ -1,10 +1,11 @@
-abstract interface class IVibrationHandler {
-  void vibrate({
-    required bool repeat,
-    int? duration,
-  });
+abstract interface class ISoundsHandler {
+  Future<void> playSound(String soundPath, {bool loop = false});
 
-  void vibratePositive();
+  Future<void> pauseSound();
 
-  void vibrateNegative();
+  Future<void> stopSound();
+
+  Future<void> dispose();
+
+  bool get isPlaying;
 }
