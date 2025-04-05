@@ -24,11 +24,11 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
+// TODO: achievements debug
 // TODO: vents per day & flow
-// TODO: lost streak
-// TODO: achievements
 // TODO: add illustrations into the lesson
 // TODO: fix scrollbar color, add scrollbars
+// TODO: check lost streak
 
 // TODO: add sounds and vibration
 // TODO: animations on/off?
