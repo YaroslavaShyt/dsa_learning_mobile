@@ -25,7 +25,6 @@ const double _progressStep = 0.25;
 typedef RewardFunc = void Function(int, int, int);
 
 // TODO: vents per day & flow
-// TODO: error placeholder
 // TODO: lost streak
 // TODO: achievements
 // TODO: add illustrations into the lesson
