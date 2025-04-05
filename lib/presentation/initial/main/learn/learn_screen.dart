@@ -13,6 +13,7 @@ import 'package:dsa_learning/presentation/widgets/bottomsheet/bottom_sheet_mixin
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
+import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/tab_bar/main_tab_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,8 @@ class LearnScreen extends StatelessWidget {
             children: [
               const MainBackground(),
               if (state.status == LearnStatus.loading) LoaderFactory.build(),
+              if (state.status == LearnStatus.failure)
+                ErrorFactory.build(cubit.init),
               if (state.status == LearnStatus.loaded)
                 _LearnTabBar(
                   lessonsSummary: state.lessonsSummary,

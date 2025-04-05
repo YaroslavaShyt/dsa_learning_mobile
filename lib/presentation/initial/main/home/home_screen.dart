@@ -17,6 +17,7 @@ import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
+import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -24,13 +25,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-part 'widgets/streak/_streak_widget.dart';
 part 'widgets/achievements/_achievements_widget.dart';
 part 'widgets/hello_user/_currency_item.dart';
 part 'widgets/hello_user/_hello_user_widget.dart';
 part 'widgets/statistics/_bar_chart.dart';
 part 'widgets/statistics/_legend_item.dart';
 part 'widgets/statistics/_statistics_widget.dart';
+part 'widgets/streak/_streak_widget.dart';
 
 class HomeScreen extends StatefulWidget with PopUpMixin {
   const HomeScreen({
@@ -53,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = getColorScheme(context);
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -63,6 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const MainBackground(),
                 if (state.status == HomeStatus.loading) LoaderFactory.build(),
+                if (state.status == HomeStatus.failure)
+                  ErrorFactory.build(
+                    () => widget.cubit.init(
+                      () => _onLostStreak(context),
+                    ),
+                  ),
                 if (state.status == HomeStatus.success)
                   Container(
                     margin: const EdgeInsetsDirectional.symmetric(

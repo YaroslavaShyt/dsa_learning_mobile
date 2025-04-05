@@ -7,6 +7,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theo
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
+import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,8 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
               children: [
                 const MainBackground(),
                 if (state.status == LessonStatus.loading) LoaderFactory.build(),
-                if (state.status == LessonStatus.failure) const Text("oops"),
+                if (state.status == LessonStatus.failure)
+                  ErrorFactory.build(cubit.init),
                 if (state.status == LessonStatus.loaded) ...[
                   if (state.activityType == ActivityType.theory)
                     TheoryWidget(
