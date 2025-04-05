@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievement_component.dart';
-import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/close_button.dart';
+import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AchievementsPopupContent extends StatelessWidget {
@@ -48,17 +51,29 @@ class AchievementsPopupContent extends StatelessWidget {
                 ),
               ],
             ),
-            AppCloseButton(onCloseButtonTap: onCloseButtonTap),
+            IconButton(
+              icon: Icon(
+                Icons.close_rounded,
+                color: getColorScheme(context).onSurface,
+                shadows: [mainBoxShadow(context)],
+              ),
+              onPressed: onCloseButtonTap,
+            ),
           ],
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: achievements.length,
-            itemBuilder: (context, index) {
-              return AchievementComponent(
-                achievement: achievements[index],
-              );
-            },
+          child: Scrollbar(
+            thumbVisibility: true,
+            thickness: 6,
+            radius: const Radius.circular(20),
+            child: ListView.builder(
+              itemCount: achievements.length,
+              itemBuilder: (context, index) {
+                return AchievementComponent(
+                  achievement: achievements[index],
+                );
+              },
+            ),
           ),
         ),
       ],

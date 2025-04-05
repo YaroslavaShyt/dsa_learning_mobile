@@ -9,7 +9,16 @@ class AppColorTheme {
   static ThemeData theme(BuildContext context) => ThemeData(
         fontFamily: 'Nunito',
         colorScheme: _lightColorScheme,
-        scrollbarTheme: scrollbarThemeData(context),
+        scrollbarTheme: const ScrollbarThemeData().copyWith(
+          thumbVisibility: const WidgetStatePropertyAll(true),
+          trackVisibility: const WidgetStatePropertyAll(true),
+          thumbColor: WidgetStateProperty.all(_lightColorScheme.onSurface),
+          trackBorderColor:
+              WidgetStateProperty.all(_lightColorScheme.onSurface),
+          trackColor: WidgetStateProperty.all(_lightColorScheme.onSurface),
+          thickness: const WidgetStatePropertyAll(8),
+          radius: const Radius.circular(4),
+        ),
       );
 
   static final ColorScheme _lightColorScheme = ColorScheme(

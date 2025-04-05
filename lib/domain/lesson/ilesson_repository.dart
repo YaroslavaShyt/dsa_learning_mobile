@@ -9,7 +9,7 @@ abstract interface class ILessonRepository {
 
   Future<IGame?> getLessonGame(int id);
 
-  Future<Set<int>> getLearnedLessonsIds();
+  Future<Map<String, List<int>>> getLearnedLessonsIds();
 
   Future<void> completeLesson(int id, int time);
 }

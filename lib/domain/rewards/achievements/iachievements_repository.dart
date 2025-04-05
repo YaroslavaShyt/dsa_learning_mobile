@@ -7,8 +7,7 @@ abstract interface class IAchievementsRepository {
   Future<List<IAchievement>> getUserAchievements();
 
   Future<void> addNewAchievement({
-    required String achievementId,
-    required String userId,
+    required List<String> achievementId,
   });
 
   Future<List<IStreak>> getUserStreak();

@@ -75,7 +75,7 @@ class LessonRepository implements ILessonRepository {
   }
 
   @override
-  Future<Set<int>> getLearnedLessonsIds() async {
+  Future<Map<String, List<int>>> getLearnedLessonsIds() async {
     try {
       final Response? response = await _networkingClient.get(
         Endpoints.getLearnedLessonsEndpoint,
@@ -83,8 +83,18 @@ class LessonRepository implements ILessonRepository {
 
       if (response == null || response.data == null) return {};
 
-      final List<dynamic> dataList = response.data;
-      return dataList.map<int>((item) => item as int).toSet();
+      if (response.data is Map<String, dynamic>) {
+        final Map<String, List<int>> parsedData = {};
+        response.data.forEach((key, value) {
+          if (value is List) {
+            parsedData[key] =
+                List<int>.from(value.map((e) => e is int ? e : 0));
+          }
+        });
+        return parsedData;
+      }
+
+      return {};
     } catch (error) {
       rethrow;
     }

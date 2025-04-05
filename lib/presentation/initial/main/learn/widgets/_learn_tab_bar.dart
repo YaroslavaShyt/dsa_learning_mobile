@@ -8,7 +8,7 @@ class _LearnTabBar extends StatelessWidget {
   });
 
   final VoidCallback onCloseButtonTap;
-  final void Function(int, int) onStartButtonTap;
+  final void Function(int, int, String) onStartButtonTap;
   final List<ICategory> lessonsSummary;
 
   @override
@@ -36,7 +36,8 @@ class _LearnTabBar extends StatelessWidget {
         _AlgorithmsContent(
           categorySummary: lessonsSummary.first,
           onCloseButtonTap: onCloseButtonTap,
-          onStartButtonTap: onStartButtonTap,
+          onStartButtonTap: (id, val) =>
+              onStartButtonTap(id, val, 'ALGORITHMS'),
         ),
         //_DataStructuresContent(),
         Container(),

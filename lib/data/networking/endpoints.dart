@@ -14,12 +14,7 @@ class Endpoints {
   static const String _achievements = 'achievements';
   static const String getAllAchievementsEndpoint = '$_achievements/';
   static String userAchievementsEndpoint = '$_achievements/user/';
-
-  static String addNewAchievementEndpoint({
-    required String userId,
-    required String achievementId,
-  }) =>
-      '$_achievements/user/$userId/add/$achievementId';
+  static const String addNewAchievementEndpoint = '$_achievements/user/add';
 
   /// STREAK
   static const String _streak = 'streak';

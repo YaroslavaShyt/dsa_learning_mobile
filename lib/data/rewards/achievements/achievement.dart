@@ -14,8 +14,7 @@ enum AchievementType {
   persistence("persistence", ImageAssets.persistence),
   responsibility("responsibility", ImageAssets.responsibility),
   savvy("savvy", ImageAssets.savyy),
-  senior("senior", ImageAssets.senior),
-  teamLead("team-lead", ImageAssets.teamLead);
+  senior("senior", ImageAssets.senior);
 
   const AchievementType(
     this.apiString,
@@ -97,7 +96,6 @@ class Achievement implements IAchievement {
       AchievementType.responsibility => ImageAssets.responsibility,
       AchievementType.savvy => ImageAssets.savyy,
       AchievementType.senior => ImageAssets.senior,
-      AchievementType.teamLead => ImageAssets.teamLead,
     };
   }
 }

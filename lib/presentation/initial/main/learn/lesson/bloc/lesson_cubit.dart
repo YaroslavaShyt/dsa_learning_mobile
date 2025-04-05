@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/data/rewards/rewards.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
+import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
@@ -22,8 +24,12 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
-// TODO: achievements backend
+// TODO: vents per day & flow
+// TODO: error placeholder
+// TODO: lost streak
+// TODO: achievements
 // TODO: add illustrations into the lesson
+// TODO: fix scrollbar color, add scrollbars
 
 // TODO: add sounds and vibration
 // TODO: animations on/off?
@@ -40,6 +46,7 @@ class LessonCubit extends Cubit<LessonState> {
     required IVibrationHandler vibrationHandler,
     required bool isVibrationEnabled,
     required StatisticsCubit statisticsCubit,
+    required String categoryName,
   })  : _id = lessonId,
         _gameId = gameId,
         _lessonRepository = lessonRepository,
@@ -50,6 +57,7 @@ class LessonCubit extends Cubit<LessonState> {
         _vibrationHandler = vibrationHandler,
         _isVibrationEnabled = isVibrationEnabled,
         _statisticsCubit = statisticsCubit,
+        _categoryName = categoryName,
         super(const LessonState());
 
   final int _id;
@@ -62,10 +70,12 @@ class LessonCubit extends Cubit<LessonState> {
   final IVibrationHandler _vibrationHandler;
   final bool _isVibrationEnabled;
   final StatisticsCubit _statisticsCubit;
+  final String _categoryName;
 
   int _hash = 0;
   int _vents = 0;
   int _bytes = 0;
+  List<AchievementType> _achievements = [];
 
   bool get _isLessonLearned => _lessonService.isLessonLearned(_id);
 
@@ -220,6 +230,8 @@ class LessonCubit extends Cubit<LessonState> {
       if (state.selectedAnswer.isEmpty) return;
 
       if (state.gameStep == state.game!.tasks.length - 1) {
+        _checkAchievements();
+
         _achievementsService.updateStreak();
 
         _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
@@ -233,7 +245,7 @@ class LessonCubit extends Cubit<LessonState> {
 
         await Future.wait([
           _rewardsService.updateBalance(bytes: _bytes),
-          _lessonService.updateLearnedLessons(_id, time),
+          _lessonService.updateLearnedLessons(_id, time, _categoryName),
         ]);
 
         _statisticsCubit.init();
@@ -249,7 +261,7 @@ class LessonCubit extends Cubit<LessonState> {
             bytes: _isLessonLearned ? 0 : _bytes,
             hash: _isLessonLearned ? 0 : _hash,
             fan: _isLessonLearned ? 0 : _vents,
-            achievements: [],
+            achievements: _achievements,
           ),
         );
         return;
@@ -258,5 +270,72 @@ class LessonCubit extends Cubit<LessonState> {
     } catch (error) {
       logger.e(error);
     }
+  }
+
+  void _checkAchievements() {
+    final List<AchievementType> achievements = [];
+    if (_isSavvyAchieved()) {
+      achievements.add(AchievementType.savvy);
+    }
+    if (_isDevotionAchieved()) {
+      achievements.add(AchievementType.devotion);
+    }
+    if (_isJuniorAchieved()) {
+      achievements.add(AchievementType.junior);
+    }
+    if (_isMiddleAchieved()) {
+      achievements.add(AchievementType.middle);
+    }
+    if (_isPersistenceAchieved()) {
+      achievements.add(AchievementType.persistence);
+    }
+    if (_isResponsibilityAchieved()) {
+      achievements.add(AchievementType.responsibility);
+    }
+    if (_isSeniorAchieved()) {
+      achievements.add(AchievementType.senior);
+    }
+    _achievements = achievements;
+    _achievementsService.addAchievement(_achievements);
+  }
+
+  bool _isSavvyAchieved() =>
+      state.gameCorrectAnswers == state.game!.tasks.length;
+
+  bool _isDevotionAchieved() {
+    return _achievementsService.streak.last.status == StreakStatus.frozen ||
+        _achievementsService.streak.last.status == StreakStatus.notLearned;
+  }
+
+  bool _isJuniorAchieved() {
+    return _lessonService.learnedAlgorithmsLessonsId.length ==
+        _lessonService.algorithmsLessonsNum;
+  }
+
+  bool _isMiddleAchieved() {
+    return _lessonService.learnedDataStructuresLessonsId.length ==
+        _lessonService.dataStructuresLessonsNum;
+  }
+
+  bool _isPersistenceAchieved() {
+    return _lessonService.lessonsCounter == 2;
+  }
+
+  bool _isResponsibilityAchieved() {
+    int counter = 0;
+    for (var streak in _achievementsService.streak) {
+      if (streak.status == StreakStatus.frozen ||
+          streak.status == StreakStatus.learned) {
+        counter += 1;
+      }
+    }
+    return counter == 7;
+  }
+
+  bool _isSeniorAchieved() {
+    return _lessonService.learnedDataStructuresLessonsId.length ==
+            _lessonService.dataStructuresLessonsNum &&
+        _lessonService.learnedAlgorithmsLessonsId.length ==
+            _lessonService.algorithmsLessonsNum;
   }
 }

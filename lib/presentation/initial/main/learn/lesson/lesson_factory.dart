@@ -16,10 +16,12 @@ class LessonRoutingArgs {
   LessonRoutingArgs({
     required this.id,
     required this.gameId,
+    required this.category,
   });
 
   final int id;
   final int gameId;
+  final String category;
 }
 
 class LessonFactory {
@@ -37,6 +39,7 @@ class LessonFactory {
         statisticsCubit: BlocProvider.of<StatisticsCubit>(context),
         isVibrationEnabled:
             BlocProvider.of<UserService>(context).user!.vibration,
+        categoryName: args.category,
       )..init(),
       child: Builder(
         builder: (BuildContext context) {

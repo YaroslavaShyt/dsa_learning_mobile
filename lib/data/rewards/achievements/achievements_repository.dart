@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:dsa_learning/core/utils/parsers/background_parser.dart';
+import 'package:dsa_learning/data/networking/endpoints.dart';
 import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/data/rewards/achievements/streak.dart';
-import 'package:dsa_learning/data/networking/endpoints.dart';
+import 'package:dsa_learning/domain/networking/inetworking_client.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievements_repository.dart';
 import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
-import 'package:dsa_learning/domain/networking/inetworking_client.dart';
 
 class AchievementsRepository implements IAchievementsRepository {
   AchievementsRepository({
@@ -20,15 +20,14 @@ class AchievementsRepository implements IAchievementsRepository {
 
   @override
   Future<void> addNewAchievement({
-    required String achievementId,
-    required String userId,
+    required List<String> achievementId,
   }) async {
     try {
       final Response? response = await _networkingClient.post(
-        Endpoints.addNewAchievementEndpoint(
-          userId: userId,
-          achievementId: achievementId,
-        ),
+        Endpoints.addNewAchievementEndpoint,
+        body: {
+          'ids': achievementId,
+        },
       );
 
       if (response == null || response.statusCode == 200) return;

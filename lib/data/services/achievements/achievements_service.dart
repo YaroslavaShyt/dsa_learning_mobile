@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/data/services/achievements/achievemens_state.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievements_repository.dart';
@@ -86,5 +87,28 @@ class AchievementsService extends Cubit<AchievementsState>
       StreakStatus.frozen,
       _streak[index].date,
     );
+  }
+
+  @override
+  Future<void> addAchievement(List<AchievementType> achievements) async {
+    try {
+      for (var userAchievement in _achievements) {
+        for (var requestedAchievement in achievements) {
+          if (userAchievement.achievementType == requestedAchievement) {
+            achievements
+                .removeWhere((a) => a == userAchievement.achievementType);
+          }
+        }
+      }
+
+      await _achievementsRepository.addNewAchievement(
+        achievementId:
+            _achievements.map((achievement) => achievement.id).toList(),
+      );
+
+      await init();
+    } catch (error) {
+      logger.e(error);
+    }
   }
 }
