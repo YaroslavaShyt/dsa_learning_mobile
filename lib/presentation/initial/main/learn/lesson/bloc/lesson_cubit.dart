@@ -23,7 +23,6 @@ const double _progressStep = 0.25;
 typedef RewardFunc = void Function(int, int, int);
 
 // TODO: achievements backend
-// TODO: update statistics when finishing learning
 // TODO: add illustrations into the lesson
 
 // TODO: add sounds and vibration
