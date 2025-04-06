@@ -24,12 +24,12 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
-// TODO: achievements debug
 // TODO: vents per day & flow
 // TODO: add illustrations into the lesson
 // TODO: fix scrollbar color, add scrollbars
 // TODO: check lost streak
 
+// TODO: internal testing
 // TODO: add sounds and vibration
 // TODO: animations on/off?
 
@@ -80,6 +80,8 @@ class LessonCubit extends Cubit<LessonState> {
 
   Future<void> init() async {
     try {
+      emit(state.copyWith(status: LessonStatus.loading));
+
       final List<Object?> data = await Future.wait([
         _lessonRepository.getLessonTheory(_id),
         _lessonRepository.getLessonGame(_gameId),

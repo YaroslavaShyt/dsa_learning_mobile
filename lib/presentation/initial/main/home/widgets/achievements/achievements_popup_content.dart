@@ -62,17 +62,20 @@ class AchievementsPopupContent extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: Scrollbar(
-            thumbVisibility: true,
-            thickness: 6,
-            radius: const Radius.circular(20),
-            child: ListView.builder(
-              itemCount: achievements.length,
-              itemBuilder: (context, index) {
-                return AchievementComponent(
-                  achievement: achievements[index],
-                );
-              },
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(end: 8.0, bottom: 8),
+            child: Scrollbar(
+              thumbVisibility: true,
+              thickness: 6,
+              radius: const Radius.circular(20),
+              child: ListView.builder(
+                itemCount: achievements.length,
+                itemBuilder: (context, index) {
+                  return AchievementComponent(
+                    achievement: achievements[index],
+                  );
+                },
+              ),
             ),
           ),
         ),

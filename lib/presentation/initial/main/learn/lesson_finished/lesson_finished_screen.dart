@@ -45,64 +45,50 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
           children: [
             const MainBackground(),
             const StarsBackground(),
-            const Positioned(
-              top: 100,
-              left: 50,
-              right: 50,
-              child: SizedBox(
-                height: 400,
-                width: 450,
-                child: RobotAnimation(),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              left: 20,
-              right: 20,
-              child: LessonFinishedContainer(
-                time: widget.args.time,
-                lessonName: widget.args.lessonName,
-                lessonDescription: widget.args.lessonDescription,
-                isGame: widget.args.isGame,
-              ),
-            ),
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: MediaQuery.sizeOf(context).height / 4,
-              child: const LessonIsOverText(),
-            ),
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: MediaQuery.sizeOf(context).height / 2.5 - 100,
-              child: RewardRow(
-                fan: widget.args.fan,
-                hash: widget.args.hash,
-                bytes: widget.args.bytes,
-              ),
-            ),
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: MediaQuery.sizeOf(context).height / 2.5 - 240,
-              child: AchievementsRow(
-                achievements: widget.args.achievements,
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 20,
-              right: 20,
-              child: MainOutlinedButton(
-                onPressed: widget.args.onToLessonsPressed,
-                child: Text(
-                  context.tr("toLessons"),
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.primaryFixed,
-                    fontWeight: FontWeight.w700,
+            Padding(
+              padding: const EdgeInsetsDirectional.all(10.0),
+              child: Column(
+                spacing: 10,
+                children: [
+                  Flexible(
+                    child: LessonFinishedContainer(
+                      time: widget.args.time,
+                      lessonName: widget.args.lessonName,
+                      lessonDescription: widget.args.lessonDescription,
+                      isGame: widget.args.isGame,
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 350,
+                    width: 350,
+                    child: RobotAnimation(),
+                  ),
+                  const LessonIsOverText(),
+                  RewardRow(
+                    fan: widget.args.fan,
+                    hash: widget.args.hash,
+                    bytes: widget.args.bytes,
+                  ),
+                  AchievementsRow(
+                    achievements: widget.args.achievements,
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: MainOutlinedButton(
+                      onPressed: widget.args.onToLessonsPressed,
+                      child: Text(
+                        context.tr("toLessons"),
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.primaryFixed,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

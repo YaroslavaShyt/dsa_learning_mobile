@@ -36,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(status: HomeStatus.loading));
       await _achievementsService.init();
       _lostStreak = shouldShowLostStreakPopup(_achievementsService.streak);
+      _achievementsService.achievements.sort((a, b) => a.isLocked ? 1 : -1);
       emit(
         state.copyWith(
           status: HomeStatus.success,
@@ -75,6 +76,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onAchievementsChanged() {
+    _achievementsService.achievements.sort((a, b) => a.isLocked ? 1 : -1);
     emit(
       state.copyWith(
         achievements: _achievementsService.achievements,

@@ -27,52 +27,45 @@ class LessonFinishedContainer extends StatelessWidget {
         horizontal: 20,
         vertical: 20,
       ),
-      content: Flexible(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              flex: 3,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      lessonName,
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: Container(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    width: 4,
-                    color: colorScheme.primaryFixed,
-                  ),
-                ),
-                child: Text(
-                  time,
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  lessonName,
                   style: textTheme.bodyMedium?.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 10,
+              vertical: 4,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                width: 4,
+                color: colorScheme.primaryFixed,
               ),
             ),
-          ],
-        ),
+            child: Text(
+              time,
+              style: textTheme.bodyMedium?.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

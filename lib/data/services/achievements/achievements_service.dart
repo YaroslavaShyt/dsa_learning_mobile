@@ -65,15 +65,14 @@ class AchievementsService extends Cubit<AchievementsState>
   }
 
   void _getUserAchievements() {
-    _achievements.map(
-      (element) {
-        for (var achievement in _userAchievements) {
-          if (achievement.achievementType == element.achievementType) {
-            return achievement;
-          }
+    for (var element in _achievements) {
+      for (var achievement in _userAchievements) {
+        if (element.achievementType == achievement.achievementType) {
+          _achievements[_achievements.indexWhere((a) => a == element)] =
+              achievement;
         }
-      },
-    );
+      }
+    }
   }
 
   @override
@@ -92,18 +91,26 @@ class AchievementsService extends Cubit<AchievementsState>
   @override
   Future<void> addAchievement(List<AchievementType> achievements) async {
     try {
+      achievements = [AchievementType.junior];
+      final List<IAchievement> achievementsToAdd = [];
+
       for (var userAchievement in _achievements) {
         for (var requestedAchievement in achievements) {
-          if (userAchievement.achievementType == requestedAchievement) {
-            achievements
-                .removeWhere((a) => a == userAchievement.achievementType);
+          if (userAchievement.achievementType == requestedAchievement &&
+              userAchievement.isLocked) {
+            achievementsToAdd.add(userAchievement);
           }
         }
       }
 
+      if (achievementsToAdd.isEmpty) return;
+
       await _achievementsRepository.addNewAchievement(
-        achievementId:
-            _achievements.map((achievement) => achievement.id).toList(),
+        achievementId: achievementsToAdd
+            .map(
+              (achievement) => achievement.id,
+            )
+            .toList(),
       );
 
       await init();

@@ -61,8 +61,8 @@ class Achievement implements IAchievement {
     final AchievementType type = _getAchievementTypeByAPIString(
       json[_title] ?? json['name'],
     );
-    final bool isUnlocked =
-        json[_achievedOn] != null && json['createdAt'] != null;
+    final bool isUnlocked = json[_achievedOn] != null;
+    print(json);
     return Achievement(
       id: (json[_id] ?? json['id']).toString(),
       title: json[_title] ?? json['name'],

@@ -11,13 +11,11 @@ class AppColorTheme {
         colorScheme: _lightColorScheme,
         scrollbarTheme: const ScrollbarThemeData().copyWith(
           thumbVisibility: const WidgetStatePropertyAll(true),
-          trackVisibility: const WidgetStatePropertyAll(true),
-          thumbColor: WidgetStateProperty.all(_lightColorScheme.onSurface),
-          trackBorderColor:
-              WidgetStateProperty.all(_lightColorScheme.onSurface),
-          trackColor: WidgetStateProperty.all(_lightColorScheme.onSurface),
+          trackVisibility: const WidgetStatePropertyAll(false),
+          thumbColor: WidgetStateProperty.all(
+              _lightColorScheme.onSurface.withValues(alpha: 0.5)),
           thickness: const WidgetStatePropertyAll(8),
-          radius: const Radius.circular(4),
+          radius: const Radius.circular(20),
         ),
       );
 
