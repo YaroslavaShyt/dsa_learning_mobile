@@ -1,7 +1,9 @@
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
+import 'package:dsa_learning/presentation/initial/main/home/shop/shop_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/bloc/lesson_state.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/confirm_exit_popup.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/all_vents_used_popup_content.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/game_widget.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/finish_on_theory_popup.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/theory_finished_popup.dart';
@@ -55,19 +57,29 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                       ),
                     ),
                   if (state.activityType == ActivityType.game)
-                    GameWidget(
-                      gameProgress: state.gameProgress,
-                      onAnswerSelected: cubit.onAnswerSelected,
-                      questionsNum: state.game!.tasks.length,
-                      task: cubit.task,
-                      lessonTime: state.gameTime,
-                      onUpdateTimer: cubit.onUpdateGameTimer,
-                      progress: state.progress,
-                      gameName: state.game!.title,
-                      selectedAnswer: state.selectedAnswer,
-                      onNextButtonTap: cubit.onNextGameButtonPressed,
-                      onBackButtonTap: () => cubit.onBackButtonPressed(
-                        () => _confirmExit(context),
+                    SingleChildScrollView(
+                      child: GameWidget(
+                        vents: state.vents,
+                        gameProgress: state.gameProgress,
+                        onAnswerSelected: (answer, isCorrect) =>
+                            cubit.onAnswerSelected(
+                          answer,
+                          isCorrect,
+                          () => _onAllVentsUsed(context),
+                        ),
+                        questionsNum: state.game!.tasks.length,
+                        task: cubit.task,
+                        lessonTime: state.gameTime,
+                        onUpdateTimer: cubit.onUpdateGameTimer,
+                        progress: state.progress,
+                        gameName: state.game!.title,
+                        selectedAnswer: state.selectedAnswer,
+                        onNextButtonTap: () => cubit.onNextGameButtonPressed(
+                          () => _onAllVentsUsed(context),
+                        ),
+                        onBackButtonTap: () => cubit.onBackButtonPressed(
+                          () => _confirmExit(context),
+                        ),
                       ),
                     ),
                 ],
@@ -122,6 +134,27 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
         },
         onCancelTap: cubit.onLetsGoTap,
       ),
+    );
+  }
+
+  void _onAllVentsUsed(BuildContext context) {
+    showPopup(
+      context: context,
+      child: AllVentsUsedPopupContent(
+        onConfirmTap: () {
+          cubit.onLaterTap();
+          _showShop(context);
+        },
+        onCancelTap: cubit.onVentsUsedNoTap,
+      ),
+    );
+  }
+
+  void _showShop(BuildContext context) {
+    showPopup(
+      height: 450,
+      context: context,
+      child: ShopFactory.build(),
     );
   }
 }

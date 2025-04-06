@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/progress_bar_component.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'check_box/check_box.dart';
@@ -17,6 +16,7 @@ class GameProgressBar extends StatefulWidget {
     required this.gameName,
     required this.questionsNum,
     required this.gameProgress,
+    required this.vents,
     super.key,
   });
 
@@ -26,6 +26,7 @@ class GameProgressBar extends StatefulWidget {
   final double value;
   final int questionsNum;
   final List<bool> gameProgress;
+  final int vents;
 
   @override
   State<GameProgressBar> createState() => _GameProgressBarState();
@@ -61,14 +62,6 @@ class _GameProgressBarState extends State<GameProgressBar>
     if (_timer != null) {
       _timer.cancel();
     }
-  }
-
-  String _formatTime(int seconds) {
-    return DateFormat('mm:ss').format(
-      DateTime(0).add(
-        Duration(seconds: seconds),
-      ),
-    );
   }
 
   @override
@@ -122,53 +115,10 @@ class _GameProgressBarState extends State<GameProgressBar>
                     },
                   ),
                 ),
-              ],
-            ),
-          ),
-          Flexible(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: widget.time == 0
-                        ? colorScheme.onSurface.withValues(alpha: 0.3)
-                        : colorScheme.error,
-                  ),
-                  child: Text(
-                    _formatTime(widget.time),
-                    style: textTheme.labelMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                    ),
-                  ),
+                ProgressBarComponent(
+                  vents: widget.vents,
+                  time: widget.time,
                 ),
-                if (widget.time > 0)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(bottom: 8.0),
-                        child: Text(
-                          '+10',
-                          style: textTheme.labelMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: colorScheme.primaryFixed,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      Image.asset(
-                        height: 30,
-                        width: 30,
-                        ImageAssets.bytes,
-                      )
-                    ],
-                  ),
               ],
             ),
           ),

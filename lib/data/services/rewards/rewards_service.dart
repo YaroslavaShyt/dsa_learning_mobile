@@ -54,7 +54,7 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
         state.copyWith(
           bytes: newBytes,
           hash: newHash,
-          vents: newVents,
+          vents: newVents > 5 ? 5 : newVents,
         ),
       );
 

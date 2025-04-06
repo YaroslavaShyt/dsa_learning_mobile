@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
+import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/main.dart';
@@ -14,6 +15,7 @@ class LearnFactory {
         navigationUtil: sl.get<INavigationUtil>(),
         lessonRepository: sl.get<ILessonRepository>(),
         lessonService: sl.get<ILessonService>(),
+        rewardsService: BlocProvider.of<RewardsService>(context),
       )..init(),
       child: Builder(
         builder: (BuildContext context) {

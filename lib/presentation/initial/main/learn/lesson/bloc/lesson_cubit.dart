@@ -25,10 +25,12 @@ const double _progressStep = 0.25;
 typedef RewardFunc = void Function(int, int, int);
 
 // TODO: vents per day & flow
+// TODO: what to do if all the answers where incorrect (no achievements + lock next level)
 // TODO: add illustrations into the lesson
 // TODO: fix scrollbar color, add scrollbars
 // TODO: check lost streak
 
+// TODO: timer for vents renuwal
 // TODO: internal testing
 // TODO: add sounds and vibration
 // TODO: animations on/off?
@@ -97,6 +99,7 @@ class LessonCubit extends Cubit<LessonState> {
           status: data.first != null && game != null
               ? LessonStatus.loaded
               : LessonStatus.failure,
+          vents: _rewardsService.vents,
         ),
       );
     } catch (error) {
@@ -209,14 +212,26 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
-  void onAnswerSelected(String answer, bool isCorrect) {
+  void onAnswerSelected(
+    String answer,
+    bool isCorrect,
+    VoidCallback onAllVentsUsed,
+  ) {
+    if (_rewardsService.vents < 1) {
+      onAllVentsUsed();
+    }
+    if (!isCorrect) {
+      _rewardsService.updateBalance(vents: -1);
+    }
     emit(
       state.copyWith(
         selectedAnswer: answer,
         gameCorrectAnswers: state.gameCorrectAnswers + (isCorrect ? 1 : 0),
         gameProgress: [...state.gameProgress, isCorrect],
+        vents: _rewardsService.vents,
       ),
     );
+
     if (_isVibrationEnabled) {
       if (isCorrect) {
         _vibrationHandler.vibratePositive();
@@ -226,8 +241,11 @@ class LessonCubit extends Cubit<LessonState> {
     }
   }
 
-  Future<void> onNextGameButtonPressed() async {
+  Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
     try {
+      if (_rewardsService.vents < 1) {
+        onAllVentsUsed();
+      }
       if (state.selectedAnswer.isEmpty) return;
 
       if (state.gameStep == state.game!.tasks.length - 1) {
@@ -338,5 +356,13 @@ class LessonCubit extends Cubit<LessonState> {
             _lessonService.dataStructuresLessonsNum &&
         _lessonService.learnedAlgorithmsLessonsId.length ==
             _lessonService.algorithmsLessonsNum;
+  }
+
+  void onVentsChanged() {
+    emit(state.copyWith(vents: _rewardsService.vents));
+  }
+
+  void onVentsUsedNoTap() {
+    _navigationUtil.navigateBackToStart();
   }
 }

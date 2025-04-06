@@ -1,6 +1,7 @@
 part of '../learn_screen.dart';
 
-class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
+class _CategoryContainer extends StatelessWidget
+    with BottomSheetMixin, PopUpMixin {
   const _CategoryContainer({
     required this.title,
     required this.pattern,
@@ -50,23 +51,46 @@ class _CategoryContainer extends StatelessWidget with BottomSheetMixin {
               return _LevelWidget(
                 levelNum: (index + 1).toString(),
                 position: pattern.positions[index],
-                onTap: () => showAppBottomSheet(
-                  context: context,
-                  child: PreLessonInfo(
-                    categoryName: title,
-                    lesson: lessonsSummary[index],
-                    onCloseIconTap: onCloseIconTap,
-                    onStartTap: () => onStartTap(
-                      lessonsSummary[index].id,
-                      lessonsSummary[index].gameId,
-                    ),
-                  ),
-                ),
+                onTap: () => BlocProvider.of<LearnCubit>(context).vents > 0
+                    ? showAppBottomSheet(
+                        context: context,
+                        child: PreLessonInfo(
+                          categoryName: title,
+                          lesson: lessonsSummary[index],
+                          onCloseIconTap: onCloseIconTap,
+                          onStartTap: () => onStartTap(
+                            lessonsSummary[index].id,
+                            lessonsSummary[index].gameId,
+                          ),
+                        ),
+                      )
+                    : _onAllVentsUsed(context),
               );
             },
           ),
         ],
       ),
+    );
+  }
+
+  void _onAllVentsUsed(BuildContext context) {
+    showPopup(
+      context: context,
+      child: AllVentsUsedPopupContent(
+        onConfirmTap: () {
+          Navigator.of(context).pop();
+          _showShop(context);
+        },
+        onCancelTap: Navigator.of(context).pop,
+      ),
+    );
+  }
+
+  void _showShop(BuildContext context) {
+    showPopup(
+      height: 450,
+      context: context,
+      child: ShopFactory.build(),
     );
   }
 }

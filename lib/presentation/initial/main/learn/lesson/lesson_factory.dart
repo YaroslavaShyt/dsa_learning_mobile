@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/data/services/achievements/achievements_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
+import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
@@ -41,12 +42,21 @@ class LessonFactory {
             BlocProvider.of<UserService>(context).user!.vibration,
         categoryName: args.category,
       )..init(),
-      child: Builder(
-        builder: (BuildContext context) {
-          return LessonScreen(
-            cubit: BlocProvider.of<LessonCubit>(context),
-          );
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<RewardsService, RewardsState>(
+            listener: (BuildContext context, RewardsState state) {
+              BlocProvider.of<LessonCubit>(context).onVentsChanged();
+            },
+          ),
+        ],
+        child: Builder(
+          builder: (BuildContext context) {
+            return LessonScreen(
+              cubit: BlocProvider.of<LessonCubit>(context),
+            );
+          },
+        ),
       ),
     );
   }

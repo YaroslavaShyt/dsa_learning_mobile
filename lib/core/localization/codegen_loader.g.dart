@@ -129,7 +129,10 @@ static const Map<String,dynamic> _uk_UA = {
   "free": "Безкоштовно",
   "choose": "Обрати",
   "vibration": "Вібрація",
-  "sound": "Звук"
+  "sound": "Звук",
+  "ohNo": "О ні!",
+  "youUsedAllTheVents": "Ви використали усі вентилятори :(",
+  "wantBuyMore": "Хочете придбати ще?"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

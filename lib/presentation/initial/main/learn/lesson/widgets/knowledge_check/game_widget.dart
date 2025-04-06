@@ -18,6 +18,7 @@ class GameWidget extends StatelessWidget {
     required this.onAnswerSelected,
     required this.selectedAnswer,
     required this.gameProgress,
+    required this.vents,
     super.key,
   });
 
@@ -32,6 +33,7 @@ class GameWidget extends StatelessWidget {
   final Function(String, bool) onAnswerSelected;
   final String selectedAnswer;
   final List<bool> gameProgress;
+  final int vents;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class GameWidget extends StatelessWidget {
                 updateTimer: onUpdateTimer,
                 value: progress,
                 gameName: gameName,
+                vents: vents,
               ),
               GameQuestion(
                 step: task.questionNumber,
