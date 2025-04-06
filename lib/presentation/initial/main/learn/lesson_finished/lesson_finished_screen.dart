@@ -1,4 +1,6 @@
 import 'package:dsa_learning/core/constants/animation_assets.dart';
+import 'package:dsa_learning/core/constants/audio_assets.dart';
+import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
@@ -14,6 +16,7 @@ import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animati
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LessonFinishedScreen extends StatefulWidget {
   const LessonFinishedScreen({
@@ -28,10 +31,25 @@ class LessonFinishedScreen extends StatefulWidget {
 }
 
 class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
+  late final AudioPlayer _player;
+
   @override
   void initState() {
     super.initState();
     sl.get<IVibrationHandler>().vibrate(repeat: false);
+    _player = AudioPlayer();
+    _initAudio();
+  }
+
+  Future<void> _initAudio() async {
+    try {
+      await _player.setAudioSource(
+        AudioSource.asset(AudioAssets.lessonFinished),
+      );
+      await _player.play();
+    } on PlayerException catch (e) {
+      logger.e(e);
+    }
   }
 
   @override
@@ -96,5 +114,11 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 }

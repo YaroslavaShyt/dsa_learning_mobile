@@ -1,6 +1,6 @@
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
-import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/presentation/initial/main/home/shop/bloc/shop_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,12 +12,15 @@ class ShopCubit extends Cubit<ShopState> {
   ShopCubit({
     required IRewardsService rewardsService,
     required INavigationUtil navigationUtil,
+    required IAudioHandler audioHandler,
   })  : _rewardsService = rewardsService,
         _navigationUtil = navigationUtil,
+        _audioHandler = audioHandler,
         super(const ShopState());
 
   final IRewardsService _rewardsService;
   final INavigationUtil _navigationUtil;
+  final IAudioHandler _audioHandler;
 
   bool get isButtonActive => state.selectedHash > 0 || state.selectedVents > 0;
 
@@ -96,6 +99,9 @@ class ShopCubit extends Cubit<ShopState> {
   Future<void> onConfirmButtonPressed() async {
     try {
       if (state.selectedVents == 0 && state.selectedHash == 0) return;
+
+      _audioHandler.playButtonSound();
+
       emit(state.copyWith(isPurchaseInProgress: true));
 
       await _rewardsService.buyReward(
@@ -110,6 +116,8 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onCloseButtonTap() {
+    _audioHandler.playButtonSound();
+
     _navigationUtil.navigateBack();
   }
 }

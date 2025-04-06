@@ -22,6 +22,7 @@ abstract interface class IRewardsService {
     int? bytes,
     int? hash,
     int? vents,
+    bool updateOnServer,
   });
 
   void resetData();

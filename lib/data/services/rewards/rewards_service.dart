@@ -44,6 +44,7 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
     int? bytes,
     int? hash,
     int? vents,
+    bool updateOnServer = true,
   }) async {
     try {
       final int newBytes = state.bytes + (bytes ?? 0);
@@ -58,6 +59,7 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
         ),
       );
 
+      if (!updateOnServer) return;
       await _rewardsRepository.update(
         bytes: newBytes,
         hash: newHash,

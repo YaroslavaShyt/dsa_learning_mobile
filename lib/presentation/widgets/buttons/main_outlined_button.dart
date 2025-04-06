@@ -1,4 +1,6 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
+import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +26,16 @@ class MainOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     return TapAnimatedWidget(
-      onTap: onPressed,
+      onTap: () async {
+        await sl.get<IAudioHandler>().playButtonSound();
+        onPressed();
+      },
       child: OutlinedButton(
-        onPressed: onPressed,
+        onPressed: () {
+          sl.get<IAudioHandler>().playButtonSound();
+
+          onPressed();
+        },
         style: ButtonStyle(
           side: WidgetStateProperty.all(
             BorderSide(

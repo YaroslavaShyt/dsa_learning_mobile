@@ -5,9 +5,11 @@ import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/data/rewards/achievements/streak.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/statistics/istatistics.dart';
+import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
@@ -53,6 +55,7 @@ class HomeScreen extends StatefulWidget with PopUpMixin {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _scrollController;
+  final IAudioHandler _audioHandler = sl.get<IAudioHandler>();
 
   @override
   void initState() {
@@ -141,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSeeAllTap(BuildContext context, HomeState state) {
+    _audioHandler.playButtonSound();
     widget.showPopup(
       context: context,
       height: 400,
@@ -152,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showShop(BuildContext context) {
+    _audioHandler.playButtonSound();
     widget.showPopup(
       height: 450,
       context: context,

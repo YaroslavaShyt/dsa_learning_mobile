@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
@@ -16,16 +17,19 @@ class HomeCubit extends Cubit<HomeState> {
     required IUserService userService,
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
+    required IAudioHandler audioHandler,
   })  : _achievementsService = achievementsService,
         _userService = userService,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
+        _audioHandler = audioHandler,
         super(const HomeState());
 
   final IUserService _userService;
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
   final IAchievementsService _achievementsService;
+  final IAudioHandler _audioHandler;
 
   bool _lostStreak = false;
 
@@ -60,6 +64,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onCloseButtonTap() {
+    _audioHandler.playButtonSound();
     _navigationUtil.navigateBack();
   }
 
@@ -68,7 +73,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onTimerFinished() {
-    _rewardsService.updateBalance(vents: 1);
+    _rewardsService.updateBalance(vents: 1, updateOnServer: false);
   }
 
   void onRewardsChanged() {

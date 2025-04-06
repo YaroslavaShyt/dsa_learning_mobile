@@ -99,6 +99,7 @@ class _ServiceLocator {
       ),
     );
     sl.registerFactory<IVibrationHandler>(() => VibrationHandler());
+    sl.registerSingleton<IAudioHandler>(AudioHandler()).initButtonAudio();
   }
 
   static List<BlocProvider> get cubitAsService => [
