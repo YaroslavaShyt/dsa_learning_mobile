@@ -15,6 +15,7 @@ class _UserInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
+
     return MainContainer(
       padding: const EdgeInsetsDirectional.all(10),
       margin: const EdgeInsetsDirectional.only(bottom: 28),

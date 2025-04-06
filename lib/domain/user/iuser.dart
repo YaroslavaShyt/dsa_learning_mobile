@@ -10,6 +10,7 @@ abstract interface class IUser {
     this.unlockedAvatars = const [],
     this.sounds = true,
     this.vibration = true,
+    this.animations = true,
   });
 
   IUser copyWith({
@@ -23,6 +24,7 @@ abstract interface class IUser {
     bool? vibration,
     bool? sounds,
     DateTime? fansUpdatedLast,
+    bool? animations,
   });
 
   Map<String, String> toJson(IUser user);
@@ -36,5 +38,6 @@ abstract interface class IUser {
   final List<String> unlockedAvatars;
   final bool vibration;
   final bool sounds;
+  final bool animations;
   final DateTime fansUpdatedLast;
 }

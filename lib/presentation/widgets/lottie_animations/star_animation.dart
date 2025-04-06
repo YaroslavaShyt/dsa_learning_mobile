@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/constants/animation_assets.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -14,9 +15,8 @@ class StarAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LottieBuilder.asset(
-      fit: BoxFit.fill,
-      LottieAssets.star,
+    return MainAnimationWidget(
+      name: LottieAssets.star,
       height: height,
       width: width,
     );

@@ -2,12 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class ProfileState extends Equatable {
   const ProfileState({
-    this.userName = 'Yaroslava Shyt',
+    this.userName = '',
     this.profilePhoto = '',
     this.isAboutInfoShown = false,
     this.isLanguageShown = false,
     this.isSoundEnabled = true,
     this.isVibrationEnabled = true,
+    this.isAnimationEnabled = true,
   });
 
   ProfileState copyWith({
@@ -17,6 +18,7 @@ class ProfileState extends Equatable {
     bool? isLanguageShown,
     bool? isVibrationEnabled,
     bool? isSoundEnabled,
+    bool? isAnimationEnabled,
   }) {
     return ProfileState(
       userName: userName ?? this.userName,
@@ -25,6 +27,7 @@ class ProfileState extends Equatable {
       isLanguageShown: isLanguageShown ?? this.isLanguageShown,
       isVibrationEnabled: isVibrationEnabled ?? this.isVibrationEnabled,
       isSoundEnabled: isSoundEnabled ?? this.isSoundEnabled,
+      isAnimationEnabled: isAnimationEnabled ?? this.isAnimationEnabled,
     );
   }
 
@@ -34,6 +37,7 @@ class ProfileState extends Equatable {
   final bool isAboutInfoShown;
   final bool isVibrationEnabled;
   final bool isSoundEnabled;
+  final bool isAnimationEnabled;
 
   @override
   List<Object?> get props => [
@@ -43,5 +47,6 @@ class ProfileState extends Equatable {
         isAboutInfoShown,
         isVibrationEnabled,
         isSoundEnabled,
+        isAnimationEnabled,
       ];
 }

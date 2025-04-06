@@ -1,8 +1,10 @@
+import 'package:dsa_learning/core/constants/animation_assets.dart';
 import 'package:dsa_learning/domain/lesson/ilesson.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/close_button.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/plan_container.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/start_button.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/title_container.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +43,10 @@ class PreLessonInfo extends StatelessWidget {
         const Positioned(
           left: -30,
           bottom: -20,
-          child: RobotAnimation(
+          child: MainAnimationWidget(
             height: 200,
             width: 200,
+            name: LottieAssets.welcomeRobot,
           ),
         ),
         StartButton(

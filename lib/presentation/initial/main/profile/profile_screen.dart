@@ -50,6 +50,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                         onAvatarTap: () => _onAvatarTap(context),
                       ),
                       _ProfileMenu(
+                        isAnimationsEnabled: state.isAnimationEnabled,
                         isSoundEnabled: state.isSoundEnabled,
                         isVibrationEnabled: state.isVibrationEnabled,
                         onSoundTap: cubit.onSoundTap,
@@ -58,6 +59,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                         isLanguageShown: state.isLanguageShown,
                         onAboutInfoTap: cubit.onAboutInfoTap,
                         onDeleteAccountTap: cubit.onDeleteAccountTap,
+                        onAnimationTap: cubit.onAnimationTap,
                         onExitTap: () => _onExitTap(context),
                         onLanguageTap: cubit.onLanguageTap,
                       ),

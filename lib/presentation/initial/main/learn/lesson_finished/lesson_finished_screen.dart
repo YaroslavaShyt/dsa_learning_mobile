@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/constants/animation_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
@@ -9,7 +10,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/wid
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/reward_row.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/stars_background.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
-import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +59,10 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
                       isGame: widget.args.isGame,
                     ),
                   ),
-                  const SizedBox(
+                  const MainAnimationWidget(
+                    name: LottieAssets.welcomeRobot,
                     height: 350,
                     width: 350,
-                    child: RobotAnimation(),
                   ),
                   const LessonIsOverText(),
                   RewardRow(

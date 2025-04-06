@@ -9,6 +9,7 @@ const String _currentAvatar = 'currentAvatar';
 const String _unlockedAvatars = 'avatars';
 const String _vibration = 'vibration';
 const String _sound = 'sound';
+const String _animations = 'animations';
 const String _fansUpdatedLast = 'fansUpdatedLast';
 
 class User implements IUser {
@@ -23,6 +24,7 @@ class User implements IUser {
     required this.vibration,
     required this.sounds,
     required this.fansUpdatedLast,
+    required this.animations,
   });
 
   @override
@@ -36,6 +38,7 @@ class User implements IUser {
     List<String>? unlockedAvatars,
     bool? vibration,
     bool? sounds,
+    bool? animations,
     DateTime? fansUpdatedLast,
   }) {
     return User(
@@ -48,6 +51,7 @@ class User implements IUser {
       unlockedAvatars: unlockedAvatars ?? this.unlockedAvatars,
       vibration: vibration ?? this.vibration,
       sounds: sounds ?? this.sounds,
+      animations: animations ?? this.animations,
       fansUpdatedLast: fansUpdatedLast ?? this.fansUpdatedLast,
     );
   }
@@ -64,6 +68,7 @@ class User implements IUser {
       _fans: fans.toString(),
       _vibration: vibration.toString(),
       _sound: sounds.toString(),
+      _animations: animations.toString(),
     };
   }
 
@@ -78,6 +83,7 @@ class User implements IUser {
       unlockedAvatars: (data[_unlockedAvatars] as String).split(','),
       vibration: data[_vibration],
       sounds: data[_sound],
+      animations: data[_animations],
       fansUpdatedLast: DateTime.parse(data[_fansUpdatedLast]),
     );
   }
@@ -111,4 +117,7 @@ class User implements IUser {
 
   @override
   final DateTime fansUpdatedLast;
+
+  @override
+  final bool animations;
 }

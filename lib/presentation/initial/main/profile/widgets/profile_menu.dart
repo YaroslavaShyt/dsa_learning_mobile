@@ -12,6 +12,8 @@ class _ProfileMenu extends StatelessWidget {
     required this.isVibrationEnabled,
     required this.onSoundTap,
     required this.onVibrationTap,
+    required this.isAnimationsEnabled,
+    required this.onAnimationTap,
   });
 
   final bool isLanguageShown;
@@ -22,8 +24,10 @@ class _ProfileMenu extends StatelessWidget {
   final VoidCallback onExitTap;
   final bool isVibrationEnabled;
   final bool isSoundEnabled;
+  final bool isAnimationsEnabled;
   final VoidCallback onSoundTap;
   final VoidCallback onVibrationTap;
+  final VoidCallback onAnimationTap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,12 @@ class _ProfileMenu extends StatelessWidget {
             subtitle: context.tr(isSoundEnabled ? 'yes' : 'no'),
             onTap: onSoundTap,
             icon: Icons.music_note_rounded,
+          ),
+          _MenuComponent(
+            title: context.tr('animations'),
+            subtitle: context.tr(isAnimationsEnabled ? 'yes' : 'no'),
+            onTap: onAnimationTap,
+            icon: Icons.animation_rounded,
           ),
           _MenuComponent(
             title: context.tr('exit'),

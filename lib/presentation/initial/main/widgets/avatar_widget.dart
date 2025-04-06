@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/constants/animation_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_screen.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -17,6 +18,7 @@ class AvatarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -26,10 +28,10 @@ class AvatarWidget extends StatelessWidget {
         ),
       ),
       child: ClipOval(
-        child: LottieBuilder.asset(
+        child: MainAnimationWidget(
           height: size,
           width: size,
-          avatarPath.isEmpty
+          name: avatarPath.isEmpty
               ? LottieAssets.avatar1
               : (Avatars.values
                   .firstWhere(

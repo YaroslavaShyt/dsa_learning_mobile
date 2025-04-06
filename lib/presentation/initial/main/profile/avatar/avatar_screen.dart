@@ -5,6 +5,7 @@ import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/bloc/avatar_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/bloc/avatar_state.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -81,10 +82,10 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   children: [
                     Column(
                       children: [
-                        LottieBuilder.asset(
+                        MainAnimationWidget(
                           width: 260,
                           height: 240,
-                          widget.cubit.avatars[index]['name'].lottie,
+                          name: widget.cubit.avatars[index]['name'].lottie,
                         ),
                         _buildPrice(
                             context, widget.cubit.avatars[index]['price']),

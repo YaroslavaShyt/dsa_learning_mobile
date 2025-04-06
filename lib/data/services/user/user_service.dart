@@ -82,6 +82,7 @@ class UserService extends Cubit<UserState> implements IUserService {
     List<String>? unlockedAvatars,
     bool? vibration,
     bool? sound,
+    bool? animation,
   }) async {
     try {
       emit(
@@ -91,6 +92,7 @@ class UserService extends Cubit<UserState> implements IUserService {
             unlockedAvatars: unlockedAvatars,
             vibration: vibration,
             sounds: sound,
+            animations: animation,
           ),
         ),
       );

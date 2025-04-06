@@ -112,4 +112,13 @@ class ProfileCubit extends Cubit<ProfileState> {
       logger.e(error);
     }
   }
+
+  Future<void> onAnimationTap() async {
+    try {
+      emit(state.copyWith(isAnimationEnabled: !state.isAnimationEnabled));
+      await _userService.updateUser(animation: state.isAnimationEnabled);
+    } catch (error) {
+      logger.e(error);
+    }
+  }
 }

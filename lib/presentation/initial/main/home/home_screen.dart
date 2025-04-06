@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dsa_learning/core/constants/animation_assets.dart';
 import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
@@ -16,6 +17,7 @@ import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/b
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
+import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';

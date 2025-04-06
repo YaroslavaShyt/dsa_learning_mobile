@@ -10,6 +10,7 @@ abstract interface class IUserService {
     List<String>? unlockedAvatars,
     bool? vibration,
     bool? sound,
+    bool? animation,
   });
 
   Future<void> cleanUserData();

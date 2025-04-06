@@ -142,9 +142,10 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
             right: -30,
             top: 10,
             bottom: 10,
-            child: RobotAnimation(
+            child: MainAnimationWidget(
               height: 200,
               width: 200,
+              name: LottieAssets.welcomeRobot,
             ),
           ),
           Positioned(
