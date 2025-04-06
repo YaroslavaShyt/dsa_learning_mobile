@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
@@ -90,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 20),
                             _HelloUserWidget(
+                              onTimerFinished: widget.cubit.onTimerFinished,
+                              fansLastUpdated: widget.cubit.fansLastUpdated,
                               onManageCurrencyTap: () => _showShop(context),
                               userName: state.userName,
                               hash: state.hash,

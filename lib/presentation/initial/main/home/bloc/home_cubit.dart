@@ -31,6 +31,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   IUser get _user => _userService.user!;
 
+  DateTime get fansLastUpdated => _user.fansUpdatedLast;
+
   Future<void> init(VoidCallback onLostStreak) async {
     try {
       emit(state.copyWith(status: HomeStatus.loading));
@@ -63,6 +65,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onUserDataChanged() {
     emit(state.copyWith(profilePhoto: _user.profilePhoto));
+  }
+
+  void onTimerFinished() {
+    _rewardsService.updateBalance(vents: 1);
   }
 
   void onRewardsChanged() {

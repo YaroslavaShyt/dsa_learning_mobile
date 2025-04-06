@@ -1,23 +1,91 @@
 part of '../../home_screen.dart';
 
-class _HelloUserWidget extends StatelessWidget {
+class _HelloUserWidget extends StatefulWidget {
   const _HelloUserWidget({
     required this.userName,
     required this.bytes,
     required this.hash,
     required this.fan,
+    required this.fansLastUpdated,
     required this.onManageCurrencyTap,
+    required this.onTimerFinished,
   });
 
   final int fan;
   final int hash;
   final int bytes;
+  final DateTime fansLastUpdated;
   final String userName;
   final VoidCallback onManageCurrencyTap;
+  final VoidCallback onTimerFinished;
+
+  @override
+  _HelloUserWidgetState createState() => _HelloUserWidgetState();
+}
+
+class _HelloUserWidgetState extends State<_HelloUserWidget> {
+  late Timer _timer;
+  late Duration _timeRemaining;
+
+  @override
+  void initState() {
+    super.initState();
+    _calculateRemainingTime();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {
+        _calculateRemainingTime();
+      });
+
+      // Перевірка, чи час до наступного оновлення настав
+      if (_timeRemaining <= Duration.zero) {
+        // Викликаємо колбек, коли час завершився
+        widget.onTimerFinished();
+
+        // Якщо кількість vents менше 5, перезапускаємо таймер
+        if (widget.fan < 5) {
+          _startTimer();
+        }
+      }
+    });
+  }
+
+  void _calculateRemainingTime() {
+    if (widget.fan < 5) {
+      final timeSinceLastUpdate =
+          DateTime.now().difference(widget.fansLastUpdated);
+      final maxTime = Duration(hours: 4, minutes: 30); // 4.5 години
+      final remainingTime = maxTime - timeSinceLastUpdate;
+
+      if (remainingTime > Duration.zero) {
+        _timeRemaining = remainingTime;
+      } else {
+        _timeRemaining = Duration.zero;
+      }
+    } else {
+      _timeRemaining = Duration.zero;
+    }
+  }
+
+  String _formatTime(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes % 60;
+    final seconds = duration.inSeconds % 60;
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = getTextTheme(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return MainContainer(
       height: 270,
       padding: const EdgeInsetsDirectional.symmetric(
@@ -30,7 +98,7 @@ class _HelloUserWidget extends StatelessWidget {
             top: 0,
             left: 0,
             child: Text(
-              "${context.tr("helloUser")}\n$userName",
+              "${context.tr("helloUser")}\n${widget.userName}",
               maxLines: 2,
               style: textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
@@ -41,7 +109,7 @@ class _HelloUserWidget extends StatelessWidget {
             left: 0,
             bottom: 0,
             child: SizedBox(
-              height: 140,
+              height: 165,
               width: 180,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -49,19 +117,29 @@ class _HelloUserWidget extends StatelessWidget {
                   _CurrencyItem(
                     text: "bytes",
                     icon: ImageAssets.bytes,
-                    value: bytes,
+                    value: widget.bytes,
                   ),
                   _CurrencyItem(
                     text: "vents",
                     icon: ImageAssets.vents,
-                    value: fan,
+                    value: widget.fan,
                   ),
                   _CurrencyItem(
                     text: "hash",
                     icon: ImageAssets.hash,
                     shouldShowDivider: false,
-                    value: hash,
+                    value: widget.hash,
                   ),
+                  if (widget.fan < 5)
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 10),
+                      child: Text(
+                        '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -79,7 +157,7 @@ class _HelloUserWidget extends StatelessWidget {
             top: 0,
             right: 0,
             child: TapAnimatedWidget(
-              onTap: onManageCurrencyTap,
+              onTap: widget.onManageCurrencyTap,
               child: SizedBox(
                 height: 50,
                 width: 130,

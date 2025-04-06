@@ -5,6 +5,7 @@ abstract interface class IUser {
     required this.bytes,
     required this.fans,
     required this.hash,
+    required this.fansUpdatedLast,
     this.profilePhoto = '',
     this.unlockedAvatars = const [],
     this.sounds = true,
@@ -21,6 +22,7 @@ abstract interface class IUser {
     List<String>? unlockedAvatars,
     bool? vibration,
     bool? sounds,
+    DateTime? fansUpdatedLast,
   });
 
   Map<String, String> toJson(IUser user);
@@ -34,4 +36,5 @@ abstract interface class IUser {
   final List<String> unlockedAvatars;
   final bool vibration;
   final bool sounds;
+  final DateTime fansUpdatedLast;
 }

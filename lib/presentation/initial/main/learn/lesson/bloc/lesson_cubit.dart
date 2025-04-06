@@ -24,7 +24,6 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
-// TODO: vents per day & flow
 // TODO: what to do if all the answers where incorrect (no achievements + lock next level)
 // TODO: add illustrations into the lesson
 // TODO: fix scrollbar color, add scrollbars
