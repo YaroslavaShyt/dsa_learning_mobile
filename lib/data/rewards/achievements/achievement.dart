@@ -62,7 +62,6 @@ class Achievement implements IAchievement {
       json[_title] ?? json['name'],
     );
     final bool isUnlocked = json[_achievedOn] != null;
-    print(json);
     return Achievement(
       id: (json[_id] ?? json['id']).toString(),
       title: json[_title] ?? json['name'],
