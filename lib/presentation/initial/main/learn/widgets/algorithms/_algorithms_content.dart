@@ -13,17 +13,19 @@ class _AlgorithmsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: categorySummary.topics.length,
-      itemBuilder: (_, int index) {
-        return _CategoryContainer(
-          onStartTap: onStartButtonTap,
-          onCloseIconTap: onCloseButtonTap,
-          title: categorySummary.topics[index].title,
-          lessonsSummary: categorySummary.topics[index].lessons,
-          pattern: patterns[0],
-        );
-      },
+    return MainScrollbar(
+      child: ListView.builder(
+        itemCount: categorySummary.topics.length,
+        itemBuilder: (_, int index) {
+          return _CategoryContainer(
+            onStartTap: onStartButtonTap,
+            onCloseIconTap: onCloseButtonTap,
+            title: categorySummary.topics[index].title,
+            lessonsSummary: categorySummary.topics[index].lessons,
+            pattern: patterns[0],
+          );
+        },
+      ),
     );
   }
 }

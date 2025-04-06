@@ -31,33 +31,37 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
   void initState() {
     super.initState();
     _calculateRemainingTime();
-    _startTimer();
+    if (widget.bytes < 5) {
+      _startTimer();
+    }
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      setState(() {
-        _calculateRemainingTime();
-      });
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) {
+        setState(() {
+          _calculateRemainingTime();
+        });
 
-      // Перевірка, чи час до наступного оновлення настав
-      if (_timeRemaining <= Duration.zero) {
-        // Викликаємо колбек, коли час завершився
-        widget.onTimerFinished();
+        if (_timeRemaining <= Duration.zero) {
+          widget.onTimerFinished();
 
-        // Якщо кількість vents менше 5, перезапускаємо таймер
-        if (widget.fan < 5) {
-          _startTimer();
+          if (widget.fan < 5) {
+            _startTimer();
+          } else {
+            _timer.cancel();
+          }
         }
-      }
-    });
+      },
+    );
   }
 
   void _calculateRemainingTime() {
     if (widget.fan < 5) {
       final timeSinceLastUpdate =
           DateTime.now().difference(widget.fansLastUpdated);
-      final maxTime = Duration(hours: 4, minutes: 30); // 4.5 години
+      final maxTime = const Duration(hours: 4, minutes: 30);
       final remainingTime = maxTime - timeSinceLastUpdate;
 
       if (remainingTime > Duration.zero) {
@@ -109,8 +113,8 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
             left: 0,
             bottom: 0,
             child: SizedBox(
-              height: 165,
-              width: 180,
+              height: 155,
+              width: 190,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -130,16 +134,6 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
                     shouldShowDivider: false,
                     value: widget.hash,
                   ),
-                  if (widget.fan < 5)
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(top: 10),
-                      child: Text(
-                        '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
-                        style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),
@@ -163,11 +157,26 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
                 width: 130,
                 child: Text(
                   context.tr("manageCurrency"),
-                  style: textTheme.labelSmall,
+                  style: textTheme.labelSmall?.copyWith(
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
           ),
+          if (widget.fan < 5)
+            Positioned(
+              bottom: 10,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(top: 10),
+                child: Text(
+                  '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            )
         ],
       ),
     );

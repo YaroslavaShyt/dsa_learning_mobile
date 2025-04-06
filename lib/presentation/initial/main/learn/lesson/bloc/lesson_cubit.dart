@@ -25,13 +25,10 @@ const double _progressStep = 0.25;
 typedef RewardFunc = void Function(int, int, int);
 
 // TODO: what to do if all the answers where incorrect (no achievements + lock next level)
-// TODO: add illustrations into the lesson
-// TODO: fix scrollbar color, add scrollbars
-// TODO: check lost streak
 
-// TODO: timer for vents renuwal
 // TODO: internal testing
-// TODO: add sounds and vibration
+// TODO: check lost streak
+// TODO: add illustrations into the lesson
 // TODO: animations on/off?
 
 class LessonCubit extends Cubit<LessonState> {

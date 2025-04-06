@@ -21,8 +21,10 @@ import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
+import 'package:dsa_learning/presentation/widgets/scroll/main_scroll_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,10 +50,20 @@ class HomeScreen extends StatefulWidget with PopUpMixin {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
     widget.cubit.init(() => _onLostStreak(context));
+
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -74,42 +86,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state.status == HomeStatus.success)
                   Container(
                     margin: const EdgeInsetsDirectional.symmetric(
-                      horizontal: 6,
+                      horizontal: 3,
                       vertical: 14,
                     ),
                     width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        start: 6,
-                        end: 10.0,
-                      ),
+                    child: MainScrollbar(
                       child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            _StreakWidget(
-                              streak: state.streak,
-                              avatarPath: state.profilePhoto,
-                            ),
-                            const SizedBox(height: 20),
-                            _HelloUserWidget(
-                              onTimerFinished: widget.cubit.onTimerFinished,
-                              fansLastUpdated: widget.cubit.fansLastUpdated,
-                              onManageCurrencyTap: () => _showShop(context),
-                              userName: state.userName,
-                              hash: state.hash,
-                              fan: state.vent,
-                              bytes: state.bytes,
-                            ),
-                            const SizedBox(height: 20),
-                            if (state.achievements.isNotEmpty)
-                              _AchievementsWidget(
-                                onSeeAllTap: () => _onSeeAllTap(context, state),
-                                achievements: state.achievements,
+                        controller: _scrollController,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.only(
+                            start: 10,
+                            end: 16.0,
+                          ),
+                          child: Column(
+                            children: [
+                              _StreakWidget(
+                                streak: state.streak,
+                                avatarPath: state.profilePhoto,
                               ),
-                            const SizedBox(height: 20),
-                            const _StatisticsWidget(),
-                            const SizedBox(height: 100),
-                          ],
+                              const SizedBox(height: 20),
+                              _HelloUserWidget(
+                                onTimerFinished: widget.cubit.onTimerFinished,
+                                fansLastUpdated: widget.cubit.fansLastUpdated,
+                                onManageCurrencyTap: () => _showShop(context),
+                                userName: state.userName,
+                                hash: state.hash,
+                                fan: state.vent,
+                                bytes: state.bytes,
+                              ),
+                              const SizedBox(height: 20),
+                              if (state.achievements.isNotEmpty)
+                                _AchievementsWidget(
+                                  onSeeAllTap: () =>
+                                      _onSeeAllTap(context, state),
+                                  achievements: state.achievements,
+                                ),
+                              const SizedBox(height: 20),
+                              const _StatisticsWidget(),
+                              const SizedBox(height: 100),
+                            ],
+                          ),
                         ),
                       ),
                     ),
