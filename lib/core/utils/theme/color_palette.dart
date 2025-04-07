@@ -22,4 +22,7 @@ class ColorPalette {
 
   // BLUE
   static final neatBlue = const Color(0xffABC0D7);
+
+  // GRAY
+  static const grayMilk = Color(0xffd8d8d8);
 }

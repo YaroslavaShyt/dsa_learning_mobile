@@ -8,6 +8,7 @@ class LessonFinishedRoutingArgs {
     required this.time,
     required this.lessonName,
     required this.lessonDescription,
+    required this.isLessonOver,
     required this.isGame,
     required this.bytes,
     required this.hash,
@@ -18,6 +19,7 @@ class LessonFinishedRoutingArgs {
   final String lessonName;
   final String lessonDescription;
   final bool isGame;
+  final bool isLessonOver;
   final int bytes;
   final int hash;
   final int fan;

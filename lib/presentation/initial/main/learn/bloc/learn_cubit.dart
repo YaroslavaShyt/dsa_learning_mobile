@@ -28,6 +28,8 @@ class LearnCubit extends Cubit<LearnState> {
 
   int get vents => _rewardsService.vents;
 
+  bool Function(int) get isLessonOpened => _lessonService.isLessonLearned;
+
   Future<void> init() async {
     try {
       final List<ICategory> summary =

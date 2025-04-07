@@ -5,11 +5,13 @@ class _AlgorithmsContent extends StatelessWidget {
     required this.onCloseButtonTap,
     required this.onStartButtonTap,
     required this.categorySummary,
+    required this.isLessonOpened,
   });
 
   final VoidCallback onCloseButtonTap;
   final void Function(int, int) onStartButtonTap;
   final ICategory categorySummary;
+  final bool Function(int) isLessonOpened;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class _AlgorithmsContent extends StatelessWidget {
         itemBuilder: (_, int index) {
           return _CategoryContainer(
             onStartTap: onStartButtonTap,
+            isLessonOpened: isLessonOpened,
             onCloseIconTap: onCloseButtonTap,
             title: categorySummary.topics[index].title,
             lessonsSummary: categorySummary.topics[index].lessons,

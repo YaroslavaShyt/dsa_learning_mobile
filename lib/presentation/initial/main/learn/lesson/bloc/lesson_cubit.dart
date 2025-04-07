@@ -24,11 +24,10 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
-// TODO: lock next level
-
 // TODO: internal testing
 // TODO: check lost streak
 // TODO: add illustrations into the lesson
+// TODO: sad bot
 
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
@@ -244,7 +243,10 @@ class LessonCubit extends Cubit<LessonState> {
       if (state.selectedAnswer.isEmpty) return;
 
       if (state.gameStep == state.game!.tasks.length - 1) {
-        _checkAchievements();
+        final bool isLostPoints =
+            state.gameCorrectAnswers < state.game!.tasks.length - 2;
+
+        if (!isLostPoints) _checkAchievements();
 
         _achievementsService.updateStreak();
 
@@ -254,19 +256,23 @@ class LessonCubit extends Cubit<LessonState> {
           _bytes += 10;
         }
 
+        if (isLostPoints) _bytes = 0;
+
         final int time =
             (state.game!.timeLimit - state.gameTime) + state.theoryTime;
 
-        await Future.wait([
-          _rewardsService.updateBalance(bytes: _bytes),
-          _lessonService.updateLearnedLessons(_id, time, _categoryName),
-        ]);
+        if (!isLostPoints) {
+          await Future.wait([
+            _rewardsService.updateBalance(bytes: _bytes),
+            _lessonService.updateLearnedLessons(_id, time, _categoryName),
+          ]);
 
-        _statisticsCubit.init();
-
+          _statisticsCubit.init();
+        }
         _navigationUtil.navigateToAndReplace(
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
+            isLessonOver: _bytes > 0,
             onToLessonsPressed: _navigationUtil.navigateBack,
             time: _formatTime(time),
             lessonName: state.game?.title ?? '',

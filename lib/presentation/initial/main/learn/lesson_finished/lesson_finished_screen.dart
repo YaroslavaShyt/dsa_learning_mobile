@@ -63,7 +63,7 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
           fit: StackFit.loose,
           children: [
             const MainBackground(),
-            const StarsBackground(),
+            if (widget.args.isLessonOver) const StarsBackground(),
             Padding(
               padding: const EdgeInsetsDirectional.all(10.0),
               child: Column(
@@ -77,37 +77,45 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
                       isGame: widget.args.isGame,
                     ),
                   ),
-                  const MainAnimationWidget(
-                    name: LottieAssets.welcomeRobot,
+                  MainAnimationWidget(
+                    name: widget.args.isLessonOver
+                        ? LottieAssets.welcomeRobot
+                        : LottieAssets.sadRobot,
                     height: 350,
                     width: 350,
                   ),
-                  const LessonIsOverText(),
-                  RewardRow(
-                    fan: widget.args.fan,
-                    hash: widget.args.hash,
-                    bytes: widget.args.bytes,
+                  LessonIsOverText(
+                    isSuccess: widget.args.isLessonOver,
                   ),
-                  AchievementsRow(
-                    achievements: widget.args.achievements,
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
+                  if (widget.args.isLessonOver) ...[
+                    RewardRow(
+                      fan: widget.args.fan,
+                      hash: widget.args.hash,
+                      bytes: widget.args.bytes,
                     ),
-                    child: MainOutlinedButton(
-                      onPressed: widget.args.onToLessonsPressed,
-                      child: Text(
-                        context.tr("toLessons"),
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.primaryFixed,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                    AchievementsRow(
+                      achievements: widget.args.achievements,
                     ),
-                  ),
+                  ],
                 ],
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 20,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+                child: MainOutlinedButton(
+                  onPressed: widget.args.onToLessonsPressed,
+                  child: Text(
+                    context.tr("toLessons"),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.primaryFixed,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

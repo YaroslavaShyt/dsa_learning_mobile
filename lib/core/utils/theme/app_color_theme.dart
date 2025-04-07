@@ -34,5 +34,6 @@ class AppColorTheme {
     primaryFixedDim: ColorPalette.crayola,
     onSecondaryContainer: ColorPalette.neatBlue,
     onInverseSurface: ColorPalette.lavanda,
+    onPrimaryContainer: ColorPalette.grayMilk,
   );
 }
