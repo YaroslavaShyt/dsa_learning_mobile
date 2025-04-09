@@ -10,7 +10,6 @@ import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
 enum Avatars {
   first(LottieAssets.avatar1),
@@ -46,65 +45,75 @@ class _AvatarScreenState extends State<AvatarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          width: 4,
+          color: getColorScheme(context).onSurface.withValues(alpha: 0.3),
+        ),
+      ),
       padding: const EdgeInsetsDirectional.all(20),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 34,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.tr("buyAvatar"),
-                  style: getTextTheme(context).bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.close_rounded,
-                    color: getColorScheme(context).onSurface,
-                    shadows: [mainBoxShadow(context)],
-                  ),
-                  onPressed: widget.cubit.onCloseButtonTap,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.35,
-            child: PageView.builder(
-              onPageChanged: onChanged,
-              itemCount: widget.cubit.avatars.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    Column(
-                      children: [
-                        MainAnimationWidget(
-                          width: 260,
-                          height: 240,
-                          name: widget.cubit.avatars[index]['name'].lottie,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 34,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(width: 50),
+                  Text(
+                    context.tr("buyAvatar"),
+                    style: getTextTheme(context).bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
-                        _buildPrice(
-                            context, widget.cubit.avatars[index]['price']),
-                      ],
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.close_rounded,
+                      color: getColorScheme(context).onSurface,
+                      shadows: [mainBoxShadow(context)],
                     ),
-                  ],
-                );
-              },
+                    onPressed: widget.cubit.onCloseButtonTap,
+                  ),
+                ],
+              ),
             ),
-          ),
-          _buildIndicators(context),
-          _buildBuyButton(
-              context,
-              widget.cubit.avatars[selected]['isBought'],
-              widget.cubit
-                  .isEnoughMoney(widget.cubit.avatars[selected]['price']),
-              widget.cubit.avatars[selected]['name'],
-              widget.cubit.avatars[selected]['price']),
-        ],
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.34,
+              child: PageView.builder(
+                onPageChanged: onChanged,
+                itemCount: widget.cubit.avatars.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      Column(
+                        children: [
+                          MainAnimationWidget(
+                            width: 260,
+                            height: MediaQuery.sizeOf(context).height / 4,
+                            name: widget.cubit.avatars[index]['name'].lottie,
+                          ),
+                          _buildPrice(
+                              context, widget.cubit.avatars[index]['price']),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+            _buildIndicators(context),
+            _buildBuyButton(
+                context,
+                widget.cubit.avatars[selected]['isBought'],
+                widget.cubit
+                    .isEnoughMoney(widget.cubit.avatars[selected]['price']),
+                widget.cubit.avatars[selected]['name'],
+                widget.cubit.avatars[selected]['price']),
+          ],
+        ),
       ),
     );
   }

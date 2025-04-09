@@ -13,13 +13,11 @@ class ProfileFactory {
   static Widget build() {
     return BlocProvider<ProfileCubit>(
       create: (BuildContext context) => ProfileCubit(
-        localStorage: sl.get<ILocalStorage>(),
-        selectImageHandler: sl.get<ISelectImageHandler>(),
         navigationUtil: sl.get<INavigationUtil>(),
         userService: BlocProvider.of<UserService>(context),
       )..init(),
       child: BlocListener<UserService, UserState>(
-        listenWhen: _listedWhenUser,
+        listenWhen: _listenWhenUser,
         listener: (BuildContext context, UserState state) {
           BlocProvider.of<ProfileCubit>(context).init();
         },
@@ -34,7 +32,7 @@ class ProfileFactory {
     );
   }
 
-  static bool _listedWhenUser(UserState prev, UserState curr) {
+  static bool _listenWhenUser(UserState prev, UserState curr) {
     return prev.user?.profilePhoto != curr.user?.profilePhoto;
   }
 }

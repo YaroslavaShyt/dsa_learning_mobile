@@ -36,34 +36,38 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
         child: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (_, ProfileState state) {
             return Stack(
+              fit: StackFit.expand,
               children: [
                 const MainBackground(),
-                Positioned(
-                  left: 20,
-                  top: 40,
-                  right: 20,
-                  child: Column(
-                    children: [
-                      _UserInfoWidget(
-                        avatarPath: state.profilePhoto,
-                        userName: cubit.userName,
-                        onAvatarTap: () => _onAvatarTap(context),
+                Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.all(18.0),
+                      child: Column(
+                        children: [
+                          _UserInfoWidget(
+                            avatarPath: state.profilePhoto,
+                            userName: cubit.userName,
+                            onAvatarTap: () => _onAvatarTap(context),
+                          ),
+                          _ProfileMenu(
+                            isSoundEnabled: state.isSoundEnabled,
+                            isLanguageShown: state.isLanguageShown,
+                            isAboutInfoShown: state.isAboutInfoShown,
+                            isVibrationEnabled: state.isVibrationEnabled,
+                            isAnimationsEnabled: state.isAnimationEnabled,
+                            onSoundTap: cubit.onSoundTap,
+                            onLanguageTap: cubit.onLanguageTap,
+                            onVibrationTap: cubit.onVibrationTap,
+                            onAboutInfoTap: cubit.onAboutInfoTap,
+                            onAnimationTap: cubit.onAnimationTap,
+                            onDeleteAccountTap: cubit.onDeleteAccountTap,
+                            onExitTap: () => _onExitTap(context),
+                          ),
+                          const SizedBox(height: 150),
+                        ],
                       ),
-                      _ProfileMenu(
-                        isAnimationsEnabled: state.isAnimationEnabled,
-                        isSoundEnabled: state.isSoundEnabled,
-                        isVibrationEnabled: state.isVibrationEnabled,
-                        onSoundTap: cubit.onSoundTap,
-                        onVibrationTap: cubit.onVibrationTap,
-                        isAboutInfoShown: state.isAboutInfoShown,
-                        isLanguageShown: state.isLanguageShown,
-                        onAboutInfoTap: cubit.onAboutInfoTap,
-                        onDeleteAccountTap: cubit.onDeleteAccountTap,
-                        onAnimationTap: cubit.onAnimationTap,
-                        onExitTap: () => _onExitTap(context),
-                        onLanguageTap: cubit.onLanguageTap,
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -76,6 +80,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
 
   void _onAvatarTap(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
         return AvatarFactory.build();

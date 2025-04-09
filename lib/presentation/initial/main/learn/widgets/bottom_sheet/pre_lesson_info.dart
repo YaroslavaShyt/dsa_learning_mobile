@@ -5,7 +5,6 @@ import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_shee
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/start_button.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/title_container.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
-import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:flutter/material.dart';
 
 class PreLessonInfo extends StatelessWidget {

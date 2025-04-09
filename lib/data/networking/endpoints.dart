@@ -1,6 +1,8 @@
+const String _endpoint = String.fromEnvironment('url');
+
 class Endpoints {
   /// ipconfig from windows
-  static const String baseEndpoint = 'http://10.0.0.37:5000/api/';
+  static const String baseEndpoint = 'http://$_endpoint/api/';
 
   /// AUTH
   static const String _auth = 'auth';

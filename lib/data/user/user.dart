@@ -43,15 +43,15 @@ class User implements IUser {
   }) {
     return User(
       id: id ?? this.id,
-      firstName: firstName ?? this.firstName,
-      bytes: bytes ?? this.bytes,
       fans: fans ?? this.fans,
       hash: hash ?? this.fans,
+      bytes: bytes ?? this.bytes,
+      sounds: sounds ?? this.sounds,
+      firstName: firstName ?? this.firstName,
+      vibration: vibration ?? this.vibration,
+      animations: animations ?? this.animations,
       profilePhoto: profilePhoto ?? this.profilePhoto,
       unlockedAvatars: unlockedAvatars ?? this.unlockedAvatars,
-      vibration: vibration ?? this.vibration,
-      sounds: sounds ?? this.sounds,
-      animations: animations ?? this.animations,
       fansUpdatedLast: fansUpdatedLast ?? this.fansUpdatedLast,
     );
   }

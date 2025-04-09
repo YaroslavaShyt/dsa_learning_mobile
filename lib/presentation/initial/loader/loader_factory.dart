@@ -13,7 +13,7 @@ class LoaderArgs {
 
 class LoaderFactory {
   static Widget build() {
-    return LoaderScreen(
+    return const LoaderScreen(
       isLoadingInProgress: true,
     );
   }

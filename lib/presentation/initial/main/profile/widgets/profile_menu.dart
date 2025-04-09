@@ -66,9 +66,7 @@ class _ProfileMenu extends StatelessWidget {
             isComponentsShown: isLanguageShown,
             title: context.tr('language'),
             onTap: onLanguageTap,
-            components: [
-              'Українська', //"English", "Espanol",
-            ],
+            components: ['Українська'],
             selectedComponent: 'Українська',
           ),
           _MenuComponent(

@@ -45,7 +45,7 @@ class _AuthSliderState extends State<_AuthSlider> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
-      height: MediaQuery.sizeOf(context).height / 6,
+      height: MediaQuery.sizeOf(context).height / 5,
       child: PageView.builder(
         controller: _controller,
         itemCount: widget.sliderComponents.length,

@@ -40,64 +40,62 @@ class _SignInContentState extends State<_SignInContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 20,
-      right: 20,
-      bottom: 50,
-      child: MainContainer(
-        height: 400,
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: 20.0,
-        ),
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _BackButton(
-              onBackPressed: widget.onBackTapped,
+    return MainContainer(
+      height: 400,
+      margin: const EdgeInsetsDirectional.symmetric(
+        horizontal: 20,
+      ),
+      padding: const EdgeInsetsDirectional.symmetric(
+        horizontal: 20.0,
+      ),
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _BackButton(
+            onBackPressed: widget.onBackTapped,
+          ),
+          Text(
+            context.tr('signIn'),
+            style: getTextTheme(context).titleLarge?.copyWith(
+                  color: getColorScheme(context).primaryFixed,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 30.0),
+            child: Column(
+              spacing: 50,
+              children: [
+                MainTextField(
+                  labelText: context.tr('email'),
+                  onChanged: widget.onEmailEntered,
+                  focusNode: _emailFocusNode,
+                ),
+                MainTextField(
+                  labelText: context.tr('password'),
+                  onChanged: widget.onPasswordEntered,
+                  focusNode: _passwordFocusNode,
+                ),
+                MainOutlinedButton(
+                  isActive: widget.isButtonActive,
+                  onPressed: widget.onConfirmButtonPressed,
+                  child: Text(
+                    context.tr('confirm'),
+                    style: getTextTheme(context).labelMedium?.copyWith(
+                          color: widget.isButtonActive
+                              ? getColorScheme(context).primaryFixed
+                              : getColorScheme(context)
+                                  .onSurface
+                                  .withValues(alpha: 0.3),
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              context.tr('signIn'),
-              style: getTextTheme(context).titleLarge?.copyWith(
-                    color: getColorScheme(context).primaryFixed,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 30.0),
-              child: Column(
-                spacing: 50,
-                children: [
-                  MainTextField(
-                    labelText: context.tr('email'),
-                    onChanged: widget.onEmailEntered,
-                    focusNode: _emailFocusNode,
-                  ),
-                  MainTextField(
-                    labelText: context.tr('password'),
-                    onChanged: widget.onPasswordEntered,
-                    focusNode: _passwordFocusNode,
-                  ),
-                  MainOutlinedButton(
-                    isActive: widget.isButtonActive,
-                    onPressed: widget.onConfirmButtonPressed,
-                    child: Text(
-                      context.tr('confirm'),
-                      style: getTextTheme(context).labelMedium?.copyWith(
-                            color: widget.isButtonActive
-                                ? getColorScheme(context).primaryFixed
-                                : getColorScheme(context)
-                                    .onSurface
-                                    .withValues(alpha: 0.3),
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

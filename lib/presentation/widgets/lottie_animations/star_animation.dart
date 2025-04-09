@@ -5,16 +5,25 @@ import 'package:lottie/lottie.dart';
 
 class StarAnimation extends StatelessWidget {
   const StarAnimation({
+    this.isLogin = false,
     this.width = 50,
     this.height = 50,
     super.key,
   });
 
+  final bool isLogin;
   final double height;
   final double width;
 
   @override
   Widget build(BuildContext context) {
+    if (isLogin) {
+      return LottieBuilder.asset(
+        height: height,
+        width: width,
+        LottieAssets.star,
+      );
+    }
     return MainAnimationWidget(
       name: LottieAssets.star,
       height: height,

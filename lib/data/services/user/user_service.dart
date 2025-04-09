@@ -7,22 +7,17 @@ import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
-import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:dsa_learning/domain/user/iuser_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-const String _avatarKey = 'avatar';
 
 class UserService extends Cubit<UserState> implements IUserService {
   UserService({
     required IAuthService authService,
     required IUserRepository userRepository,
-    required ILocalStorage localStorage,
     required IRewardsService rewardsService,
   })  : _authService = authService,
         _userRepository = userRepository,
-        _localStorage = localStorage,
         _rewardsService = rewardsService,
         super(const UserState());
 
@@ -31,7 +26,6 @@ class UserService extends Cubit<UserState> implements IUserService {
 
   final IAuthService _authService;
   final IUserRepository _userRepository;
-  final ILocalStorage _localStorage;
   final IRewardsService _rewardsService;
 
   StreamSubscription<AuthState>? _authStream;
@@ -69,6 +63,7 @@ class UserService extends Cubit<UserState> implements IUserService {
           user: user,
         ),
       );
+      print("ANIMATIONS: ${user!.animations}");
     } on UserNotFoundException catch (_) {
       cleanUserData();
     } catch (error) {

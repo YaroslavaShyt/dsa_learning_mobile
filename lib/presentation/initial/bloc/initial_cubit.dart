@@ -7,10 +7,8 @@ class InitialCubit extends Cubit<InitialState> {
 
   Future<void> onUserStateChanged(UserStatus status) async {
     return switch (status) {
-      UserStatus.initialized => {
-          await Future.delayed(const Duration(seconds: 3)),
-          emit(state.copyWith(status: InitialStatus.home)),
-        },
+      UserStatus.initialized =>
+        emit(state.copyWith(status: InitialStatus.home)),
       UserStatus.notInitialized =>
         emit(state.copyWith(status: InitialStatus.auth)),
       UserStatus.undefined =>

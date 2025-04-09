@@ -7,6 +7,7 @@ import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_cubit.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_state.dart';
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/stars_background.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/buttons/main_outlined_button.dart';
 import 'package:dsa_learning/presentation/widgets/input/main_text_field.dart';
@@ -39,6 +40,8 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthCubitState>(
         listener: (_, AuthCubitState state) {
@@ -51,41 +54,56 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
         },
         builder: (_, AuthCubitState state) {
           return Stack(
-            fit: StackFit.expand,
             children: [
               const MainBackground(),
-              RobotAnimation(),
-              if (state.status == AuthCubitStatus.initial)
-                _StartContent(
-                  onSliderIndexChanged: cubit.onSliderPageChanged,
-                  selectedIndex: state.selectedIndex,
-                  onStartButtonPressed: cubit.onStartButtonPressed,
+              const StarsBackground(isLogin: true),
+              Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (state.status == AuthCubitStatus.initial ||
+                          state.status == AuthCubitStatus.startButtonPressed)
+                        RobotAnimation(
+                          height: size.height / 2.5,
+                          width: size.width / 1.5,
+                        ),
+                      if (state.status == AuthCubitStatus.initial)
+                        _StartContent(
+                          onSliderIndexChanged: cubit.onSliderPageChanged,
+                          selectedIndex: state.selectedIndex,
+                          onStartButtonPressed: cubit.onStartButtonPressed,
+                        ),
+                      if (state.status == AuthCubitStatus.authFail ||
+                          state.status == AuthCubitStatus.startButtonPressed)
+                        _StartButtonPressedContent(
+                          onBackTapped: cubit.onBackOnStartPressed,
+                          onSignInButtonPressed: cubit.onSignInButtonPressed,
+                          onSignUpButtonPressed: cubit.onSignUpButtonPressed,
+                        ),
+                      if (state.status == AuthCubitStatus.signInButtonPressed)
+                        _SignInContent(
+                          isButtonActive: state.isLoginButtonActive,
+                          onEmailEntered: cubit.onEmailEntered,
+                          onPasswordEntered: cubit.onPasswordEntered,
+                          onBackTapped: cubit.onBackOnLoginPressed,
+                          onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
+                        ),
+                      if (state.status == AuthCubitStatus.signUpButtonPressed)
+                        _SignUpContent(
+                          isButtonActive: state.isSignUpButtonActive,
+                          onEmailEntered: cubit.onEmailEntered,
+                          onPasswordEntered: cubit.onPasswordEntered,
+                          onBackTapped: cubit.onBackOnLoginPressed,
+                          onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
+                        ),
+                      if (state.status == AuthCubitStatus.authInProgress)
+                        LoaderFactory.build(),
+                    ],
+                  ),
                 ),
-              if (state.status == AuthCubitStatus.authFail ||
-                  state.status == AuthCubitStatus.startButtonPressed)
-                _StartButtonPressedContent(
-                  onBackTapped: cubit.onBackOnStartPressed,
-                  onSignInButtonPressed: cubit.onSignInButtonPressed,
-                  onSignUpButtonPressed: cubit.onSignUpButtonPressed,
-                ),
-              if (state.status == AuthCubitStatus.signInButtonPressed)
-                _SignInContent(
-                  isButtonActive: state.isLoginButtonActive,
-                  onEmailEntered: cubit.onEmailEntered,
-                  onPasswordEntered: cubit.onPasswordEntered,
-                  onBackTapped: cubit.onBackOnLoginPressed,
-                  onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
-                ),
-              if (state.status == AuthCubitStatus.signUpButtonPressed)
-                _SignUpContent(
-                  isButtonActive: state.isSignUpButtonActive,
-                  onEmailEntered: cubit.onEmailEntered,
-                  onPasswordEntered: cubit.onPasswordEntered,
-                  onBackTapped: cubit.onBackOnLoginPressed,
-                  onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
-                ),
-              if (state.status == AuthCubitStatus.authInProgress)
-                LoaderFactory.build(),
+              ),
             ],
           );
         },

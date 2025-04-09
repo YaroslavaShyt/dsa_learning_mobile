@@ -46,78 +46,77 @@ class _SignUpContentState extends State<_SignUpContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 20,
-      right: 20,
-      bottom: 50,
-      child: MainContainer(
-        height: 560,
-        padding: const EdgeInsetsDirectional.symmetric(
-          vertical: 20,
-          horizontal: 30,
-        ),
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _BackButton(
-              onBackPressed: widget.onBackTapped,
+    return MainContainer(
+      height: 560,
+      margin: const EdgeInsetsDirectional.symmetric(
+        horizontal: 20,
+      ),
+      padding: const EdgeInsetsDirectional.symmetric(
+        vertical: 20,
+        horizontal: 30,
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _BackButton(
+            onBackPressed: widget.onBackTapped,
+          ),
+          Text(
+            context.tr('signUp'),
+            style: getTextTheme(context).titleLarge?.copyWith(
+                  color: getColorScheme(context).primaryFixed,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 20,
             ),
-            Text(
-              context.tr('signUp'),
-              style: getTextTheme(context).titleLarge?.copyWith(
-                    color: getColorScheme(context).primaryFixed,
-                    fontWeight: FontWeight.bold,
+            child: Column(
+              spacing: 28,
+              children: [
+                MainTextField(
+                  labelText: context.tr('name'),
+                  onChanged: widget.onEmailEntered,
+                  focusNode: _nameFocusNode,
+                ),
+                MainTextField(
+                  labelText: context.tr('email'),
+                  onChanged: widget.onPasswordEntered,
+                  focusNode: _emailFocusNode,
+                ),
+                MainTextField(
+                  labelText: context.tr('password'),
+                  onChanged: widget.onPasswordEntered,
+                  focusNode: _passwordFocusNode,
+                ),
+                MainTextField(
+                  labelText:
+                      '${context.tr('confirm')} ${context.tr('password').toLowerCase()}',
+                  onChanged: widget.onPasswordEntered,
+                  focusNode: _confirmPasswordFocusNode,
+                ),
+                MainOutlinedButton(
+                  isActive: widget.isButtonActive,
+                  onPressed: widget.onConfirmButtonPressed,
+                  child: Text(
+                    context.tr('confirm'),
+                    style: getTextTheme(context).labelMedium?.copyWith(
+                          color: widget.isButtonActive
+                              ? getColorScheme(context).primaryFixed
+                              : getColorScheme(context)
+                                  .onSurface
+                                  .withValues(alpha: 0.3),
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(
-                horizontal: 20,
-              ),
-              child: Column(
-                spacing: 28,
-                children: [
-                  MainTextField(
-                    labelText: context.tr('name'),
-                    onChanged: widget.onEmailEntered,
-                    focusNode: _nameFocusNode,
-                  ),
-                  MainTextField(
-                    labelText: context.tr('email'),
-                    onChanged: widget.onPasswordEntered,
-                    focusNode: _emailFocusNode,
-                  ),
-                  MainTextField(
-                    labelText: context.tr('password'),
-                    onChanged: widget.onPasswordEntered,
-                    focusNode: _passwordFocusNode,
-                  ),
-                  MainTextField(
-                    labelText:
-                        '${context.tr('confirm')} ${context.tr('password').toLowerCase()}',
-                    onChanged: widget.onPasswordEntered,
-                    focusNode: _confirmPasswordFocusNode,
-                  ),
-                  MainOutlinedButton(
-                    isActive: widget.isButtonActive,
-                    onPressed: widget.onConfirmButtonPressed,
-                    child: Text(
-                      context.tr('confirm'),
-                      style: getTextTheme(context).labelMedium?.copyWith(
-                            color: widget.isButtonActive
-                                ? getColorScheme(context).primaryFixed
-                                : getColorScheme(context)
-                                    .onSurface
-                                    .withValues(alpha: 0.3),
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
