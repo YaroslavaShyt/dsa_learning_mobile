@@ -1,11 +1,12 @@
 part of '../../learn_screen.dart';
 
-class _AlgorithmsContent extends StatelessWidget {
-  const _AlgorithmsContent({
+class _DataStructuresContent extends StatelessWidget with BottomSheetMixin {
+  const _DataStructuresContent({
     required this.onCloseButtonTap,
     required this.onStartButtonTap,
     required this.categorySummary,
     required this.isLessonOpened,
+    super.key,
   });
 
   final VoidCallback onCloseButtonTap;

@@ -55,30 +55,49 @@ class _CategoryContainer extends StatelessWidget
           ...List.generate(
             lessonsSummary.length,
             (int index) {
+              final bool isOpened = _isOpened(index);
+
               return _LevelWidget(
-                isOpened: _isOpened(index),
+                isOpened: isOpened,
                 levelNum: (index + 1).toString(),
                 position: pattern.positions[index],
-                onTap: () => BlocProvider.of<LearnCubit>(context).vents > 0
-                    ? showAppBottomSheet(
-                        context: context,
-                        child: PreLessonInfo(
-                          categoryName: title,
-                          lesson: lessonsSummary[index],
-                          onCloseIconTap: onCloseIconTap,
-                          onStartTap: () => onStartTap(
-                            lessonsSummary[index].id,
-                            lessonsSummary[index].gameId,
-                          ),
-                        ),
-                      )
-                    : _onAllVentsUsed(context),
+                onTap: () => _onLevelTap(
+                  context,
+                  index: index,
+                  isOpened: isOpened,
+                ),
               );
             },
           ),
         ],
       ),
     );
+  }
+
+  void _onLevelTap(
+    BuildContext context, {
+    required int index,
+    required bool isOpened,
+  }) {
+    if (!isOpened) return;
+
+    if (BlocProvider.of<LearnCubit>(context).vents > 0) {
+      showAppBottomSheet(
+        context: context,
+        child: PreLessonInfo(
+          categoryName: title,
+          lesson: lessonsSummary[index],
+          onCloseIconTap: onCloseIconTap,
+          onStartTap: () => onStartTap(
+            lessonsSummary[index].id,
+            lessonsSummary[index].gameId,
+          ),
+        ),
+      );
+      return;
+    }
+
+    _onAllVentsUsed(context);
   }
 
   void _onAllVentsUsed(BuildContext context) {
@@ -103,7 +122,7 @@ class _CategoryContainer extends StatelessWidget
   }
 
   bool _isOpened(int index) {
-    if (index > 0) return isLessonOpened(lessonsSummary[index - 1].id);
+    if (index == 0) return true;
 
     return isLessonOpened(lessonsSummary[index].id);
   }

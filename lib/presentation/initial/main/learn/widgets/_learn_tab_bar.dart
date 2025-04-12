@@ -37,13 +37,18 @@ class _LearnTabBar extends StatelessWidget {
       tabBarContent: [
         _AlgorithmsContent(
           isLessonOpened: isLessonOpened,
-          categorySummary: lessonsSummary.first,
+          categorySummary: lessonsSummary.last,
           onCloseButtonTap: onCloseButtonTap,
           onStartButtonTap: (id, val) =>
               onStartButtonTap(id, val, 'ALGORITHMS'),
         ),
-        //_DataStructuresContent(),
-        Container(),
+        _DataStructuresContent(
+          isLessonOpened: isLessonOpened,
+          categorySummary: lessonsSummary.first,
+          onCloseButtonTap: onCloseButtonTap,
+          onStartButtonTap: (id, val) =>
+              onStartButtonTap(id, val, 'DATA_STRUCTURES'),
+        ),
       ],
     );
   }

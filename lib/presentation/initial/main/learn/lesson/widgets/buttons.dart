@@ -9,9 +9,11 @@ class Buttons extends StatelessWidget {
     required this.isAnswerSelected,
     required this.onBackButtonTap,
     required this.onNextButtonTap,
+    this.leftButtonText = 'back',
     super.key,
   });
 
+  final String leftButtonText;
   final bool isAnswerSelected;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
@@ -26,7 +28,7 @@ class Buttons extends StatelessWidget {
         _buildButton(
           textTheme,
           colorScheme.onSurface.withValues(alpha: 0.8),
-          title: context.tr('back'),
+          title: context.tr(leftButtonText),
           onPressed: onBackButtonTap,
           isActive: false,
         ),
@@ -52,7 +54,7 @@ class Buttons extends StatelessWidget {
   }) {
     return MainOutlinedButton(
       isActive: isActive,
-      width: 60,
+      width: 106,
       color: color,
       onPressed: onPressed,
       child: Text(

@@ -30,6 +30,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
           body: SafeArea(
             bottom: false,
             child: Stack(
+              fit: StackFit.loose,
               children: [
                 const MainBackground(),
                 if (state.status == LessonStatus.loading) LoaderFactory.build(),
@@ -57,29 +58,27 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                       ),
                     ),
                   if (state.activityType == ActivityType.game)
-                    SingleChildScrollView(
-                      child: GameWidget(
-                        vents: state.vents,
-                        gameProgress: state.gameProgress,
-                        onAnswerSelected: (answer, isCorrect) =>
-                            cubit.onAnswerSelected(
-                          answer,
-                          isCorrect,
-                          () => _onAllVentsUsed(context),
-                        ),
-                        questionsNum: state.game!.tasks.length,
-                        task: cubit.task,
-                        lessonTime: state.gameTime,
-                        onUpdateTimer: cubit.onUpdateGameTimer,
-                        progress: state.progress,
-                        gameName: state.game!.title,
-                        selectedAnswer: state.selectedAnswer,
-                        onNextButtonTap: () => cubit.onNextGameButtonPressed(
-                          () => _onAllVentsUsed(context),
-                        ),
-                        onBackButtonTap: () => cubit.onBackButtonPressed(
-                          () => _confirmExit(context),
-                        ),
+                    GameWidget(
+                      vents: state.vents,
+                      gameProgress: state.gameProgress,
+                      onAnswerSelected: (answer, isCorrect) =>
+                          cubit.onAnswerSelected(
+                        answer,
+                        isCorrect,
+                        () => _onAllVentsUsed(context),
+                      ),
+                      questionsNum: state.game!.tasks.length,
+                      task: cubit.task,
+                      lessonTime: state.gameTime,
+                      onUpdateTimer: cubit.onUpdateGameTimer,
+                      progress: state.progress,
+                      gameName: state.game!.title,
+                      selectedAnswer: state.selectedAnswer,
+                      onNextButtonTap: () => cubit.onNextGameButtonPressed(
+                        () => _onAllVentsUsed(context),
+                      ),
+                      onBackButtonTap: () => cubit.onBackButtonPressed(
+                        () => _confirmExit(context),
                       ),
                     ),
                 ],
@@ -139,6 +138,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
 
   void _onAllVentsUsed(BuildContext context) {
     showPopup(
+      height: 230,
       context: context,
       child: AllVentsUsedPopupContent(
         onConfirmTap: () {

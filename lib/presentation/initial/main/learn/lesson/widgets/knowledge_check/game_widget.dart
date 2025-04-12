@@ -37,12 +37,14 @@ class GameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsetsDirectional.symmetric(
         vertical: 20,
         horizontal: 16,
       ),
+      height: MediaQuery.sizeOf(context).height,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
@@ -72,6 +74,7 @@ class GameWidget extends StatelessWidget {
             ],
           ),
           Buttons(
+            leftButtonText: 'finish',
             isAnswerSelected: selectedAnswer.isNotEmpty,
             onBackButtonTap: onBackButtonTap,
             onNextButtonTap: onNextButtonTap,

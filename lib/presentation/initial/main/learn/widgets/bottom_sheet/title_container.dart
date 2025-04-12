@@ -1,3 +1,4 @@
+import 'package:auto_size_text_plus/auto_size_text_plus.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:flutter/material.dart';
@@ -27,20 +28,27 @@ class TitleContainer extends StatelessWidget {
           vertical: 16,
         ),
         content: Column(
+          spacing: 10,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              categoryName,
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
+            Flexible(
+              child: AutoSizeText(
+                categoryName,
+                maxFontSize: 20,
+                minFontSize: 10,
+                style: textTheme.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              lessonName,
-              style: textTheme.labelMedium?.copyWith(
-                fontSize: 16,
+            Flexible(
+              child: AutoSizeText(
+                lessonName,
+                maxFontSize: 20,
+                minFontSize: 10,
+                style: textTheme.labelMedium?.copyWith(
+                  fontSize: 16,
+                ),
               ),
             ),
           ],

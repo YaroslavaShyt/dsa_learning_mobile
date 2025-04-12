@@ -54,21 +54,12 @@ class HomeScreen extends StatefulWidget with PopUpMixin {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final ScrollController _scrollController;
   final IAudioHandler _audioHandler = sl.get<IAudioHandler>();
 
   @override
   void initState() {
     super.initState();
     widget.cubit.init(() => _onLostStreak(context));
-
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   @override
@@ -95,43 +86,37 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: 14,
                     ),
                     width: double.infinity,
-                    child: MainScrollbar(
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.only(
-                            start: 10,
-                            end: 16.0,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 10,
+                        end: 16.0,
+                      ),
+                      child: Column(
+                        children: [
+                          _StreakWidget(
+                            streak: state.streak,
+                            avatarPath: state.profilePhoto,
                           ),
-                          child: Column(
-                            children: [
-                              _StreakWidget(
-                                streak: state.streak,
-                                avatarPath: state.profilePhoto,
-                              ),
-                              const SizedBox(height: 20),
-                              _HelloUserWidget(
-                                onTimerFinished: widget.cubit.onTimerFinished,
-                                fansLastUpdated: widget.cubit.fansLastUpdated,
-                                onManageCurrencyTap: () => _showShop(context),
-                                userName: state.userName,
-                                hash: state.hash,
-                                fan: state.vent,
-                                bytes: state.bytes,
-                              ),
-                              const SizedBox(height: 20),
-                              if (state.achievements.isNotEmpty)
-                                _AchievementsWidget(
-                                  onSeeAllTap: () =>
-                                      _onSeeAllTap(context, state),
-                                  achievements: state.achievements,
-                                ),
-                              const SizedBox(height: 20),
-                              const _StatisticsWidget(),
-                              const SizedBox(height: 100),
-                            ],
+                          const SizedBox(height: 20),
+                          _HelloUserWidget(
+                            onTimerFinished: widget.cubit.onTimerFinished,
+                            fansLastUpdated: widget.cubit.fansLastUpdated,
+                            onManageCurrencyTap: () => _showShop(context),
+                            userName: state.userName,
+                            hash: state.hash,
+                            fan: state.vent,
+                            bytes: state.bytes,
                           ),
-                        ),
+                          const SizedBox(height: 20),
+                          if (state.achievements.isNotEmpty)
+                            _AchievementsWidget(
+                              onSeeAllTap: () => _onSeeAllTap(context, state),
+                              achievements: state.achievements,
+                            ),
+                          const SizedBox(height: 20),
+                          const _StatisticsWidget(),
+                          const SizedBox(height: 100),
+                        ],
                       ),
                     ),
                   ),

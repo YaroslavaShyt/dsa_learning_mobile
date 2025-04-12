@@ -1,3 +1,4 @@
+import 'package:auto_size_text_plus/auto_size_text_plus.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +17,16 @@ class GameQuestion extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
 
     return SizedBox(
+      height: 100,
       width: MediaQuery.sizeOf(context).width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
-            child: Text(
+            child: AutoSizeText(
               question,
+              minFontSize: 12,
+              maxFontSize: 16,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w700,

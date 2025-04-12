@@ -16,7 +16,6 @@ import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
-import 'package:dsa_learning/presentation/widgets/scroll/main_scroll_bar.dart';
 import 'package:dsa_learning/presentation/widgets/tab_bar/main_tab_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ import 'lesson/widgets/knowledge_check/all_vents_used_popup_content.dart';
 part 'widgets/_category_container.dart';
 part 'widgets/_learn_tab_bar.dart';
 part 'widgets/algorithms/_algorithms_content.dart';
-//part 'widgets/data_structures_content/_data_structures_content.dart';
+part 'widgets/data_structures/_data_structures_content.dart';
 part 'widgets/levels/_level_widget.dart';
 
 class LearnScreen extends StatelessWidget {

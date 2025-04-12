@@ -1,7 +1,10 @@
+import 'package:auto_size_text_plus/auto_size_text_plus.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:flutter/material.dart';
+
+final AutoSizeGroup _autoSizeGroup = AutoSizeGroup();
 
 class AnswersWidget extends StatelessWidget {
   const AnswersWidget({
@@ -26,8 +29,9 @@ class AnswersWidget extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.5,
+    return Container(
+      color: Colors.orange,
+      height: MediaQuery.sizeOf(context).height * 0.5 - 10,
       child: ListView.builder(
         itemCount: answers.length,
         itemBuilder: (BuildContext context, int index) {
@@ -55,11 +59,12 @@ class AnswersWidget extends StatelessWidget {
               content: Row(
                 children: [
                   Flexible(
-                    child: Text(
+                    child: AutoSizeText(
                       answers[index],
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontSize: 18,
-                      ),
+                      group: _autoSizeGroup,
+                      maxFontSize: 18,
+                      minFontSize: 12,
+                      style: textTheme.bodyMedium,
                     ),
                   ),
                 ],

@@ -45,22 +45,23 @@ class TheoryFinishedPopup extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            context.tr("allTheoryIsLearned"),
-            textAlign: TextAlign.center,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.center,
             children: [
+              Text(
+                context.tr("allTheoryIsLearned"),
+                textAlign: TextAlign.center,
+                style: textTheme.titleLarge?.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               if (bytes != 0 || hash != 0 || vents != 0)
                 Text(
                   '${context.tr("reward")}:    ',
                   textAlign: TextAlign.center,
                   style: textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -74,48 +75,18 @@ class TheoryFinishedPopup extends StatelessWidget {
                   ),
                 ),
                 Image.asset(
-                  height: 16,
-                  width: 16,
+                  height: 30,
+                  width: 30,
                   ImageAssets.bytes,
                 ),
               ],
-              if (hash > 0) ...[
-                Text(
-                  '${hash.toString()}x',
-                  style: textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
-                    color: colorScheme.primaryFixed,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Image.asset(
-                  height: 16,
-                  width: 16,
-                  ImageAssets.hash,
-                ),
-              ],
-              if (vents > 0) ...[
-                Text(
-                  '${vents.toString()}x',
-                  style: textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
-                    color: colorScheme.primaryFixed,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Image.asset(
-                  height: 16,
-                  width: 16,
-                  ImageAssets.vents,
-                ),
-              ]
             ],
           ),
           Text(
             context.tr("letsCheckTheKnowledge"),
             textAlign: TextAlign.center,
             style: textTheme.titleLarge?.copyWith(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -126,7 +97,7 @@ class TheoryFinishedPopup extends StatelessWidget {
               children: [
                 MainOutlinedButton(
                   isActive: false,
-                  width: 60,
+                  width: 64,
                   onPressed: onCancelTap,
                   child: Text(
                     context.tr("later"),
@@ -137,7 +108,7 @@ class TheoryFinishedPopup extends StatelessWidget {
                   ),
                 ),
                 MainOutlinedButton(
-                  width: 60,
+                  width: 64,
                   onPressed: onConfirmTap,
                   child: Text(
                     context.tr("letsGo"),

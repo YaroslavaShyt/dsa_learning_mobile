@@ -155,7 +155,6 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
               onTap: widget.onManageCurrencyTap,
               child: SizedBox(
                 height: 50,
-                width: 130,
                 child: Text(
                   context.tr("manageCurrency"),
                   style: textTheme.labelSmall?.copyWith(

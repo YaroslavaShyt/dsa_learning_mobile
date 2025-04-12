@@ -140,14 +140,6 @@ class LessonCubit extends Cubit<LessonState> {
       confirmExit();
       return;
     }
-    if (state.gameStep > 1) {
-      emit(
-        state.copyWith(
-          step: state.gameStep - 1,
-        ),
-      );
-      return;
-    }
     confirmExit();
   }
 
