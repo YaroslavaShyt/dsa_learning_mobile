@@ -2,16 +2,20 @@ part of '../auth_screen.dart';
 
 class _SignUpContent extends StatefulWidget {
   const _SignUpContent({
+    required this.onNameEntered,
     required this.isButtonActive,
     required this.onEmailEntered,
     required this.onPasswordEntered,
     required this.onBackTapped,
     required this.onConfirmButtonPressed,
+    required this.onConfirmPasswordEntered,
   });
 
   final bool isButtonActive;
+  final Function(String) onNameEntered;
   final Function(String) onEmailEntered;
   final Function(String) onPasswordEntered;
+  final Function(String) onConfirmPasswordEntered;
   final VoidCallback onBackTapped;
   final VoidCallback onConfirmButtonPressed;
 
@@ -79,12 +83,12 @@ class _SignUpContentState extends State<_SignUpContent> {
               children: [
                 MainTextField(
                   labelText: context.tr('name'),
-                  onChanged: widget.onEmailEntered,
+                  onChanged: widget.onNameEntered,
                   focusNode: _nameFocusNode,
                 ),
                 MainTextField(
                   labelText: context.tr('email'),
-                  onChanged: widget.onPasswordEntered,
+                  onChanged: widget.onEmailEntered,
                   focusNode: _emailFocusNode,
                 ),
                 MainTextField(
@@ -95,8 +99,9 @@ class _SignUpContentState extends State<_SignUpContent> {
                 MainTextField(
                   labelText:
                       '${context.tr('confirm')} ${context.tr('password').toLowerCase()}',
-                  onChanged: widget.onPasswordEntered,
+                  onChanged: widget.onConfirmPasswordEntered,
                   focusNode: _confirmPasswordFocusNode,
+                  inputAction: TextInputAction.done,
                 ),
                 MainOutlinedButton(
                   isActive: widget.isButtonActive,

@@ -12,6 +12,7 @@ class MainTextField extends StatelessWidget {
     this.inputFormatters,
     this.obscureText = false,
     this.focusNode,
+    this.inputAction = TextInputAction.next,
     super.key,
   });
 
@@ -22,6 +23,7 @@ class MainTextField extends StatelessWidget {
   final Function(String)? onChanged;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputAction inputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class MainTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       focusNode: focusNode,
+      textInputAction: inputAction,
       cursorColor: colorScheme.primaryFixed,
       cursorHeight: 20,
       inputFormatters: inputFormatters,

@@ -16,6 +16,13 @@ class AuthCubit extends Cubit<AuthCubitState> {
 
   final IAuthService _authService;
 
+  bool _isValidPassword(String password) =>
+      InputValidators.isValidPassword(password);
+
+  bool _isValidEmail(String email) => InputValidators.isValidEmail(email);
+
+  bool _isValidName(String name) => InputValidators.isValidName(name);
+
   Future<void> onConfirmOnLoginPressed() async {
     try {
       if (!state.isLoginButtonActive) return;
@@ -23,10 +30,11 @@ class AuthCubit extends Cubit<AuthCubitState> {
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
       await _authService.signIn(
-          signInModel: SignInModel(
-        email: state.email,
-        password: state.password,
-      ));
+        signInModel: SignInModel(
+          email: state.email,
+          password: state.password,
+        ),
+      );
     } catch (error) {
       logger.e(error);
       emit(state.copyWith(status: AuthCubitStatus.authFail));
@@ -40,11 +48,12 @@ class AuthCubit extends Cubit<AuthCubitState> {
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
       await _authService.signUp(
-          signUpModel: SignUpModel(
-        name: state.name,
-        email: state.email,
-        password: state.password,
-      ));
+        signUpModel: SignUpModel(
+          name: state.name,
+          email: state.email,
+          password: state.password,
+        ),
+      );
     } catch (error) {
       logger.e(error);
       emit(state.copyWith(status: AuthCubitStatus.authFail));
@@ -52,91 +61,137 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onEmailEntered(String email) {
-    emit(
-      state.copyWith(
-        email: email,
-        isLoginButtonActive: InputValidators.isValidPassword(state.password) &&
-            InputValidators.isValidEmail(email),
-      ),
-    );
+    final bool isButtonActive =
+        _isValidPassword(state.password) && _isValidEmail(email);
+    emit(state.copyWith(email: email, isLoginButtonActive: isButtonActive));
   }
 
   void onPasswordEntered(String password) {
+    final bool isButtonActive =
+        _isValidPassword(password) && _isValidEmail(state.email);
+
     emit(
       state.copyWith(
         password: password,
-        isLoginButtonActive: InputValidators.isValidPassword(password) &&
-            InputValidators.isValidEmail(state.email),
+        isLoginButtonActive: isButtonActive,
       ),
     );
   }
 
   void onNameOnSignUpEntered(String name) {
-    emit(
-      state.copyWith(
-        name: name,
-        isSignUpButtonActive: InputValidators.isValidName(name) &&
-            InputValidators.isValidEmail(state.email) &&
-            InputValidators.isValidPassword(state.confirmPassword) &&
-            InputValidators.isValidPassword(state.password),
-      ),
-    );
+    final bool isButtonActive = _isValidName(name) &&
+        _isValidEmail(state.email) &&
+        _isValidPassword(state.confirmPassword) &&
+        _isValidPassword(state.password);
+
+    emit(state.copyWith(name: name, isSignUpButtonActive: isButtonActive));
   }
 
   void onEmailOnSignUpEntered(String email) {
-    emit(
-      state.copyWith(
-        email: email,
-        isSignUpButtonActive: InputValidators.isValidName(state.name) &&
-            InputValidators.isValidEmail(email) &&
-            InputValidators.isValidPassword(state.confirmPassword) &&
-            InputValidators.isValidPassword(state.password),
-      ),
-    );
+    final bool isButtonActive = _isValidName(state.name) &&
+        _isValidEmail(email) &&
+        _isValidPassword(state.confirmPassword) &&
+        _isValidPassword(state.password);
+
+    emit(state.copyWith(email: email, isSignUpButtonActive: isButtonActive));
   }
 
   void onPasswordOnSignUpEntered(String password) {
+    final bool isButtonActive = _isValidName(state.name) &&
+        _isValidEmail(state.email) &&
+        _isValidPassword(state.confirmPassword) &&
+        _isValidPassword(password);
+
     emit(
       state.copyWith(
         password: password,
-        isSignUpButtonActive: InputValidators.isValidName(state.name) &&
-            InputValidators.isValidEmail(state.email) &&
-            InputValidators.isValidPassword(state.confirmPassword) &&
-            InputValidators.isValidPassword(password),
+        isSignUpButtonActive: isButtonActive,
       ),
     );
   }
 
   void onConfirmPasswordOnSignUpEntered(String confirmPassword) {
+    final bool isButtonActive = _isValidName(state.name) &&
+        _isValidEmail(state.email) &&
+        _isValidPassword(confirmPassword) &&
+        _isValidPassword(state.password);
+
     emit(
       state.copyWith(
         confirmPassword: confirmPassword,
-        isSignUpButtonActive: InputValidators.isValidName(state.name) &&
-            InputValidators.isValidEmail(state.email) &&
-            InputValidators.isValidPassword(confirmPassword) &&
-            InputValidators.isValidPassword(state.password),
+        isSignUpButtonActive: isButtonActive,
       ),
     );
   }
 
   void onStartButtonPressed() {
-    emit(state.copyWith(status: AuthCubitStatus.startButtonPressed));
+    emit(
+      state.copyWith(
+        status: AuthCubitStatus.startButtonPressed,
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        isLoginButtonActive: false,
+        isSignUpButtonActive: false,
+      ),
+    );
   }
 
   void onSignInButtonPressed() {
-    emit(state.copyWith(status: AuthCubitStatus.signInButtonPressed));
+    emit(
+      state.copyWith(
+        status: AuthCubitStatus.signInButtonPressed,
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        isLoginButtonActive: false,
+        isSignUpButtonActive: false,
+      ),
+    );
   }
 
   void onSignUpButtonPressed() {
-    emit(state.copyWith(status: AuthCubitStatus.signUpButtonPressed));
+    emit(
+      state.copyWith(
+        status: AuthCubitStatus.signUpButtonPressed,
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        isLoginButtonActive: false,
+        isSignUpButtonActive: false,
+      ),
+    );
   }
 
   void onBackOnStartPressed() {
-    emit(state.copyWith(status: AuthCubitStatus.initial));
+    emit(
+      state.copyWith(
+        status: AuthCubitStatus.initial,
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        isLoginButtonActive: false,
+        isSignUpButtonActive: false,
+      ),
+    );
   }
 
   void onBackOnLoginPressed() {
-    emit(state.copyWith(status: AuthCubitStatus.startButtonPressed));
+    emit(
+      state.copyWith(
+        status: AuthCubitStatus.startButtonPressed,
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        isLoginButtonActive: false,
+        isSignUpButtonActive: false,
+      ),
+    );
   }
 
   void onSliderPageChanged(int index) {

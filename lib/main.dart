@@ -50,6 +50,7 @@ import 'package:dsa_learning/data/storage/secure_storage.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
 import 'package:dsa_learning/domain/storage/ilocal_storage.dart';
 import 'package:dsa_learning/domain/storage/isecure_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,15 @@ part 'core/utils/service_locator/service_locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   await EasyLocalization.ensureInitialized();
 

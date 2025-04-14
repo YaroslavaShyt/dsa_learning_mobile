@@ -20,45 +20,49 @@ class LoaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
-    return Scaffold(
-      body: Stack(
-        children: [
-          const MainBackground(),
-          Positioned(
-            top: 50,
-            left: 10,
-            right: 10,
-            bottom: -50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 400,
-                  child: RobotAnimation(),
-                ),
-                if (isLoadingInProgress)
-                  SizedBox(
-                    height: 200,
-                    child: AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          context.tr("loadingInformationBytes"),
-                          textAlign: TextAlign.center,
-                          textStyle: textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            const MainBackground(),
+            Positioned(
+              top: 50,
+              left: 10,
+              right: 10,
+              bottom: -50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 400,
+                    child: RobotAnimation(),
+                  ),
+                  if (isLoadingInProgress)
+                    SizedBox(
+                      height: 200,
+                      child: AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            context.tr("loadingInformationBytes"),
+                            textAlign: TextAlign.center,
+                            textStyle: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                            speed: const Duration(milliseconds: 100),
                           ),
-                          speed: const Duration(milliseconds: 100),
-                        ),
-                      ],
-                      repeatForever: true,
-                      pause: const Duration(seconds: 3),
-                    ),
-                  )
-              ],
+                        ],
+                        repeatForever: true,
+                        pause: const Duration(seconds: 3),
+                      ),
+                    )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

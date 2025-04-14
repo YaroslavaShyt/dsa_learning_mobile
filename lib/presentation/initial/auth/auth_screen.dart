@@ -53,58 +53,79 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
           }
         },
         builder: (_, AuthCubitState state) {
-          return Stack(
-            children: [
-              const MainBackground(),
-              const StarsBackground(isLogin: true),
-              Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (state.status == AuthCubitStatus.initial ||
-                          state.status == AuthCubitStatus.startButtonPressed)
-                        RobotAnimation(
-                          height: size.height / 2.5,
-                          width: size.width / 1.5,
-                        ),
-                      if (state.status == AuthCubitStatus.initial)
-                        _StartContent(
-                          onSliderIndexChanged: cubit.onSliderPageChanged,
-                          selectedIndex: state.selectedIndex,
-                          onStartButtonPressed: cubit.onStartButtonPressed,
-                        ),
-                      if (state.status == AuthCubitStatus.authFail ||
-                          state.status == AuthCubitStatus.startButtonPressed)
-                        _StartButtonPressedContent(
-                          onBackTapped: cubit.onBackOnStartPressed,
-                          onSignInButtonPressed: cubit.onSignInButtonPressed,
-                          onSignUpButtonPressed: cubit.onSignUpButtonPressed,
-                        ),
-                      if (state.status == AuthCubitStatus.signInButtonPressed)
-                        _SignInContent(
-                          isButtonActive: state.isLoginButtonActive,
-                          onEmailEntered: cubit.onEmailEntered,
-                          onPasswordEntered: cubit.onPasswordEntered,
-                          onBackTapped: cubit.onBackOnLoginPressed,
-                          onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
-                        ),
-                      if (state.status == AuthCubitStatus.signUpButtonPressed)
-                        _SignUpContent(
-                          isButtonActive: state.isSignUpButtonActive,
-                          onEmailEntered: cubit.onEmailEntered,
-                          onPasswordEntered: cubit.onPasswordEntered,
-                          onBackTapped: cubit.onBackOnLoginPressed,
-                          onConfirmButtonPressed: cubit.onConfirmOnLoginPressed,
-                        ),
-                      if (state.status == AuthCubitStatus.authInProgress)
-                        LoaderFactory.build(),
-                    ],
+          return PopScope(
+            canPop: state.status == AuthCubitStatus.initial,
+            onPopInvokedWithResult: (didPop, result) {
+              if (didPop) return;
+              if (state.status == AuthCubitStatus.startButtonPressed) {
+                cubit.onBackOnStartPressed();
+              }
+              if (state.status == AuthCubitStatus.signInButtonPressed ||
+                  state.status == AuthCubitStatus.signUpButtonPressed) {
+                cubit.onBackOnLoginPressed();
+              }
+            },
+            child: Stack(
+              children: [
+                const MainBackground(),
+                const StarsBackground(isLogin: true),
+                SizedBox(
+                  height: size.height,
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (state.status == AuthCubitStatus.initial)
+                            _StartContent(
+                              onSliderIndexChanged: cubit.onSliderPageChanged,
+                              selectedIndex: state.selectedIndex,
+                              onStartButtonPressed: cubit.onStartButtonPressed,
+                            ),
+                          if (state.status == AuthCubitStatus.authFail ||
+                              state.status ==
+                                  AuthCubitStatus.startButtonPressed)
+                            _StartButtonPressedContent(
+                              onBackTapped: cubit.onBackOnStartPressed,
+                              onSignInButtonPressed:
+                                  cubit.onSignInButtonPressed,
+                              onSignUpButtonPressed:
+                                  cubit.onSignUpButtonPressed,
+                            ),
+                          if (state.status ==
+                              AuthCubitStatus.signInButtonPressed)
+                            _SignInContent(
+                              isButtonActive: state.isLoginButtonActive,
+                              onEmailEntered: cubit.onEmailEntered,
+                              onPasswordEntered: cubit.onPasswordEntered,
+                              onBackTapped: cubit.onBackOnLoginPressed,
+                              onConfirmButtonPressed:
+                                  cubit.onConfirmOnLoginPressed,
+                            ),
+                          if (state.status ==
+                              AuthCubitStatus.signUpButtonPressed)
+                            _SignUpContent(
+                              onNameEntered: cubit.onNameOnSignUpEntered,
+                              onEmailEntered: cubit.onEmailOnSignUpEntered,
+                              onPasswordEntered:
+                                  cubit.onPasswordOnSignUpEntered,
+                              onConfirmPasswordEntered:
+                                  cubit.onConfirmPasswordOnSignUpEntered,
+                              isButtonActive: state.isSignUpButtonActive,
+                              onBackTapped: cubit.onBackOnLoginPressed,
+                              onConfirmButtonPressed:
+                                  cubit.onConfirmOnSignUpPressed,
+                            ),
+                          if (state.status == AuthCubitStatus.authInProgress)
+                            LoaderFactory.build(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

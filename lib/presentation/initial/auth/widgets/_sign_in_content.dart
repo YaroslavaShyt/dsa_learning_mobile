@@ -76,10 +76,14 @@ class _SignInContentState extends State<_SignInContent> {
                   labelText: context.tr('password'),
                   onChanged: widget.onPasswordEntered,
                   focusNode: _passwordFocusNode,
+                  inputAction: TextInputAction.done,
                 ),
                 MainOutlinedButton(
                   isActive: widget.isButtonActive,
-                  onPressed: widget.onConfirmButtonPressed,
+                  onPressed: () {
+                    _passwordFocusNode.unfocus();
+                    widget.onConfirmButtonPressed();
+                  },
                   child: Text(
                     context.tr('confirm'),
                     style: getTextTheme(context).labelMedium?.copyWith(
