@@ -39,7 +39,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(state.copyWith(isLanguageShown: !state.isLanguageShown));
   }
 
-  void onDeleteAccountTap() {}
+  Future<void> onDeleteAccountTap() async {
+    try {
+      _navigationUtil.navigateBack();
+      await _userService.deleteUser();
+    } catch (error) {
+      logger.e(error);
+    }
+  }
 
   void onAboutInfoTap() {
     emit(state.copyWith(isAboutInfoShown: !state.isAboutInfoShown));

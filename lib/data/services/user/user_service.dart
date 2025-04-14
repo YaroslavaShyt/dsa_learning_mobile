@@ -9,6 +9,7 @@ import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:dsa_learning/domain/user/iuser_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserService extends Cubit<UserState> implements IUserService {
@@ -63,7 +64,6 @@ class UserService extends Cubit<UserState> implements IUserService {
           user: user,
         ),
       );
-      print("ANIMATIONS: ${user!.animations}");
     } on UserNotFoundException catch (_) {
       cleanUserData();
     } catch (error) {
@@ -102,6 +102,22 @@ class UserService extends Cubit<UserState> implements IUserService {
   @override
   Future<void> cleanUserData() async {
     await _authService.signOut();
+  }
+
+  @override
+  Future<void> deleteUser() async {
+    try {
+      final bool isDeleted = await _userRepository.deleteUser();
+
+      if (!isDeleted) {
+        debugPrint("not deleted");
+        return;
+      }
+
+      await cleanUserData();
+    } catch (error) {
+      logger.e(error);
+    }
   }
 
   @override

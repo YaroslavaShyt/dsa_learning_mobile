@@ -58,4 +58,18 @@ class UserRepository implements IUserRepository {
       logger.e(error);
     }
   }
+
+  @override
+  Future<bool> deleteUser() async {
+    try {
+      final Response? response =
+          await _networkingClient.delete(Endpoints.userEndpoint);
+      if (response == null) return false;
+
+      if (response.statusCode == 200) return true;
+    } catch (error) {
+      logger.e(error);
+    }
+    return false;
+  }
 }

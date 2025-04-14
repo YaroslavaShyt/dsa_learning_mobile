@@ -3,6 +3,7 @@ import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
+import 'package:dsa_learning/presentation/initial/main/profile/widgets/confirm_exit/confirm_delete_account.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/widgets/confirm_exit/confirm_exit_popup_content.dart';
 import 'package:dsa_learning/presentation/initial/main/widgets/avatar_widget.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
@@ -51,18 +52,18 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                             onAvatarTap: () => _onAvatarTap(context),
                           ),
                           _ProfileMenu(
-                            isSoundEnabled: state.isSoundEnabled,
-                            isLanguageShown: state.isLanguageShown,
-                            isAboutInfoShown: state.isAboutInfoShown,
-                            isVibrationEnabled: state.isVibrationEnabled,
-                            isAnimationsEnabled: state.isAnimationEnabled,
                             onSoundTap: cubit.onSoundTap,
                             onLanguageTap: cubit.onLanguageTap,
                             onVibrationTap: cubit.onVibrationTap,
                             onAboutInfoTap: cubit.onAboutInfoTap,
                             onAnimationTap: cubit.onAnimationTap,
-                            onDeleteAccountTap: cubit.onDeleteAccountTap,
+                            isSoundEnabled: state.isSoundEnabled,
+                            isLanguageShown: state.isLanguageShown,
+                            isAboutInfoShown: state.isAboutInfoShown,
+                            isVibrationEnabled: state.isVibrationEnabled,
+                            isAnimationsEnabled: state.isAnimationEnabled,
                             onExitTap: () => _onExitTap(context),
+                            onDeleteAccountTap: () => _onDeleteTap(context),
                           ),
                           const SizedBox(height: 150),
                         ],
@@ -94,6 +95,16 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
       child: ConfirmExitPopupContent(
         onCancelTap: cubit.onCancelTap,
         onConfirmTap: cubit.onExitTap,
+      ),
+    );
+  }
+
+  void _onDeleteTap(BuildContext context) {
+    showPopup(
+      context: context,
+      child: ConfirmDeleteAccountContent(
+        onCancelTap: cubit.onCancelTap,
+        onConfirmTap: cubit.onDeleteAccountTap,
       ),
     );
   }

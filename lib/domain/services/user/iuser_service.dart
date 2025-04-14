@@ -14,4 +14,6 @@ abstract interface class IUserService {
   });
 
   Future<void> cleanUserData();
+
+  Future<void> deleteUser();
 }
