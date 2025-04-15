@@ -74,6 +74,7 @@ class _SignInContentState extends State<_SignInContent> {
                 ),
                 MainTextField(
                   labelText: context.tr('password'),
+                  obscureText: true,
                   onChanged: widget.onPasswordEntered,
                   focusNode: _passwordFocusNode,
                   inputAction: TextInputAction.done,

@@ -1,7 +1,7 @@
 part of '../auth_screen.dart';
 
-class _BackButton extends StatelessWidget {
-  const _BackButton({
+class _BackButton extends StatelessWidget with SoundMixin {
+  _BackButton({
     required this.onBackPressed,
   });
 
@@ -11,7 +11,10 @@ class _BackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     return TapAnimatedWidget(
-      onTap: onBackPressed,
+      onTap: () {
+        sound();
+        onBackPressed();
+      },
       child: Row(
         children: [
           Icon(

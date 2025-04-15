@@ -95,6 +95,7 @@ class _SignUpContentState extends State<_SignUpContent> {
                   labelText: context.tr('password'),
                   onChanged: widget.onPasswordEntered,
                   focusNode: _passwordFocusNode,
+                  obscureText: true,
                 ),
                 MainTextField(
                   labelText:
@@ -102,6 +103,7 @@ class _SignUpContentState extends State<_SignUpContent> {
                   onChanged: widget.onConfirmPasswordEntered,
                   focusNode: _confirmPasswordFocusNode,
                   inputAction: TextInputAction.done,
+                  obscureText: true,
                 ),
                 MainOutlinedButton(
                   isActive: widget.isButtonActive,

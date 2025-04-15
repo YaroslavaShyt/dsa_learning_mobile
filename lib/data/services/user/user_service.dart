@@ -49,6 +49,8 @@ class UserService extends Cubit<UserState> implements IUserService {
   Future<void> init() async {
     try {
       final IUser? user = await _userRepository.getUser();
+      final UserStatus status =
+          user == null ? UserStatus.notInitialized : UserStatus.initialized;
 
       if (user != null) {
         _rewardsService.init(
@@ -57,13 +59,7 @@ class UserService extends Cubit<UserState> implements IUserService {
           vents: user.fans,
         );
       }
-      emit(
-        state.copyWith(
-          status:
-              user == null ? UserStatus.notInitialized : UserStatus.initialized,
-          user: user,
-        ),
-      );
+      emit(state.copyWith(status: status, user: user));
     } on UserNotFoundException catch (_) {
       cleanUserData();
     } catch (error) {

@@ -3,7 +3,7 @@ import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MainTextField extends StatelessWidget {
+class MainTextField extends StatefulWidget {
   const MainTextField({
     this.label,
     this.labelText,
@@ -26,27 +26,47 @@ class MainTextField extends StatelessWidget {
   final TextInputAction inputAction;
 
   @override
+  State<MainTextField> createState() => _MainTextFieldState();
+}
+
+class _MainTextFieldState extends State<MainTextField> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+  }
+
+  void _toggleVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = getColorScheme(context);
-    final TextTheme textTheme = getTextTheme(context);
+    final colorScheme = getColorScheme(context);
+    final textTheme = getTextTheme(context);
+
     return TextField(
-      controller: controller,
-      onChanged: onChanged,
-      obscureText: obscureText,
-      focusNode: focusNode,
-      textInputAction: inputAction,
+      controller: widget.controller,
+      onChanged: widget.onChanged,
+      obscureText: _obscureText,
+      focusNode: widget.focusNode,
+      textInputAction: widget.inputAction,
       cursorColor: colorScheme.primaryFixed,
       cursorHeight: 20,
-      inputFormatters: inputFormatters,
+      inputFormatters: widget.inputFormatters,
       onTapOutside: (_) {
-        focusNode?.unfocus();
+        widget.focusNode?.unfocus();
       },
-      style: getTextTheme(context).labelMedium?.copyWith(
-            color: colorScheme.onSurface.withValues(alpha: 1),
-          ),
+      style: textTheme.labelMedium?.copyWith(
+        color: colorScheme.onSurface.withAlpha(255),
+      ),
       decoration: InputDecoration(
-        label: label,
-        labelText: labelText,
+        label: widget.label,
+        labelText: widget.labelText,
         labelStyle: textTheme.labelSmall,
         floatingLabelStyle: textTheme.labelSmall?.copyWith(
           color: colorScheme.primaryFixed,
@@ -63,6 +83,15 @@ class MainTextField extends StatelessWidget {
             width: 2,
           ),
         ),
+        suffixIcon: widget.obscureText
+            ? IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: colorScheme.onSurface,
+                ),
+                onPressed: _toggleVisibility,
+              )
+            : null,
       ),
     );
   }
