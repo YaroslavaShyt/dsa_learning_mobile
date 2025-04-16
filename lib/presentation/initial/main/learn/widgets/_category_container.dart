@@ -5,6 +5,7 @@ class _CategoryContainer extends StatelessWidget
   const _CategoryContainer({
     required this.title,
     required this.pattern,
+    required this.playSound,
     required this.lessonsSummary,
     required this.onStartTap,
     required this.onCloseIconTap,
@@ -13,6 +14,7 @@ class _CategoryContainer extends StatelessWidget
 
   final String title;
   final Pattern pattern;
+  final VoidCallback playSound;
   final List<ILesson> lessonsSummary;
   final VoidCallback onCloseIconTap;
   final bool Function(int) isLessonOpened;
@@ -82,6 +84,7 @@ class _CategoryContainer extends StatelessWidget
     if (!isOpened) return;
 
     if (BlocProvider.of<LearnCubit>(context).vents > 0) {
+      playSound();
       showAppBottomSheet(
         context: context,
         child: PreLessonInfo(

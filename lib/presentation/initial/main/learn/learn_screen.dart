@@ -52,6 +52,7 @@ class LearnScreen extends StatelessWidget {
                   ErrorFactory.build(cubit.init),
                 if (state.status == LearnStatus.loaded)
                   _LearnTabBar(
+                    playSound: cubit.playSound,
                     lessonsSummary: state.lessonsSummary,
                     isLessonOpened: cubit.isLessonOpened,
                     onStartButtonTap: cubit.onStartButtonTap,

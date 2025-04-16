@@ -116,7 +116,7 @@ static const Map<String,dynamic> _uk_UA = {
   "offers": "Пропозиції",
   "total": "Всього",
   "buyVentsToCoolSystem": "Вентилятори: охолодити систему та навчатись далі.",
-  "buyHashToFreezeStreak": "Застосуйте Хеш, аби відновити пропущений день",
+  "buyHashToFreezeStreak": "Хеш: застосувати, аби відновити пропущений день",
   "endLesson": "Завершити урок",
   "doYouWantEndLesson": "Ви справді хочете завершити урок?",
   "allTheRewardsWillBeLost": "Усі нагороди за вивчення теорії буде втрачено :(",
@@ -139,7 +139,8 @@ static const Map<String,dynamic> _uk_UA = {
   "dontLoseMotivation": "Не втрачайте духу!\nВи можете вивчити матеріал ще раз.",
   "justNCorrectAnswers": "Всього {count} правильних відповідей, аби завершити урок успішно.",
   "finish": "Завершити",
-  "doYouWantDeleteAccount": "Ви справді хочете видалити акаунт?"
+  "doYouWantDeleteAccount": "Ви справді хочете видалити акаунт?",
+  "learnToSeeProgress": "Розпочни урок, аби побачити свій прогрес!"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es_ES": _es_ES, "en_GB": _en_GB, "uk_UA": _uk_UA};
 }

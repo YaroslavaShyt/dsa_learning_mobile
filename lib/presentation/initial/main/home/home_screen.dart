@@ -20,15 +20,12 @@ import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/b
 import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
-import 'package:dsa_learning/presentation/widgets/lottie_animations/robot_animation.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/placeholders/error/error_factory.dart';
 import 'package:dsa_learning/presentation/widgets/popup/popup_mixin.dart';
-import 'package:dsa_learning/presentation/widgets/scroll/main_scroll_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -89,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SingleChildScrollView(
                       padding: const EdgeInsetsDirectional.only(
                         start: 10,
+                        top: 10,
                         end: 16.0,
                       ),
                       child: Column(
@@ -120,6 +120,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          colorScheme.surface,
+                          colorScheme.surface.withValues(alpha: 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment.topCenter,
+                        begin: Alignment.bottomCenter,
+                        colors: [
+                          colorScheme.surface,
+                          colorScheme.surface.withValues(alpha: 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -129,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSeeAllTap(BuildContext context, HomeState state) {
-    _audioHandler.playButtonSound();
+    _audioHandler.playButtonSound(widget.cubit.isSoundEnabled);
     widget.showPopup(
       context: context,
       height: 400,
@@ -141,9 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showShop(BuildContext context) {
-    _audioHandler.playButtonSound();
+    _audioHandler.playButtonSound(widget.cubit.isSoundEnabled);
     widget.showPopup(
-      height: 450,
+      height: 460,
       context: context,
       child: ShopFactory.build(),
     );

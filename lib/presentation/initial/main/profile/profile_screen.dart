@@ -80,6 +80,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
   }
 
   void _onAvatarTap(BuildContext context) {
+    cubit.playSound();
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -90,6 +91,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
   }
 
   void _onExitTap(BuildContext context) {
+    cubit.playSound();
     showPopup(
       context: context,
       child: ConfirmExitPopupContent(
@@ -100,6 +102,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
   }
 
   void _onDeleteTap(BuildContext context) {
+    cubit.playSound();
     showPopup(
       context: context,
       child: ConfirmDeleteAccountContent(

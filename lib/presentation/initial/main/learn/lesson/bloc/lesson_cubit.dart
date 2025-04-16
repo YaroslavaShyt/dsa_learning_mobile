@@ -7,6 +7,7 @@ import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/data/rewards/rewards.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
@@ -42,6 +43,8 @@ class LessonCubit extends Cubit<LessonState> {
     required bool isVibrationEnabled,
     required StatisticsCubit statisticsCubit,
     required String categoryName,
+    required IAudioHandler audioHandler,
+    required bool isSoundEnabled,
   })  : _id = lessonId,
         _gameId = gameId,
         _lessonRepository = lessonRepository,
@@ -53,6 +56,8 @@ class LessonCubit extends Cubit<LessonState> {
         _isVibrationEnabled = isVibrationEnabled,
         _statisticsCubit = statisticsCubit,
         _categoryName = categoryName,
+        _audioHandler = audioHandler,
+        _isSoundEnabled = isSoundEnabled,
         super(const LessonState());
 
   final int _id;
@@ -64,8 +69,10 @@ class LessonCubit extends Cubit<LessonState> {
   final ILessonService _lessonService;
   final IVibrationHandler _vibrationHandler;
   final bool _isVibrationEnabled;
+  final bool _isSoundEnabled;
   final StatisticsCubit _statisticsCubit;
   final String _categoryName;
+  final IAudioHandler _audioHandler;
 
   int _hash = 0;
   int _vents = 0;
@@ -103,6 +110,8 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   Future<void> onNextButtonPressed(RewardFunc onTheoryFinished) async {
+    _audioHandler.playButtonSound(_isSoundEnabled);
+
     if (state.step == 4) {
       emit(state.copyWith(progress: state.progress + _progressStep));
 
@@ -126,6 +135,8 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onBackButtonPressed(VoidCallback confirmExit) {
+    _audioHandler.playButtonSound(_isSoundEnabled);
+
     if (state.activityType == ActivityType.theory) {
       if (state.step > 1) {
         emit(
@@ -154,18 +165,22 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onConfirmTap() {
+    _audioHandler.playButtonSound(_isSoundEnabled);
     _navigationUtil.navigateBack(pagesNum: 2);
   }
 
   void onCancelTap() {
+    _audioHandler.playButtonSound(_isSoundEnabled);
     _navigationUtil.navigateBack();
   }
 
   void onLaterTap() {
+    _audioHandler.playButtonSound(_isSoundEnabled);
     _navigationUtil.navigateBack();
   }
 
   void onLetsGoTap() {
+    _audioHandler.playButtonSound(_isSoundEnabled);
     _navigationUtil.navigateBack();
     emit(state.copyWith(activityType: ActivityType.game));
   }
@@ -203,6 +218,8 @@ class LessonCubit extends Cubit<LessonState> {
     bool isCorrect,
     VoidCallback onAllVentsUsed,
   ) {
+    _audioHandler.playButtonSound(_isSoundEnabled);
+
     if (_rewardsService.vents < 1) {
       onAllVentsUsed();
     }
@@ -229,6 +246,8 @@ class LessonCubit extends Cubit<LessonState> {
 
   Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
     try {
+      _audioHandler.playButtonSound(_isSoundEnabled);
+
       if (_rewardsService.vents < 1) {
         onAllVentsUsed();
       }
@@ -274,6 +293,10 @@ class LessonCubit extends Cubit<LessonState> {
             hash: _isLessonLearned ? 0 : _hash,
             fan: _isLessonLearned ? 0 : _vents,
             achievements: _achievements,
+            isVibrationEnabled: _isVibrationEnabled,
+            isAudioEnabled: _isSoundEnabled,
+            playSound: () => _audioHandler.playButtonSound(_isSoundEnabled),
+            vibrate: () => _vibrationHandler.vibrate(repeat: false),
           ),
         );
         return;
@@ -356,6 +379,7 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onVentsUsedNoTap() {
+    _audioHandler.playButtonSound(_isSoundEnabled);
     _navigationUtil.navigateBackToStart();
   }
 }

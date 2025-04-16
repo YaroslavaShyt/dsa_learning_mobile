@@ -6,9 +6,11 @@ class _DataStructuresContent extends StatelessWidget with BottomSheetMixin {
     required this.onStartButtonTap,
     required this.categorySummary,
     required this.isLessonOpened,
+    required this.playSound,
     super.key,
   });
 
+  final VoidCallback playSound;
   final VoidCallback onCloseButtonTap;
   final void Function(int, int) onStartButtonTap;
   final ICategory categorySummary;
@@ -20,6 +22,7 @@ class _DataStructuresContent extends StatelessWidget with BottomSheetMixin {
       itemCount: categorySummary.topics.length,
       itemBuilder: (_, int index) {
         return _CategoryContainer(
+          playSound: playSound,
           onStartTap: onStartButtonTap,
           isLessonOpened: isLessonOpened,
           onCloseIconTap: onCloseButtonTap,

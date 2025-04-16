@@ -10,21 +10,43 @@ class _BarChart extends StatelessWidget {
 
     return BlocBuilder<StatisticsCubit, StatisticsState>(
       builder: (BuildContext context, StatisticsState state) {
-        return BarChart(
-          BarChartData(
-            barTouchData: _barTouchData(textTheme),
-            backgroundColor: colorScheme.surface,
-            maxY: state.maxValue.toDouble(),
-            gridData: _gridData(colorScheme, state.maxValue),
-            borderData: FlBorderData(show: false),
-            titlesData: _buildTitlesData(
-              colorScheme,
-              textTheme,
-              state.statistics,
+        return Stack(
+          children: [
+            BarChart(
+              BarChartData(
+                barTouchData: _barTouchData(textTheme),
+                backgroundColor: colorScheme.surface,
+                maxY: state.maxValue.toDouble(),
+                gridData: _gridData(
+                  colorScheme,
+                  state.maxValue,
+                  state.userMaxValue == 0,
+                ),
+                borderData: FlBorderData(show: false),
+                titlesData: _buildTitlesData(
+                  colorScheme,
+                  textTheme,
+                  state.statistics,
+                ),
+                extraLinesData:
+                    _buildExtraLinesData(colorScheme, state.maxValue),
+                barGroups: _barChartGroupData(colorScheme, state),
+              ),
             ),
-            extraLinesData: _buildExtraLinesData(colorScheme, state.maxValue),
-            barGroups: _barChartGroupData(colorScheme, state),
-          ),
+            if (state.userMaxValue == 0)
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Text(
+                    context.tr('learnToSeeProgress'),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+          ],
         );
       },
     );
@@ -149,20 +171,26 @@ class _BarChart extends StatelessWidget {
     );
   }
 
-  FlGridData _gridData(ColorScheme colorScheme, int maxValue) {
+  FlGridData _gridData(
+    ColorScheme colorScheme,
+    int maxValue,
+    bool shouldLighten,
+  ) {
     return FlGridData(
       verticalInterval: 0.335,
       horizontalInterval: (maxValue / 60) * 10,
       getDrawingVerticalLine: (_) {
         return FlLine(
-          color: colorScheme.onSurface.withValues(alpha: 0.4),
+          color: colorScheme.onSurface
+              .withValues(alpha: shouldLighten ? 0.1 : 0.4),
           dashArray: [0, 1, 1],
           strokeWidth: 1.2,
         );
       },
       getDrawingHorizontalLine: (_) {
         return FlLine(
-          color: colorScheme.onSurface.withValues(alpha: 0.4),
+          color: colorScheme.onSurface
+              .withValues(alpha: shouldLighten ? 0.1 : 0.4),
           dashArray: [0, 1, 1],
           strokeWidth: 1.2,
         );

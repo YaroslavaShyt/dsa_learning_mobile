@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_screen.dart';
@@ -13,14 +12,17 @@ class AvatarCubit extends Cubit<AvatarState> {
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
     required IUserService userService,
+    required IAudioHandler audioHandler,
   })  : _userService = userService,
         _rewardsService = rewardsService,
         _navigationUtil = navigationUtil,
+        _audioHandler = audioHandler,
         super(const AvatarState());
 
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
   final IUserService _userService;
+  final IAudioHandler _audioHandler;
 
   List<Map<String, dynamic>> get avatars => _avatars;
   final List<Map<String, dynamic>> _avatars = [
@@ -32,7 +34,10 @@ class AvatarCubit extends Cubit<AvatarState> {
 
   bool isEnoughMoney(int price) => _rewardsService.bytes >= price;
 
-  VoidCallback get onCloseButtonTap => _navigationUtil.navigateBackToStart;
+  void onCloseButtonTap() {
+    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _navigationUtil.navigateBackToStart();
+  }
 
   String get selectedAvatar => _userService.user!.profilePhoto;
 

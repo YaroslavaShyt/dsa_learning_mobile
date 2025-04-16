@@ -2,12 +2,14 @@ part of '../learn_screen.dart';
 
 class _LearnTabBar extends StatelessWidget {
   const _LearnTabBar({
+    required this.playSound,
     required this.onCloseButtonTap,
     required this.onStartButtonTap,
     required this.lessonsSummary,
     required this.isLessonOpened,
   });
 
+  final VoidCallback playSound;
   final VoidCallback onCloseButtonTap;
   final void Function(int, int, String) onStartButtonTap;
   final List<ICategory> lessonsSummary;
@@ -36,6 +38,7 @@ class _LearnTabBar extends StatelessWidget {
       ],
       tabBarContent: [
         _AlgorithmsContent(
+          playSound: playSound,
           isLessonOpened: isLessonOpened,
           categorySummary: lessonsSummary.last,
           onCloseButtonTap: onCloseButtonTap,
@@ -43,6 +46,7 @@ class _LearnTabBar extends StatelessWidget {
               onStartButtonTap(id, val, 'ALGORITHMS'),
         ),
         _DataStructuresContent(
+          playSound: playSound,
           isLessonOpened: isLessonOpened,
           categorySummary: lessonsSummary.first,
           onCloseButtonTap: onCloseButtonTap,

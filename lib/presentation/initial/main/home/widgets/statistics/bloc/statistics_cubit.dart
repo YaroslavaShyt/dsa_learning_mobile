@@ -21,6 +21,7 @@ class StatisticsCubit extends Cubit<StatisticsState> {
         state.copyWith(
           statistics: statistics.sublist(statistics.length - 3),
           maxValue: _findMaxValue(),
+          userMaxValue: _findMaxValueThroughStatistics(),
         ),
       );
     } catch (error) {
@@ -39,5 +40,18 @@ class StatisticsCubit extends Cubit<StatisticsState> {
       }
     }
     return max + 10;
+  }
+
+  int _findMaxValueThroughStatistics() {
+    int max = 0;
+    for (IStatistics statistics in state.statistics) {
+      if (statistics.dataStructures > max) {
+        max = statistics.dataStructures;
+      }
+      if (statistics.algorithms > max) {
+        max = statistics.algorithms;
+      }
+    }
+    return max;
   }
 }

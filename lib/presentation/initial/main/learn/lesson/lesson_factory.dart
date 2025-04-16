@@ -3,6 +3,7 @@ import 'package:dsa_learning/data/services/achievements/achievements_service.dar
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
@@ -37,9 +38,11 @@ class LessonFactory {
         rewardsService: BlocProvider.of<RewardsService>(context),
         achievementsService: BlocProvider.of<AchievementsService>(context),
         vibrationHandler: sl.get<IVibrationHandler>(),
+        audioHandler: sl.get<IAudioHandler>(),
         statisticsCubit: BlocProvider.of<StatisticsCubit>(context),
         isVibrationEnabled:
             BlocProvider.of<UserService>(context).user!.vibration,
+        isSoundEnabled: BlocProvider.of<UserService>(context).user!.sounds,
         categoryName: args.category,
       )..init(),
       child: MultiBlocListener(

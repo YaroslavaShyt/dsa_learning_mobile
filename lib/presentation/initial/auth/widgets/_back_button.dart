@@ -12,7 +12,7 @@ class _BackButton extends StatelessWidget with SoundMixin {
     final ColorScheme colorScheme = getColorScheme(context);
     return TapAnimatedWidget(
       onTap: () {
-        sound();
+        sound(true);
         onBackPressed();
       },
       child: Row(

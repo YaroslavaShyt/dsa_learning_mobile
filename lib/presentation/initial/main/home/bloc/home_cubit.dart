@@ -63,8 +63,10 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  bool get isSoundEnabled => _userService.user!.sounds;
+
   void onCloseButtonTap() {
-    _audioHandler.playButtonSound();
+    _audioHandler.playButtonSound(_userService.user!.sounds);
     _navigationUtil.navigateBack();
   }
 

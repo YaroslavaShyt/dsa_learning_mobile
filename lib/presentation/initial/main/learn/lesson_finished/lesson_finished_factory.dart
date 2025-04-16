@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 
 class LessonFinishedRoutingArgs {
   LessonFinishedRoutingArgs({
+    required this.isAudioEnabled,
+    required this.isVibrationEnabled,
+    required this.playSound,
+    required this.vibrate,
     required this.onToLessonsPressed,
     required this.time,
     required this.lessonName,
@@ -15,6 +19,11 @@ class LessonFinishedRoutingArgs {
     required this.fan,
     required this.achievements,
   });
+
+  final bool isAudioEnabled;
+  final VoidCallback vibrate;
+  final VoidCallback playSound;
+  final bool isVibrationEnabled;
   final String time;
   final String lessonName;
   final String lessonDescription;
@@ -30,6 +39,10 @@ class LessonFinishedRoutingArgs {
 class LessonFinishedFactory {
   static Widget build(LessonFinishedRoutingArgs args) {
     return LessonFinishedScreen(
+      isAudioEnabled: args.isAudioEnabled,
+      isVibrationEnabled: args.isVibrationEnabled,
+      vibrate: args.vibrate,
+      playSound: args.playSound,
       args: args,
     );
   }

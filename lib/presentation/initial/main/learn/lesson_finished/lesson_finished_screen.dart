@@ -3,8 +3,6 @@ import 'package:dsa_learning/core/constants/audio_assets.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/domain/services/handlers/sounds/ivibration_handler.dart';
-import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/lesson_finished_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/achievements_row.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson_finished/widgets/lesson_finished_container.dart';
@@ -21,9 +19,17 @@ import 'package:just_audio/just_audio.dart';
 class LessonFinishedScreen extends StatefulWidget {
   const LessonFinishedScreen({
     required this.args,
+    required this.isAudioEnabled,
+    required this.isVibrationEnabled,
+    required this.playSound,
+    required this.vibrate,
     super.key,
   });
 
+  final bool isAudioEnabled;
+  final VoidCallback vibrate;
+  final VoidCallback playSound;
+  final bool isVibrationEnabled;
   final LessonFinishedRoutingArgs args;
 
   @override
@@ -36,7 +42,8 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
   @override
   void initState() {
     super.initState();
-    sl.get<IVibrationHandler>().vibrate(repeat: false);
+    if (widget.isVibrationEnabled) widget.vibrate();
+    if (!widget.isAudioEnabled) return;
     _player = AudioPlayer();
     _initAudio();
   }
@@ -107,7 +114,10 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
                 child: MainOutlinedButton(
-                  onPressed: widget.args.onToLessonsPressed,
+                  onPressed: () {
+                    if (widget.isAudioEnabled) widget.playSound();
+                    widget.args.onToLessonsPressed();
+                  },
                   child: Text(
                     context.tr("toLessons"),
                     style: textTheme.bodyMedium?.copyWith(

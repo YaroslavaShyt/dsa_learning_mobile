@@ -10,17 +10,20 @@ const int _ventsPrice = 10;
 
 class ShopCubit extends Cubit<ShopState> {
   ShopCubit({
+    required bool isSoundEnabled,
     required IRewardsService rewardsService,
     required INavigationUtil navigationUtil,
     required IAudioHandler audioHandler,
   })  : _rewardsService = rewardsService,
         _navigationUtil = navigationUtil,
         _audioHandler = audioHandler,
+        _isSoundEnabled = isSoundEnabled,
         super(const ShopState());
 
   final IRewardsService _rewardsService;
   final INavigationUtil _navigationUtil;
   final IAudioHandler _audioHandler;
+  final bool _isSoundEnabled;
 
   bool get isButtonActive => state.selectedHash > 0 || state.selectedVents > 0;
 
@@ -35,6 +38,8 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onVentsIncrement() {
+    if (_rewardsService.vents == 5) return;
+
     if (state.selectedVents > 10 ||
         (state.selectedVents + 1) * _ventsPrice > state.bytesBalance) {
       return;
@@ -100,7 +105,7 @@ class ShopCubit extends Cubit<ShopState> {
     try {
       if (state.selectedVents == 0 && state.selectedHash == 0) return;
 
-      _audioHandler.playButtonSound();
+      _audioHandler.playButtonSound(_isSoundEnabled);
 
       emit(state.copyWith(isPurchaseInProgress: true));
 
@@ -116,7 +121,7 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onCloseButtonTap() {
-    _audioHandler.playButtonSound();
+    _audioHandler.playButtonSound(_isSoundEnabled);
 
     _navigationUtil.navigateBack();
   }

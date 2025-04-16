@@ -59,11 +59,11 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
             onPopInvokedWithResult: (didPop, result) {
               if (didPop) return;
               if (state.status == AuthCubitStatus.startButtonPressed) {
-                cubit.onBackOnStartPressed();
+                cubit.onBackOnStartPressed(playSound: false);
               }
               if (state.status == AuthCubitStatus.signInButtonPressed ||
                   state.status == AuthCubitStatus.signUpButtonPressed) {
-                cubit.onBackOnLoginPressed();
+                cubit.onBackOnLoginPressed(playSound: false);
               }
             },
             child: Stack(

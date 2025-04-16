@@ -6,6 +6,7 @@ import 'package:just_audio/just_audio.dart';
 class AudioHandler implements IAudioHandler {
   final AudioPlayer _player = AudioPlayer();
 
+
   @override
   Future<void> initButtonAudio() async {
     try {
@@ -18,7 +19,8 @@ class AudioHandler implements IAudioHandler {
   }
 
   @override
-  Future<void> playButtonSound() async {
+  Future<void> playButtonSound(bool isAudioOn) async {
+    if (!isAudioOn) return;
     await _player.seek(Duration.zero);
 
     await _player.play();

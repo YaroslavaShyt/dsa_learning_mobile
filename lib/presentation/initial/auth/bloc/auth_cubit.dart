@@ -4,6 +4,7 @@ import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/core/utils/validators/input_validators.dart';
 import 'package:dsa_learning/data/auth/sign_in_model.dart';
 import 'package:dsa_learning/data/auth/sign_up_model.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,10 +12,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthCubit extends Cubit<AuthCubitState> {
   AuthCubit({
     required IAuthService authService,
+    required IAudioHandler audioHandler,
   })  : _authService = authService,
+        _audioHandler = audioHandler,
         super(const AuthCubitState());
 
   final IAuthService _authService;
+  final IAudioHandler _audioHandler;
 
   bool _isValidPassword(String password) =>
       InputValidators.isValidPassword(password);
@@ -26,6 +30,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   Future<void> onConfirmOnLoginPressed() async {
     try {
       if (!state.isLoginButtonActive) return;
+
+      _audioHandler.playButtonSound(true);
 
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
@@ -44,6 +50,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   Future<void> onConfirmOnSignUpPressed() async {
     try {
       if (!state.isSignUpButtonActive) return;
+
+      _audioHandler.playButtonSound(true);
 
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
@@ -125,6 +133,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onStartButtonPressed() {
+    _audioHandler.playButtonSound(true);
+
     emit(
       state.copyWith(
         status: AuthCubitStatus.startButtonPressed,
@@ -139,6 +149,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onSignInButtonPressed() {
+    _audioHandler.playButtonSound(true);
+
     emit(
       state.copyWith(
         status: AuthCubitStatus.signInButtonPressed,
@@ -153,6 +165,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onSignUpButtonPressed() {
+    _audioHandler.playButtonSound(true);
+
     emit(
       state.copyWith(
         status: AuthCubitStatus.signUpButtonPressed,
@@ -166,7 +180,9 @@ class AuthCubit extends Cubit<AuthCubitState> {
     );
   }
 
-  void onBackOnStartPressed() {
+  void onBackOnStartPressed({bool playSound = true}) {
+    if (playSound) _audioHandler.playButtonSound(true);
+
     emit(
       state.copyWith(
         status: AuthCubitStatus.initial,
@@ -180,7 +196,9 @@ class AuthCubit extends Cubit<AuthCubitState> {
     );
   }
 
-  void onBackOnLoginPressed() {
+  void onBackOnLoginPressed({bool playSound = true}) {
+    if (playSound) _audioHandler.playButtonSound(true);
+
     emit(
       state.copyWith(
         status: AuthCubitStatus.startButtonPressed,

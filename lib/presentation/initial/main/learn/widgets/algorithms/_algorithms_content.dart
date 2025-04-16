@@ -2,12 +2,14 @@ part of '../../learn_screen.dart';
 
 class _AlgorithmsContent extends StatelessWidget {
   const _AlgorithmsContent({
+    required this.playSound,
     required this.onCloseButtonTap,
     required this.onStartButtonTap,
     required this.categorySummary,
     required this.isLessonOpened,
   });
 
+  final VoidCallback playSound;
   final VoidCallback onCloseButtonTap;
   final void Function(int, int) onStartButtonTap;
   final ICategory categorySummary;
@@ -19,6 +21,7 @@ class _AlgorithmsContent extends StatelessWidget {
       itemCount: categorySummary.topics.length,
       itemBuilder: (_, int index) {
         return _CategoryContainer(
+          playSound: playSound,
           onStartTap: onStartButtonTap,
           isLessonOpened: isLessonOpened,
           onCloseIconTap: onCloseButtonTap,

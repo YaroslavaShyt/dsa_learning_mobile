@@ -2,6 +2,7 @@ import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/category/icategory.dart';
+import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/lesson/ilesson_repository.dart';
 import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
@@ -11,24 +12,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LearnCubit extends Cubit<LearnState> {
   LearnCubit({
+    required IAudioHandler audioHandler,
     required INavigationUtil navigationUtil,
     required ILessonRepository lessonRepository,
     required ILessonService lessonService,
     required IRewardsService rewardsService,
-  })  : _navigationUtil = navigationUtil,
+    required bool isSoundOn,
+  })  : _audioHandler = audioHandler,
+        _navigationUtil = navigationUtil,
         _lessonRepository = lessonRepository,
         _lessonService = lessonService,
         _rewardsService = rewardsService,
+        _isSoundOn = isSoundOn,
         super(const LearnState());
 
+  final IAudioHandler _audioHandler;
   final INavigationUtil _navigationUtil;
   final ILessonRepository _lessonRepository;
   final ILessonService _lessonService;
   final IRewardsService _rewardsService;
+  bool _isSoundOn;
 
   int get vents => _rewardsService.vents;
 
   bool Function(int) get isLessonOpened => _lessonService.isLessonLearned;
+
+  void playSound() {
+    _audioHandler.playButtonSound(_isSoundOn);
+  }
+
+  void updateSoundSettings(bool isSoundOn) {
+    _isSoundOn = isSoundOn;
+  }
 
   Future<void> init() async {
     try {
@@ -49,10 +64,12 @@ class LearnCubit extends Cubit<LearnState> {
   }
 
   void onCloseButtonTap() {
+    playSound();
     _navigationUtil.navigateBack();
   }
 
   void onStartButtonTap(int id, int gameId, String category) {
+    playSound();
     _navigationUtil.navigateBack();
     _navigationUtil.navigateTo(
       AppRoutes.routeLesson,
