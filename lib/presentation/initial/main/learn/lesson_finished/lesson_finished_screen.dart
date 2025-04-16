@@ -50,8 +50,11 @@ class _LessonFinishedScreenState extends State<LessonFinishedScreen> {
 
   Future<void> _initAudio() async {
     try {
+      final String audio = widget.args.isLessonOver
+          ? AudioAssets.lessonFinished
+          : AudioAssets.lessonFailure;
       await _player.setAudioSource(
-        AudioSource.asset(AudioAssets.lessonFinished),
+        AudioSource.asset(audio),
       );
       await _player.play();
     } on PlayerException catch (e) {
