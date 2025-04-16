@@ -22,6 +22,8 @@ class MainFactory {
         ),
       ],
       child: BlocListener<UserService, UserState>(
+        listenWhen: (p, c) =>
+            c.user != null && p.user!.sounds != c.user!.sounds,
         listener: (BuildContext context, UserState state) {
           BlocProvider.of<MainCubit>(context)
               .updateSoundSettings(state.user!.sounds);

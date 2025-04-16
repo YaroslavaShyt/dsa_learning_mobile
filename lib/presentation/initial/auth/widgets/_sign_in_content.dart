@@ -21,20 +21,17 @@ class _SignInContent extends StatefulWidget {
 
 class _SignInContentState extends State<_SignInContent> {
   late final FocusNode _emailFocusNode;
-  late final FocusNode _passwordFocusNode;
 
   @override
   void initState() {
     super.initState();
     _emailFocusNode = FocusNode();
-    _passwordFocusNode = FocusNode();
     _emailFocusNode.requestFocus();
   }
 
   @override
   void dispose() {
     _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -76,13 +73,12 @@ class _SignInContentState extends State<_SignInContent> {
                   labelText: context.tr('password'),
                   obscureText: true,
                   onChanged: widget.onPasswordEntered,
-                  focusNode: _passwordFocusNode,
                   inputAction: TextInputAction.done,
                 ),
                 MainOutlinedButton(
                   isActive: widget.isButtonActive,
                   onPressed: () {
-                    _passwordFocusNode.unfocus();
+                    FocusScope.of(context).unfocus();
                     widget.onConfirmButtonPressed();
                   },
                   child: Text(

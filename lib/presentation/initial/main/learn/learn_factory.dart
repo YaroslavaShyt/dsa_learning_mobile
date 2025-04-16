@@ -23,6 +23,8 @@ class LearnFactory {
         rewardsService: BlocProvider.of<RewardsService>(context),
       )..init(),
       child: BlocListener<UserService, UserState>(
+        listenWhen: (p, c) =>
+            c.user != null && p.user!.sounds != c.user!.sounds,
         listener: (BuildContext context, UserState state) {
           BlocProvider.of<LearnCubit>(context)
               .updateSoundSettings(state.user!.sounds);

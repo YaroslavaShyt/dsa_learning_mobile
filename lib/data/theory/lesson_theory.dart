@@ -10,7 +10,7 @@ const String _step2Plan = 'step2Plan';
 const String _step3Plan = 'step3Plan';
 const String _step4Plan = 'step4Plan';
 const String _theoryStep1 = 'theoryStep1';
-const String _theoryStep2 = 'theoryStep1';
+const String _theoryStep2 = 'theoryStep2';
 const String _theoryStep3 = 'theoryStep3';
 const String _theoryStep4 = 'theoryStep4';
 

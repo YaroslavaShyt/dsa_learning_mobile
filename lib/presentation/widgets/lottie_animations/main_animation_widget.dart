@@ -19,7 +19,8 @@ class MainAnimationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserService, UserState>(
-      buildWhen: (prev, curr) => prev.user!.animations != curr.user!.animations,
+      buildWhen: (prev, curr) =>
+          curr.user != null && prev.user!.animations != curr.user!.animations,
       builder: (context, state) {
         return LottieBuilder.asset(
           height: height,

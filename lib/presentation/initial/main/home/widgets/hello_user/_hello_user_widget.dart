@@ -31,7 +31,7 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
   void initState() {
     super.initState();
     _calculateRemainingTime();
-    if (widget.bytes < 5) {
+    if (widget.fan < 5) {
       _startTimer();
     }
   }

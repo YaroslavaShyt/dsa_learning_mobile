@@ -57,6 +57,7 @@ class HomeFactory {
   }
 
   static bool _listedWhenUser(UserState prev, UserState curr) {
-    return prev.user?.profilePhoto != curr.user?.profilePhoto;
+    return curr.user != null &&
+        prev.user?.profilePhoto != curr.user?.profilePhoto;
   }
 }

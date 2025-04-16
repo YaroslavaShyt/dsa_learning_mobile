@@ -294,10 +294,7 @@ class LessonCubit extends Cubit<LessonState> {
             bytes: _isLessonLearned ? 0 : _bytes,
             hash: _isLessonLearned ? 0 : _hash,
             fan: _isLessonLearned ? 0 : _vents,
-            achievements: [
-              AchievementType.junior,
-              AchievementType.persistence
-            ], //_achievements,
+            achievements: _achievements,
             isVibrationEnabled: _isVibrationEnabled,
             isAudioEnabled: _isSoundEnabled,
             playSound: () => _audioHandler.playButtonSound(_isSoundEnabled),

@@ -25,26 +25,17 @@ class _SignUpContent extends StatefulWidget {
 
 class _SignUpContentState extends State<_SignUpContent> {
   late final FocusNode _nameFocusNode;
-  late final FocusNode _emailFocusNode;
-  late final FocusNode _passwordFocusNode;
-  late final FocusNode _confirmPasswordFocusNode;
 
   @override
   void initState() {
     super.initState();
     _nameFocusNode = FocusNode();
-    _emailFocusNode = FocusNode();
-    _passwordFocusNode = FocusNode();
-    _confirmPasswordFocusNode = FocusNode();
     _nameFocusNode.requestFocus();
   }
 
   @override
   void dispose() {
     _nameFocusNode.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
-    _confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 
@@ -89,19 +80,16 @@ class _SignUpContentState extends State<_SignUpContent> {
                 MainTextField(
                   labelText: context.tr('email'),
                   onChanged: widget.onEmailEntered,
-                  focusNode: _emailFocusNode,
                 ),
                 MainTextField(
                   labelText: context.tr('password'),
                   onChanged: widget.onPasswordEntered,
-                  focusNode: _passwordFocusNode,
                   obscureText: true,
                 ),
                 MainTextField(
                   labelText:
                       '${context.tr('confirm')} ${context.tr('password').toLowerCase()}',
                   onChanged: widget.onConfirmPasswordEntered,
-                  focusNode: _confirmPasswordFocusNode,
                   inputAction: TextInputAction.done,
                   obscureText: true,
                 ),
