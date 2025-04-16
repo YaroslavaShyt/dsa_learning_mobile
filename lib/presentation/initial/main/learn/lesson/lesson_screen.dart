@@ -127,6 +127,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
       height: 270,
       context: context,
       child: FinishOnTheoryPopup(
+        isLessonLearned: cubit.isLessonLearned,
         onConfirmTap: () {
           cubit.onLaterTap();
           cubit.onLaterTap();

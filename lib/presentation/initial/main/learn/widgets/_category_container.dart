@@ -89,6 +89,8 @@ class _CategoryContainer extends StatelessWidget
         context: context,
         child: PreLessonInfo(
           categoryName: title,
+          isLearned: BlocProvider.of<LearnCubit>(context)
+              .isLessonOpened(lessonsSummary[index].id),
           lesson: lessonsSummary[index],
           onCloseIconTap: onCloseIconTap,
           onStartTap: () => onStartTap(

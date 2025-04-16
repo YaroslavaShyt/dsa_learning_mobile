@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class PreLessonInfo extends StatelessWidget {
   const PreLessonInfo({
+    required this.isLearned,
     required this.lesson,
     required this.onCloseIconTap,
     required this.categoryName,
@@ -16,6 +17,7 @@ class PreLessonInfo extends StatelessWidget {
     super.key,
   });
 
+  final bool isLearned;
   final VoidCallback onCloseIconTap;
   final String categoryName;
   final VoidCallback? onStartTap;
@@ -30,6 +32,7 @@ class PreLessonInfo extends StatelessWidget {
           onCloseButtonTap: onCloseIconTap,
         ),
         TitleContainer(
+          isLearned: isLearned,
           categoryName: categoryName,
           lessonName: lesson.title,
         ),

@@ -38,9 +38,9 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onVentsIncrement() {
-    if (_rewardsService.vents == 5) return;
+    if (_rewardsService.vents > 5) return;
 
-    if (state.selectedVents > 10 ||
+    if (state.selectedVents + 1 > 5 ||
         (state.selectedVents + 1) * _ventsPrice > state.bytesBalance) {
       return;
     }

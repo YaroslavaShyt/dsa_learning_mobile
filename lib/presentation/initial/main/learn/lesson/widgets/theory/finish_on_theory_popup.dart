@@ -8,11 +8,13 @@ class FinishOnTheoryPopup extends StatelessWidget {
   const FinishOnTheoryPopup({
     required this.onConfirmTap,
     required this.onCancelTap,
+    required this.isLessonLearned,
     super.key,
   });
 
   final VoidCallback onConfirmTap;
   final VoidCallback onCancelTap;
+  final bool isLessonLearned;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +53,15 @@ class FinishOnTheoryPopup extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(
-                  context.tr("allTheRewardsWillBeLost"),
-                  textAlign: TextAlign.center,
-                  style: textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                if (!isLessonLearned)
+                  Text(
+                    context.tr("allTheRewardsWillBeLost"),
+                    textAlign: TextAlign.center,
+                    style: textTheme.titleLarge?.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
               ],
             ),
           ),

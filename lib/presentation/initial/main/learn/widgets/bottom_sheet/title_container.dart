@@ -1,21 +1,26 @@
 import 'package:auto_size_text_plus/auto_size_text_plus.dart';
+import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:flutter/material.dart';
 
 class TitleContainer extends StatelessWidget {
   const TitleContainer({
-    this.categoryName = 'Алгоритми сортування',
-    this.lessonName = 'Урок 1: Вступ',
+    required this.categoryName,
+    required this.lessonName,
+    required this.isLearned,
     super.key,
   });
 
+  final bool isLearned;
   final String categoryName;
   final String lessonName;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Positioned(
       left: 10,
       right: 10,
@@ -32,13 +37,33 @@ class TitleContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
-              child: AutoSizeText(
-                categoryName,
-                maxFontSize: 20,
-                minFontSize: 10,
-                style: textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: AutoSizeText(
+                      categoryName,
+                      maxFontSize: 20,
+                      minFontSize: 10,
+                      style: textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  if (isLearned)
+                    Container(
+                      padding: const EdgeInsetsDirectional.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: colorScheme.primaryFixed,
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        color: colorScheme.surface,
+                        weight: 2,
+                      ),
+                    ),
+                ],
               ),
             ),
             Flexible(

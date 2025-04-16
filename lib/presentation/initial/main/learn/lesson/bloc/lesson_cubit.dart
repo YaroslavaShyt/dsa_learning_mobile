@@ -28,7 +28,6 @@ typedef RewardFunc = void Function(int, int, int);
 // TODO: internal testing
 // TODO: check lost streak
 // TODO: add illustrations into the lesson
-// TODO: sad bot
 
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
@@ -80,6 +79,8 @@ class LessonCubit extends Cubit<LessonState> {
   List<AchievementType> _achievements = [];
 
   bool get _isLessonLearned => _lessonService.isLessonLearned(_id);
+
+  bool get isLessonLearned => _isLessonLearned;
 
   Future<void> init() async {
     try {
