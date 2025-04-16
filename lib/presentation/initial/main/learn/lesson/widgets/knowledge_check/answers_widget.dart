@@ -29,8 +29,7 @@ class AnswersWidget extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    return Container(
-      color: Colors.orange,
+    return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.5 - 10,
       child: ListView.builder(
         itemCount: answers.length,

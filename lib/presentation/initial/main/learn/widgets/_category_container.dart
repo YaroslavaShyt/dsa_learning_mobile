@@ -105,13 +105,18 @@ class _CategoryContainer extends StatelessWidget
 
   void _onAllVentsUsed(BuildContext context) {
     showPopup(
+      height: 240,
       context: context,
       child: AllVentsUsedPopupContent(
         onConfirmTap: () {
+          playSound();
           Navigator.of(context).pop();
           _showShop(context);
         },
-        onCancelTap: Navigator.of(context).pop,
+        onCancelTap: () {
+          playSound();
+          Navigator.of(context).pop();
+        },
       ),
     );
   }

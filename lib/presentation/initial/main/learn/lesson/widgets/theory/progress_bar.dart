@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text_plus/auto_size_text_plus.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -118,9 +119,14 @@ class _ProgressBarState extends State<ProgressBar>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.lessonName,
-                style: textTheme.labelMedium,
+              Flexible(
+                child: AutoSizeText(
+                  widget.lessonName,
+                  minFontSize: 8,
+                  maxFontSize: 14,
+                  maxLines: 2,
+                  style: textTheme.labelMedium,
+                ),
               ),
               Text(
                 _formatTime(widget.time),

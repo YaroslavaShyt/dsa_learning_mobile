@@ -1,3 +1,4 @@
+import 'package:auto_size_text_plus/auto_size_text_plus.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
@@ -56,19 +57,24 @@ class AchievementsRow extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             context.tr(achievement.apiString),
+                            minFontSize: 10,
+                            maxFontSize: 14,
                             style: textTheme.titleLarge?.copyWith(
                               color: colorScheme.onSurface,
-                              fontSize: 14,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Text(
-                            context.tr('${achievement.apiString}Description'),
-                            style: textTheme.titleLarge?.copyWith(
-                              color: colorScheme.onSurface,
-                              fontSize: 14,
+                          Flexible(
+                            child: AutoSizeText(
+                              context.tr('${achievement.apiString}Description'),
+                              minFontSize: 10,
+                              maxFontSize: 14,
+                              style: textTheme.titleLarge?.copyWith(
+                                color: colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],

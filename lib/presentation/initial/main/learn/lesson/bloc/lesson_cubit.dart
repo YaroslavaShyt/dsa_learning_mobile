@@ -147,7 +147,6 @@ class LessonCubit extends Cubit<LessonState> {
         );
         return;
       }
-      emit(state.copyWith(progress: state.progress - _progressStep));
       confirmExit();
       return;
     }
@@ -222,9 +221,10 @@ class LessonCubit extends Cubit<LessonState> {
 
     if (_rewardsService.vents < 1) {
       onAllVentsUsed();
+      return;
     }
     if (!isCorrect) {
-      _rewardsService.updateBalance(vents: -1);
+      _vents = _vents > 0 ? _vents - 1 : 0;
     }
     emit(
       state.copyWith(
@@ -250,6 +250,7 @@ class LessonCubit extends Cubit<LessonState> {
 
       if (_rewardsService.vents < 1) {
         onAllVentsUsed();
+        // return;
       }
       if (state.selectedAnswer.isEmpty) return;
 
@@ -284,7 +285,7 @@ class LessonCubit extends Cubit<LessonState> {
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
             isLessonOver: _bytes > 0,
-            onToLessonsPressed: _navigationUtil.navigateBack,
+            onToLessonsPressed: _navigationUtil.navigateBackToStart,
             time: _formatTime(time),
             lessonName: state.game?.title ?? '',
             lessonDescription: '',
@@ -292,7 +293,10 @@ class LessonCubit extends Cubit<LessonState> {
             bytes: _isLessonLearned ? 0 : _bytes,
             hash: _isLessonLearned ? 0 : _hash,
             fan: _isLessonLearned ? 0 : _vents,
-            achievements: _achievements,
+            achievements: [
+              AchievementType.junior,
+              AchievementType.persistence
+            ], //_achievements,
             isVibrationEnabled: _isVibrationEnabled,
             isAudioEnabled: _isSoundEnabled,
             playSound: () => _audioHandler.playButtonSound(_isSoundEnabled),

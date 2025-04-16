@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
+import 'package:dsa_learning/presentation/widgets/scroll/main_scroll_bar.dart';
 import 'package:flutter/material.dart';
 
 class TheoryContent extends StatelessWidget {
@@ -22,23 +23,31 @@ class TheoryContent extends StatelessWidget {
       height: 500,
       borderRadius: 14,
       color: colorScheme.onInverseSurface.withValues(alpha: 0.8, green: 0.5),
-      padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-        vertical: 20,
+      padding: const EdgeInsetsDirectional.only(
+        start: 20,
+        top: 20,
+        end: 4,
+        bottom: 20,
       ),
       content: Stack(
         children: [
-          SingleChildScrollView(
-            controller: controller,
-            child: Column(
-              children: [
-                Text(
-                  content,
-                  style: textTheme.labelMedium?.copyWith(
-                    fontSize: 18,
-                  ),
+          MainScrollbar(
+            child: SingleChildScrollView(
+              controller: controller,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(end: 8),
+                child: Column(
+                  children: [
+                    Text(
+                      content,
+                      textWidthBasis: TextWidthBasis.longestLine,
+                      style: textTheme.labelMedium?.copyWith(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

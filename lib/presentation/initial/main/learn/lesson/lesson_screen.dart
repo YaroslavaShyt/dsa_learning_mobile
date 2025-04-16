@@ -138,7 +138,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
 
   void _onAllVentsUsed(BuildContext context) {
     showPopup(
-      height: 230,
+      height: 240,
       context: context,
       child: AllVentsUsedPopupContent(
         onConfirmTap: () {
