@@ -22,71 +22,75 @@ class AchievementsRow extends StatelessWidget {
     if (achievements.isEmpty) {
       return const SizedBox.shrink();
     }
-    return Column(
-      spacing: 10,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.tr('achievements'),
-          style: textTheme.titleLarge?.copyWith(
-            color: colorScheme.onSurface,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 8),
+      child: Column(
+        spacing: 10,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.tr('achievements'),
+            style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSurface,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 100,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: achievements.length,
-            itemBuilder: (BuildContext context, int index) {
-              final AchievementType achievement = achievements[index];
-              return MainContainer(
-                margin: const EdgeInsetsDirectional.only(end: 10),
-                padding: const EdgeInsetsDirectional.all(10),
-                content: Row(
-                  children: [
-                    Image.asset(
-                      height: 70,
-                      width: 70,
-                      achievement.image,
-                    ),
-                    SizedBox(
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            context.tr(achievement.apiString),
-                            minFontSize: 10,
-                            maxFontSize: 14,
-                            style: textTheme.titleLarge?.copyWith(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Flexible(
-                            child: AutoSizeText(
-                              context.tr('${achievement.apiString}Description'),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: achievements.length,
+              itemBuilder: (BuildContext context, int index) {
+                final AchievementType achievement = achievements[index];
+                return MainContainer(
+                  margin: const EdgeInsetsDirectional.only(end: 10),
+                  padding: const EdgeInsetsDirectional.all(10),
+                  content: Row(
+                    children: [
+                      Image.asset(
+                        height: 70,
+                        width: 70,
+                        achievement.image,
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              context.tr(achievement.apiString),
                               minFontSize: 10,
                               maxFontSize: 14,
                               style: textTheme.titleLarge?.copyWith(
                                 color: colorScheme.onSurface,
-                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                          )
-                        ],
+                            Flexible(
+                              child: AutoSizeText(
+                                context
+                                    .tr('${achievement.apiString}Description'),
+                                minFontSize: 10,
+                                maxFontSize: 14,
+                                style: textTheme.titleLarge?.copyWith(
+                                  color: colorScheme.onSurface,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

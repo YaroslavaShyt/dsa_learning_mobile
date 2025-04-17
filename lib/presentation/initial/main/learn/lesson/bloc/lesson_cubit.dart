@@ -57,6 +57,7 @@ class LessonCubit extends Cubit<LessonState> {
         _categoryName = categoryName,
         _audioHandler = audioHandler,
         _isSoundEnabled = isSoundEnabled,
+        _vents = rewardsService.vents,
         super(const LessonState());
 
   final int _id;
@@ -118,7 +119,6 @@ class LessonCubit extends Cubit<LessonState> {
 
       _bytes = Rewards.endOfTheoryLesson.bytes;
       _hash = Rewards.endOfTheoryLesson.hash;
-      _vents = Rewards.endOfTheoryLesson.vents;
 
       onTheoryFinished(
         _isLessonLearned ? 0 : _bytes,
@@ -225,7 +225,7 @@ class LessonCubit extends Cubit<LessonState> {
       return;
     }
     if (!isCorrect) {
-      _vents = _vents > 0 ? _vents - 1 : 0;
+      _rewardsService.updateBalance(vents: -1);
     }
     emit(
       state.copyWith(
@@ -274,6 +274,8 @@ class LessonCubit extends Cubit<LessonState> {
         final int time =
             (state.game!.timeLimit - state.gameTime) + state.theoryTime;
 
+        final bool isLessonLearned = _lessonService.isLessonLearned(_id);
+
         if (!isLostPoints) {
           await Future.wait([
             _rewardsService.updateBalance(bytes: _bytes),
@@ -282,6 +284,7 @@ class LessonCubit extends Cubit<LessonState> {
 
           _statisticsCubit.init();
         }
+
         _navigationUtil.navigateToAndReplace(
           AppRoutes.routeLessonFinished,
           data: LessonFinishedRoutingArgs(
@@ -291,9 +294,9 @@ class LessonCubit extends Cubit<LessonState> {
             lessonName: state.game?.title ?? '',
             lessonDescription: '',
             isGame: true,
-            bytes: _isLessonLearned ? 0 : _bytes,
-            hash: _isLessonLearned ? 0 : _hash,
-            fan: _isLessonLearned ? 0 : _vents,
+            bytes: isLessonLearned ? 0 : _bytes,
+            hash: isLessonLearned ? 0 : _hash,
+            fan: isLessonLearned ? 0 : _vents,
             achievements: _achievements,
             isVibrationEnabled: _isVibrationEnabled,
             isAudioEnabled: _isSoundEnabled,

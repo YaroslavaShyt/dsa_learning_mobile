@@ -25,77 +25,80 @@ class RewardRow extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Column(
-      spacing: 10,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '${context.tr('reward')}: ',
-          style: textTheme.titleLarge?.copyWith(
-            color: colorScheme.onSurface,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 8),
+      child: Column(
+        spacing: 10,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${context.tr('reward')}: ',
+            style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSurface,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
-        Row(
-          children: [
-            if (bytes > 0) ...[
-              Padding(
-                padding: const EdgeInsetsDirectional.only(bottom: 18.0),
-                child: Text(
-                  '+${bytes}X',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.primaryFixed,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+          Row(
+            children: [
+              if (bytes > 0) ...[
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(bottom: 18.0),
+                  child: Text(
+                    '+${bytes}X',
+                    style: textTheme.titleLarge?.copyWith(
+                      color: colorScheme.primaryFixed,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              Image.asset(
-                height: 50,
-                width: 50,
-                ImageAssets.bytes,
-              ),
-            ],
-            if (hash > 0) ...[
-              Padding(
-                padding: const EdgeInsetsDirectional.only(bottom: 18.0),
-                child: Text(
-                  '+${hash}X',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.primaryFixed,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                Image.asset(
+                  height: 50,
+                  width: 50,
+                  ImageAssets.bytes,
+                ),
+              ],
+              if (hash > 0) ...[
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(bottom: 18.0),
+                  child: Text(
+                    '+${hash}X',
+                    style: textTheme.titleLarge?.copyWith(
+                      color: colorScheme.primaryFixed,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              Image.asset(
-                height: 50,
-                width: 50,
-                ImageAssets.hash,
-              ),
-            ],
-            if (fan > 0) ...[
-              Padding(
-                padding: const EdgeInsetsDirectional.only(bottom: 18.0),
-                child: Text(
-                  '+${fan}X',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.primaryFixed,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                Image.asset(
+                  height: 50,
+                  width: 50,
+                  ImageAssets.hash,
+                ),
+              ],
+              if (fan > 0) ...[
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(bottom: 18.0),
+                  child: Text(
+                    '+${fan}X',
+                    style: textTheme.titleLarge?.copyWith(
+                      color: colorScheme.primaryFixed,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              Image.asset(
-                height: 50,
-                width: 50,
-                ImageAssets.vents,
-              ),
+                Image.asset(
+                  height: 50,
+                  width: 50,
+                  ImageAssets.vents,
+                ),
+              ],
             ],
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

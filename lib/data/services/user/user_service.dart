@@ -56,7 +56,7 @@ class UserService extends Cubit<UserState> implements IUserService {
         _rewardsService.init(
           bytes: user.bytes,
           hash: user.hash,
-          vents: user.fans,
+          vents: user.fans <= 5 ? user.fans : 5,
         );
       }
       emit(state.copyWith(status: status, user: user));
