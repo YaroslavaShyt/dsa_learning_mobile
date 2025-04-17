@@ -29,6 +29,7 @@ class _MainFloatingActionButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _ButtonComponent(
+            key: homeTabKey,
             isSelected: selectedIndex == 0,
             icon: Icons.home_rounded,
             onTapped: onHomeTapped,
