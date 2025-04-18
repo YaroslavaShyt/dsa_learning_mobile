@@ -18,6 +18,7 @@ import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
+import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -99,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 20),
                           _HelloUserWidget(
+                            key: homeContentKey,
                             onTimerFinished: widget.cubit.onTimerFinished,
                             fansLastUpdated: widget.cubit.fansLastUpdated,
                             onManageCurrencyTap: () => _showShop(context),

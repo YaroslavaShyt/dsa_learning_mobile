@@ -18,11 +18,13 @@ class HomeCubit extends Cubit<HomeState> {
     required INavigationUtil navigationUtil,
     required IRewardsService rewardsService,
     required IAudioHandler audioHandler,
+    required VoidCallback onInitialized,
   })  : _achievementsService = achievementsService,
         _userService = userService,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
         _audioHandler = audioHandler,
+        _onInitialized = onInitialized,
         super(const HomeState());
 
   final IUserService _userService;
@@ -30,6 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
   final IRewardsService _rewardsService;
   final IAchievementsService _achievementsService;
   final IAudioHandler _audioHandler;
+  final VoidCallback _onInitialized;
 
   bool _lostStreak = false;
 
@@ -55,7 +58,7 @@ class HomeCubit extends Cubit<HomeState> {
           profilePhoto: _user.profilePhoto,
         ),
       );
-
+      _onInitialized();
       if (_lostStreak) onLostStreak();
     } catch (error) {
       logger.e(error);

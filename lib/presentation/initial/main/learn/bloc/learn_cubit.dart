@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
@@ -18,12 +20,14 @@ class LearnCubit extends Cubit<LearnState> {
     required ILessonService lessonService,
     required IRewardsService rewardsService,
     required bool isSoundOn,
+    required VoidCallback onInitialized,
   })  : _audioHandler = audioHandler,
         _navigationUtil = navigationUtil,
         _lessonRepository = lessonRepository,
         _lessonService = lessonService,
         _rewardsService = rewardsService,
         _isSoundOn = isSoundOn,
+        _onInitialized = onInitialized,
         super(const LearnState());
 
   final IAudioHandler _audioHandler;
@@ -31,6 +35,7 @@ class LearnCubit extends Cubit<LearnState> {
   final ILessonRepository _lessonRepository;
   final ILessonService _lessonService;
   final IRewardsService _rewardsService;
+  final VoidCallback _onInitialized;
   bool _isSoundOn;
 
   int get vents => _rewardsService.vents;
@@ -51,12 +56,15 @@ class LearnCubit extends Cubit<LearnState> {
           await _lessonRepository.getLessonsSummary();
       await _lessonService.init();
 
+      final LearnStatus status =
+          summary.isNotEmpty ? LearnStatus.loaded : LearnStatus.failure;
       emit(
         state.copyWith(
           lessonsSummary: summary,
-          status: summary.isNotEmpty ? LearnStatus.loaded : LearnStatus.failure,
+          status: status,
         ),
       );
+      if (status == LearnStatus.loaded) _onInitialized();
     } catch (error) {
       logger.e(error);
       emit(state.copyWith(status: LearnStatus.failure));

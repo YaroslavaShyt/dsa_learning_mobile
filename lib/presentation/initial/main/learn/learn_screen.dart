@@ -9,6 +9,7 @@ import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_state.da
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/pre_lesson_info.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_dotted_line.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_pattern.dart';
+import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/bottomsheet/bottom_sheet_mixin.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';

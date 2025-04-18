@@ -1,76 +1,168 @@
-import 'package:app_tutorial/app_tutorial.dart';
+import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-List<TutorialItem> items = [
-  TutorialItem(
-    globalKey: homeTabKey,
-    color: Colors.black.withValues(alpha: 0.6),
-    borderRadius: const Radius.circular(15.0),
-    shapeFocus: ShapeFocus.roundedSquare,
-    child: const OnboardingScreen(
-      title: 'This is a kek',
-      description: 'Kekekekekekek',
-    ),
-  ),
-];
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 final GlobalKey homeTabKey = GlobalKey();
-final GlobalKey avatarKey = GlobalKey();
-final GlobalKey textKey = GlobalKey();
+final GlobalKey homeContentKey = GlobalKey();
+final GlobalKey learnTabKey = GlobalKey();
+final GlobalKey lessonCategoryKey = GlobalKey();
+final GlobalKey profileTabKey = GlobalKey();
+final GlobalKey settingsMenuKey = GlobalKey();
+
+List<TargetFocus> targets = [
+  TargetFocus(
+    keyTarget: homeTabKey,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 1,
+          totalSteps: 3,
+          title: 'tutorialStep1',
+        ),
+      ),
+    ],
+  ),
+  TargetFocus(
+    keyTarget: homeContentKey,
+    shape: ShapeLightFocus.RRect,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 1,
+          totalSteps: 3,
+          title: 'tutorialStep1',
+          description: 'tutorialStep1Description',
+        ),
+      ),
+    ],
+  ),
+  TargetFocus(
+    keyTarget: learnTabKey,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 2,
+          totalSteps: 3,
+          title: 'tutorialStep2',
+        ),
+      ),
+    ],
+  ),
+  TargetFocus(
+    keyTarget: lessonCategoryKey,
+    shape: ShapeLightFocus.RRect,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 2,
+          totalSteps: 3,
+          title: 'tutorialStep2',
+          description: 'tutorialStep2Description',
+        ),
+      ),
+    ],
+  ),
+  TargetFocus(
+    keyTarget: profileTabKey,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 3,
+          totalSteps: 3,
+          title: 'tutorialStep3',
+        ),
+      ),
+    ],
+  ),
+  TargetFocus(
+    keyTarget: settingsMenuKey,
+    shape: ShapeLightFocus.RRect,
+    contents: [
+      TargetContent(
+        align: ContentAlign.custom,
+        customPosition: CustomTargetContentPosition(bottom: 100),
+        child: const OnboardingScreen(
+          currentStep: 3,
+          totalSteps: 3,
+          title: 'tutorialStep3',
+          description: 'tutorialStep3Description',
+        ),
+      ),
+    ],
+  ),
+];
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({
     required this.title,
-    required this.description,
+    required this.currentStep,
+    required this.totalSteps,
+    this.description,
     super.key,
   });
 
+  final int currentStep;
+  final int totalSteps;
   final String title;
-  final String description;
+  final String? description;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final ColorScheme colorScheme = getColorScheme(context);
+    final double width = MediaQuery.of(context).size.width;
 
     return Center(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-          child: Column(
-            children: [
+      child: Container(
+        padding: EdgeInsetsDirectional.symmetric(
+          horizontal: width * 0.1,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: colorScheme.onInverseSurface,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          color: colorScheme.surface,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "$currentStep/$totalSteps",
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Flexible(
+                  child: Text(
+                    context.tr(title),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            if (description != null)
               Text(
-                title,
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 10.0),
-              Text(
-                description,
+                context.tr(description!),
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white),
               ),
-              const Spacer(),
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () => Tutorial.skipAll(context),
-                    child: const Text(
-                      'Skip onboarding',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const Spacer(),
-                  const TextButton(
-                    onPressed: null,
-                    child: Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+          ],
         ),
       ),
     );

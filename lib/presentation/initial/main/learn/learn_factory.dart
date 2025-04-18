@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LearnFactory {
-  static Widget build() {
+  static Widget build(VoidCallback onInitialized) {
     return BlocProvider<LearnCubit>(
       create: (context) => LearnCubit(
+        onInitialized: onInitialized,
         audioHandler: sl.get<IAudioHandler>(),
         navigationUtil: sl.get<INavigationUtil>(),
         lessonRepository: sl.get<ILessonRepository>(),

@@ -35,11 +35,13 @@ class _MainFloatingActionButton extends StatelessWidget {
             onTapped: onHomeTapped,
           ),
           _ButtonComponent(
+            key: learnTabKey,
             isSelected: selectedIndex == 1,
             icon: Icons.book_rounded,
             onTapped: onLearnTapped,
           ),
           _ButtonComponent(
+            key: profileTabKey,
             isSelected: selectedIndex == 2,
             icon: Icons.person_rounded,
             onTapped: onProfileTapped,

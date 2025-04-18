@@ -21,6 +21,7 @@ class _AlgorithmsContent extends StatelessWidget {
       itemCount: categorySummary.topics.length,
       itemBuilder: (_, int index) {
         return _CategoryContainer(
+          key: index == 0 ? lessonCategoryKey : null,
           playSound: playSound,
           onStartTap: onStartButtonTap,
           isLessonOpened: isLessonOpened,

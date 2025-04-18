@@ -14,6 +14,7 @@ class _ProfileMenu extends StatelessWidget {
     required this.onVibrationTap,
     required this.isAnimationsEnabled,
     required this.onAnimationTap,
+    super.key,
   });
 
   final bool isLanguageShown;

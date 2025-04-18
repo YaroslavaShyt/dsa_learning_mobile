@@ -10,6 +10,7 @@ class _CategoryContainer extends StatelessWidget
     required this.onStartTap,
     required this.onCloseIconTap,
     required this.isLessonOpened,
+    super.key,
   });
 
   final String title;

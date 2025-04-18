@@ -9,6 +9,7 @@ class _HelloUserWidget extends StatefulWidget {
     required this.fansLastUpdated,
     required this.onManageCurrencyTap,
     required this.onTimerFinished,
+    super.key,
   });
 
   final int fan;

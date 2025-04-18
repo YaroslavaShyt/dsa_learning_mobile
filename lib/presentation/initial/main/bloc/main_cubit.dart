@@ -16,8 +16,33 @@ class MainCubit extends Cubit<MainState> {
   final IAudioHandler _audioHandler;
   final StatisticsCubit _statisticsCubit;
 
+  bool _isHomeLoaded = false;
+  bool _isLearnLoaded = false;
+  bool _isProfileLoaded = false;
+
   void init() {
     _statisticsCubit.init();
+  }
+
+  void startTutorial() {
+    emit(state.copyWith(isTutorialStarted: true));
+  }
+
+  void onTabsInitialized({
+    bool? isHomeLoaded,
+    bool? isLearnLoaded,
+    bool? isProfileLoaded,
+  }) {
+    if (isHomeLoaded != null) _isHomeLoaded = isHomeLoaded;
+    if (isLearnLoaded != null) _isLearnLoaded = isLearnLoaded;
+    if (isProfileLoaded != null) _isProfileLoaded = isProfileLoaded;
+
+    emit(
+      state.copyWith(
+        isReadyForOnboarding:
+            _isHomeLoaded && _isLearnLoaded && _isProfileLoaded,
+      ),
+    );
   }
 
   void updateSoundSettings(bool isSoundEnabled) {

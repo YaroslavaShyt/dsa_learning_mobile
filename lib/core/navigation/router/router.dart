@@ -14,9 +14,9 @@ class AppRouter {
     return switch (routeSettings.name) {
       AppRoutes.routeAuth => _buildAuth(routeSettings),
       AppRoutes.routeMain => _buildMain(routeSettings),
-      AppRoutes.routeHome => _buildHome(routeSettings),
-      AppRoutes.routeLearn => _buildLearn(routeSettings),
-      AppRoutes.routeProfile => _buildProfile(routeSettings),
+      // AppRoutes.routeHome => _buildHome(routeSettings),
+      // AppRoutes.routeLearn => _buildLearn(routeSettings),
+      // AppRoutes.routeProfile => _buildProfile(routeSettings),
       AppRoutes.routeLesson => _buildLesson(routeSettings),
       AppRoutes.routeLessonFinished => _buildLessonFinished(routeSettings),
       _ => _buildInitial(routeSettings),
@@ -44,26 +44,26 @@ class AppRouter {
     );
   }
 
-  static PageRoute _buildHome(RouteSettings settings) {
-    return MaterialPageRoute(
-      settings: settings,
-      builder: (_) => HomeFactory.build(),
-    );
-  }
-
-  static PageRoute _buildProfile(RouteSettings settings) {
-    return MaterialPageRoute(
-      settings: settings,
-      builder: (_) => ProfileFactory.build(),
-    );
-  }
-
-  static PageRoute _buildLearn(RouteSettings settings) {
-    return MaterialPageRoute(
-      settings: settings,
-      builder: (_) => LearnFactory.build(),
-    );
-  }
+  // static PageRoute _buildHome(RouteSettings settings) {
+  //   return MaterialPageRoute(
+  //     settings: settings,
+  //     builder: (_) => HomeFactory.build(),
+  //   );
+  // }
+  //
+  // static PageRoute _buildProfile(RouteSettings settings) {
+  //   return MaterialPageRoute(
+  //     settings: settings,
+  //     builder: (_) => ProfileFactory.build(),
+  //   );
+  // }
+  //
+  // static PageRoute _buildLearn(RouteSettings settings) {
+  //   return MaterialPageRoute(
+  //     settings: settings,
+  //     builder: (_) => LearnFactory.build(),
+  //   );
+  // }
 
   static PageRoute _buildLesson(RouteSettings settings) {
     return MaterialPageRoute(

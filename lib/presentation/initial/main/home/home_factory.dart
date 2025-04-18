@@ -13,11 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeFactory {
-  static Widget build() {
+  static Widget build(VoidCallback onInitialized) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeCubit>(
           create: (BuildContext context) => HomeCubit(
+            onInitialized: onInitialized,
             audioHandler: sl.get<IAudioHandler>(),
             navigationUtil: sl.get<INavigationUtil>(),
             userService: BlocProvider.of<UserService>(context),

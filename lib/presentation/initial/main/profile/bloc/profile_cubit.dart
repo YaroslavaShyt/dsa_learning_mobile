@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
@@ -11,14 +13,17 @@ class ProfileCubit extends Cubit<ProfileState> {
     required IAudioHandler audioHandler,
     required INavigationUtil navigationUtil,
     required IUserService userService,
+    required VoidCallback onInitialized,
   })  : _navigationUtil = navigationUtil,
         _userService = userService,
         _audioHandler = audioHandler,
+        _onInitialized = onInitialized,
         super(const ProfileState());
 
   final IAudioHandler _audioHandler;
   final INavigationUtil _navigationUtil;
   final IUserService _userService;
+  final VoidCallback _onInitialized;
 
   IUser get _user => _userService.user!;
 
@@ -34,6 +39,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           isAnimationEnabled: _user.animations,
         ),
       );
+      _onInitialized();
     } catch (error) {
       logger.e(error);
     }

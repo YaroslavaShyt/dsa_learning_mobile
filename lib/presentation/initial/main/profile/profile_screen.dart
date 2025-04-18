@@ -1,5 +1,6 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
@@ -52,6 +53,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                             onAvatarTap: () => _onAvatarTap(context),
                           ),
                           _ProfileMenu(
+                            key: settingsMenuKey,
                             onSoundTap: cubit.onSoundTap,
                             onLanguageTap: cubit.onLanguageTap,
                             onVibrationTap: cubit.onVibrationTap,
