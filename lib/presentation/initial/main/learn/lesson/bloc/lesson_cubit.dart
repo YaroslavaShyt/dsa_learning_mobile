@@ -26,7 +26,6 @@ const double _progressStep = 0.25;
 typedef RewardFunc = void Function(int, int, int);
 
 // TODO: internal testing
-// TODO: check lost streak
 // TODO: add illustrations into the lesson
 
 class LessonCubit extends Cubit<LessonState> {
