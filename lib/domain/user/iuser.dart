@@ -11,6 +11,7 @@ abstract interface class IUser {
     this.sounds = true,
     this.vibration = true,
     this.animations = true,
+    this.isOnboarded = false,
   });
 
   IUser copyWith({
@@ -25,6 +26,7 @@ abstract interface class IUser {
     bool? sounds,
     DateTime? fansUpdatedLast,
     bool? animations,
+    bool? isOnboarded,
   });
 
   Map<String, String> toJson(IUser user);
@@ -39,5 +41,6 @@ abstract interface class IUser {
   final bool vibration;
   final bool sounds;
   final bool animations;
+  final bool isOnboarded;
   final DateTime fansUpdatedLast;
 }

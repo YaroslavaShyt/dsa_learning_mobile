@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
+import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_state.dart';
@@ -46,6 +47,7 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                     child: Padding(
                       padding: const EdgeInsetsDirectional.all(18.0),
                       child: Column(
+                        key: finishKey,
                         children: [
                           _UserInfoWidget(
                             avatarPath: state.profilePhoto,

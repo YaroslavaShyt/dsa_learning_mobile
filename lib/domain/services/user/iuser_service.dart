@@ -11,6 +11,7 @@ abstract interface class IUserService {
     bool? vibration,
     bool? sound,
     bool? animation,
+    bool? isOnboarded,
   });
 
   Future<void> cleanUserData();

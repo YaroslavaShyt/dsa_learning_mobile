@@ -139,11 +139,12 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             right: -30,
             top: 10,
             bottom: 10,
             child: MainAnimationWidget(
+              key: startKey,
               height: 200,
               width: 200,
               name: LottieAssets.welcomeRobot,

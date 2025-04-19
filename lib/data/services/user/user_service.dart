@@ -74,6 +74,7 @@ class UserService extends Cubit<UserState> implements IUserService {
     bool? vibration,
     bool? sound,
     bool? animation,
+    bool? isOnboarded,
   }) async {
     try {
       emit(
@@ -84,6 +85,7 @@ class UserService extends Cubit<UserState> implements IUserService {
             vibration: vibration,
             sounds: sound,
             animations: animation,
+            isOnboarded: isOnboarded,
           ),
         ),
       );

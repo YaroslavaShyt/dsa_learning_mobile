@@ -11,6 +11,7 @@ const String _vibration = 'vibration';
 const String _sound = 'sound';
 const String _animations = 'animations';
 const String _fansUpdatedLast = 'fansUpdatedLast';
+const String _isOnboarded = '_onboarded';
 
 class User implements IUser {
   User({
@@ -25,6 +26,7 @@ class User implements IUser {
     required this.sounds,
     required this.fansUpdatedLast,
     required this.animations,
+    required this.isOnboarded,
   });
 
   @override
@@ -40,6 +42,7 @@ class User implements IUser {
     bool? sounds,
     bool? animations,
     DateTime? fansUpdatedLast,
+    bool? isOnboarded,
   }) {
     return User(
       id: id ?? this.id,
@@ -47,6 +50,7 @@ class User implements IUser {
       hash: hash ?? this.fans,
       bytes: bytes ?? this.bytes,
       sounds: sounds ?? this.sounds,
+      isOnboarded: isOnboarded ?? this.isOnboarded,
       firstName: firstName ?? this.firstName,
       vibration: vibration ?? this.vibration,
       animations: animations ?? this.animations,
@@ -69,6 +73,7 @@ class User implements IUser {
       _vibration: vibration.toString(),
       _sound: sounds.toString(),
       _animations: animations.toString(),
+      _isOnboarded: isOnboarded.toString(),
     };
   }
 
@@ -85,6 +90,7 @@ class User implements IUser {
       sounds: data[_sound],
       animations: data[_animations],
       fansUpdatedLast: DateTime.parse(data[_fansUpdatedLast]),
+      isOnboarded: data[_isOnboarded],
     );
   }
 
@@ -120,4 +126,7 @@ class User implements IUser {
 
   @override
   final bool animations;
+
+  @override
+  final bool isOnboarded;
 }

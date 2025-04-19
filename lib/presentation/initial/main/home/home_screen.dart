@@ -19,6 +19,7 @@ import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/b
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
+import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_background.dart';
@@ -93,12 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         end: 16.0,
                       ),
                       child: Column(
+                        spacing: 20,
                         children: [
                           _StreakWidget(
                             streak: state.streak,
                             avatarPath: state.profilePhoto,
                           ),
-                          const SizedBox(height: 20),
                           _HelloUserWidget(
                             key: homeContentKey,
                             onTimerFinished: widget.cubit.onTimerFinished,
@@ -109,15 +110,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             fan: state.vent,
                             bytes: state.bytes,
                           ),
-                          const SizedBox(height: 20),
                           if (state.achievements.isNotEmpty)
                             _AchievementsWidget(
                               onSeeAllTap: () => _onSeeAllTap(context, state),
                               achievements: state.achievements,
                             ),
-                          const SizedBox(height: 20),
                           const _StatisticsWidget(),
-                          const SizedBox(height: 100),
+                          const SizedBox(height: 80),
                         ],
                       ),
                     ),
@@ -187,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onLostStreak(BuildContext context) {
     widget.showPopup(
-      height: 250,
+      height: 270,
       context: context,
       child: LostStreakContent(
         onCloseButtonTap: widget.cubit.onCloseButtonTap,
