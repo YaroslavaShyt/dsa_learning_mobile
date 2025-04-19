@@ -20,8 +20,8 @@ class StatisticsCubit extends Cubit<StatisticsState> {
       emit(
         state.copyWith(
           statistics: statistics.sublist(statistics.length - 3),
-          maxValue: _findMaxValue(),
-          userMaxValue: _findMaxValueThroughStatistics(),
+          maxValue: _findMaxValue(statistics),
+          userMaxValue: _findMaxValueThroughStatistics(statistics),
         ),
       );
     } catch (error) {
@@ -29,9 +29,9 @@ class StatisticsCubit extends Cubit<StatisticsState> {
     }
   }
 
-  int _findMaxValue() {
+  int _findMaxValue(List<IStatistics> statistics) {
     int max = 10;
-    for (IStatistics statistics in state.statistics) {
+    for (IStatistics statistics in statistics) {
       if (statistics.dataStructures > max) {
         max = statistics.dataStructures;
       }
@@ -42,15 +42,17 @@ class StatisticsCubit extends Cubit<StatisticsState> {
     return max + 10;
   }
 
-  int _findMaxValueThroughStatistics() {
+  int _findMaxValueThroughStatistics(List<IStatistics> statistics) {
     int max = 0;
-    for (IStatistics statistics in state.statistics) {
+    for (IStatistics statistics in statistics) {
       if (statistics.dataStructures > max) {
         max = statistics.dataStructures;
       }
       if (statistics.algorithms > max) {
         max = statistics.algorithms;
       }
+      print(statistics.dataStructures);
+      print(statistics.algorithms);
     }
     return max;
   }

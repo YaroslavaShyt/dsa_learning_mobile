@@ -126,7 +126,7 @@ class _CategoryContainer extends StatelessWidget
 
   void _showShop(BuildContext context) {
     showPopup(
-      height: 450,
+      height: 460,
       context: context,
       child: ShopFactory.build(),
     );

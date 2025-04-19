@@ -122,7 +122,7 @@ static const Map<String,dynamic> _uk_UA = {
   "allTheRewardsWillBeLost": "Усі нагороди за вивчення теорії буде втрачено :(",
   "streak": "Прогрес",
   "youMissedOneDay": "О ні, ви пропустили один день навчання(",
-  "wouldYouLikeToUseHash": "Хочете використати Хеш, аби змусити систему забути про це?",
+  "wouldYouLikeToUseHash": "Хочете використати Хеш, аби система забула про це?",
   "knowledgeCheck": "Перевірка знань",
   "buyAvatar": "Придбати аватар",
   "buy": "Придбати",
