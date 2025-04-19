@@ -35,6 +35,10 @@ class TutorialHandler {
         }
       },
       onFinish: onTutorialFinish,
+      onSkip: () {
+        onTutorialFinish();
+        return true;
+      },
     )..show(context: context);
   }
 
