@@ -21,7 +21,7 @@ class LessonService implements ILessonService {
 
   int _countAlgorithmsLessons() {
     int sum = 0;
-    for (var i in _summary.first.topics) {
+    for (var i in _summary.last.topics) {
       sum += i.lessons.length;
     }
     return sum;
@@ -29,7 +29,7 @@ class LessonService implements ILessonService {
 
   int _countDataStructuresLessons() {
     int sum = 0;
-    for (var i in _summary.last.topics) {
+    for (var i in _summary.first.topics) {
       sum += i.lessons.length;
     }
     return sum;

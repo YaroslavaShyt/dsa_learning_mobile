@@ -258,8 +258,6 @@ class LessonCubit extends Cubit<LessonState> {
         final bool isLostPoints =
             state.gameCorrectAnswers < state.game!.tasks.length - 2;
 
-        if (!isLostPoints) _checkAchievements();
-
         _achievementsService.updateStreak();
 
         _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
@@ -280,7 +278,7 @@ class LessonCubit extends Cubit<LessonState> {
             _rewardsService.updateBalance(bytes: _bytes),
             _lessonService.updateLearnedLessons(_id, time, _categoryName),
           ]);
-
+          _checkAchievements();
           _statisticsCubit.init();
         }
 
@@ -342,8 +340,15 @@ class LessonCubit extends Cubit<LessonState> {
       state.gameCorrectAnswers == state.game!.tasks.length;
 
   bool _isDevotionAchieved() {
-    return _achievementsService.streak.last.status == StreakStatus.frozen ||
-        _achievementsService.streak.last.status == StreakStatus.notLearned;
+    return _achievementsService
+                .streak[_achievementsService.streak.length - 2].status ==
+            StreakStatus.learned &&
+        (_achievementsService
+                    .streak[_achievementsService.streak.length - 1].status ==
+                StreakStatus.frozen ||
+            _achievementsService
+                    .streak[_achievementsService.streak.length - 1].status ==
+                StreakStatus.notLearned);
   }
 
   bool _isJuniorAchieved() {

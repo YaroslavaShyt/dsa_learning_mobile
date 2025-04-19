@@ -91,7 +91,6 @@ class AchievementsService extends Cubit<AchievementsState>
   @override
   Future<void> addAchievement(List<AchievementType> achievements) async {
     try {
-      achievements = [AchievementType.junior];
       final List<IAchievement> achievementsToAdd = [];
 
       for (var userAchievement in _achievements) {
@@ -105,13 +104,10 @@ class AchievementsService extends Cubit<AchievementsState>
 
       if (achievementsToAdd.isEmpty) return;
 
-      await _achievementsRepository.addNewAchievement(
-        achievementId: achievementsToAdd
-            .map(
-              (achievement) => achievement.id,
-            )
-            .toList(),
-      );
+      final List<String> ids =
+          achievementsToAdd.map((achievement) => achievement.id).toList();
+
+      await _achievementsRepository.addNewAchievement(achievementId: ids);
 
       await init();
     } catch (error) {
