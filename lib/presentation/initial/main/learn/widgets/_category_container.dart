@@ -135,6 +135,6 @@ class _CategoryContainer extends StatelessWidget
   bool _isOpened(int index) {
     if (index == 0) return true;
 
-    return isLessonOpened(lessonsSummary[index].id);
+    return isLessonOpened(lessonsSummary[index - 1].id);
   }
 }

@@ -25,9 +25,6 @@ const double _progressStep = 0.25;
 
 typedef RewardFunc = void Function(int, int, int);
 
-// TODO: internal testing
-// TODO: add illustrations into the lesson
-
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit({
     required int lessonId,
@@ -43,6 +40,7 @@ class LessonCubit extends Cubit<LessonState> {
     required String categoryName,
     required IAudioHandler audioHandler,
     required bool isSoundEnabled,
+    required VoidCallback onLessonFinished,
   })  : _id = lessonId,
         _gameId = gameId,
         _lessonRepository = lessonRepository,
@@ -57,6 +55,7 @@ class LessonCubit extends Cubit<LessonState> {
         _audioHandler = audioHandler,
         _isSoundEnabled = isSoundEnabled,
         _vents = rewardsService.vents,
+        _onLessonFinished = onLessonFinished,
         super(const LessonState());
 
   final int _id;
@@ -72,6 +71,7 @@ class LessonCubit extends Cubit<LessonState> {
   final StatisticsCubit _statisticsCubit;
   final String _categoryName;
   final IAudioHandler _audioHandler;
+  final VoidCallback _onLessonFinished;
 
   int _hash = 0;
   int _vents = 0;
@@ -281,6 +281,7 @@ class LessonCubit extends Cubit<LessonState> {
           _checkAchievements();
           _statisticsCubit.init();
         }
+        _onLessonFinished();
 
         _navigationUtil.navigateToAndReplace(
           AppRoutes.routeLessonFinished,

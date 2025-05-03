@@ -85,6 +85,7 @@ class LearnCubit extends Cubit<LearnState> {
         id: id,
         gameId: gameId,
         category: category,
+        onLessonFinished: init,
       ),
     );
   }

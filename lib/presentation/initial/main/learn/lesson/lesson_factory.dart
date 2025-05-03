@@ -19,11 +19,13 @@ class LessonRoutingArgs {
     required this.id,
     required this.gameId,
     required this.category,
+    required this.onLessonFinished,
   });
 
   final int id;
   final int gameId;
   final String category;
+  final VoidCallback onLessonFinished;
 }
 
 class LessonFactory {
@@ -32,6 +34,7 @@ class LessonFactory {
       create: (BuildContext context) => LessonCubit(
         lessonId: args.id,
         gameId: args.gameId,
+        onLessonFinished: args.onLessonFinished,
         lessonService: sl.get<ILessonService>(),
         navigationUtil: sl.get<INavigationUtil>(),
         lessonRepository: sl.get<ILessonRepository>(),
