@@ -8,6 +8,7 @@ class AppBottomSheet {
     double height = 600,
   }) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,

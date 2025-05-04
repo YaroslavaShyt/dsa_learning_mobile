@@ -10,6 +10,7 @@ class _CategoryContainer extends StatelessWidget
     required this.onStartTap,
     required this.onCloseIconTap,
     required this.isLessonOpened,
+    required this.vents,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class _CategoryContainer extends StatelessWidget
   final VoidCallback onCloseIconTap;
   final bool Function(int) isLessonOpened;
   final void Function(int, int) onStartTap;
+  final int vents;
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +86,13 @@ class _CategoryContainer extends StatelessWidget
   }) {
     if (!isOpened) return;
 
-    if (BlocProvider.of<LearnCubit>(context).vents > 0) {
+    if (vents > 0) {
       playSound();
       showAppBottomSheet(
         context: context,
         child: PreLessonInfo(
           categoryName: title,
-          isLearned: BlocProvider.of<LearnCubit>(context)
-              .isLessonOpened(lessonsSummary[index].id),
+          isLearned: _isOpened(lessonsSummary[index].id),
           lesson: lessonsSummary[index],
           onCloseIconTap: onCloseIconTap,
           onStartTap: () => onStartTap(

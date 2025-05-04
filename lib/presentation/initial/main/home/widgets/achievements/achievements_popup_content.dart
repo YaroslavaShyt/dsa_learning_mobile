@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements/achievement_component.dart';
 import 'package:dsa_learning/presentation/widgets/main_shadow.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AchievementsPopupContent extends StatelessWidget {
@@ -22,6 +19,8 @@ class AchievementsPopupContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -44,9 +43,7 @@ class AchievementsPopupContent extends StatelessWidget {
                   style: textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
-                    color: getColorScheme(context)
-                        .onSurface
-                        .withValues(alpha: 0.4),
+                    color: colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                 ),
               ],
@@ -54,7 +51,7 @@ class AchievementsPopupContent extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.close_rounded,
-                color: getColorScheme(context).onSurface,
+                color: colorScheme.onSurface,
                 shadows: [mainBoxShadow(context)],
               ),
               onPressed: onCloseButtonTap,
@@ -63,7 +60,10 @@ class AchievementsPopupContent extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsetsDirectional.only(end: 8.0, bottom: 8),
+            padding: const EdgeInsetsDirectional.only(
+              end: 8,
+              bottom: 8,
+            ),
             child: Scrollbar(
               thumbVisibility: true,
               thickness: 6,
@@ -83,13 +83,6 @@ class AchievementsPopupContent extends StatelessWidget {
     );
   }
 
-  int get _unlockedAchievements {
-    int counter = 0;
-    for (var achievement in achievements) {
-      if (!achievement.isLocked) {
-        counter++;
-      }
-    }
-    return counter;
-  }
+  int get _unlockedAchievements =>
+      achievements.where((achievement) => !achievement.isLocked).length;
 }

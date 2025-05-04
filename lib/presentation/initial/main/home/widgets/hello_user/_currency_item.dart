@@ -15,6 +15,9 @@ class _CurrencyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,10 +40,10 @@ class _CurrencyItem extends StatelessWidget {
                   ),
                   child: Text(
                     context.tr(text),
-                    style: getTextTheme(context).labelSmall?.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: textTheme.labelSmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -51,10 +54,10 @@ class _CurrencyItem extends StatelessWidget {
                 child: Text(
                   "${value}x",
                   overflow: TextOverflow.ellipsis,
-                  style: getTextTheme(context).labelSmall?.copyWith(
+                  style: textTheme.labelSmall?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: getColorScheme(context).primaryFixed),
+                      color: colorScheme.primaryFixed),
                 ),
               ),
             ),
@@ -64,7 +67,7 @@ class _CurrencyItem extends StatelessWidget {
           Container(
             height: 1,
             width: double.infinity,
-            color: getColorScheme(context).onSurface,
+            color: colorScheme.onSurface,
           ),
       ],
     );

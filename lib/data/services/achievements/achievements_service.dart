@@ -114,4 +114,13 @@ class AchievementsService extends Cubit<AchievementsState>
       logger.e(error);
     }
   }
+
+  @override
+  bool isDevotionAchievementReceived() {
+    final int streakLength = streak.length;
+
+    return streak[streakLength - 2].status == StreakStatus.learned &&
+        (streak[streakLength - 1].status == StreakStatus.frozen ||
+            streak[streakLength - 1].status == StreakStatus.notLearned);
+  }
 }

@@ -4,8 +4,8 @@ import 'package:dsa_learning/data/services/achievements/achievements_service.dar
 import 'package:dsa_learning/data/services/rewards/rewards_service.dart';
 import 'package:dsa_learning/data/services/rewards/rewards_state.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
-import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
+import 'package:dsa_learning/domain/handlers/istreak_handler.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/home_screen.dart';
@@ -21,6 +21,7 @@ class HomeFactory {
             onInitialized: onInitialized,
             audioHandler: sl.get<IAudioHandler>(),
             navigationUtil: sl.get<INavigationUtil>(),
+            streakHandler: sl.get<IStreakHandler>(),
             userService: BlocProvider.of<UserService>(context),
             achievementsService: BlocProvider.of<AchievementsService>(context),
             rewardsService: BlocProvider.of<RewardsService>(context),
@@ -39,12 +40,6 @@ class HomeFactory {
               BlocProvider.of<HomeCubit>(context).onRewardsChanged();
             },
           ),
-          BlocListener<UserService, UserState>(
-            listenWhen: _listedWhenUser,
-            listener: (BuildContext context, UserState state) {
-              BlocProvider.of<HomeCubit>(context).onUserDataChanged();
-            },
-          ),
         ],
         child: Builder(
           builder: (BuildContext context) {
@@ -55,10 +50,5 @@ class HomeFactory {
         ),
       ),
     );
-  }
-
-  static bool _listedWhenUser(UserState prev, UserState curr) {
-    return curr.user != null &&
-        prev.user?.profilePhoto != curr.user?.profilePhoto;
   }
 }

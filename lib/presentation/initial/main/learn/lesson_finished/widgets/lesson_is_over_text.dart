@@ -15,6 +15,7 @@ class LessonIsOverText extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
+
     if (isSuccess) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,

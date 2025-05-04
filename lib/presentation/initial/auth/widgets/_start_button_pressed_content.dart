@@ -38,8 +38,9 @@ class _StartButtonPressedContent extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 50),
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 50,
+                  ),
                   child: Column(
                     spacing: 30,
                     mainAxisAlignment: MainAxisAlignment.center,

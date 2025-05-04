@@ -40,13 +40,23 @@ class StarsBackground extends StatelessWidget {
           bottom: 110,
           left: 20,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
         Positioned(
           bottom: 200,
           right: 100,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
         Positioned(
           top: 100,
@@ -61,25 +71,45 @@ class StarsBackground extends StatelessWidget {
           top: 270,
           left: 20,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
         Positioned(
           bottom: 300,
           left: 60,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
         Positioned(
           bottom: 400,
           left: MediaQuery.sizeOf(context).width / 2,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
         Positioned(
           top: 300,
           right: 60,
           child: SizedBox(
-              height: 50, width: 50, child: StarAnimation(isLogin: isLogin)),
+            height: 50,
+            width: 50,
+            child: StarAnimation(
+              isLogin: isLogin,
+            ),
+          ),
         ),
       ],
     );

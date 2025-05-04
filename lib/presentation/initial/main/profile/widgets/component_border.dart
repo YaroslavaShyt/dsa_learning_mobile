@@ -6,11 +6,10 @@ class _ComponentBorder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Container(
       height: 0.5,
-      margin: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-      ),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 20),
       padding: const EdgeInsetsDirectional.symmetric(
         horizontal: 10,
         vertical: 20,
@@ -22,7 +21,7 @@ class _ComponentBorder extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.3),
-            offset: Offset(0, 1),
+            offset: const Offset(0, 1),
             blurRadius: 10,
             spreadRadius: 1,
           ),

@@ -12,9 +12,9 @@ enum AuthCubitStatus {
 class AuthCubitState extends Equatable {
   const AuthCubitState({
     this.status = AuthCubitStatus.initial,
-    this.email = '', //yaso11chkashyt@gmail.com
+    this.email = '',
     this.name = '',
-    this.password = '', //slavka
+    this.password = '',
     this.confirmPassword = '',
     this.isLoginButtonActive = false,
     this.isSignUpButtonActive = false,

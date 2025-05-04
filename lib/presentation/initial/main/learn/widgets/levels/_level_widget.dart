@@ -6,12 +6,10 @@ class _LevelWidget extends StatelessWidget {
     required this.levelNum,
     required this.position,
     required this.onTap,
-    this.isGame = false,
   });
 
   final bool isOpened;
   final String levelNum;
-  final bool isGame;
   final Position position;
   final VoidCallback onTap;
 

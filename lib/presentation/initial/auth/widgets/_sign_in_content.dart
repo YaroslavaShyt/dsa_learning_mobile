@@ -37,14 +37,13 @@ class _SignInContentState extends State<_SignInContent> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return MainContainer(
       height: 400,
-      margin: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-      ),
-      padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20.0,
-      ),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,10 +53,10 @@ class _SignInContentState extends State<_SignInContent> {
           ),
           Text(
             context.tr('signIn'),
-            style: getTextTheme(context).titleLarge?.copyWith(
-                  color: getColorScheme(context).primaryFixed,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.primaryFixed,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: 30.0),
@@ -83,14 +82,12 @@ class _SignInContentState extends State<_SignInContent> {
                   },
                   child: Text(
                     context.tr('confirm'),
-                    style: getTextTheme(context).labelMedium?.copyWith(
-                          color: widget.isButtonActive
-                              ? getColorScheme(context).primaryFixed
-                              : getColorScheme(context)
-                                  .onSurface
-                                  .withValues(alpha: 0.3),
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: textTheme.labelMedium?.copyWith(
+                      color: widget.isButtonActive
+                          ? colorScheme.primaryFixed
+                          : colorScheme.onSurface.withValues(alpha: 0.3),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

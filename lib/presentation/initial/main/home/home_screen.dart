@@ -5,11 +5,9 @@ import 'package:dsa_learning/core/constants/image_assets.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/data/rewards/achievements/streak.dart';
-import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
 import 'package:dsa_learning/domain/rewards/achievements/iachievement.dart';
 import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
 import 'package:dsa_learning/domain/statistics/istatistics.dart';
-import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/loader/loader_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/bloc/home_state.dart';
@@ -18,7 +16,6 @@ import 'package:dsa_learning/presentation/initial/main/home/widgets/achievements
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/statistics/bloc/statistics_state.dart';
 import 'package:dsa_learning/presentation/initial/main/home/widgets/streak/lost_streak_content.dart';
-import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/lottie_animations/main_animation_widget.dart';
@@ -53,8 +50,6 @@ class HomeScreen extends StatefulWidget with PopUpMixin {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final IAudioHandler _audioHandler = sl.get<IAudioHandler>();
-
   @override
   void initState() {
     super.initState();
@@ -96,10 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         spacing: 20,
                         children: [
-                          _StreakWidget(
-                            streak: state.streak,
-                            avatarPath: state.profilePhoto,
-                          ),
+                          _StreakWidget(streak: state.streak),
                           _HelloUserWidget(
                             key: homeContentKey,
                             onTimerFinished: widget.cubit.onTimerFinished,
@@ -164,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSeeAllTap(BuildContext context, HomeState state) {
-    _audioHandler.playButtonSound(widget.cubit.isSoundEnabled);
+    widget.cubit.playAudio();
     widget.showPopup(
       context: context,
       height: 400,
@@ -176,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showShop(BuildContext context) {
-    _audioHandler.playButtonSound(widget.cubit.isSoundEnabled);
+    widget.cubit.playAudio();
     widget.showPopup(
       height: 460,
       context: context,

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dsa_learning/core/constants/duration.dart';
 import 'package:dsa_learning/core/utils/mixins/snackbar_mixin.dart';
-import 'package:dsa_learning/core/utils/mixins/sound_mixin.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/initial/auth/bloc/auth_cubit.dart';
@@ -47,10 +46,7 @@ class AuthScreen extends StatelessWidget with SnackBarMixin {
       body: BlocConsumer<AuthCubit, AuthCubitState>(
         listener: (_, AuthCubitState state) {
           if (state.status == AuthCubitStatus.authFail) {
-            showSnackBar(
-              context,
-              text: context.tr('authError'),
-            );
+            showSnackBar(context, text: context.tr('authError'));
           }
         },
         builder: (_, AuthCubitState state) {

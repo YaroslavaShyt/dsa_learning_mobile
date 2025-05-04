@@ -30,8 +30,8 @@ class OnboardingScreen extends StatelessWidget {
         height: 130,
         padding: const EdgeInsetsDirectional.only(
           start: 16,
-          end: 16,
           top: 20,
+          end: 16,
           bottom: 10,
         ),
         decoration: BoxDecoration(

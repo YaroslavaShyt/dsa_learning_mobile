@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 
 class LoaderScreen extends StatelessWidget {
   const LoaderScreen({
+    required this.isLoadingInProgress,
     this.loadingText,
     this.loadedText,
-    required this.isLoadingInProgress,
     super.key,
   });
 
@@ -20,6 +20,7 @@ class LoaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
+
     return SizedBox(
       height: MediaQuery.sizeOf(context).height,
       child: Scaffold(

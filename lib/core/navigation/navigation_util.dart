@@ -7,9 +7,7 @@ class NavigationUtil implements INavigationUtil {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
-  bool get canPop {
-    return navigatorKey.currentState!.canPop();
-  }
+  bool get canPop => navigatorKey.currentState!.canPop();
 
   @override
   void navigateBack({data, int pagesNum = 1}) {
@@ -26,9 +24,8 @@ class NavigationUtil implements INavigationUtil {
   }
 
   @override
-  void navigateBackUntilNamed(String named) {
-    navigatorKey.currentState!.popUntil(ModalRoute.withName(named));
-  }
+  void navigateBackUntilNamed(String named) =>
+      navigatorKey.currentState!.popUntil(ModalRoute.withName(named));
 
   @override
   Future navigateTo<T extends Object?>(

@@ -46,8 +46,8 @@ class _MainTextFieldState extends State<MainTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = getColorScheme(context);
-    final textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+    final TextTheme textTheme = getTextTheme(context);
 
     return TextField(
       controller: widget.controller,

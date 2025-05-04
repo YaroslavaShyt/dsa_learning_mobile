@@ -29,6 +29,7 @@ class _AuthSliderState extends State<_AuthSlider> {
 
   void _onPageChanged() {
     final int index = _controller.page!.toInt();
+
     if (index == widget.sliderComponents.length - 1) {
       _controller.jumpToPage(0);
       widget.onPageChanged(0);

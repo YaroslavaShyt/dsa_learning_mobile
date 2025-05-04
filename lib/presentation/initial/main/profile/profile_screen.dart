@@ -1,6 +1,5 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
-import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/avatar/avatar_factory.dart';
 import 'package:dsa_learning/presentation/initial/main/profile/bloc/profile_cubit.dart';
@@ -44,34 +43,32 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
                 const MainBackground(),
                 Center(
                   child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.all(18.0),
-                      child: Column(
-                        key: finishKey,
-                        children: [
-                          _UserInfoWidget(
-                            avatarPath: state.profilePhoto,
-                            userName: cubit.userName,
-                            onAvatarTap: () => _onAvatarTap(context),
-                          ),
-                          _ProfileMenu(
-                            key: settingsMenuKey,
-                            onSoundTap: cubit.onSoundTap,
-                            onLanguageTap: cubit.onLanguageTap,
-                            onVibrationTap: cubit.onVibrationTap,
-                            onAboutInfoTap: cubit.onAboutInfoTap,
-                            onAnimationTap: cubit.onAnimationTap,
-                            isSoundEnabled: state.isSoundEnabled,
-                            isLanguageShown: state.isLanguageShown,
-                            isAboutInfoShown: state.isAboutInfoShown,
-                            isVibrationEnabled: state.isVibrationEnabled,
-                            isAnimationsEnabled: state.isAnimationEnabled,
-                            onExitTap: () => _onExitTap(context),
-                            onDeleteAccountTap: () => _onDeleteTap(context),
-                          ),
-                          const SizedBox(height: 150),
-                        ],
-                      ),
+                    padding: const EdgeInsetsDirectional.all(18),
+                    child: Column(
+                      key: finishKey,
+                      children: [
+                        _UserInfoWidget(
+                          avatarPath: state.profilePhoto,
+                          userName: cubit.userName,
+                          onAvatarTap: () => _onAvatarTap(context),
+                        ),
+                        _ProfileMenu(
+                          key: settingsMenuKey,
+                          onSoundTap: cubit.onSoundTap,
+                          onLanguageTap: cubit.onLanguageTap,
+                          onVibrationTap: cubit.onVibrationTap,
+                          onAboutInfoTap: cubit.onAboutInfoTap,
+                          onAnimationTap: cubit.onAnimationTap,
+                          isSoundEnabled: state.isSoundEnabled,
+                          isLanguageShown: state.isLanguageShown,
+                          isAboutInfoShown: state.isAboutInfoShown,
+                          isVibrationEnabled: state.isVibrationEnabled,
+                          isAnimationsEnabled: state.isAnimationEnabled,
+                          onExitTap: () => _onExitTap(context),
+                          onDeleteAccountTap: () => _onDeleteTap(context),
+                        ),
+                        const SizedBox(height: 150),
+                      ],
                     ),
                   ),
                 ),

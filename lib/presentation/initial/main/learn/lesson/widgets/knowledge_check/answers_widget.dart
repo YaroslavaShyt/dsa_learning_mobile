@@ -75,11 +75,7 @@ class AnswersWidget extends StatelessWidget {
     );
   }
 
-  bool _isSelected(String answer) {
-    return answer == selectedAnswer;
-  }
+  bool _isSelected(String answer) => answer == selectedAnswer;
 
-  bool _isSelectedCorrect(String answer) {
-    return answer == correctAnswer;
-  }
+  bool _isSelectedCorrect(String answer) => answer == correctAnswer;
 }

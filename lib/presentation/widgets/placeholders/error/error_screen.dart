@@ -16,6 +16,9 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
       child: Column(
@@ -26,20 +29,20 @@ class ErrorScreen extends StatelessWidget {
           ),
           Text(
             context.tr('somethingWentWrong'),
-            style: getTextTheme(context).bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+            style: textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
           MainOutlinedButton(
             onPressed: onTap,
             child: Text(
               context.tr('tryAgain'),
-              style: getTextTheme(context).bodyMedium?.copyWith(
-                    color: getColorScheme(context).primaryFixed,
-                    fontWeight: FontWeight.w700,
-                  ),
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.primaryFixed,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -35,7 +35,7 @@ class AvatarCubit extends Cubit<AvatarState> {
   bool isEnoughMoney(int price) => _rewardsService.bytes >= price;
 
   void onCloseButtonTap() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _audioHandler.playButtonSound(isAudioOn: _userService.user!.sounds);
     _navigationUtil.navigateBackToStart();
   }
 

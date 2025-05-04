@@ -7,6 +7,7 @@ class _LearnTabBar extends StatelessWidget {
     required this.onStartButtonTap,
     required this.lessonsSummary,
     required this.isLessonOpened,
+    required this.vents,
   });
 
   final VoidCallback playSound;
@@ -14,10 +15,12 @@ class _LearnTabBar extends StatelessWidget {
   final void Function(int, int, String) onStartButtonTap;
   final List<ICategory> lessonsSummary;
   final bool Function(int) isLessonOpened;
+  final int vents;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
+
     return MainTabBar(
       labelStyle: textTheme.labelSmall?.copyWith(
         fontWeight: FontWeight.w700,
@@ -38,6 +41,7 @@ class _LearnTabBar extends StatelessWidget {
       ],
       tabBarContent: [
         _AlgorithmsContent(
+          vents: vents,
           playSound: playSound,
           isLessonOpened: isLessonOpened,
           categorySummary: lessonsSummary.last,
@@ -46,6 +50,7 @@ class _LearnTabBar extends StatelessWidget {
               onStartButtonTap(id, val, 'ALGORITHMS'),
         ),
         _DataStructuresContent(
+          vents: vents,
           playSound: playSound,
           isLessonOpened: isLessonOpened,
           categorySummary: lessonsSummary.first,

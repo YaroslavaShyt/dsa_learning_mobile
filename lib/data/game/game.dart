@@ -16,15 +16,14 @@ class Game implements IGame {
   });
 
   factory Game.fromJson(Map<String, dynamic> data) {
+    final List<ITask> tasks =
+        data[_gameTasks].map<ITask>((task) => Task.fromJson(task)).toList();
+
     return Game(
       id: data[_gameId],
       title: data[_gameName],
       timeLimit: data[_timeLimit],
-      tasks: data[_gameTasks]
-          .map<ITask>(
-            (task) => Task.fromJson(task),
-          )
-          .toList(),
+      tasks: tasks,
     );
   }
 

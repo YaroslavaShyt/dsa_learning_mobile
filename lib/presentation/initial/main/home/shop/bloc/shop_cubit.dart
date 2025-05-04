@@ -105,7 +105,7 @@ class ShopCubit extends Cubit<ShopState> {
     try {
       if (state.selectedVents == 0 && state.selectedHash == 0) return;
 
-      _audioHandler.playButtonSound(_isSoundEnabled);
+      _audioHandler.playButtonSound(isAudioOn: _isSoundEnabled);
 
       emit(state.copyWith(isPurchaseInProgress: true));
 
@@ -121,7 +121,7 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onCloseButtonTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _audioHandler.playButtonSound(isAudioOn: _isSoundEnabled);
 
     _navigationUtil.navigateBack();
   }

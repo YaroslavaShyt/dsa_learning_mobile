@@ -1,7 +1,7 @@
 part of '../auth_screen.dart';
 
-class _BackButton extends StatelessWidget with SoundMixin {
-  _BackButton({
+class _BackButton extends StatelessWidget {
+  const _BackButton({
     required this.onBackPressed,
   });
 
@@ -10,11 +10,10 @@ class _BackButton extends StatelessWidget with SoundMixin {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+    final TextTheme textTheme = getTextTheme(context);
+
     return TapAnimatedWidget(
-      onTap: () {
-        sound(true);
-        onBackPressed();
-      },
+      onTap: onBackPressed,
       child: Row(
         children: [
           Icon(
@@ -24,12 +23,12 @@ class _BackButton extends StatelessWidget with SoundMixin {
           ),
           Text(
             context.tr('back'),
-            style: getTextTheme(context).labelSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: colorScheme.onSurface.withValues(alpha: 1),
-                  fontSize: 16,
-                ),
-          )
+            style: textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: colorScheme.onSurface.withValues(alpha: 1),
+              fontSize: 16,
+            ),
+          ),
         ],
       ),
     );

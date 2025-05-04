@@ -1,5 +1,4 @@
 import 'package:dsa_learning/core/utils/theme/color_palette.dart';
-import 'package:dsa_learning/core/utils/theme/scroll_bar_theme.dart';
 import 'package:flutter/material.dart';
 
 ColorScheme getColorScheme(BuildContext context) =>
@@ -12,10 +11,11 @@ class AppColorTheme {
         scrollbarTheme: const ScrollbarThemeData().copyWith(
           thumbVisibility: const WidgetStatePropertyAll(true),
           trackVisibility: const WidgetStatePropertyAll(false),
-          thumbColor: WidgetStateProperty.all(
-              _lightColorScheme.onSurface.withValues(alpha: 0.5)),
           thickness: const WidgetStatePropertyAll(8),
           radius: const Radius.circular(20),
+          thumbColor: WidgetStateProperty.all(
+            _lightColorScheme.onSurface.withValues(alpha: 0.5),
+          ),
         ),
       );
 

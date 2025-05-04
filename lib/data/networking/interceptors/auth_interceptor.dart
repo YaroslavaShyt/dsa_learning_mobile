@@ -3,6 +3,13 @@ import 'package:dsa_learning/core/exceptions/user_not_found_exception.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
 import 'package:dsa_learning/domain/storage/isecure_storage.dart';
 
+const String _token = 'token';
+const String _id = 'id';
+
+const String _authorization = 'Authorization';
+const String _bearer = 'Bearer';
+const String _xUserId = 'X-User-Id';
+
 class AuthInterceptor extends Interceptor {
   AuthInterceptor({
     required ISecureStorage storage,
@@ -16,12 +23,15 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     if (_isAuthHeaderRequired(options)) {
-      final data = await Future.wait([
-        _storage.read(key: 'token'),
-        _storage.read(key: 'id'),
-      ]);
-      options.headers['Authorization'] = 'Bearer ${data.first}';
-      options.headers['X-User-Id'] =
+      final data = await Future.wait(
+        [
+          _storage.read(key: _token),
+          _storage.read(key: _id),
+        ],
+      );
+
+      options.headers[_authorization] = '$_bearer ${data.first}';
+      options.headers[_xUserId] =
           data.last != null ? int.parse(data.last!) : data.last;
     }
     handler.next(options);
@@ -34,9 +44,8 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401) {
-      throw UserNotFoundException();
-    }
+    if (err.response?.statusCode == 401) throw UserNotFoundException();
+
     return super.onError(err, handler);
   }
 }

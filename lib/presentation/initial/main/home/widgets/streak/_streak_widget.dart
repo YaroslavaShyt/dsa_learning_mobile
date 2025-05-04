@@ -3,11 +3,9 @@ part of '../../home_screen.dart';
 class _StreakWidget extends StatelessWidget {
   const _StreakWidget({
     required this.streak,
-    required this.avatarPath,
   });
 
   final List<IStreak> streak;
-  final String avatarPath;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +21,6 @@ class _StreakWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // TODO: avatar in streak
-          // AvatarWidget(
-          //   size: 30,
-          //   avatarPath: avatarPath,
-          // ),
           ..._buildStreak(context),
         ],
       ),
@@ -37,13 +30,11 @@ class _StreakWidget extends StatelessWidget {
   List<Column> _buildStreak(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
 
-    final today = DateTime.now();
-    final last7Days = List.generate(
+    final DateTime today = DateTime.now();
+    final List<DateTime> last7Days = List.generate(
       7,
-      (index) {
-        return today.subtract(Duration(days: index));
-      },
-    ).reversed;
+      (index) => today.subtract(Duration(days: index)),
+    ).reversed.toList();
 
     return last7Days.map(
       (day) {

@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 abstract interface class INavigationUtil {
   GlobalKey<NavigatorState> get navigatorKey;
 
+  bool get canPop;
+
   Future<dynamic> navigateTo<T extends Object?>(
     String routeName, {
     bool allowBackNavigation = true,
     dynamic data,
+  });
+
+  void navigateBack({
+    dynamic data,
+    int pagesNum = 1,
   });
 
   Future<dynamic> navigateToAndMakeRoot<T extends Object?>(
@@ -20,14 +27,7 @@ abstract interface class INavigationUtil {
     dynamic data,
   });
 
-  void navigateBack({
-    dynamic data,
-    int pagesNum = 1,
-  });
-
   void navigateBackUntilNamed(String named);
-
-  bool get canPop;
 
   void navigateBackToStart();
 }

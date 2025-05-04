@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/networking/endpoints.dart';
 import 'package:dsa_learning/domain/networking/inetworking_client.dart';
@@ -20,7 +19,7 @@ class RewardsRepository implements IRewardsRepository {
     required int vents,
   }) async {
     try {
-      final Response? response = await _networkingClient.put(
+      _networkingClient.put(
         Endpoints.rewardsEndpoint,
         queryParameters: {
           _RewardsRepositoryKeys.bytes: bytes,

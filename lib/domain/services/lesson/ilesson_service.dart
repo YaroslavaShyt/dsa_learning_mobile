@@ -5,14 +5,13 @@ abstract interface class ILessonService {
 
   Set<int> get learnedDataStructuresLessonsId;
 
-  Future<void> updateLearnedLessons(int id, int time, String category);
-
-  bool isLessonLearned(int id);
-
   int get algorithmsLessonsNum;
 
   int get dataStructuresLessonsNum;
 
   int get lessonsCounter;
 
+  Future<void> updateLearnedLessons(int id, int time, String category);
+
+  bool isLessonLearned(int id);
 }

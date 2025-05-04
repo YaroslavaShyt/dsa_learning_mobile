@@ -18,6 +18,7 @@ class _MainFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Container(
       padding: const EdgeInsetsDirectional.all(4),
       decoration: BoxDecoration(

@@ -27,8 +27,9 @@ class LearnFactory {
         listenWhen: (p, c) =>
             c.user != null && p.user!.sounds != c.user!.sounds,
         listener: (BuildContext context, UserState state) {
-          BlocProvider.of<LearnCubit>(context)
-              .updateSoundSettings(state.user!.sounds);
+          BlocProvider.of<LearnCubit>(context).updateSoundSettings(
+            isSoundOn: state.user!.sounds,
+          );
         },
         child: Builder(
           builder: (BuildContext context) {

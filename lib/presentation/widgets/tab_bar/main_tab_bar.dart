@@ -29,6 +29,7 @@ class MainTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
+
     return DefaultTabController(
       initialIndex: initialIndex,
       length: tabs.length,

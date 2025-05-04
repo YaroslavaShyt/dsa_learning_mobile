@@ -21,8 +21,9 @@ class CustomCheckboxPainter extends CustomPainter {
 
     final double radius = 8.0;
     final Rect rect = Rect.fromLTWH(0, 0, this.size, this.size);
-    final RRect rrect = RRect.fromRectAndRadius(rect, Radius.circular(radius));
-    canvas.drawRRect(rrect, paint);
+    final RRect roundedRect =
+        RRect.fromRectAndRadius(rect, Radius.circular(radius));
+    canvas.drawRRect(roundedRect, paint);
 
     if (isChecked) {
       final Paint checkPaint = Paint()
@@ -31,13 +32,13 @@ class CustomCheckboxPainter extends CustomPainter {
         ..style = PaintingStyle.stroke;
 
       if (isCorrect) {
-        Path checkPath = Path()
+        final Path checkPath = Path()
           ..moveTo(this.size * 0.3, this.size * 0.5)
           ..lineTo(this.size * 0.45, this.size * 0.65)
           ..lineTo(this.size * 0.7, this.size * 0.35);
         canvas.drawPath(checkPath, checkPaint);
       } else {
-        Path crossPath = Path()
+        final Path crossPath = Path()
           ..moveTo(this.size * 0.3, this.size * 0.3)
           ..lineTo(this.size * 0.7, this.size * 0.7)
           ..moveTo(this.size * 0.7, this.size * 0.3)
@@ -48,7 +49,5 @@ class CustomCheckboxPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

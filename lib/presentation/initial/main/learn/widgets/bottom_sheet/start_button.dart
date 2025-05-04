@@ -17,6 +17,7 @@ class StartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
+
     return Positioned(
       right: 10,
       bottom: 20,
@@ -33,7 +34,7 @@ class StartButton extends StatelessWidget {
                 Text(
                   context.tr('start'),
                   style: textTheme.labelMedium?.copyWith(
-                    color: getColorScheme(context).primaryFixed,
+                    color: colorScheme.primaryFixed,
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
                   ),
@@ -42,7 +43,7 @@ class StartButton extends StatelessWidget {
                   Icons.arrow_forward_ios_rounded,
                   color: colorScheme.primaryFixed,
                   size: 30,
-                )
+                ),
               ],
             ),
           ),

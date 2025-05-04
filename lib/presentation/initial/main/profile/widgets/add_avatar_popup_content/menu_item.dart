@@ -22,6 +22,7 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
+
     return TapAnimatedWidget(
       onTap: onTap,
       child: Container(
@@ -37,17 +38,15 @@ class MenuItem extends StatelessWidget {
           ),
         ),
         child: Row(
+          spacing: 10,
           children: [
             Icon(
               icon,
               color: colorScheme.onSurface,
             ),
-            const SizedBox(width: 10),
             Text(
               context.tr(title),
-              style: textTheme.labelSmall?.copyWith(
-                  // fontWeight: FontWeight.w700,
-                  ),
+              style: textTheme.labelSmall,
             ),
           ],
         ),

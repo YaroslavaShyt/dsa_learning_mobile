@@ -111,8 +111,7 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   Future<void> onNextButtonPressed(RewardFunc onTheoryFinished) async {
-    _audioHandler.playButtonSound(_isSoundEnabled);
-
+    _playSound();
     if (state.step == 4) {
       emit(state.copyWith(progress: state.progress + _progressStep));
 
@@ -134,8 +133,12 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
+  void _playSound() {
+    _audioHandler.playButtonSound(isAudioOn: _isSoundEnabled);
+  }
+
   void onBackButtonPressed(VoidCallback confirmExit) {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
 
     if (state.activityType == ActivityType.theory) {
       if (state.step > 1) {
@@ -164,22 +167,22 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onConfirmTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
     _navigationUtil.navigateBack(pagesNum: 2);
   }
 
   void onCancelTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
     _navigationUtil.navigateBack();
   }
 
   void onLaterTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
     _navigationUtil.navigateBack();
   }
 
   void onLetsGoTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
     _navigationUtil.navigateBack();
     emit(state.copyWith(activityType: ActivityType.game));
   }
@@ -200,9 +203,7 @@ class LessonCubit extends Cubit<LessonState> {
     return '';
   }
 
-  ITask get task {
-    return state.game!.tasks[state.gameStep];
-  }
+  ITask get task => state.game!.tasks[state.gameStep];
 
   String _formatTime(int seconds) {
     return DateFormat('mm:ss').format(
@@ -214,10 +215,10 @@ class LessonCubit extends Cubit<LessonState> {
 
   void onAnswerSelected(
     String answer,
-    bool isCorrect,
-    VoidCallback onAllVentsUsed,
-  ) {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    VoidCallback onAllVentsUsed, {
+    required bool isCorrect,
+  }) {
+    _playSound();
 
     if (_rewardsService.vents < 1) {
       onAllVentsUsed();
@@ -246,11 +247,10 @@ class LessonCubit extends Cubit<LessonState> {
 
   Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
     try {
-      _audioHandler.playButtonSound(_isSoundEnabled);
+      _playSound();
 
       if (_rewardsService.vents < 1) {
         onAllVentsUsed();
-        // return;
       }
       if (state.selectedAnswer.isEmpty) return;
 
@@ -298,7 +298,7 @@ class LessonCubit extends Cubit<LessonState> {
             achievements: _achievements,
             isVibrationEnabled: _isVibrationEnabled,
             isAudioEnabled: _isSoundEnabled,
-            playSound: () => _audioHandler.playButtonSound(_isSoundEnabled),
+            playSound: () => _playSound(),
             vibrate: () => _vibrationHandler.vibrate(repeat: false),
           ),
         );
@@ -315,7 +315,7 @@ class LessonCubit extends Cubit<LessonState> {
     if (_isSavvyAchieved()) {
       achievements.add(AchievementType.savvy);
     }
-    if (_isDevotionAchieved()) {
+    if (_isDevotionAchieved) {
       achievements.add(AchievementType.devotion);
     }
     if (_isJuniorAchieved()) {
@@ -340,17 +340,8 @@ class LessonCubit extends Cubit<LessonState> {
   bool _isSavvyAchieved() =>
       state.gameCorrectAnswers == state.game!.tasks.length;
 
-  bool _isDevotionAchieved() {
-    return _achievementsService
-                .streak[_achievementsService.streak.length - 2].status ==
-            StreakStatus.learned &&
-        (_achievementsService
-                    .streak[_achievementsService.streak.length - 1].status ==
-                StreakStatus.frozen ||
-            _achievementsService
-                    .streak[_achievementsService.streak.length - 1].status ==
-                StreakStatus.notLearned);
-  }
+  bool get _isDevotionAchieved =>
+      _achievementsService.isDevotionAchievementReceived();
 
   bool _isJuniorAchieved() {
     return _lessonService.learnedAlgorithmsLessonsId.length ==
@@ -389,7 +380,7 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   void onVentsUsedNoTap() {
-    _audioHandler.playButtonSound(_isSoundEnabled);
+    _playSound();
     _navigationUtil.navigateBackToStart();
   }
 }

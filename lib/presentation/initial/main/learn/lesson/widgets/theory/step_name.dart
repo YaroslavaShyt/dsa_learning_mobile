@@ -12,6 +12,7 @@ class StepName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
+
     return Text(
       stepName,
       textAlign: TextAlign.center,

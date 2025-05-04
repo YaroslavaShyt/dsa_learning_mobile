@@ -62,16 +62,21 @@ class Achievement implements IAchievement {
       json[_title] ?? json['name'],
     );
     final bool isUnlocked = json[_achievedOn] != null;
+    final String id = (json[_id] ?? json['id']).toString();
+    final String title = json[_title] ?? json['name'];
+    final DateTime achievedOn = isUnlocked
+        ? DateTime.parse(json[_achievedOn] ?? json['createdAt'])
+        : DateTime.now();
+    final String description = json[_description] ?? '';
+
     return Achievement(
-      id: (json[_id] ?? json['id']).toString(),
-      title: json[_title] ?? json['name'],
-      achievedOn: isUnlocked
-          ? DateTime.parse(json[_achievedOn] ?? json['createdAt'])
-          : DateTime.now(),
-      description: json[_description] ?? '',
-      achievementType: type,
-      path: _getImage(type, isUnlocked),
+      id: id,
+      title: title,
       isLocked: !isUnlocked,
+      achievementType: type,
+      achievedOn: achievedOn,
+      description: description,
+      path: _getImage(type, isUnlocked),
     );
   }
 
@@ -83,9 +88,8 @@ class Achievement implements IAchievement {
   }
 
   static String _getImage(AchievementType type, bool isUnlocked) {
-    if (!isUnlocked) {
-      return ImageAssets.lockedAchievement;
-    }
+    if (!isUnlocked) return ImageAssets.lockedAchievement;
+
     return switch (type) {
       AchievementType.locked => ImageAssets.lockedAchievement,
       AchievementType.devotion => ImageAssets.devotion,

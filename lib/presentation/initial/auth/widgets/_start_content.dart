@@ -14,6 +14,8 @@ class _StartContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -24,9 +26,7 @@ class _StartContent extends StatelessWidget {
           width: size.width / 1.5,
         ),
         MainContainer(
-          margin: const EdgeInsetsDirectional.symmetric(
-            horizontal: 20,
-          ),
+          margin: const EdgeInsetsDirectional.symmetric(horizontal: 20),
           height: 300,
           content: Column(
             mainAxisSize: MainAxisSize.max,
@@ -38,18 +38,16 @@ class _StartContent extends StatelessWidget {
                 onSliderIndexChanged: onSliderIndexChanged,
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  horizontal: 80.0,
-                ),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 80),
                 child: MainOutlinedButton(
                   onPressed: onStartButtonPressed,
                   child: Text(
                     context.tr('start'),
-                    style: getTextTheme(context).labelMedium?.copyWith(
-                          color: getColorScheme(context).primaryFixed,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        ),
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorScheme.primaryFixed,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),

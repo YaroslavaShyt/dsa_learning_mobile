@@ -6,6 +6,7 @@ class _StatisticsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return MainContainer(
       padding: const EdgeInsetsDirectional.all(10),
       content: Container(

@@ -27,12 +27,15 @@ class _SnackBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Text(
       text,
-      style: getTextTheme(context).labelMedium?.copyWith(
-            color: getColorScheme(context).onSurface.withValues(alpha: 1),
-            fontWeight: FontWeight.w700,
-          ),
+      style: textTheme.labelMedium?.copyWith(
+        color: colorScheme.onSurface.withValues(alpha: 1),
+        fontWeight: FontWeight.w700,
+      ),
     );
   }
 }

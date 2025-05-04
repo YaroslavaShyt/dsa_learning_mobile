@@ -21,14 +21,25 @@ class MainContainer extends StatelessWidget {
   final double? borderRadius;
   final double? height;
   final double? width;
+
   final Widget? content;
   final Color? color;
-  final bool showBorder;
   final Color? borderColor;
+
+  final bool showBorder;
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+    final Color containerBorderColor =
+        borderColor ?? colorScheme.onSurface.withValues(alpha: 0.4);
+    final Border? border = showBorder
+        ? Border.all(
+            width: 2,
+            color: containerBorderColor,
+          )
+        : null;
+
     return Container(
       margin: margin,
       padding: padding,
@@ -37,19 +48,11 @@ class MainContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? colorScheme.onSurface.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(borderRadius ?? 20),
-        border: showBorder
-            ? Border.all(
-                width: 2,
-                color: borderColor ??
-                    colorScheme.onSurface.withValues(
-                      alpha: 0.4,
-                    ),
-              )
-            : null,
+        border: border,
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),
-            offset: Offset(4, 4),
+            offset: const Offset(4, 4),
             blurRadius: 8,
             spreadRadius: 1,
           ),

@@ -10,6 +10,8 @@ class MainDottedLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Positioned(
       bottom: position.bottom,
       left: position.left,
@@ -17,7 +19,7 @@ class MainDottedLine extends StatelessWidget {
         turns: AlwaysStoppedAnimation(position.rotation! / 360),
         child: DottedLine(
           lineLength: 70,
-          dashColor: getColorScheme(context).onSurface,
+          dashColor: colorScheme.onSurface,
         ),
       ),
     );

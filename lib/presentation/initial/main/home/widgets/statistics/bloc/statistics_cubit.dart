@@ -51,8 +51,6 @@ class StatisticsCubit extends Cubit<StatisticsState> {
       if (statistics.algorithms > max) {
         max = statistics.algorithms;
       }
-      print(statistics.dataStructures);
-      print(statistics.algorithms);
     }
     return max;
   }

@@ -13,6 +13,7 @@ class AppCloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Positioned(
       top: 0,
       right: 10,

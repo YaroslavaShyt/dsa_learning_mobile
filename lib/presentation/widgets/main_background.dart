@@ -12,6 +12,7 @@ class MainBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Container(
       height: MediaQuery.sizeOf(context).height * scaleParam,
       width: MediaQuery.sizeOf(context).width,

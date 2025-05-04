@@ -23,6 +23,7 @@ class MainOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return TapAnimatedWidget(
       onTap: onPressed,
       child: OutlinedButton(

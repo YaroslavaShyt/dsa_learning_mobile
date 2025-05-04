@@ -36,6 +36,7 @@ class LearnCubit extends Cubit<LearnState> {
   final ILessonService _lessonService;
   final IRewardsService _rewardsService;
   final VoidCallback _onInitialized;
+
   bool _isSoundOn;
 
   int get vents => _rewardsService.vents;
@@ -43,10 +44,10 @@ class LearnCubit extends Cubit<LearnState> {
   bool Function(int) get isLessonOpened => _lessonService.isLessonLearned;
 
   void playSound() {
-    _audioHandler.playButtonSound(_isSoundOn);
+    _audioHandler.playButtonSound(isAudioOn: _isSoundOn);
   }
 
-  void updateSoundSettings(bool isSoundOn) {
+  void updateSoundSettings({required bool isSoundOn}) {
     _isSoundOn = isSoundOn;
   }
 
@@ -64,6 +65,7 @@ class LearnCubit extends Cubit<LearnState> {
           status: status,
         ),
       );
+
       if (status == LearnStatus.loaded) _onInitialized();
     } catch (error) {
       logger.e(error);

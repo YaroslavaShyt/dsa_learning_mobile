@@ -1,6 +1,6 @@
 part of '../../../main.dart';
 
-final sl = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
 class _ServiceLocator {
   static Future<void> init() async {
@@ -71,14 +71,10 @@ class _ServiceLocator {
     sl.registerFactory<ITokenService>(
       () => TokenService(storage: sl.get<ISecureStorage>()),
     );
-    sl.registerFactory<IPermissionService>(
-      () => PermissionService(
-        deviceInfoPlugin: DeviceInfoPlugin(),
-        localStorage: sl.get<ILocalStorage>(),
-      ),
-    );
     sl.registerSingleton<ILessonService>(
-      LessonService(lessonRepository: sl.get<ILessonRepository>()),
+      LessonService(
+        lessonRepository: sl.get<ILessonRepository>(),
+      ),
     );
   }
 
@@ -89,17 +85,10 @@ class _ServiceLocator {
   }
 
   static void _initHandlers() {
-    sl.registerFactory<ICameraHandler>(() => CameraHandler());
-    sl.registerFactory<IFileHandler>(() => FileHandler());
-    sl.registerFactory<ISelectImageHandler>(
-      () => SelectImageHandler(
-        permissionService: sl.get<IPermissionService>(),
-        cameraHandler: sl.get<ICameraHandler>(),
-        fileHandler: sl.get<IFileHandler>(),
-      ),
-    );
     sl.registerFactory<IVibrationHandler>(() => VibrationHandler());
     sl.registerSingleton<IAudioHandler>(AudioHandler()).initButtonAudio();
+    sl.registerFactory<IStreakHandler>(() => StreakHandler());
+    sl.registerFactory<ITutorialHandler>(() => TutorialHandler());
   }
 
   static List<BlocProvider> get cubitAsService => [

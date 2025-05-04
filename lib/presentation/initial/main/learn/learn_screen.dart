@@ -9,7 +9,6 @@ import 'package:dsa_learning/presentation/initial/main/learn/bloc/learn_state.da
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/bottom_sheet/pre_lesson_info.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_dotted_line.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/widgets/levels/_pattern.dart';
-import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
 import 'package:dsa_learning/presentation/widgets/animated_gestures/tap_animated_widget.dart';
 import 'package:dsa_learning/presentation/widgets/bottomsheet/bottom_sheet_mixin.dart';
@@ -54,6 +53,7 @@ class LearnScreen extends StatelessWidget {
                   ErrorFactory.build(cubit.init),
                 if (state.status == LearnStatus.loaded)
                   _LearnTabBar(
+                    vents: cubit.vents,
                     playSound: cubit.playSound,
                     lessonsSummary: state.lessonsSummary,
                     isLessonOpened: cubit.isLessonOpened,

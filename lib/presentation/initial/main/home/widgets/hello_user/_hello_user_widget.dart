@@ -50,9 +50,9 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
 
           if (widget.fan < 5) {
             _startTimer();
-          } else {
-            _timer.cancel();
+            return;
           }
+          _timer.cancel();
         }
       },
     );
@@ -60,25 +60,26 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
 
   void _calculateRemainingTime() {
     if (widget.fan < 5) {
-      final timeSinceLastUpdate =
+      final Duration timeSinceLastUpdate =
           DateTime.now().difference(widget.fansLastUpdated);
-      final maxTime = const Duration(hours: 4, minutes: 30);
-      final remainingTime = maxTime - timeSinceLastUpdate;
+      final Duration maxTime = const Duration(hours: 4, minutes: 30);
+      final Duration remainingTime = maxTime - timeSinceLastUpdate;
 
       if (remainingTime > Duration.zero) {
         _timeRemaining = remainingTime;
-      } else {
-        _timeRemaining = Duration.zero;
+        return;
       }
-    } else {
       _timeRemaining = Duration.zero;
+
+      return;
     }
+    _timeRemaining = Duration.zero;
   }
 
   String _formatTime(Duration duration) {
-    final hours = duration.inHours;
-    final minutes = duration.inMinutes % 60;
-    final seconds = duration.inSeconds % 60;
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes % 60;
+    final int seconds = duration.inSeconds % 60;
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
@@ -90,7 +91,8 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextTheme textTheme = getTextTheme(context);
+
     return MainContainer(
       height: 270,
       padding: const EdgeInsetsDirectional.symmetric(

@@ -4,7 +4,9 @@ import 'package:dsa_learning/main.dart';
 mixin SoundMixin {
   final IAudioHandler _audioHandler = sl.get<IAudioHandler>();
 
-  void sound(bool isEnabled) {
-    _audioHandler.playButtonSound(isEnabled);
+  void sound({
+    required bool isEnabled,
+  }) {
+    _audioHandler.playButtonSound(isAudioOn: isEnabled);
   }
 }

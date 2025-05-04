@@ -1,4 +1,5 @@
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
+import 'package:dsa_learning/domain/services/handlers/itutorial_handler.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_start_or_end_screen.dart';
 import 'package:dsa_learning/presentation/initial/main/onboarding/onboarding_steps.dart';
@@ -6,9 +7,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-class TutorialHandler {
+class TutorialHandler implements ITutorialHandler {
   TutorialCoachMark? tutorialCoachMark;
 
+  @override
   void startTutorial(
     BuildContext context, {
     required void Function(int) onTabChanged,
@@ -58,7 +60,10 @@ class TutorialHandler {
       return;
     }
     if (key == settingsMenuKey) {
-      await Future.delayed(const Duration(seconds: 1), () => onTabChanged(0));
+      await Future.delayed(
+        const Duration(seconds: 1),
+        () => onTabChanged(0),
+      );
       return;
     }
   }

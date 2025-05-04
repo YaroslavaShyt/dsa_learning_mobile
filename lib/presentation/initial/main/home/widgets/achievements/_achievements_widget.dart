@@ -11,6 +11,8 @@ class _AchievementsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+
     return MainContainer(
       padding: const EdgeInsetsDirectional.symmetric(
         horizontal: 16,
@@ -24,9 +26,9 @@ class _AchievementsWidget extends StatelessWidget {
             children: [
               Text(
                 context.tr("achievements"),
-                style: getTextTheme(context).labelSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                style: textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               TapAnimatedWidget(
                 onTap: onSeeAllTap,
@@ -35,9 +37,9 @@ class _AchievementsWidget extends StatelessWidget {
                   width: 100,
                   child: Text(
                     context.tr("seeAll"),
-                    style: getTextTheme(context).labelSmall?.copyWith(
-                          fontSize: 12,
-                        ),
+                    style: textTheme.labelSmall?.copyWith(
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ),

@@ -13,6 +13,7 @@ class PopUp {
     Widget? child,
   }) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     showDialog(
       context: context,
       builder: (_) {

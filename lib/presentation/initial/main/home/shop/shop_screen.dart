@@ -52,9 +52,8 @@ class ShopScreen extends StatelessWidget {
                   bytes: state.totalBytes,
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: 50.0,
-                  ),
+                  padding:
+                      const EdgeInsetsDirectional.symmetric(horizontal: 50),
                   child: MainOutlinedButton(
                     isActive: cubit.isButtonActive,
                     height: 50,

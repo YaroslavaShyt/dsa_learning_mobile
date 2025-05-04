@@ -21,9 +21,7 @@ class RewardRow extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    if (bytes == 0 && hash == 0 && fan == 0) {
-      return const SizedBox.shrink();
-    }
+    if (bytes == 0 && hash == 0 && fan == 0) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 8),

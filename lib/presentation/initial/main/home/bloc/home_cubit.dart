@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
-import 'package:dsa_learning/domain/rewards/achievements/istreak.dart';
+import 'package:dsa_learning/domain/handlers/istreak_handler.dart';
 import 'package:dsa_learning/domain/services/achievements/iachievements_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
@@ -19,18 +19,21 @@ class HomeCubit extends Cubit<HomeState> {
     required IRewardsService rewardsService,
     required IAudioHandler audioHandler,
     required VoidCallback onInitialized,
+    required IStreakHandler streakHandler,
   })  : _achievementsService = achievementsService,
         _userService = userService,
         _navigationUtil = navigationUtil,
         _rewardsService = rewardsService,
         _audioHandler = audioHandler,
         _onInitialized = onInitialized,
+        _streakHandler = streakHandler,
         super(const HomeState());
 
   final IUserService _userService;
   final INavigationUtil _navigationUtil;
   final IRewardsService _rewardsService;
   final IAchievementsService _achievementsService;
+  final IStreakHandler _streakHandler;
   final IAudioHandler _audioHandler;
   final VoidCallback _onInitialized;
 
@@ -44,7 +47,9 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(state.copyWith(status: HomeStatus.loading));
       await _achievementsService.init();
-      _lostStreak = shouldShowLostStreakPopup(_achievementsService.streak);
+      _lostStreak = _streakHandler.shouldShowLostStreakPopup(
+        _achievementsService.streak,
+      );
       _achievementsService.achievements.sort((a, b) => a.isLocked ? 1 : -1);
       emit(
         state.copyWith(
@@ -55,7 +60,6 @@ class HomeCubit extends Cubit<HomeState> {
           hash: _rewardsService.hash,
           bytes: _rewardsService.bytes,
           vent: _rewardsService.vents,
-          profilePhoto: _user.profilePhoto,
         ),
       );
       _onInitialized();
@@ -69,12 +73,12 @@ class HomeCubit extends Cubit<HomeState> {
   bool get isSoundEnabled => _userService.user!.sounds;
 
   void onCloseButtonTap() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    playAudio();
     _navigationUtil.navigateBack();
   }
 
-  void onUserDataChanged() {
-    emit(state.copyWith(profilePhoto: _user.profilePhoto));
+  void playAudio() {
+    _audioHandler.playButtonSound(isAudioOn: _userService.user!.sounds);
   }
 
   void onTimerFinished() {

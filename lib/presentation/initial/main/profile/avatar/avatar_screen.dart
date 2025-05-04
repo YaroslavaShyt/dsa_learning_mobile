@@ -45,12 +45,15 @@ class _AvatarScreenState extends State<AvatarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = getColorScheme(context);
+    final TextTheme textTheme = getTextTheme(context);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           width: 4,
-          color: getColorScheme(context).onSurface.withValues(alpha: 0.3),
+          color: colorScheme.onSurface.withValues(alpha: 0.3),
         ),
       ),
       padding: const EdgeInsetsDirectional.all(20),
@@ -65,14 +68,14 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   const SizedBox(width: 50),
                   Text(
                     context.tr("buyAvatar"),
-                    style: getTextTheme(context).bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   IconButton(
                     icon: Icon(
                       Icons.close_rounded,
-                      color: getColorScheme(context).onSurface,
+                      color: colorScheme.onSurface,
                       shadows: [mainBoxShadow(context)],
                     ),
                     onPressed: widget.cubit.onCloseButtonTap,
@@ -96,7 +99,9 @@ class _AvatarScreenState extends State<AvatarScreen> {
                             name: widget.cubit.avatars[index]['name'].lottie,
                           ),
                           _buildPrice(
-                              context, widget.cubit.avatars[index]['price']),
+                            context,
+                            widget.cubit.avatars[index]['price'],
+                          ),
                         ],
                       ),
                     ],
@@ -106,12 +111,13 @@ class _AvatarScreenState extends State<AvatarScreen> {
             ),
             _buildIndicators(context),
             _buildBuyButton(
-                context,
-                widget.cubit.avatars[selected]['isBought'],
-                widget.cubit
-                    .isEnoughMoney(widget.cubit.avatars[selected]['price']),
-                widget.cubit.avatars[selected]['name'],
-                widget.cubit.avatars[selected]['price']),
+              context,
+              widget.cubit.avatars[selected]['isBought'],
+              widget.cubit
+                  .isEnoughMoney(widget.cubit.avatars[selected]['price']),
+              widget.cubit.avatars[selected]['name'],
+              widget.cubit.avatars[selected]['price'],
+            ),
           ],
         ),
       ),
@@ -119,12 +125,12 @@ class _AvatarScreenState extends State<AvatarScreen> {
   }
 
   Widget _buildPrice(BuildContext context, int price) {
+    final TextTheme textTheme = getTextTheme(context);
+
     if (price == 0) {
       return Text(
         context.tr('free'),
-        style: getTextTheme(context).bodyMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+        style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
       );
     }
     return Row(
@@ -134,10 +140,10 @@ class _AvatarScreenState extends State<AvatarScreen> {
           padding: const EdgeInsetsDirectional.only(bottom: 16),
           child: Text(
             '${price.toString()}x',
-            style: getTextTheme(context).bodyMedium?.copyWith(
-                  color: getColorScheme(context).primaryFixed,
-                  fontWeight: FontWeight.w700,
-                ),
+            style: textTheme.bodyMedium?.copyWith(
+              color: getColorScheme(context).primaryFixed,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         Image.asset(
@@ -157,6 +163,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
     int price,
   ) {
     final bool isSelected = widget.cubit.selectedAvatar == avatar.lottie;
+
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 50.0),
       child: BlocBuilder<AvatarCubit, AvatarState>(
@@ -205,39 +212,44 @@ class _AvatarScreenState extends State<AvatarScreen> {
     Avatars avatar,
     int price,
   ) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     if (isBought && widget.cubit.selectedAvatar == avatar.lottie) {
       return Icon(
         Icons.check_rounded,
         size: 30,
-        color: getColorScheme(context).primaryFixed,
+        color: colorScheme.primaryFixed,
       );
     }
     if (isBought && widget.cubit.selectedAvatar != avatar.lottie) {
       return Text(
         context.tr("choose"),
-        style: getTextTheme(context).bodyMedium?.copyWith(
-              color: getColorScheme(context).primaryFixed,
-              fontWeight: FontWeight.w700,
-            ),
+        style: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.primaryFixed,
+          fontWeight: FontWeight.w700,
+        ),
       );
     }
     if (isPurchaseInProgress) {
       return CircularProgressIndicator(
-        color: getColorScheme(context).primaryFixed,
+        color: colorScheme.primaryFixed,
       );
     }
     return Text(
       context.tr('buy'),
-      style: getTextTheme(context).bodyMedium?.copyWith(
-            color: isActive
-                ? getColorScheme(context).primaryFixed
-                : getColorScheme(context).onSurface.withValues(alpha: 0.5),
-            fontWeight: FontWeight.w700,
-          ),
+      style: textTheme.bodyMedium?.copyWith(
+        color: isActive
+            ? colorScheme.primaryFixed
+            : colorScheme.onSurface.withValues(alpha: 0.5),
+        fontWeight: FontWeight.w700,
+      ),
     );
   }
 
   Widget _buildIndicators(BuildContext context) {
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -254,8 +266,8 @@ class _AvatarScreenState extends State<AvatarScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: index == selected
-                  ? getColorScheme(context).primaryFixed
-                  : getColorScheme(context).onSurface.withValues(alpha: 0.4),
+                  ? colorScheme.primaryFixed
+                  : colorScheme.onSurface.withValues(alpha: 0.4),
             ),
           );
         },

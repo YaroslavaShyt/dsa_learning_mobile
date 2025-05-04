@@ -25,15 +25,14 @@ class _MenuComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
     final TextTheme textTheme = getTextTheme(context);
+
     return TapAnimatedWidget(
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsetsDirectional.symmetric(
-              horizontal: 20,
-            ),
+            margin: const EdgeInsetsDirectional.symmetric(horizontal: 20),
             padding: EdgeInsetsDirectional.only(
               start: 10,
               top: 20,

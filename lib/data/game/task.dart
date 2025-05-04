@@ -21,10 +21,10 @@ class Task implements ITask {
   factory Task.fromJson(Map<String, dynamic> data) {
     return Task(
       id: data[_taskId],
-      questionNumber: data[_questionNumber],
       question: data[_question],
-      answerOptions: List<String>.from(data[_answerOptions]),
       correctAnswer: data[_correctAnswer],
+      questionNumber: data[_questionNumber],
+      answerOptions: List<String>.from(data[_answerOptions]),
       type: GameAnswersType.apiToType(data[_gameAnswersType].toString()),
     );
   }

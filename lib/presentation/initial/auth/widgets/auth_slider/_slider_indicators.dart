@@ -10,6 +10,7 @@ class _SliderIndicators extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(

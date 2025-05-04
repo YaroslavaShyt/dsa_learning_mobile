@@ -15,6 +15,7 @@ class _ButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = getColorScheme(context);
+
     return GestureDetector(
       onTap: onTapped,
       child: Container(

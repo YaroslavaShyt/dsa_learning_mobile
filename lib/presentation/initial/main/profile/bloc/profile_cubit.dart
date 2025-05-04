@@ -45,14 +45,17 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
+  void _playSound() =>
+      _audioHandler.playButtonSound(isAudioOn: _userService.user!.sounds);
+
   void onLanguageTap() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _playSound();
     emit(state.copyWith(isLanguageShown: !state.isLanguageShown));
   }
 
   Future<void> onDeleteAccountTap() async {
     try {
-      _audioHandler.playButtonSound(_userService.user!.sounds);
+      _playSound();
       _navigationUtil.navigateBack();
       await _userService.deleteUser();
     } catch (error) {
@@ -61,28 +64,28 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void playSound() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _playSound();
   }
 
   void onAboutInfoTap() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _playSound();
     emit(state.copyWith(isAboutInfoShown: !state.isAboutInfoShown));
   }
 
   Future<void> onExitTap() async {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _playSound();
     _navigationUtil.navigateBack();
     await _userService.cleanUserData();
   }
 
   void onCancelTap() {
-    _audioHandler.playButtonSound(_userService.user!.sounds);
+    _playSound();
     _navigationUtil.navigateBack();
   }
 
   Future<void> onVibrationTap() async {
     try {
-      _audioHandler.playButtonSound(_userService.user!.sounds);
+      _playSound();
       emit(state.copyWith(isVibrationEnabled: !state.isVibrationEnabled));
       await _userService.updateUser(vibration: state.isVibrationEnabled);
     } catch (error) {
@@ -92,7 +95,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> onSoundTap() async {
     try {
-      _audioHandler.playButtonSound(_userService.user!.sounds);
+      _playSound();
       emit(state.copyWith(isSoundEnabled: !state.isSoundEnabled));
       await _userService.updateUser(sound: state.isSoundEnabled);
     } catch (error) {
@@ -102,7 +105,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> onAnimationTap() async {
     try {
-      _audioHandler.playButtonSound(_userService.user!.sounds);
+      _playSound();
       emit(state.copyWith(isAnimationEnabled: !state.isAnimationEnabled));
       await _userService.updateUser(animation: state.isAnimationEnabled);
     } catch (error) {

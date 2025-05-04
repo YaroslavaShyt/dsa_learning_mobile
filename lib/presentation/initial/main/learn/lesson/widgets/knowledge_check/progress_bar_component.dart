@@ -15,7 +15,7 @@ class ProgressBarComponent extends StatefulWidget {
   final int time;
 
   @override
-  _ProgressBarComponentState createState() => _ProgressBarComponentState();
+  State<ProgressBarComponent> createState() => _ProgressBarComponentState();
 }
 
 class _ProgressBarComponentState extends State<ProgressBarComponent>
@@ -33,8 +33,8 @@ class _ProgressBarComponentState extends State<ProgressBarComponent>
     );
 
     _animation = Tween<Offset>(
-      begin: Offset(0, -0.1),
-      end: Offset(0, 0),
+      begin: const Offset(0, -0.1),
+      end: const Offset(0, 0),
     ).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -83,7 +83,7 @@ class _ProgressBarComponentState extends State<ProgressBarComponent>
               Padding(
                 padding: const EdgeInsetsDirectional.only(
                   start: 4,
-                  bottom: 4.0,
+                  bottom: 4,
                 ),
                 child: Text(
                   '${widget.vents.toString()}x',

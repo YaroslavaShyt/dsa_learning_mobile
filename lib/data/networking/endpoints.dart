@@ -1,7 +1,6 @@
 const String _endpoint = String.fromEnvironment('url');
 
 class Endpoints {
-  /// ipconfig from windows
   static const String baseEndpoint = 'http://$_endpoint/api/';
 
   /// AUTH
@@ -35,6 +34,7 @@ class Endpoints {
   static const String _lessonEndpoint = 'lessons';
   static const String getLessonSummaryEndpoint = '$_lessonEndpoint/summary';
 
+  /// LEARNING
   static String getLessonTheory(int id) => '$_lessonEndpoint/$id/details';
 
   static String getLessonGame(int id) => '$_lessonEndpoint/$id/game';

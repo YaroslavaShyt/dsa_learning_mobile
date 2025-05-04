@@ -13,6 +13,7 @@ class _AuthText extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Padding(
       padding: const EdgeInsetsDirectional.only(
         top: 24,

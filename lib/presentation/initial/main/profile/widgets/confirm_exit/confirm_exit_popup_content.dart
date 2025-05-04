@@ -18,6 +18,7 @@ class ConfirmExitPopupContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -7,10 +7,12 @@ mixin SnackBarMixin {
     BuildContext context, {
     required String text,
   }) {
+    final ColorScheme colorScheme = getColorScheme(context);
+
     ScaffoldMessenger.of(context).showSnackBar(
       MainSnackBar(
         text: text,
-        color: getColorScheme(context).surface,
+        color: colorScheme.surface,
       ),
     );
   }

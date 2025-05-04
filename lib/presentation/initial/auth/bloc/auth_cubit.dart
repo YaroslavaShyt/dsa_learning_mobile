@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
     try {
       if (!state.isLoginButtonActive) return;
 
-      _audioHandler.playButtonSound(true);
+      _playSound();
 
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
@@ -47,11 +47,13 @@ class AuthCubit extends Cubit<AuthCubitState> {
     }
   }
 
+  void _playSound() => _audioHandler.playButtonSound(isAudioOn: true);
+
   Future<void> onConfirmOnSignUpPressed() async {
     try {
       if (!state.isSignUpButtonActive) return;
 
-      _audioHandler.playButtonSound(true);
+      _playSound();
 
       emit(state.copyWith(status: AuthCubitStatus.authInProgress));
 
@@ -133,7 +135,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onStartButtonPressed() {
-    _audioHandler.playButtonSound(true);
+    _playSound();
 
     emit(
       state.copyWith(
@@ -149,7 +151,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onSignInButtonPressed() {
-    _audioHandler.playButtonSound(true);
+    _playSound();
 
     emit(
       state.copyWith(
@@ -165,7 +167,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onSignUpButtonPressed() {
-    _audioHandler.playButtonSound(true);
+    _playSound();
 
     emit(
       state.copyWith(
@@ -181,7 +183,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onBackOnStartPressed({bool playSound = true}) {
-    if (playSound) _audioHandler.playButtonSound(true);
+    if (playSound) _playSound();
 
     emit(
       state.copyWith(
@@ -197,7 +199,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void onBackOnLoginPressed({bool playSound = true}) {
-    if (playSound) _audioHandler.playButtonSound(true);
+    if (playSound) _playSound();
 
     emit(
       state.copyWith(

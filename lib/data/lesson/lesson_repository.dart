@@ -31,6 +31,7 @@ class LessonRepository implements ILessonRepository {
       );
 
       if (response == null) return [];
+
       return response.data.keys.map<ICategory>(
         (String category) {
           return _createCategory(category, response.data[category]);
@@ -103,12 +104,15 @@ class LessonRepository implements ILessonRepository {
   @override
   Future<void> completeLesson(int id, int time) async {
     try {
-      await _networkingClient
-          .post(Endpoints.finishLessonEndpoint, queryParameters: {
-        'training-id': id,
-      }, body: {
-        'time': time.toString(),
-      });
+      await _networkingClient.post(
+        Endpoints.finishLessonEndpoint,
+        queryParameters: {
+          'training-id': id,
+        },
+        body: {
+          'time': time.toString(),
+        },
+      );
     } catch (error) {
       rethrow;
     }

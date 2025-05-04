@@ -41,11 +41,12 @@ class _SignUpContentState extends State<_SignUpContent> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = getTextTheme(context);
+    final ColorScheme colorScheme = getColorScheme(context);
+
     return MainContainer(
       height: 560,
-      margin: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-      ),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 20),
       padding: const EdgeInsetsDirectional.symmetric(
         vertical: 20,
         horizontal: 30,
@@ -55,20 +56,16 @@ class _SignUpContentState extends State<_SignUpContent> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _BackButton(
-            onBackPressed: widget.onBackTapped,
-          ),
+          _BackButton(onBackPressed: widget.onBackTapped),
           Text(
             context.tr('signUp'),
-            style: getTextTheme(context).titleLarge?.copyWith(
-                  color: getColorScheme(context).primaryFixed,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.primaryFixed,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.symmetric(
-              horizontal: 20,
-            ),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
             child: Column(
               spacing: 28,
               children: [
@@ -98,14 +95,12 @@ class _SignUpContentState extends State<_SignUpContent> {
                   onPressed: widget.onConfirmButtonPressed,
                   child: Text(
                     context.tr('confirm'),
-                    style: getTextTheme(context).labelMedium?.copyWith(
-                          color: widget.isButtonActive
-                              ? getColorScheme(context).primaryFixed
-                              : getColorScheme(context)
-                                  .onSurface
-                                  .withValues(alpha: 0.3),
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: textTheme.labelMedium?.copyWith(
+                      color: widget.isButtonActive
+                          ? colorScheme.primaryFixed
+                          : colorScheme.onSurface.withValues(alpha: 0.3),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

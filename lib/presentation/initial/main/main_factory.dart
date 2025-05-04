@@ -1,7 +1,7 @@
-import 'package:dsa_learning/data/services/handlers/tutorial_handler.dart';
 import 'package:dsa_learning/data/services/user/user_service.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/handlers/iaudio_handler.dart';
+import 'package:dsa_learning/domain/services/handlers/itutorial_handler.dart';
 import 'package:dsa_learning/main.dart';
 import 'package:dsa_learning/presentation/initial/main/bloc/main_cubit.dart';
 import 'package:dsa_learning/presentation/initial/main/bloc/main_state.dart';
@@ -13,16 +13,14 @@ import 'home/widgets/statistics/bloc/statistics_cubit.dart';
 
 class MainFactory {
   static Widget build() {
-    final TutorialHandler tutorialHandler = TutorialHandler();
+    final ITutorialHandler tutorialHandler = sl.get<ITutorialHandler>();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (BuildContext context) => MainCubit(
-            tutorialHandler: tutorialHandler,
             audioHandler: sl.get<IAudioHandler>(),
             userService: BlocProvider.of<UserService>(context),
-            isAudioEnabled: BlocProvider.of<UserService>(context).user!.sounds,
             statisticsCubit: BlocProvider.of<StatisticsCubit>(context),
           )..init(),
         ),
@@ -33,8 +31,9 @@ class MainFactory {
             listenWhen: (p, c) =>
                 c.user != null && p.user!.sounds != c.user!.sounds,
             listener: (BuildContext context, UserState state) {
-              BlocProvider.of<MainCubit>(context)
-                  .updateSoundSettings(state.user!.sounds);
+              BlocProvider.of<MainCubit>(context).updateSoundSettings(
+                isSoundEnabled: state.user!.sounds,
+              );
             },
           ),
           BlocListener<MainCubit, MainState>(

@@ -14,4 +14,6 @@ abstract interface class IAchievementsService {
   List<IAchievement> get achievements;
 
   void updateStreakWithHash();
+
+  bool isDevotionAchievementReceived();
 }

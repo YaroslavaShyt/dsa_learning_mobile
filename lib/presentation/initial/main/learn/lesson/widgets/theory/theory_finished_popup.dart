@@ -27,7 +27,7 @@ class TheoryFinishedPopup extends StatelessWidget {
     final ColorScheme colorScheme = getColorScheme(context);
 
     return Padding(
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
       child: Column(
         spacing: 8,
         mainAxisAlignment: MainAxisAlignment.center,

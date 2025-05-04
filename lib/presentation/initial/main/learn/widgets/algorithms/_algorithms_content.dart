@@ -7,6 +7,7 @@ class _AlgorithmsContent extends StatelessWidget {
     required this.onStartButtonTap,
     required this.categorySummary,
     required this.isLessonOpened,
+    required this.vents,
   });
 
   final VoidCallback playSound;
@@ -14,6 +15,7 @@ class _AlgorithmsContent extends StatelessWidget {
   final void Function(int, int) onStartButtonTap;
   final ICategory categorySummary;
   final bool Function(int) isLessonOpened;
+  final int vents;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class _AlgorithmsContent extends StatelessWidget {
         return _CategoryContainer(
           key: index == 0 ? lessonCategoryKey : null,
           playSound: playSound,
+          vents: vents,
           onStartTap: onStartButtonTap,
           isLessonOpened: isLessonOpened,
           onCloseIconTap: onCloseButtonTap,

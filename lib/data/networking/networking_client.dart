@@ -21,10 +21,12 @@ class NetworkingClient implements INetworkingClient {
         responseType: ResponseType.json,
       ),
     )
-      ..interceptors.addAll([
-        LoggerInterceptor(),
-        AuthInterceptor(storage: secureStorage),
-      ])
+      ..interceptors.addAll(
+        [
+          LoggerInterceptor(),
+          AuthInterceptor(storage: secureStorage),
+        ],
+      )
       ..transformer = BackgroundTransformer();
   }
 

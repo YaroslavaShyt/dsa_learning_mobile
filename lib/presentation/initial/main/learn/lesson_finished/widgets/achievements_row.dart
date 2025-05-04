@@ -19,9 +19,8 @@ class AchievementsRow extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    if (achievements.isEmpty) {
-      return const SizedBox.shrink();
-    }
+    if (achievements.isEmpty) return const SizedBox.shrink();
+
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 8),
       child: Column(
@@ -43,6 +42,7 @@ class AchievementsRow extends StatelessWidget {
               itemCount: achievements.length,
               itemBuilder: (BuildContext context, int index) {
                 final AchievementType achievement = achievements[index];
+
                 return MainContainer(
                   margin: const EdgeInsetsDirectional.only(end: 10),
                   padding: const EdgeInsetsDirectional.all(10),
