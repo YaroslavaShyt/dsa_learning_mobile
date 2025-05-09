@@ -140,7 +140,7 @@ static const Map<String,dynamic> _uk_UA = {
   "justNCorrectAnswers": "Всього {count} правильних відповідей, аби завершити урок успішно.",
   "finish": "Завершити",
   "doYouWantDeleteAccount": "Ви справді хочете видалити акаунт?",
-  "learnToSeeProgress": "Розпочни урок, аби побачити свій прогрес!",
+  "learnToSeeProgress": "Розпочни навчання, аби побачити свій прогрес!",
   "tutorialStart": "Вітаю! Це застосунок для вивчення алгоритмів та структур даних.",
   "tutorialStep1": "Ось це - 「Домівка」",
   "tutorialStep1Description": "Тут знаходиться Ваш прогрес",

@@ -22,16 +22,21 @@ class _AlgorithmsContent extends StatelessWidget {
     return ListView.builder(
       itemCount: categorySummary.topics.length,
       itemBuilder: (_, int index) {
-        return _CategoryContainer(
-          key: index == 0 ? lessonCategoryKey : null,
-          playSound: playSound,
-          vents: vents,
-          onStartTap: onStartButtonTap,
-          isLessonOpened: isLessonOpened,
-          onCloseIconTap: onCloseButtonTap,
-          title: categorySummary.topics[index].title,
-          lessonsSummary: categorySummary.topics[index].lessons,
-          pattern: patterns[0],
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: index == categorySummary.topics.length - 1 ? 120 : 0,
+          ),
+          child: _CategoryContainer(
+            key: index == 0 ? lessonCategoryKey : null,
+            playSound: playSound,
+            vents: vents,
+            onStartTap: onStartButtonTap,
+            isLessonOpened: isLessonOpened,
+            onCloseIconTap: onCloseButtonTap,
+            title: categorySummary.topics[index].title,
+            lessonsSummary: categorySummary.topics[index].lessons,
+            pattern: patterns[0],
+          ),
         );
       },
     );
