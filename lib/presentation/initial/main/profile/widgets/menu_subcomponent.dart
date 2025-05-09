@@ -19,9 +19,11 @@ class _MenuSubcomponent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            item,
-            style: textTheme.labelSmall,
+          Flexible(
+            child: Text(
+              item,
+              style: textTheme.labelSmall,
+            ),
           ),
           if (item == selectedComponent)
             Icon(

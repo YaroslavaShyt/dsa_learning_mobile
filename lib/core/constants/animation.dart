@@ -1,3 +1,3 @@
 class AnimationDuration {
-  static const animationTapDuration = Duration(milliseconds: 5);
+  static const animationTapDuration = Duration(milliseconds: 100);
 }

@@ -33,49 +33,47 @@ class ProfileScreen extends StatelessWidget with PopUpMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (_, ProfileState state) {
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                const MainBackground(),
-                Center(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsetsDirectional.all(18),
-                    child: Column(
-                      key: finishKey,
-                      children: [
-                        _UserInfoWidget(
-                          avatarPath: state.profilePhoto,
-                          userName: cubit.userName,
-                          onAvatarTap: () => _onAvatarTap(context),
-                        ),
-                        _ProfileMenu(
-                          key: settingsMenuKey,
-                          onSoundTap: cubit.onSoundTap,
-                          onLanguageTap: cubit.onLanguageTap,
-                          onVibrationTap: cubit.onVibrationTap,
-                          onAboutInfoTap: cubit.onAboutInfoTap,
-                          onAnimationTap: cubit.onAnimationTap,
-                          isSoundEnabled: state.isSoundEnabled,
-                          isLanguageShown: state.isLanguageShown,
-                          isAboutInfoShown: state.isAboutInfoShown,
-                          isVibrationEnabled: state.isVibrationEnabled,
-                          isAnimationsEnabled: state.isAnimationEnabled,
-                          onExitTap: () => _onExitTap(context),
-                          onDeleteAccountTap: () => _onDeleteTap(context),
-                        ),
-                        const SizedBox(height: 150),
-                      ],
-                    ),
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (_, ProfileState state) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              const MainBackground(),
+              Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsetsDirectional.all(18),
+                  child: Column(
+                    key: finishKey,
+                    children: [
+                      const SizedBox(height: 30),
+                      _UserInfoWidget(
+                        avatarPath: state.profilePhoto,
+                        userName: cubit.userName,
+                        onAvatarTap: () => _onAvatarTap(context),
+                      ),
+                      _ProfileMenu(
+                        key: settingsMenuKey,
+                        onSoundTap: cubit.onSoundTap,
+                        onLanguageTap: cubit.onLanguageTap,
+                        onVibrationTap: cubit.onVibrationTap,
+                        onAboutInfoTap: cubit.onAboutInfoTap,
+                        onAnimationTap: cubit.onAnimationTap,
+                        isSoundEnabled: state.isSoundEnabled,
+                        isLanguageShown: state.isLanguageShown,
+                        isAboutInfoShown: state.isAboutInfoShown,
+                        isVibrationEnabled: state.isVibrationEnabled,
+                        isAnimationsEnabled: state.isAnimationEnabled,
+                        onExitTap: () => _onExitTap(context),
+                        onDeleteAccountTap: () => _onDeleteTap(context),
+                      ),
+                      const SizedBox(height: 150),
+                    ],
                   ),
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

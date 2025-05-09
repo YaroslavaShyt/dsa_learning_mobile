@@ -32,53 +32,98 @@ class _ProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      content: Column(
-        children: [
-          _MenuComponent(
-            title: context.tr('vibration'),
-            subtitle: context.tr(isVibrationEnabled ? 'yes' : 'no'),
-            onTap: onVibrationTap,
-            icon: Icons.vibration_rounded,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsetsDirectional.only(
+            start: 6,
+            bottom: 10,
           ),
-          _MenuComponent(
-            title: context.tr('sound'),
-            subtitle: context.tr(isSoundEnabled ? 'yes' : 'no'),
-            onTap: onSoundTap,
-            icon: Icons.music_note_rounded,
+          child: Text('Інтерактивність'),
+        ),
+        MainContainer(
+          content: Column(
+            children: [
+              _MenuComponent(
+                title: context.tr('vibration'),
+                subtitle: context.tr(isVibrationEnabled ? 'yes' : 'no'),
+                onTap: onVibrationTap,
+                icon: Icons.vibration_rounded,
+              ),
+              _MenuComponent(
+                title: context.tr('sound'),
+                subtitle: context.tr(isSoundEnabled ? 'yes' : 'no'),
+                onTap: onSoundTap,
+                icon: Icons.music_note_rounded,
+              ),
+              _MenuComponent(
+                title: context.tr('animations'),
+                subtitle: context.tr(isAnimationsEnabled ? 'yes' : 'no'),
+                onTap: onAnimationTap,
+                icon: Icons.animation_rounded,
+                isBottomBorderShown: false,
+              ),
+            ],
           ),
-          _MenuComponent(
-            title: context.tr('animations'),
-            subtitle: context.tr(isAnimationsEnabled ? 'yes' : 'no'),
-            onTap: onAnimationTap,
-            icon: Icons.animation_rounded,
+        ),
+        const Padding(
+          padding: EdgeInsetsDirectional.only(
+            start: 6,
+            top: 14,
+            bottom: 10,
           ),
-          _MenuComponent(
-            title: context.tr('exit'),
-            onTap: onExitTap,
-            icon: Icons.exit_to_app_rounded,
+          child: Text('Система'),
+        ),
+        MainContainer(
+          content: Column(
+            children: [
+              _MenuComponent(
+                isComponentsShown: isLanguageShown,
+                title: context.tr('language'),
+                onTap: onLanguageTap,
+                components: ['Українська'],
+                selectedComponent: 'Українська',
+              ),
+              _MenuComponent(
+                isComponentsShown: isAboutInfoShown,
+                components: [
+                  'Застосунок для вивчення Алгоритмів та Структури даних за матеріалами НТУУ "КПІ ім. Ігоря Сікорського"',
+                  'Версія 1.0.0',
+                ],
+                title: context.tr('aboutApp'),
+                onTap: onAboutInfoTap,
+                isBottomBorderShown: false,
+              ),
+            ],
           ),
-          _MenuComponent(
-            title: context.tr('deleteAccount'),
-            onTap: onDeleteAccountTap,
-            icon: Icons.delete_outline_rounded,
+        ),
+        const Padding(
+          padding: EdgeInsetsDirectional.only(
+            start: 6,
+            top: 14,
+            bottom: 10,
           ),
-          _MenuComponent(
-            isComponentsShown: isLanguageShown,
-            title: context.tr('language'),
-            onTap: onLanguageTap,
-            components: ['Українська'],
-            selectedComponent: 'Українська',
+          child: Text('Обліковий запис'),
+        ),
+        MainContainer(
+          content: Column(
+            children: [
+              _MenuComponent(
+                title: context.tr('exit'),
+                onTap: onExitTap,
+                icon: Icons.exit_to_app_rounded,
+              ),
+              _MenuComponent(
+                title: context.tr('deleteAccount'),
+                onTap: onDeleteAccountTap,
+                icon: Icons.delete_outline_rounded,
+                isBottomBorderShown: false,
+              ),
+            ],
           ),
-          _MenuComponent(
-            isComponentsShown: isAboutInfoShown,
-            components: ['Версія 1.0.0'],
-            title: context.tr('aboutApp'),
-            onTap: onAboutInfoTap,
-            isBottomBorderShown: false,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

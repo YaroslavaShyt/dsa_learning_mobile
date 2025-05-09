@@ -24,6 +24,7 @@ class TutorialHandler implements ITutorialHandler {
       showSkipInLastTarget: false,
       targets: _buildTargets(onTabChanged),
       pulseAnimationDuration: const Duration(seconds: 2),
+      unFocusAnimationDuration: const Duration(milliseconds: 300),
       colorShadow: colorScheme.onSecondary.withValues(alpha: 0.6),
       textSkip: context.tr('finish'),
       onClickTarget: (target) {
@@ -44,9 +45,9 @@ class TutorialHandler implements ITutorialHandler {
     )..show(context: context);
   }
 
-  Future<void> _onStartButtonPressed(
+  void _onStartButtonPressed(
     void Function(int) onTabChanged,
-  ) async {
+  ) {
     tutorialCoachMark?.next();
     final GlobalKey? key =
         tutorialCoachMark?.widgetKey.currentState?.currentTarget?.keyTarget;
@@ -60,10 +61,7 @@ class TutorialHandler implements ITutorialHandler {
       return;
     }
     if (key == settingsMenuKey) {
-      await Future.delayed(
-        const Duration(seconds: 1),
-        () => onTabChanged(0),
-      );
+      Future.delayed(const Duration(seconds: 1), () => onTabChanged(0));
       return;
     }
   }

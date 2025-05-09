@@ -45,7 +45,7 @@ class TheoryContent extends StatelessWidget {
                   children: [
                     Text(
                       content,
-                      textWidthBasis: TextWidthBasis.longestLine,
+                      textAlign: TextAlign.justify,
                       style: textTheme.labelMedium?.copyWith(
                         fontSize: 18,
                       ),
