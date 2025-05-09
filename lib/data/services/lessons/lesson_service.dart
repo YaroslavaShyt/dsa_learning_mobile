@@ -13,6 +13,8 @@ class LessonService implements ILessonService {
 
   final ILessonRepository _lessonRepository;
 
+  @override
+  List<ICategory> get summary => _summary;
   List<ICategory> _summary = [];
 
   @override
@@ -43,6 +45,9 @@ class LessonService implements ILessonService {
   Future<void> init() async {
     try {
       _summary = await _lessonRepository.getLessonsSummary();
+      _summary.first.topics.sort((a, b) => a.id.compareTo(b.id));
+      _summary.last.topics.sort((a, b) => a.id.compareTo(b.id));
+
       _algorithmsLessonsNum = _countAlgorithmsLessons();
       _dataStructuresLessonsNum = _countDataStructuresLessons();
 

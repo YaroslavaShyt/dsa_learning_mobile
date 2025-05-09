@@ -53,9 +53,8 @@ class LearnCubit extends Cubit<LearnState> {
 
   Future<void> init() async {
     try {
-      final List<ICategory> summary =
-          await _lessonRepository.getLessonsSummary();
       await _lessonService.init();
+      final List<ICategory> summary = _lessonService.summary;
 
       final LearnStatus status =
           summary.isNotEmpty ? LearnStatus.loaded : LearnStatus.failure;

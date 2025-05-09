@@ -1,5 +1,9 @@
+import 'package:dsa_learning/domain/category/icategory.dart';
+
 abstract interface class ILessonService {
   Future<void> init();
+
+  List<ICategory> get summary;
 
   Set<int> get learnedAlgorithmsLessonsId;
 

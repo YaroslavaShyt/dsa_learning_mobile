@@ -2,6 +2,7 @@ part of 'lesson_repository.dart';
 
 ITopic _createTopic(String topic, List lessonData) {
   return Topic(
+    id: lessonData.first["topicId"],
     title: topic,
     lessons: _createLessons(lessonData),
   );

@@ -5,7 +5,11 @@ class Topic implements ITopic {
   Topic({
     required this.title,
     required this.lessons,
+    required this.id,
   });
+
+  @override
+  final int id;
 
   @override
   final String title;

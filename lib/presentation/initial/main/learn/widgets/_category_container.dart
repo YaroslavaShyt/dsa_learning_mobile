@@ -84,8 +84,6 @@ class _CategoryContainer extends StatelessWidget
     required int index,
     required bool isOpened,
   }) {
-    print(index);
-
     if (!isOpened) return;
 
     if (vents > 0) {
