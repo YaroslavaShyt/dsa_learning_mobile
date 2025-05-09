@@ -45,6 +45,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                       lessonName: state.lessonTheory!.lessonTitle,
                       stepName: cubit.planStep,
                       content: cubit.theoryStep,
+                      image: cubit.imageStep,
                       onNextButtonTap: () => cubit.onNextButtonPressed(
                         (bytes, hash, vents) => _onTheoryFinished(
                           context,

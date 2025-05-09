@@ -14,6 +14,7 @@ class TheoryWidget extends StatefulWidget {
     required this.onBackButtonTap,
     required this.lessonTime,
     required this.onUpdateTimer,
+    required this.image,
     super.key,
   });
 
@@ -22,6 +23,7 @@ class TheoryWidget extends StatefulWidget {
   final String lessonName;
   final String stepName;
   final String content;
+  final String image;
   final VoidCallback onNextButtonTap;
   final VoidCallback onBackButtonTap;
   final VoidCallback onUpdateTimer;
@@ -65,6 +67,7 @@ class _TheoryWidgetState extends State<TheoryWidget> {
           Expanded(
             child: TheoryContent(
               controller: _controller,
+              image: widget.image,
               content: widget.content,
             ),
           ),

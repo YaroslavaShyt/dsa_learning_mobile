@@ -203,6 +203,22 @@ class LessonCubit extends Cubit<LessonState> {
     return '';
   }
 
+  String get imageStep {
+    if (state.step == 1) {
+      return state.lessonTheory!.lessonTheory.theoryImageStep1;
+    }
+    if (state.step == 2) {
+      return state.lessonTheory!.lessonTheory.theoryImageStep2;
+    }
+    if (state.step == 3) {
+      return state.lessonTheory!.lessonTheory.theoryImageStep3;
+    }
+    if (state.step == 4) {
+      return state.lessonTheory!.lessonTheory.theoryImageStep4;
+    }
+    return '';
+  }
+
   ITask get task => state.game!.tasks[state.gameStep];
 
   String _formatTime(int seconds) {

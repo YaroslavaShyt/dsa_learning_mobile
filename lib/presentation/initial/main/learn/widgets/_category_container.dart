@@ -84,6 +84,8 @@ class _CategoryContainer extends StatelessWidget
     required int index,
     required bool isOpened,
   }) {
+    print(index);
+
     if (!isOpened) return;
 
     if (vents > 0) {
@@ -92,7 +94,7 @@ class _CategoryContainer extends StatelessWidget
         context: context,
         child: PreLessonInfo(
           categoryName: title,
-          isLearned: _isOpened(lessonsSummary[index].id),
+          isLearned: _isOpened(index),
           lesson: lessonsSummary[index],
           onCloseIconTap: onCloseIconTap,
           onStartTap: () => onStartTap(

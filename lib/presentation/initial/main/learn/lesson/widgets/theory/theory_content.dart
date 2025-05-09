@@ -8,10 +8,12 @@ class TheoryContent extends StatelessWidget {
   const TheoryContent({
     required this.content,
     required this.controller,
+    required this.image,
     super.key,
   });
 
   final String content;
+  final String image;
   final ScrollController controller;
 
   @override
@@ -21,6 +23,7 @@ class TheoryContent extends StatelessWidget {
 
     return MainContainer(
       height: 500,
+      width: double.infinity,
       borderRadius: 14,
       color: colorScheme.onInverseSurface.withValues(alpha: 0.8, green: 0.5),
       padding: const EdgeInsetsDirectional.only(
@@ -37,6 +40,8 @@ class TheoryContent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(end: 8),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 10,
                   children: [
                     Text(
                       content,
@@ -45,6 +50,48 @@ class TheoryContent extends StatelessWidget {
                         fontSize: 18,
                       ),
                     ),
+                    if (image.isNotEmpty) ...[
+                      Align(
+                        alignment: Alignment.center,
+                        child: ClipRect(
+                          child: Container(
+                            height: 300,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2,
+                                color: colorScheme.onSurface
+                                    .withValues(alpha: 0.6),
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Image.network(
+                              image,
+                              height: 300,
+                              frameBuilder: (context, child, frame,
+                                  wasSynchronouslyLoaded) {
+                                if (frame == null) {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      color: colorScheme.onSurface
+                                          .withValues(alpha: 0.6),
+                                    ),
+                                  );
+                                }
+                                return child;
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(
+                                  Icons.error,
+                                  color: colorScheme.onSurface
+                                      .withValues(alpha: 0.6),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]
                   ],
                 ),
               ),
