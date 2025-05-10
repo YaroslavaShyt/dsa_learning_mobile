@@ -1,3 +1,4 @@
+import 'package:dsa_learning/core/utils/parsers/text_parser.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
@@ -25,13 +26,7 @@ class TheoryContent extends StatelessWidget {
       height: 500,
       width: double.infinity,
       borderRadius: 14,
-      color: colorScheme.onInverseSurface.withValues(alpha: 0.8, green: 0.5),
-      padding: const EdgeInsetsDirectional.only(
-        start: 20,
-        top: 20,
-        end: 4,
-        bottom: 20,
-      ),
+      color: colorScheme.onInverseSurface.withValues(alpha: 0, green: 0),
       content: Stack(
         children: [
           MainScrollbar(
@@ -42,16 +37,32 @@ class TheoryContent extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.only(end: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 10,
+                  spacing: 16,
                   children: [
-                    Text(
-                      content,
-                      textAlign: TextAlign.justify,
-                      style: textTheme.labelMedium?.copyWith(
-                        fontSize: 18,
-                      ),
-                    ),
+                    ...content.split('\n\n').map(
+                          (paragraph) => MainContainer(
+                            width: double.infinity,
+                            borderRadius: 14,
+                            color: colorScheme.onInverseSurface
+                                .withValues(alpha: 0.8, green: 0.5),
+                            padding: const EdgeInsetsDirectional.all(20),
+                            content: RichText(
+                              textAlign: TextAlign.justify,
+                              strutStyle:
+                                  const StrutStyle(fontFamily: 'Nunito'),
+                              text: TextSpan(
+                                children: TextParser.parseCustomFormattedText(
+                                  paragraph,
+                                  textTheme,
+                                ),
+                                style: textTheme.labelMedium
+                                    ?.copyWith(fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
                     if (image.isNotEmpty) ...[
+                      const SizedBox(height: 20),
                       Align(
                         alignment: Alignment.center,
                         child: ClipRect(
