@@ -16,37 +16,39 @@ class AchievementComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
 
-    return Container(
-      width: 50,
-      height: 100,
-      margin: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-        vertical: 4,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            child: Text(
-              context.tr(achievement.achievementType.apiString),
-              style: textTheme.labelSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
+    return Flexible(
+      child: Container(
+        width: 50,
+        margin: const EdgeInsetsDirectional.symmetric(
+          horizontal: 20,
+          vertical: 4,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              child: Text(
+                context.tr(achievement.achievementType.apiString),
+                style: textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+                maxLines: 1,
               ),
-              maxLines: 1,
             ),
-          ),
-          if (achievement.isLocked) const SizedBox(height: 5),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _image,
-              if (achievement.isLocked) const SizedBox(width: 10),
-              _buildDateAndDescription(context, textTheme),
-            ],
-          ),
-        ],
+            if (achievement.isLocked) const SizedBox(height: 5),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _image,
+                if (achievement.isLocked) const SizedBox(width: 10),
+                _buildDateAndDescription(context, textTheme),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
