@@ -236,13 +236,15 @@ class LessonCubit extends Cubit<LessonState> {
   }) async {
     _playSound();
 
+    if (!isCorrect) {
+      _rewardsService.updateBalance(vents: -1);
+    }
+
     if (_rewardsService.vents < 1) {
       onAllVentsUsed();
       return;
     }
-    if (!isCorrect) {
-      _rewardsService.updateBalance(vents: -1);
-    }
+
     emit(
       state.copyWith(
         selectedAnswer: answer,
@@ -338,25 +340,37 @@ class LessonCubit extends Cubit<LessonState> {
 
   void _checkAchievements() {
     final List<AchievementType> achievements = [];
-    if (_isSavvyAchieved()) {
+    final List<AchievementType> userAchievements = _achievementsService
+        .achievements
+        .map((achievement) => achievement.achievementType)
+        .toList();
+
+    if (_isSavvyAchieved() &&
+        !userAchievements.contains(AchievementType.savvy)) {
       achievements.add(AchievementType.savvy);
     }
-    if (_isDevotionAchieved) {
+    if (_isDevotionAchieved &&
+        !userAchievements.contains(AchievementType.devotion)) {
       achievements.add(AchievementType.devotion);
     }
-    if (_isJuniorAchieved()) {
+    if (_isJuniorAchieved() &&
+        !userAchievements.contains(AchievementType.junior)) {
       achievements.add(AchievementType.junior);
     }
-    if (_isMiddleAchieved()) {
+    if (_isMiddleAchieved() &&
+        !userAchievements.contains(AchievementType.middle)) {
       achievements.add(AchievementType.middle);
     }
-    if (_isPersistenceAchieved()) {
+    if (_isPersistenceAchieved() &&
+        !userAchievements.contains(AchievementType.persistence)) {
       achievements.add(AchievementType.persistence);
     }
-    if (_isResponsibilityAchieved()) {
+    if (_isResponsibilityAchieved() &&
+        !userAchievements.contains(AchievementType.responsibility)) {
       achievements.add(AchievementType.responsibility);
     }
-    if (_isSeniorAchieved()) {
+    if (_isSeniorAchieved() &&
+        !userAchievements.contains(AchievementType.senior)) {
       achievements.add(AchievementType.senior);
     }
     _achievements = achievements;

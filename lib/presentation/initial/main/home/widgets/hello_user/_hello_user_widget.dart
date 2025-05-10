@@ -41,6 +41,8 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {
+        if (!_timer.isActive) return;
+
         setState(() {
           _calculateRemainingTime();
         });
@@ -109,6 +111,7 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
               maxLines: 2,
               style: textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
+                fontSize: 20,
               ),
             ),
           ),
@@ -170,13 +173,14 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
           ),
           if (widget.fan < 5)
             Positioned(
-              bottom: 10,
+              bottom: 0,
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(top: 10),
                 child: Text(
                   '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
                   style: textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
+                    fontSize: 14,
                   ),
                 ),
               ),

@@ -93,6 +93,9 @@ class HomeCubit extends Cubit<HomeState> {
         vent: _rewardsService.vents,
       ),
     );
+    if (state.vent < 5) {
+      init(() {});
+    }
   }
 
   void onAchievementsChanged() {
