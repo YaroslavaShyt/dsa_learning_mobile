@@ -30,11 +30,22 @@ class _SnackBarContent extends StatelessWidget {
     final TextTheme textTheme = getTextTheme(context);
     final ColorScheme colorScheme = getColorScheme(context);
 
-    return Text(
-      text,
-      style: textTheme.labelMedium?.copyWith(
-        color: colorScheme.onSurface.withValues(alpha: 1),
-        fontWeight: FontWeight.w700,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+          color: colorScheme.primaryFixed,
+          width: 3,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text,
+        style: textTheme.labelMedium?.copyWith(
+          color: colorScheme.onSurface,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

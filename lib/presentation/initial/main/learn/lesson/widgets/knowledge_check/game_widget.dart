@@ -1,11 +1,13 @@
+import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/domain/game/itask.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/buttons.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/answers_widget.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/game_progress_bar.dart';
 import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/knowledge_check/game_question.dart';
+import 'package:dsa_learning/presentation/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
 
-class GameWidget extends StatelessWidget {
+class GameWidget extends StatefulWidget {
   const GameWidget({
     required this.task,
     required this.questionsNum,
@@ -36,6 +38,33 @@ class GameWidget extends StatelessWidget {
   final int vents;
 
   @override
+  State<GameWidget> createState() => _GameWidgetState();
+}
+
+class _GameWidgetState extends State<GameWidget> {
+  bool _snackBarShown = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_snackBarShown) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            MainSnackBar(
+              text: 'Модуль зараховується, якщо зроблено не більше 2 помилок.',
+              color: getColorScheme(context).surface,
+            ),
+          );
+        },
+      );
+
+      _snackBarShown = true;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsetsDirectional.symmetric(
@@ -51,33 +80,33 @@ class GameWidget extends StatelessWidget {
             spacing: 20,
             children: [
               GameProgressBar(
-                gameProgress: gameProgress,
-                questionsNum: questionsNum,
-                time: lessonTime,
-                updateTimer: onUpdateTimer,
-                value: progress,
-                gameName: gameName,
-                vents: vents,
+                gameProgress: widget.gameProgress,
+                questionsNum: widget.questionsNum,
+                time: widget.lessonTime,
+                updateTimer: widget.onUpdateTimer,
+                value: widget.progress,
+                gameName: widget.gameName,
+                vents: widget.vents,
               ),
               GameQuestion(
-                step: task.questionNumber,
-                question: task.question,
+                step: widget.task.questionNumber,
+                question: widget.task.question,
               ),
               AnswersWidget(
-                correctAnswer: task.correctAnswer,
-                selectedAnswer: selectedAnswer,
-                onTap: onAnswerSelected,
+                correctAnswer: widget.task.correctAnswer,
+                selectedAnswer: widget.selectedAnswer,
+                onTap: widget.onAnswerSelected,
                 isSelectedCorrect: false,
                 isSelectedIncorrect: false,
-                answers: task.answerOptions,
+                answers: widget.task.answerOptions,
               ),
             ],
           ),
           Buttons(
             leftButtonText: 'finish',
-            isAnswerSelected: selectedAnswer.isNotEmpty,
-            onBackButtonTap: onBackButtonTap,
-            onNextButtonTap: onNextButtonTap,
+            isAnswerSelected: widget.selectedAnswer.isNotEmpty,
+            onBackButtonTap: widget.onBackButtonTap,
+            onNextButtonTap: widget.onNextButtonTap,
           ),
         ],
       ),
