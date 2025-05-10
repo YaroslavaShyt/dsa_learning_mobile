@@ -272,12 +272,12 @@ class LessonCubit extends Cubit<LessonState> {
     try {
       _playSound();
 
+      await _checkLessonFinish();
+
       if (_rewardsService.vents < 1) {
         onAllVentsUsed();
       }
       if (state.selectedAnswer.isEmpty) return;
-
-      await _checkLessonFinish();
 
       emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
     } catch (error) {
@@ -342,6 +342,7 @@ class LessonCubit extends Cubit<LessonState> {
     final List<AchievementType> achievements = [];
     final List<AchievementType> userAchievements = _achievementsService
         .achievements
+        .where((achievements) => !achievements.isLocked)
         .map((achievement) => achievement.achievementType)
         .toList();
 
