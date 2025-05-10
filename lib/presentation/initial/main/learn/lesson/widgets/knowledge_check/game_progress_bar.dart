@@ -79,9 +79,11 @@ class _GameProgressBarState extends State<GameProgressBar>
     return MainContainer(
       borderRadius: 14,
       color: colorScheme.onSurface.withValues(alpha: 0.4),
-      padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: 20,
-        vertical: 20,
+      padding: const EdgeInsetsDirectional.only(
+        start: 20,
+        top: 20,
+        end: 10,
+        bottom: 10,
       ),
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

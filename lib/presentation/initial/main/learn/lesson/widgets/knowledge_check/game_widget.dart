@@ -77,7 +77,7 @@ class _GameWidgetState extends State<GameWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            spacing: 20,
+            spacing: 10,
             children: [
               GameProgressBar(
                 gameProgress: widget.gameProgress,
