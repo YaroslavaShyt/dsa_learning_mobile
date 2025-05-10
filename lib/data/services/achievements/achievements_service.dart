@@ -86,6 +86,7 @@ class AchievementsService extends Cubit<AchievementsState>
       StreakStatus.frozen,
       _streak[index].date,
     );
+    emit(state.copyWith(streak: _streak));
   }
 
   @override

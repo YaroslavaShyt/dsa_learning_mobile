@@ -16,13 +16,13 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
   final IRewardsRepository _rewardsRepository;
 
   @override
-  int get bytes => state.bytes;
+  int get bytes => state.bytes < 0 ? 0 : state.bytes;
 
   @override
-  int get hash => state.hash;
+  int get hash => state.hash < 0 ? 0 : state.hash;
 
   @override
-  int get vents => state.vents;
+  int get vents => state.vents < 0 ? 0 : state.vents;
 
   @override
   void init({
@@ -32,9 +32,13 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
   }) {
     emit(
       state.copyWith(
-        bytes: bytes,
-        hash: hash,
-        vents: vents <= 5 ? vents : 5,
+        bytes: bytes < 0 ? 0 : bytes,
+        hash: hash < 0 ? 0 : hash,
+        vents: vents <= 5
+            ? vents < 0
+                ? 0
+                : vents
+            : 5,
       ),
     );
   }
@@ -55,15 +59,19 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
         state.copyWith(
           bytes: newBytes < 0 ? 0 : newBytes,
           hash: newHash < 0 ? 0 : newHash,
-          vents: newVents > 5 ? 5 : newVents,
+          vents: newVents > 5
+              ? 5
+              : newVents < 0
+                  ? 0
+                  : newVents,
         ),
       );
 
       if (!updateOnServer) return;
       await _rewardsRepository.update(
-        bytes: newBytes,
-        hash: newHash,
-        vents: newVents,
+        bytes: state.hashCode,
+        hash: state.hash,
+        vents: state.vents,
       );
     } catch (error) {
       logger.e(error);
