@@ -13,6 +13,7 @@ class _BarChart extends StatelessWidget {
         return Stack(
           children: [
             BarChart(
+              key: ValueKey('${state.maxValue}${state.userMaxValue}'),
               BarChartData(
                 barTouchData: _barTouchData(textTheme),
                 backgroundColor: colorScheme.surface,

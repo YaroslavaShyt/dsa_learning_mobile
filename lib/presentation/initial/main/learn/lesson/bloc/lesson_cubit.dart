@@ -308,9 +308,10 @@ class LessonCubit extends Cubit<LessonState> {
         await Future.wait([
           _rewardsService.updateBalance(bytes: _bytes),
           _lessonService.updateLearnedLessons(_id, time, _categoryName),
-        ]);
+        ]).then(
+          (_) async => await _statisticsCubit.init(),
+        );
         _checkAchievements();
-        _statisticsCubit.init();
       }
       _onLessonFinished();
 
