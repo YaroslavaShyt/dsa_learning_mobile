@@ -69,7 +69,7 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
 
       if (!updateOnServer) return;
       await _rewardsRepository.update(
-        bytes: state.hashCode,
+        bytes: state.bytes,
         hash: state.hash,
         vents: state.vents,
       );
