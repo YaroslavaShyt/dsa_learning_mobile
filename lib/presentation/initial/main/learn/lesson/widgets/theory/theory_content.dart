@@ -35,6 +35,7 @@ class TheoryContent extends StatelessWidget {
       content: Stack(
         children: [
           MainScrollbar(
+            controller: controller,
             child: SingleChildScrollView(
               controller: controller,
               child: Padding(

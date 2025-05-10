@@ -229,11 +229,11 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
-  void onAnswerSelected(
+  Future<void> onAnswerSelected(
     String answer,
     VoidCallback onAllVentsUsed, {
     required bool isCorrect,
-  }) {
+  }) async {
     _playSound();
 
     if (_rewardsService.vents < 1) {
@@ -259,6 +259,11 @@ class LessonCubit extends Cubit<LessonState> {
       }
       _vibrationHandler.vibrateNegative();
     }
+
+    await Future.delayed(
+      const Duration(milliseconds: 200),
+      () async => await _checkLessonFinish(),
+    );
   }
 
   Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
@@ -270,59 +275,64 @@ class LessonCubit extends Cubit<LessonState> {
       }
       if (state.selectedAnswer.isEmpty) return;
 
-      if (state.gameStep == state.game!.tasks.length - 1) {
-        final bool isLostPoints =
-            state.gameCorrectAnswers < state.game!.tasks.length - 2;
+      await _checkLessonFinish();
 
-        _achievementsService.updateStreak();
-
-        _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
-
-        if (state.gameTime > 0) {
-          _bytes += 10;
-        }
-
-        if (isLostPoints) _bytes = 0;
-
-        final int time =
-            (state.game!.timeLimit - state.gameTime) + state.theoryTime;
-
-        final bool isLessonLearned = _lessonService.isLessonLearned(_id);
-
-        if (!isLostPoints) {
-          await Future.wait([
-            _rewardsService.updateBalance(bytes: _bytes),
-            _lessonService.updateLearnedLessons(_id, time, _categoryName),
-          ]);
-          _checkAchievements();
-          _statisticsCubit.init();
-        }
-        _onLessonFinished();
-
-        _navigationUtil.navigateToAndReplace(
-          AppRoutes.routeLessonFinished,
-          data: LessonFinishedRoutingArgs(
-            isLessonOver: _bytes > 0,
-            onToLessonsPressed: _navigationUtil.navigateBackToStart,
-            time: _formatTime(time),
-            lessonName: state.game?.title ?? '',
-            lessonDescription: '',
-            isGame: true,
-            bytes: isLessonLearned ? 0 : _bytes,
-            hash: 0,
-            fan: 0,
-            achievements: _achievements,
-            isVibrationEnabled: _isVibrationEnabled,
-            isAudioEnabled: _isSoundEnabled,
-            playSound: () => _playSound(),
-            vibrate: () => _vibrationHandler.vibrate(repeat: false),
-          ),
-        );
-        return;
-      }
       emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
     } catch (error) {
       logger.e(error);
+    }
+  }
+
+  Future<void> _checkLessonFinish() async {
+    if (state.gameStep == state.game!.tasks.length - 1) {
+      final bool isLostPoints =
+          state.gameCorrectAnswers < state.game!.tasks.length - 2;
+
+      _achievementsService.updateStreak();
+
+      _bytes += Rewards.endOfGame.bytes * state.gameCorrectAnswers;
+
+      if (state.gameTime > 0) {
+        _bytes += 10;
+      }
+
+      if (isLostPoints) _bytes = 0;
+
+      final int time =
+          (state.game!.timeLimit - state.gameTime) + state.theoryTime;
+
+      final bool isLessonLearned = _lessonService.isLessonLearned(_id);
+
+      if (!isLostPoints) {
+        await Future.wait([
+          _rewardsService.updateBalance(bytes: _bytes),
+          _lessonService.updateLearnedLessons(_id, time, _categoryName),
+        ]);
+        _checkAchievements();
+        _statisticsCubit.init();
+      }
+      _onLessonFinished();
+
+      _navigationUtil.navigateToAndReplace(
+        AppRoutes.routeLessonFinished,
+        data: LessonFinishedRoutingArgs(
+          isLessonOver: _bytes > 0,
+          onToLessonsPressed: _navigationUtil.navigateBackToStart,
+          time: _formatTime(time),
+          lessonName: state.game?.title ?? '',
+          lessonDescription: '',
+          isGame: true,
+          bytes: isLessonLearned ? 0 : _bytes,
+          hash: 0,
+          fan: 0,
+          achievements: _achievements,
+          isVibrationEnabled: _isVibrationEnabled,
+          isAudioEnabled: _isSoundEnabled,
+          playSound: () => _playSound(),
+          vibrate: () => _vibrationHandler.vibrate(repeat: false),
+        ),
+      );
+      return;
     }
   }
 
