@@ -7,12 +7,14 @@ class _LearnTabBar extends StatelessWidget {
     required this.onStartButtonTap,
     required this.lessonsSummary,
     required this.isLessonOpened,
+    required this.isPreviousTopicFinished,
     required this.vents,
   });
 
   final VoidCallback playSound;
   final VoidCallback onCloseButtonTap;
   final void Function(int, int, String) onStartButtonTap;
+  final bool Function(int, int) isPreviousTopicFinished;
   final List<ICategory> lessonsSummary;
   final bool Function(int) isLessonOpened;
   final int vents;
@@ -45,6 +47,7 @@ class _LearnTabBar extends StatelessWidget {
           playSound: playSound,
           isLessonOpened: isLessonOpened,
           categorySummary: lessonsSummary.last,
+          isPreviousTopicFinished: isPreviousTopicFinished,
           onCloseButtonTap: onCloseButtonTap,
           onStartButtonTap: (id, val) =>
               onStartButtonTap(id, val, 'ALGORITHMS'),
@@ -53,6 +56,7 @@ class _LearnTabBar extends StatelessWidget {
           vents: vents,
           playSound: playSound,
           isLessonOpened: isLessonOpened,
+          isPreviousTopicFinished: isPreviousTopicFinished,
           categorySummary: lessonsSummary.first,
           onCloseButtonTap: onCloseButtonTap,
           onStartButtonTap: (id, val) =>

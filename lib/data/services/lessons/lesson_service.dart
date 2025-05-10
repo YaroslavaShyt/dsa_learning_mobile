@@ -38,6 +38,25 @@ class LessonService implements ILessonService {
   }
 
   @override
+  bool isPreviousTopicFinished(int categoryIndex, int topicIndex) {
+    final List<int> topicLessonsIds = _summary[categoryIndex]
+        .topics[topicIndex]
+        .lessons
+        .map<int>((lesson) => lesson.id)
+        .toList();
+    if (categoryIndex == 0) {
+      for (var id in topicLessonsIds) {
+        if (!_learnedAlgorithmsLessonsId.contains(id)) return false;
+      }
+    } else {
+      for (var id in topicLessonsIds) {
+        if (!_learnedDataStructuresLessonsId.contains(id)) return false;
+      }
+    }
+    return true;
+  }
+
+  @override
   int get dataStructuresLessonsNum => _dataStructuresLessonsNum;
   int _dataStructuresLessonsNum = 0;
 

@@ -3,12 +3,14 @@ part of '../../learn_screen.dart';
 class _LevelWidget extends StatelessWidget {
   const _LevelWidget({
     required this.isOpened,
+    required this.isLearned,
     required this.levelNum,
     required this.position,
     required this.onTap,
   });
 
   final bool isOpened;
+  final bool isLearned;
   final String levelNum;
   final Position position;
   final VoidCallback onTap;
@@ -31,7 +33,7 @@ class _LevelWidget extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               mainBoxShadow(context).copyWith(
-                color: isOpened ? colorScheme.primaryFixed : null,
+                color: isOpened && !isLearned ? colorScheme.primaryFixed : null,
                 spreadRadius: 1,
                 blurRadius: 10,
                 offset: const Offset(0, 1),

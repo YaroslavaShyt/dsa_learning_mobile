@@ -18,4 +18,6 @@ abstract interface class ILessonService {
   Future<void> updateLearnedLessons(int id, int time, String category);
 
   bool isLessonLearned(int id);
+
+  bool isPreviousTopicFinished(int categoryIndex, int topicIndex);
 }

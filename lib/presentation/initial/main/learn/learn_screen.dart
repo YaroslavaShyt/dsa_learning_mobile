@@ -56,6 +56,7 @@ class LearnScreen extends StatelessWidget {
                     vents: cubit.vents,
                     playSound: cubit.playSound,
                     lessonsSummary: state.lessonsSummary,
+                    isPreviousTopicFinished: cubit.isPreviousTopicFinished,
                     isLessonOpened: cubit.isLessonOpened,
                     onStartButtonTap: cubit.onStartButtonTap,
                     onCloseButtonTap: cubit.onCloseButtonTap,

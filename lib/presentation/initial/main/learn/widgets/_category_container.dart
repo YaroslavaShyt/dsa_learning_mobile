@@ -3,6 +3,8 @@ part of '../learn_screen.dart';
 class _CategoryContainer extends StatelessWidget
     with BottomSheetMixin, PopUpMixin {
   const _CategoryContainer({
+    required this.categoryIndex,
+    required this.topicIndex,
     required this.title,
     required this.pattern,
     required this.playSound,
@@ -10,16 +12,20 @@ class _CategoryContainer extends StatelessWidget
     required this.onStartTap,
     required this.onCloseIconTap,
     required this.isLessonOpened,
+    required this.isPreviousTopicFinished,
     required this.vents,
     super.key,
   });
 
+  final int categoryIndex;
+  final int topicIndex;
   final String title;
   final Pattern pattern;
   final VoidCallback playSound;
   final List<ILesson> lessonsSummary;
   final VoidCallback onCloseIconTap;
   final bool Function(int) isLessonOpened;
+  final bool Function(int, int) isPreviousTopicFinished;
   final void Function(int, int) onStartTap;
   final int vents;
 
@@ -64,6 +70,7 @@ class _CategoryContainer extends StatelessWidget
 
               return _LevelWidget(
                 isOpened: isOpened,
+                isLearned: _isLearned(index),
                 levelNum: (index + 1).toString(),
                 position: pattern.positions[index],
                 onTap: () => _onLevelTap(
@@ -134,8 +141,18 @@ class _CategoryContainer extends StatelessWidget
   }
 
   bool _isOpened(int index) {
-    if (index == 0) return true;
+    if (topicIndex == 0) {
+      if (index == 0) return true;
+
+      return isLessonOpened(lessonsSummary[index - 1].id);
+    }
+
+    if (!isPreviousTopicFinished(categoryIndex, topicIndex)) return false;
 
     return isLessonOpened(lessonsSummary[index - 1].id);
+  }
+
+  bool _isLearned(int index) {
+    return isLessonOpened(lessonsSummary[index].id);
   }
 }

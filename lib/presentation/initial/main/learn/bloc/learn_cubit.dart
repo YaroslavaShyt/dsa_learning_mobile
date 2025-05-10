@@ -43,6 +43,9 @@ class LearnCubit extends Cubit<LearnState> {
 
   bool Function(int) get isLessonOpened => _lessonService.isLessonLearned;
 
+  bool Function(int, int) get isPreviousTopicFinished =>
+      _lessonService.isPreviousTopicFinished;
+
   void playSound() {
     _audioHandler.playButtonSound(isAudioOn: _isSoundOn);
   }

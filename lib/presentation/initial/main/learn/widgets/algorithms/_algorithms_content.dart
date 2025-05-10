@@ -7,12 +7,15 @@ class _AlgorithmsContent extends StatelessWidget {
     required this.onStartButtonTap,
     required this.categorySummary,
     required this.isLessonOpened,
+    required this.isPreviousTopicFinished,
     required this.vents,
   });
 
   final VoidCallback playSound;
   final VoidCallback onCloseButtonTap;
   final void Function(int, int) onStartButtonTap;
+  final bool Function(int, int) isPreviousTopicFinished;
+
   final ICategory categorySummary;
   final bool Function(int) isLessonOpened;
   final int vents;
@@ -28,6 +31,8 @@ class _AlgorithmsContent extends StatelessWidget {
           ),
           child: _CategoryContainer(
             key: index == 0 ? lessonCategoryKey : null,
+            categoryIndex: 1,
+            topicIndex: index,
             playSound: playSound,
             vents: vents,
             onStartTap: onStartButtonTap,
@@ -35,6 +40,7 @@ class _AlgorithmsContent extends StatelessWidget {
             onCloseIconTap: onCloseButtonTap,
             title: categorySummary.topics[index].title,
             lessonsSummary: categorySummary.topics[index].lessons,
+            isPreviousTopicFinished: isPreviousTopicFinished,
             pattern: patterns[0],
           ),
         );
