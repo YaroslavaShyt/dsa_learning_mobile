@@ -46,11 +46,11 @@ class LessonService implements ILessonService {
         .toList();
     if (categoryIndex == 0) {
       for (var id in topicLessonsIds) {
-        if (!_learnedAlgorithmsLessonsId.contains(id)) return false;
+        if (!_learnedDataStructuresLessonsId.contains(id)) return false;
       }
     } else {
       for (var id in topicLessonsIds) {
-        if (!_learnedDataStructuresLessonsId.contains(id)) return false;
+        if (!_learnedAlgorithmsLessonsId.contains(id)) return false;
       }
     }
     return true;

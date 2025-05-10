@@ -99,7 +99,7 @@ class _CategoryContainer extends StatelessWidget
         context: context,
         child: PreLessonInfo(
           categoryName: title,
-          isLearned: _isOpened(index),
+          isLearned: _isLearned(index),
           lesson: lessonsSummary[index],
           onCloseIconTap: onCloseIconTap,
           onStartTap: () => onStartTap(
@@ -143,11 +143,12 @@ class _CategoryContainer extends StatelessWidget
   bool _isOpened(int index) {
     if (topicIndex == 0) {
       if (index == 0) return true;
-
       return isLessonOpened(lessonsSummary[index - 1].id);
     }
 
-    if (!isPreviousTopicFinished(categoryIndex, topicIndex)) return false;
+    if (!isPreviousTopicFinished(categoryIndex, topicIndex - 1)) return false;
+
+    if (index == 0) return true;
 
     return isLessonOpened(lessonsSummary[index - 1].id);
   }
