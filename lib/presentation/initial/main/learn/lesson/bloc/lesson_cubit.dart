@@ -257,15 +257,12 @@ class LessonCubit extends Cubit<LessonState> {
     if (_isVibrationEnabled) {
       if (isCorrect) {
         _vibrationHandler.vibratePositive();
-        return;
+      } else {
+        _vibrationHandler.vibrateNegative();
       }
-      _vibrationHandler.vibrateNegative();
     }
 
-    await Future.delayed(
-      const Duration(milliseconds: 200),
-      () async => await _checkLessonFinish(),
-    );
+    await _checkLessonFinish();
   }
 
   Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
@@ -278,6 +275,8 @@ class LessonCubit extends Cubit<LessonState> {
         onAllVentsUsed();
       }
       if (state.selectedAnswer.isEmpty) return;
+
+      if (state.gameStep == state.game!.tasks.length - 1) return;
 
       emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
     } catch (error) {
