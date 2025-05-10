@@ -114,7 +114,7 @@ class ShopCubit extends Cubit<ShopState> {
         vents: state.selectedVents,
       );
 
-      _navigationUtil.navigateBackToStart();
+      _navigationUtil.navigateBack();
     } catch (error) {
       logger.e(error);
     }
