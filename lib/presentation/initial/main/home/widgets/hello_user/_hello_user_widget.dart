@@ -25,71 +25,72 @@ class _HelloUserWidget extends StatefulWidget {
 }
 
 class _HelloUserWidgetState extends State<_HelloUserWidget> {
-  late Timer _timer;
-  late Duration _timeRemaining;
+  // late Timer _timer;
+  // late Duration _timeRemaining;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _calculateRemainingTime();
+  //   if (widget.fan < 5) {
+  //     _startTimer();
+  //   }
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    _calculateRemainingTime();
-    if (widget.fan < 5) {
-      _startTimer();
-    }
-  }
+  // void _startTimer() {
+  //   _timer = Timer.periodic(
+  //     const Duration(seconds: 1),
+  //     (_) {
+  //       if (!_timer.isActive) return;
+  //
+  //       setState(() {
+  //         _calculateRemainingTime();
+  //       });
+  //
+  //       if (_timeRemaining <= Duration.zero) {
+  //         widget.onTimerFinished();
+  //
+  //         if (widget.fan < 5) {
+  //           _startTimer();
+  //           return;
+  //         }
+  //         _timer.cancel();
+  //       }
+  //     },
+  //   );
+  // }
 
-  void _startTimer() {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) {
-        if (!_timer.isActive) return;
+  // void _calculateRemainingTime() {
+  //   if (widget.fan < 5) {
+  //     final Duration timeSinceLastUpdate =
+  //         DateTime.now().difference(widget.fansLastUpdated);
+  //     final Duration maxTime = const Duration(hours: 4, minutes: 30);
+  //     final Duration remainingTime = timeSinceLastUpdate - maxTime;
+  //     print(remainingTime);
+  //
+  //     if (remainingTime > Duration.zero) {
+  //       _timeRemaining = remainingTime;
+  //       return;
+  //     }
+  //     _timeRemaining = Duration.zero;
+  //
+  //     return;
+  //   }
+  //   _timeRemaining = Duration.zero;
+  // }
+  //
+  // String _formatTime(Duration duration) {
+  //   final int hours = duration.inHours;
+  //   final int minutes = duration.inMinutes % 60;
+  //   final int seconds = duration.inSeconds % 60;
+  //   return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  // }
 
-        setState(() {
-          _calculateRemainingTime();
-        });
-
-        if (_timeRemaining <= Duration.zero) {
-          widget.onTimerFinished();
-
-          if (widget.fan < 5) {
-            _startTimer();
-            return;
-          }
-          _timer.cancel();
-        }
-      },
-    );
-  }
-
-  void _calculateRemainingTime() {
-    if (widget.fan < 5) {
-      final Duration timeSinceLastUpdate =
-          DateTime.now().difference(widget.fansLastUpdated);
-      final Duration maxTime = const Duration(hours: 4, minutes: 30);
-      final Duration remainingTime = maxTime - timeSinceLastUpdate;
-
-      if (remainingTime > Duration.zero) {
-        _timeRemaining = remainingTime;
-        return;
-      }
-      _timeRemaining = Duration.zero;
-
-      return;
-    }
-    _timeRemaining = Duration.zero;
-  }
-
-  String _formatTime(Duration duration) {
-    final int hours = duration.inHours;
-    final int minutes = duration.inMinutes % 60;
-    final int seconds = duration.inSeconds % 60;
-    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _timer.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -171,20 +172,20 @@ class _HelloUserWidgetState extends State<_HelloUserWidget> {
               ),
             ),
           ),
-          if (widget.fan < 5)
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsetsDirectional.only(top: 10),
-                child: Text(
-                  '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            )
+          // if (widget.fan < 5)
+          //   Positioned(
+          //     bottom: 0,
+          //     child: Padding(
+          //       padding: const EdgeInsetsDirectional.only(top: 10),
+          //       child: Text(
+          //         '${context.tr('nextVentIn')}: ${_formatTime(_timeRemaining)}',
+          //         style: textTheme.bodyMedium?.copyWith(
+          //           fontWeight: FontWeight.w600,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //     ),
+          //   )
         ],
       ),
     );
