@@ -86,9 +86,19 @@ class RewardsService extends Cubit<RewardsState> implements IRewardsService {
     try {
       final int minusBytes = hash * _hashPrice + vents * _ventsPrice;
 
-      await updateBalance(hash: hash, vents: vents);
+      await _rewardsRepository.update(
+        bytes: state.bytes - minusBytes,
+        hash: hash,
+        vents: vents,
+      );
 
-      emit(state.copyWith(bytes: state.bytes - minusBytes));
+      emit(
+        state.copyWith(
+          bytes: state.bytes - minusBytes,
+          hash: hash == 0 ? state.hash : hash,
+          vents: vents == 0 ? state.vents : vents,
+        ),
+      );
     } catch (error) {
       logger.e(error);
     }

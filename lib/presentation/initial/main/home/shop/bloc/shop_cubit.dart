@@ -38,7 +38,11 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onVentsIncrement() {
-    if (_rewardsService.vents > 5) return;
+    print("before ${state.selectedVents}");
+    print("in service ${_rewardsService.vents}");
+    if (_rewardsService.vents > 5 ||
+        _rewardsService.vents + state.selectedVents >= 5) return;
+    print("vents full");
 
     if (state.selectedVents + 1 > 5 ||
         (state.selectedVents + 1) * _ventsPrice > state.bytesBalance) {
@@ -53,6 +57,7 @@ class ShopCubit extends Cubit<ShopState> {
         totalBytes: state.totalBytes + _ventsPrice,
       ),
     );
+    print("after ${state.selectedVents}");
   }
 
   void onVentsDecrement() {
@@ -71,8 +76,7 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void onHashIncrement() {
-    if (state.selectedHash > 10 ||
-        (state.selectedHash + 1) * _hashPrice > state.bytesBalance) {
+    if ((state.selectedHash + 1) * _hashPrice > state.bytesBalance) {
       return;
     }
 
