@@ -89,7 +89,9 @@ class User implements IUser {
       vibration: data[_vibration],
       sounds: data[_sound],
       animations: data[_animations],
-      fansUpdatedLast: DateTime.parse(data[_fansUpdatedLast]),
+      fansUpdatedLast: DateTime.parse(data[_fansUpdatedLast]).add(
+        const Duration(hours: 2, minutes: 30),
+      ),
       isOnboarded: data[_isOnboarded],
     );
   }
