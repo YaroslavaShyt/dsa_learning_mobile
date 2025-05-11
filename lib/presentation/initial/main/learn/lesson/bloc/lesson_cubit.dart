@@ -308,9 +308,7 @@ class LessonCubit extends Cubit<LessonState> {
         await Future.wait([
           _rewardsService.updateBalance(bytes: _bytes),
           _lessonService.updateLearnedLessons(_id, time, _categoryName),
-        ]).then(
-          (_) async => await _statisticsCubit.init(),
-        );
+        ]);
         _checkAchievements();
       }
       _onLessonFinished();
@@ -319,7 +317,10 @@ class LessonCubit extends Cubit<LessonState> {
         AppRoutes.routeLessonFinished,
         data: LessonFinishedRoutingArgs(
           isLessonOver: _bytes > 0,
-          onToLessonsPressed: _navigationUtil.navigateBackToStart,
+          onToLessonsPressed: () {
+            _statisticsCubit.init();
+            _navigationUtil.navigateBackToStart();
+          },
           time: _formatTime(time),
           lessonName: state.game?.title ?? '',
           lessonDescription: '',

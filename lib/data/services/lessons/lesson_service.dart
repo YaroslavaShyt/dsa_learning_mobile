@@ -81,6 +81,8 @@ class LessonService implements ILessonService {
   @override
   Future<void> updateLearnedLessons(int id, int time, String category) async {
     try {
+      _lessonRepository.completeLesson(id, time);
+
       _lessonsCounter += 1;
       if (category == _algorithms) {
         _learnedAlgorithmsLessonsId.add(id);
@@ -88,7 +90,6 @@ class LessonService implements ILessonService {
       if (category == _dataStructures) {
         _learnedDataStructuresLessonsId.add(id);
       }
-      _lessonRepository.completeLesson(id, time);
     } catch (error) {
       logger.e(error);
     }

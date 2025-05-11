@@ -39,7 +39,7 @@ class StatisticsCubit extends Cubit<StatisticsState> {
         max = statistics.algorithms;
       }
     }
-    return max + 10;
+    return max + 6;
   }
 
   int _findMaxValueThroughStatistics(List<IStatistics> statistics) {
