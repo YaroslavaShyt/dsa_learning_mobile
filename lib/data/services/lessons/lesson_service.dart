@@ -113,4 +113,14 @@ class LessonService implements ILessonService {
   @override
   int get lessonsCounter => _lessonsCounter;
   int _lessonsCounter = 0;
+
+  @override
+  void resetData() {
+    _lessonsCounter = 0;
+    _dataStructuresLessonsNum = 0;
+    _algorithmsLessonsNum = 0;
+    _summary = [];
+    _learnedDataStructuresLessonsId = {};
+    _learnedAlgorithmsLessonsId = {};
+  }
 }

@@ -20,4 +20,6 @@ abstract interface class ILessonService {
   bool isLessonLearned(int id);
 
   bool isPreviousTopicFinished(int categoryIndex, int topicIndex);
+
+  void resetData();
 }

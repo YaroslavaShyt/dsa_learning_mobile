@@ -5,10 +5,12 @@ import 'package:dsa_learning/core/utils/logging/logger.dart';
 import 'package:dsa_learning/data/services/auth/auth_state.dart';
 import 'package:dsa_learning/data/services/user/user_state.dart';
 import 'package:dsa_learning/domain/services/auth/iauth_service.dart';
+import 'package:dsa_learning/domain/services/lesson/ilesson_service.dart';
 import 'package:dsa_learning/domain/services/rewards/irewards_service.dart';
 import 'package:dsa_learning/domain/services/user/iuser_service.dart';
 import 'package:dsa_learning/domain/user/iuser.dart';
 import 'package:dsa_learning/domain/user/iuser_repository.dart';
+import 'package:dsa_learning/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,6 +102,7 @@ class UserService extends Cubit<UserState> implements IUserService {
   @override
   Future<void> cleanUserData() async {
     await _authService.signOut();
+    sl.get<ILessonService>().resetData();
   }
 
   @override
