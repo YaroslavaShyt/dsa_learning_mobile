@@ -1,6 +1,7 @@
 import 'package:dsa_learning/core/utils/parsers/text_parser.dart';
 import 'package:dsa_learning/core/utils/theme/app_color_theme.dart';
 import 'package:dsa_learning/core/utils/theme/text_theme.dart';
+import 'package:dsa_learning/presentation/initial/main/learn/lesson/widgets/theory/visualization_widget.dart';
 import 'package:dsa_learning/presentation/widgets/main_container.dart';
 import 'package:dsa_learning/presentation/widgets/scroll/main_scroll_bar.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +49,9 @@ class TheoryContent extends StatelessWidget {
                             padding: const EdgeInsetsDirectional.all(20),
                             content: RichText(
                               textAlign: TextAlign.justify,
-                              strutStyle:
-                                  const StrutStyle(fontFamily: 'Nunito'),
+                              strutStyle: const StrutStyle(
+                                fontFamily: 'Nunito',
+                              ),
                               text: TextSpan(
                                 children: TextParser.parseCustomFormattedText(
                                   paragraph,
@@ -61,49 +63,7 @@ class TheoryContent extends StatelessWidget {
                             ),
                           ),
                         ),
-                    if (image.isNotEmpty) ...[
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.center,
-                        child: ClipRect(
-                          child: Container(
-                            height: 300,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 2,
-                                color: colorScheme.onSurface
-                                    .withValues(alpha: 0.6),
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Image.network(
-                              image,
-                              height: 300,
-                              frameBuilder: (context, child, frame,
-                                  wasSynchronouslyLoaded) {
-                                if (frame == null) {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      color: colorScheme.onSurface
-                                          .withValues(alpha: 0.6),
-                                    ),
-                                  );
-                                }
-                                return child;
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return Icon(
-                                  Icons.error,
-                                  color: colorScheme.onSurface
-                                      .withValues(alpha: 0.6),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ]
+                    if (image.isNotEmpty) VisualizationWidget(image: image),
                   ],
                 ),
               ),
