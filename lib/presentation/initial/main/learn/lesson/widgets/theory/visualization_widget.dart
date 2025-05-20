@@ -17,15 +17,13 @@ class VisualizationWidget extends StatefulWidget {
 class _VisualizationWidgetState extends State<VisualizationWidget>
     with SingleTickerProviderStateMixin {
   late final GifController _controller;
-  bool isPlaying = false;
+  bool isPlaying = true;
 
   int currentSpeedMultiplier = 1;
-  final List<int> speedMultipliers = [1, 2, 3, 4];
+  final List<int> speedMultipliers = [1, 2];
   final Map<int, int> speedToFps = {
-    1: 6,
-    2: 12,
-    3: 18,
-    4: 24,
+    1: 4,
+    2: 10,
   };
 
   @override
@@ -33,13 +31,34 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
     super.initState();
     _controller = GifController(vsync: this);
     _controller.addListener(() {
-      if (_controller.value == _controller.upperBound) {
-        setState(() {
-          isPlaying = false;
-          _controller.value = _controller.lowerBound;
-        });
+      if (_controller.isCompleted) {
+        if (isPlaying) {
+          _resumeGif(fromStart: true);
+        }
       }
     });
+
+    _controller.repeat(
+      min: _controller.lowerBound,
+      max: _controller.upperBound,
+      period: Duration(
+        milliseconds: 80000 ~/ speedToFps[currentSpeedMultiplier]!,
+      ),
+    );
+  }
+
+  void _resumeGif({bool fromStart = false}) {
+    if (fromStart) {
+      _controller.value = _controller.lowerBound;
+    }
+
+    _controller.repeat(
+      min: _controller.lowerBound,
+      max: _controller.upperBound,
+      period: Duration(
+        milliseconds: 80000 ~/ speedToFps[currentSpeedMultiplier]!,
+      ),
+    );
   }
 
   @override
@@ -58,11 +77,13 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
         if (widget.image.endsWith('gif'))
           Column(
             children: [
-              Gif(
-                fps: speedToFps[currentSpeedMultiplier]!,
-                controller: _controller,
-                autostart: Autostart.no,
-                image: NetworkImage(widget.image),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Gif(
+                  controller: _controller,
+                  autostart: Autostart.no,
+                  image: NetworkImage(widget.image),
+                ),
               ),
               Row(
                 children: [
@@ -78,18 +99,18 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                       },
                       onChangeEnd: (newValue) {
                         if (isPlaying) {
-                          _controller.animateTo(_controller.upperBound);
+                          _resumeGif();
                         }
                       },
                       activeColor: colorScheme.primaryFixed,
-                      inactiveColor:
-                          colorScheme.onSurface.withValues(alpha: 0.3),
+                      inactiveColor: colorScheme.onSurface.withAlpha(76),
                     ),
                   ),
                   OutlinedButton(
                     onPressed: () {
+                      final wasPlaying = isPlaying;
+
                       setState(() {
-                        bool wasPlaying = isPlaying;
                         _controller.stop();
                         isPlaying = false;
 
@@ -98,11 +119,11 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                         final nextIndex =
                             (currentIndex + 1) % speedMultipliers.length;
                         currentSpeedMultiplier = speedMultipliers[nextIndex];
-                        print(currentSpeedMultiplier);
+                      });
 
+                      setState(() {
                         if (wasPlaying) {
-                          _controller.value = _controller.value;
-                          _controller.animateTo(_controller.upperBound);
+                          _resumeGif();
                           isPlaying = true;
                         }
                       });
@@ -123,7 +144,16 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                   IconButton(
                     onPressed: () {
                       if (_controller.value - 0.01 >= _controller.lowerBound) {
-                        _controller.animateBack(_controller.value - 0.01);
+                        if (isPlaying) {
+                          _controller.stop();
+                          setState(() {
+                            isPlaying = false;
+                          });
+                        }
+                        _controller.animateBack(
+                          _controller.value - 0.01,
+                          duration: const Duration(milliseconds: 200),
+                        );
                       }
                     },
                     icon: const Icon(
@@ -133,24 +163,33 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                   ),
                   IconButton(
                     onPressed: () {
-                      if (isPlaying) {
-                        _controller.stop();
-                      } else {
-                        _controller.animateTo(_controller.upperBound);
-                      }
                       setState(() {
+                        if (isPlaying) {
+                          _controller.stop();
+                        } else {
+                          _resumeGif();
+                        }
                         isPlaying = !isPlaying;
                       });
                     },
                     icon: Icon(
                       size: 36,
-                      !isPlaying ? Icons.play_arrow_rounded : Icons.pause,
+                      isPlaying ? Icons.pause : Icons.play_arrow_rounded,
                     ),
                   ),
                   IconButton(
                     onPressed: () {
                       if (_controller.value + 0.01 <= _controller.upperBound) {
-                        _controller.animateTo(_controller.value + 0.01);
+                        if (isPlaying) {
+                          _controller.stop();
+                          setState(() {
+                            isPlaying = false;
+                          });
+                        }
+                        _controller.animateTo(
+                          _controller.value + 0.01,
+                          duration: const Duration(milliseconds: 200),
+                        );
                       }
                     },
                     icon: const Icon(
@@ -172,7 +211,7 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                    color: colorScheme.onSurface.withAlpha(153), // ≈ 0.6
                   ),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -184,7 +223,7 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                     if (frame == null) {
                       return Center(
                         child: CircularProgressIndicator(
-                          color: colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: colorScheme.onSurface.withAlpha(153),
                         ),
                       );
                     }
@@ -193,7 +232,7 @@ class _VisualizationWidgetState extends State<VisualizationWidget>
                   errorBuilder: (context, error, stackTrace) {
                     return Icon(
                       Icons.error,
-                      color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: colorScheme.onSurface.withAlpha(153),
                     );
                   },
                 ),
