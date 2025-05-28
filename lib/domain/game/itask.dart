@@ -1,3 +1,4 @@
+import 'package:dsa_learning/data/game/task.dart';
 import 'package:dsa_learning/domain/game/game_answers_type.dart';
 
 abstract interface class ITask {
@@ -8,6 +9,7 @@ abstract interface class ITask {
     required this.answerOptions,
     required this.correctAnswer,
     required this.questionNumber,
+    required this.taskLevel,
   });
 
   final int id;
@@ -16,4 +18,5 @@ abstract interface class ITask {
   final String correctAnswer;
   final GameAnswersType type;
   final List<String> answerOptions;
+  final TaskLevel taskLevel;
 }

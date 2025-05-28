@@ -12,18 +12,27 @@ class Game implements IGame {
     required this.id,
     required this.title,
     required this.timeLimit,
-    required this.tasks,
-  });
+    required this.tasksByLevel,
+  }) : tasks = tasksByLevel.values.expand((list) => list).toList();
 
   factory Game.fromJson(Map<String, dynamic> data) {
-    final List<ITask> tasks =
-        data[_gameTasks].map<ITask>((task) => Task.fromJson(task)).toList();
+    final Map<String, dynamic> rawTasksByLevel = data['tasksByLevel'];
+
+    final Map<TaskLevel, List<ITask>> parsedTasksByLevel = {};
+
+    rawTasksByLevel.forEach((levelStr, tasksJson) {
+      final TaskLevel level = Task.apiToType(levelStr);
+      final List<ITask> taskList = (tasksJson as List)
+          .map<ITask>((taskJson) => Task.fromJson(taskJson))
+          .toList();
+      parsedTasksByLevel[level] = taskList;
+    });
 
     return Game(
       id: data[_gameId],
       title: data[_gameName],
       timeLimit: data[_timeLimit],
-      tasks: tasks,
+      tasksByLevel: parsedTasksByLevel,
     );
   }
 
@@ -35,6 +44,9 @@ class Game implements IGame {
 
   @override
   final int timeLimit;
+
+  @override
+  final Map<TaskLevel, List<ITask>> tasksByLevel;
 
   @override
   final List<ITask> tasks;

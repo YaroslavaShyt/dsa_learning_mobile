@@ -91,6 +91,7 @@ class _GameWidgetState extends State<GameWidget> {
               GameQuestion(
                 step: widget.task.questionNumber,
                 question: widget.task.question,
+                level: widget.task.taskLevel,
               ),
               AnswersWidget(
                 correctAnswer: widget.task.correctAnswer,

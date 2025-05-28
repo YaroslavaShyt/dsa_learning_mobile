@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:dsa_learning/core/navigation/inavigation_util.dart';
 import 'package:dsa_learning/core/navigation/routes.dart';
 import 'package:dsa_learning/core/utils/logging/logger.dart';
+import 'package:dsa_learning/data/game/task.dart';
 import 'package:dsa_learning/data/rewards/achievements/achievement.dart';
 import 'package:dsa_learning/data/rewards/rewards.dart';
 import 'package:dsa_learning/domain/game/igame.dart';
@@ -77,6 +79,7 @@ class LessonCubit extends Cubit<LessonState> {
   int _vents = 0;
   int _bytes = 0;
   List<AchievementType> _achievements = [];
+  TaskLevel _level = TaskLevel.values[Random().nextInt(3)];
 
   bool get _isLessonLearned => _lessonService.isLessonLearned(_id);
 
@@ -219,7 +222,9 @@ class LessonCubit extends Cubit<LessonState> {
     return '';
   }
 
-  ITask get task => state.game!.tasks[state.gameStep];
+  ITask get task =>
+      state.game!.tasksByLevel[_level]?[state.gameStep] ??
+      state.game!.tasksByLevel[TaskLevel.easy]![state.gameStep];
 
   String _formatTime(int seconds) {
     return DateFormat('mm:ss').format(
@@ -229,11 +234,23 @@ class LessonCubit extends Cubit<LessonState> {
     );
   }
 
+  void _checkLevel(bool isCorrect) {
+    if (isCorrect) {
+      if (_level == TaskLevel.easy) _level = TaskLevel.medium;
+      if (_level == TaskLevel.medium) _level = TaskLevel.hard;
+    } else {
+      if (_level == TaskLevel.hard) _level = TaskLevel.medium;
+      if (_level == TaskLevel.medium) _level = TaskLevel.easy;
+    }
+  }
+
   Future<void> onAnswerSelected(
     String answer,
     VoidCallback onAllVentsUsed, {
     required bool isCorrect,
   }) async {
+    _checkLevel(isCorrect);
+
     _playSound();
 
     if (!isCorrect) {
