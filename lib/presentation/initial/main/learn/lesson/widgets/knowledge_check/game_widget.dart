@@ -72,44 +72,44 @@ class _GameWidgetState extends State<GameWidget> {
         horizontal: 16,
       ),
       height: MediaQuery.sizeOf(context).height,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            spacing: 10,
-            children: [
-              GameProgressBar(
-                gameProgress: widget.gameProgress,
-                questionsNum: widget.questionsNum,
-                time: widget.lessonTime,
-                updateTimer: widget.onUpdateTimer,
-                value: widget.progress,
-                gameName: widget.gameName,
-                vents: widget.vents,
-              ),
-              GameQuestion(
-                step: widget.task.questionNumber,
-                question: widget.task.question,
-                level: widget.task.taskLevel,
-              ),
-              AnswersWidget(
-                correctAnswer: widget.task.correctAnswer,
-                selectedAnswer: widget.selectedAnswer,
-                onTap: widget.onAnswerSelected,
-                isSelectedCorrect: false,
-                isSelectedIncorrect: false,
-                answers: widget.task.answerOptions,
-              ),
-            ],
-          ),
-          Buttons(
-            leftButtonText: 'finish',
-            isAnswerSelected: widget.selectedAnswer.isNotEmpty,
-            onBackButtonTap: widget.onBackButtonTap,
-            onNextButtonTap: widget.onNextButtonTap,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              spacing: 10,
+              children: [
+                GameProgressBar(
+                  gameProgress: widget.gameProgress,
+                  questionsNum: widget.questionsNum,
+                  time: widget.lessonTime,
+                  updateTimer: widget.onUpdateTimer,
+                  value: widget.progress,
+                  gameName: widget.gameName,
+                  vents: widget.vents,
+                ),
+                GameQuestion(
+                  step: widget.task.questionNumber,
+                  question: widget.task.question,
+                  level: widget.task.taskLevel,
+                ),
+                AnswersWidget(
+                  correctAnswer: widget.task.correctAnswer,
+                  selectedAnswer: widget.selectedAnswer,
+                  onTap: widget.onAnswerSelected,
+                  answers: widget.task.answerOptions,
+                ),
+              ],
+            ),
+            Buttons(
+              leftButtonText: 'finish',
+              isAnswerSelected: widget.selectedAnswer.isNotEmpty,
+              onBackButtonTap: widget.onBackButtonTap,
+              onNextButtonTap: widget.onNextButtonTap,
+            ),
+          ],
+        ),
       ),
     );
   }

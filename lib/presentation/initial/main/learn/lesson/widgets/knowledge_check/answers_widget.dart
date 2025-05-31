@@ -10,8 +10,6 @@ class AnswersWidget extends StatelessWidget {
   const AnswersWidget({
     required this.answers,
     required this.onTap,
-    required this.isSelectedCorrect,
-    required this.isSelectedIncorrect,
     required this.selectedAnswer,
     required this.correctAnswer,
     super.key,
@@ -19,8 +17,6 @@ class AnswersWidget extends StatelessWidget {
 
   final List<String> answers;
   final Function(String, bool) onTap;
-  final bool isSelectedCorrect;
-  final bool isSelectedIncorrect;
   final String selectedAnswer;
   final String correctAnswer;
 

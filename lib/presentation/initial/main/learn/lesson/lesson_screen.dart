@@ -68,7 +68,7 @@ class LessonScreen extends StatelessWidget with PopUpMixin {
                         isCorrect: isCorrect,
                         () => _onAllVentsUsed(context),
                       ),
-                      questionsNum: state.game!.tasks.length,
+                      questionsNum: 4, //state.game!.tasks.length,
                       task: cubit.task,
                       lessonTime: state.gameTime,
                       onUpdateTimer: cubit.onUpdateGameTimer,

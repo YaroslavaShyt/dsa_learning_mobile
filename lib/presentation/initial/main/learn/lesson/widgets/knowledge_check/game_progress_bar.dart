@@ -77,6 +77,7 @@ class _GameProgressBarState extends State<GameProgressBar>
     final TextTheme textTheme = getTextTheme(context);
 
     return MainContainer(
+      height: 190,
       borderRadius: 14,
       color: colorScheme.onSurface.withValues(alpha: 0.4),
       padding: const EdgeInsetsDirectional.only(

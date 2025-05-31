@@ -236,11 +236,17 @@ class LessonCubit extends Cubit<LessonState> {
 
   void _checkLevel(bool isCorrect) {
     if (isCorrect) {
-      if (_level == TaskLevel.easy) _level = TaskLevel.medium;
-      if (_level == TaskLevel.medium) _level = TaskLevel.hard;
+      if (_level == TaskLevel.easy) {
+        _level = TaskLevel.medium;
+      } else if (_level == TaskLevel.medium) {
+        _level = TaskLevel.hard;
+      }
     } else {
-      if (_level == TaskLevel.hard) _level = TaskLevel.medium;
-      if (_level == TaskLevel.medium) _level = TaskLevel.easy;
+      if (_level == TaskLevel.hard) {
+        _level = TaskLevel.medium;
+      } else if (_level == TaskLevel.medium) {
+        _level = TaskLevel.easy;
+      }
     }
   }
 
@@ -249,7 +255,7 @@ class LessonCubit extends Cubit<LessonState> {
     VoidCallback onAllVentsUsed, {
     required bool isCorrect,
   }) async {
-    _checkLevel(isCorrect);
+    // _checkLevel(isCorrect);
 
     _playSound();
 
@@ -279,11 +285,12 @@ class LessonCubit extends Cubit<LessonState> {
       }
     }
 
-    await _checkLessonFinish();
+    // await _checkLessonFinish();
   }
 
   Future<void> onNextGameButtonPressed(VoidCallback onAllVentsUsed) async {
     try {
+      _checkLevel(state.selectedAnswer == task.correctAnswer);
       _playSound();
 
       await _checkLessonFinish();
@@ -293,7 +300,8 @@ class LessonCubit extends Cubit<LessonState> {
       }
       if (state.selectedAnswer.isEmpty) return;
 
-      if (state.gameStep == state.game!.tasks.length - 1) return;
+      if (state.gameStep == 3 //state.game!.tasks.length - 1
+          ) return;
 
       emit(state.copyWith(gameStep: state.gameStep + 1, selectedAnswer: ''));
     } catch (error) {
@@ -302,9 +310,11 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   Future<void> _checkLessonFinish() async {
-    if (state.gameStep == state.game!.tasks.length - 1) {
+    if (state.gameStep == 3
+        //state.game!.tasks.length - 1
+        ) {
       final bool isLostPoints =
-          state.gameCorrectAnswers < state.game!.tasks.length - 2;
+          state.gameCorrectAnswers < 2; //state.game!.tasks.length - 2;
 
       _achievementsService.updateStreak();
 
